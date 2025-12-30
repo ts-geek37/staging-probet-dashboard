@@ -1,6 +1,10 @@
 import React from "react";
 
-const GroupLayout: React.FC<React.PropsWithChildren> = ({ children }) => {
+interface GroupLayoutProps {
+  children: React.ReactNode;
+}
+
+const GroupLayout: React.FC<GroupLayoutProps> = ({ children }) => {
   return (
     <div className="flex min-h-screen items-center justify-center">
       {children}
