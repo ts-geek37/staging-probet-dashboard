@@ -1,7 +1,7 @@
 "use client";
 import { SignIn } from "@clerk/nextjs";
 
-export default function Page() {
+const SignInPage: React.FC = () => {
   return (
     <SignIn
       path="/sign-in"
@@ -15,4 +15,6 @@ export default function Page() {
       }}
     />
   );
-}
+};
+
+export default SignInPage;
