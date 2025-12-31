@@ -1,0 +1,65 @@
+import {
+  CalendarDays,
+  Crown,
+  Home,
+  LucideIcon,
+  Newspaper,
+  TrendingUp,
+  Trophy,
+} from "lucide-react";
+
+export type NavLink = {
+  name: string;
+  href: string;
+  icon: LucideIcon;
+  isActive?: boolean;
+};
+
+export const navlinks: NavLink[] = [
+  {
+    name: "Home",
+    href: "/",
+    icon: Home,
+  },
+  {
+    name: "Leagues",
+    href: "/leagues",
+    icon: Trophy,
+  },
+  {
+    name: "Matches",
+    href: "/matches",
+    icon: CalendarDays,
+  },
+  {
+    name: "Predictions",
+    href: "/prediction",
+    icon: TrendingUp,
+  },
+  {
+    name: "News",
+    href: "/news",
+    icon: Newspaper,
+  },
+];
+
+export const vipLink = {
+  name: "VIP",
+  href: "/price",
+  icon: Crown,
+};
+
+export const socialMedia = [
+  {
+    name: "Twitter",
+    url: "https://twitter.com/probet",
+  },
+  {
+    name: "Discord",
+    url: "https://discord.gg/probet",
+  },
+  {
+    name: "GitHub",
+    url: "https://github.com/probet",
+  },
+];
