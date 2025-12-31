@@ -3,6 +3,7 @@ import Link from "next/link";
 import { vipLink } from "@/modules/core-layout/constant";
 
 import { UserAvatar, useUser } from "@clerk/nextjs";
+import { useRouter } from "next/navigation";
 import { Button } from "../../../components/ui/button";
 
 type VipSectionProps = {
@@ -12,6 +13,15 @@ type VipSectionProps = {
 const VipSection: React.FC<VipSectionProps> = ({ onNavigate }) => {
   const Icon = vipLink.icon;
   const { user } = useUser();
+  const router = useRouter();
+
+  const handleLogin = () => {
+    router.push("/sign-in");
+  };
+
+  const handleGetStarted = () => {
+    router.push("/sign-up");
+  };
 
   return (
     <>
@@ -29,13 +39,18 @@ const VipSection: React.FC<VipSectionProps> = ({ onNavigate }) => {
       ) : (
         <Button
           variant="ghost"
+          onClick={handleLogin}
           className="max-sm:w-full text-gray-300 hover:text-white hover:bg-gray-800/50"
         >
           Login
         </Button>
       )}
 
-      <Button variant="neon" className="max-sm:w-full">
+      <Button
+        onClick={handleGetStarted}
+        variant="neon"
+        className="max-sm:w-full"
+      >
         Get started
       </Button>
     </>

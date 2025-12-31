@@ -14,9 +14,11 @@ const AppLayout: React.FC<LayoutProps> = ({ children }) => {
   return (
     <ClerkProviderWrapper>
       <StoreProvider>
-        <Header />
-        {children}
-        <Footer />
+        <div className="min-h-screen flex flex-col">
+          <Header />
+          {children}
+          <Footer />
+        </div>
         <Toaster />
       </StoreProvider>
     </ClerkProviderWrapper>

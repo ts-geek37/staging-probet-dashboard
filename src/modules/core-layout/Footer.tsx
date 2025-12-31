@@ -7,7 +7,7 @@ import { socialMedia } from "./constant";
 
 const Footer: React.FC = () => {
   return (
-    <footer className="border-t-2 border-primary-neon">
+    <footer className="border-t border-primary-neon">
       <div className="max-w-7xl mx-auto px-6 py-6 flex max-sm:flex-col items-center justify-center sm:justify-between text-sm md:text-base">
         <p className="text-gray-400">© 2025 Probet. All rights reserved.</p>
 

@@ -6,7 +6,7 @@ interface GroupLayoutProps {
 
 const GroupLayout: React.FC<GroupLayoutProps> = ({ children }) => {
   return (
-    <div className="flex min-h-screen items-center justify-center">
+    <div className="flex-1 flex items-center justify-center">
       {children}
     </div>
   );
