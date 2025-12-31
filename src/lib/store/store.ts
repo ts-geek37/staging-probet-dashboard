@@ -1,4 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
+
 import probetsApi from "./probetsApi";
 
 const makeStore = () => {

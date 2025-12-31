@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import React from "react";
+
 const Home: React.FC = () => {
   return (
     <div className="flex min-h-screen items-center justify-center font-sans">

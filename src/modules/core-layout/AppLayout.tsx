@@ -1,6 +1,8 @@
-import { ClerkProviderWrapper, StoreProvider } from "@/context";
 import React from "react";
 import { Toaster } from "sonner";
+
+import { ClerkProviderWrapper, StoreProvider } from "@/context";
+
 interface LayoutProps {
   children: React.ReactNode;
 }

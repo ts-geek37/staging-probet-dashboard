@@ -1,13 +1,14 @@
 "use client";
 
+import { ReactNode, useState } from "react";
 import { Provider } from "react-redux";
-import { ReactNode, useRef } from "react";
+
 import { makeStore } from "@/lib/store";
 
-const StoreProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-  const storeRef = useRef<ReturnType<typeof makeStore> | null>(null);
-  if (!storeRef.current) storeRef.current = makeStore();
+const StoreProvider = ({ children }: { children: ReactNode }) => {
+  const [store] = useState(() => makeStore());
 
-  return <Provider store={storeRef.current}>{children}</Provider>;
+  return <Provider store={store}>{children}</Provider>;
 };
+
 export default StoreProvider;
