@@ -1,4 +1,4 @@
-import { ClerkProviderWrapper } from "@/context";
+import { ClerkProviderWrapper, StoreProvider } from "@/context";
 import React from "react";
 import { Toaster } from "sonner";
 interface LayoutProps {
@@ -8,8 +8,10 @@ interface LayoutProps {
 const AppLayout: React.FC<LayoutProps> = ({ children }) => {
   return (
     <ClerkProviderWrapper>
-      {children}
-      <Toaster />
+      <StoreProvider>
+        {children}
+        <Toaster />
+      </StoreProvider>
     </ClerkProviderWrapper>
   );
 };
