@@ -1,4 +1,4 @@
-import Home from "@/modules/home";
+import { Home } from "@/modules/home";
 
 const HomePage: React.FC = () => {
   return <Home />;
