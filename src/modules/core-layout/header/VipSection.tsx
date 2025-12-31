@@ -1,4 +1,4 @@
-import { UserAvatar, useUser } from "@clerk/nextjs";
+import { useUser } from "@clerk/nextjs";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
@@ -34,9 +34,7 @@ const VipSection: React.FC<VipSectionProps> = ({ onNavigate }) => {
         <span className="text-base font-semibold">{vipLink.name}</span>
       </Link>
 
-      {user ? (
-        <UserAvatar rounded />
-      ) : (
+      {!user && (
         <Button
           variant="ghost"
           onClick={handleLogin}

@@ -1,5 +1,7 @@
+import { LeaguesBrowse } from "@/modules/leagues";
+
 const LeaguesPage = () => {
-  return <div>leagues</div>;
+  return <LeaguesBrowse />;
 };
 
 export default LeaguesPage;

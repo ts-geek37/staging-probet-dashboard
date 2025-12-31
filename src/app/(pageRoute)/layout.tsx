@@ -5,7 +5,7 @@ interface GroupLayoutProps {
 }
 
 const GroupLayout: React.FC<GroupLayoutProps> = ({ children }) => {
-  return <>{children}</>;
+  return <div className="flex-1 flex flex-col p-4">{children}</div>;
 };
 
 export default GroupLayout;
