@@ -1,4 +1,4 @@
-import { useUser } from "@clerk/nextjs";
+import { UserButton, useUser } from "@clerk/nextjs";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
@@ -34,7 +34,11 @@ const VipSection: React.FC<VipSectionProps> = ({ onNavigate }) => {
         <span className="text-base font-semibold">{vipLink.name}</span>
       </Link>
 
-      {!user && (
+      {user ? (
+        <div className="hidden sm:block">
+          <UserButton />
+        </div>
+      ) : (
         <Button
           variant="ghost"
           onClick={handleLogin}
