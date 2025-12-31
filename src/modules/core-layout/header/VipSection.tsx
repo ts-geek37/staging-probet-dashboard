@@ -2,6 +2,7 @@ import Link from "next/link";
 
 import { vipLink } from "@/modules/core-layout/constant";
 
+import { UserAvatar, useUser } from "@clerk/nextjs";
 import { Button } from "../../../components/ui/button";
 
 type VipSectionProps = {
@@ -10,6 +11,7 @@ type VipSectionProps = {
 
 const VipSection: React.FC<VipSectionProps> = ({ onNavigate }) => {
   const Icon = vipLink.icon;
+  const { user } = useUser();
 
   return (
     <>
@@ -22,12 +24,16 @@ const VipSection: React.FC<VipSectionProps> = ({ onNavigate }) => {
         <span className="text-base font-semibold">{vipLink.name}</span>
       </Link>
 
-      <Button
-        variant="ghost"
-        className="max-sm:w-full text-gray-300 hover:text-white hover:bg-gray-800/50"
-      >
-        Login
-      </Button>
+      {user ? (
+        <UserAvatar rounded />
+      ) : (
+        <Button
+          variant="ghost"
+          className="max-sm:w-full text-gray-300 hover:text-white hover:bg-gray-800/50"
+        >
+          Login
+        </Button>
+      )}
 
       <Button variant="neon" className="max-sm:w-full">
         Get started
