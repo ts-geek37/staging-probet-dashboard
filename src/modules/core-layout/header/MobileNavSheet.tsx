@@ -1,5 +1,6 @@
 "use client";
 
+import { UserButton, useUser } from "@clerk/nextjs";
 import { Menu, X } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -15,7 +16,6 @@ import { cn } from "@/lib/utils";
 import { NavLink } from "@/modules/core-layout/constant";
 
 import VipSection from "./VipSection";
-import { UserButton, useUser } from "@clerk/nextjs";
 
 type Props = {
   links: NavLink[];
