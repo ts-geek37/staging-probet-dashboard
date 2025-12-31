@@ -29,7 +29,7 @@ const MobileNavSheet: React.FC<Props> = ({
 }) => {
   const [open, setOpen] = useState(false);
 
-    useEffect(() => {
+  useEffect(() => {
     const media = window.matchMedia("(min-width: 1024px)");
 
     const handleChange = (e: MediaQueryListEvent) => {

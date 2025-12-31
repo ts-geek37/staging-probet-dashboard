@@ -27,7 +27,8 @@
   --color-primary-green: var(--primary-green);
   --color-primary-yellow: var(--primary-yellow);
   --color-primary-neon: var(--primary-neon);
-  --color-neon-foreground: var(--neon-foreground);
+  --color-primary-bg: var(--primary-bg);
+  --color-primary-lightgreen: var(--primary-lightgreen);
   --color-destructive: var(--destructive);
   --color-accent-foreground: var(--accent-foreground);
   --color-accent: var(--accent);
@@ -90,7 +91,8 @@
   --primary-green: #16a085;
   --primary-yellow: #f2c94c;
   --primary-neon: #00e1ff;
-  --neon-foreground: #004e89;
+  --primary-bg:#060911;
+  --primary-lightgreen: #22C55E;
 }
 
 .dark {
