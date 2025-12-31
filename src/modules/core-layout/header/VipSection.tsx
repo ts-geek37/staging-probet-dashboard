@@ -1,9 +1,9 @@
+import { UserAvatar, useUser } from "@clerk/nextjs";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 import { vipLink } from "@/modules/core-layout/constant";
 
-import { UserAvatar, useUser } from "@clerk/nextjs";
-import { useRouter } from "next/navigation";
 import { Button } from "../../../components/ui/button";
 
 type VipSectionProps = {

@@ -2,7 +2,7 @@
 
 import { Menu, X } from "lucide-react";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -15,6 +15,7 @@ import { cn } from "@/lib/utils";
 import { NavLink } from "@/modules/core-layout/constant";
 
 import VipSection from "./VipSection";
+
 type Props = {
   links: NavLink[];
   vipLink?: NavLink;
@@ -27,6 +28,26 @@ const MobileNavSheet: React.FC<Props> = ({
   triggerClassName,
 }) => {
   const [open, setOpen] = useState(false);
+
+    useEffect(() => {
+    const media = window.matchMedia("(min-width: 1024px)");
+
+    const handleChange = (e: MediaQueryListEvent) => {
+      if (e.matches) {
+        setOpen(false);
+      }
+    };
+
+    media.addEventListener("change", handleChange);
+
+    if (media.matches) {
+      setOpen(false);
+    }
+
+    return () => {
+      media.removeEventListener("change", handleChange);
+    };
+  }, []);
 
   return (
     <Sheet open={open} onOpenChange={setOpen}>
@@ -43,7 +64,7 @@ const MobileNavSheet: React.FC<Props> = ({
 
       <SheetContent
         side="right"
-        className="border-gray-800 w-[280px] sm:w-[350px] p-4"
+        className="border-gray-800 w-[300px] sm:w-[350px] p-4"
       >
         <SheetClose asChild className="absolute top-0 right-5">
           <Button variant="ghost" size="icon" aria-label="Close">
