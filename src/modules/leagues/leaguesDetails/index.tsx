@@ -14,7 +14,7 @@ const LeaguesDetails: React.FC<Props> = ({ initialLeagues }) => {
   const league = initialLeagues?.data?.league;
   return (
     <LeaguesProvider initialLeague={initialLeagues}>
-      <div className="flex-1 flex flex-col gap-8 max-w-7xl mx-auto w-full py-8">
+      <div className="flex-1 flex flex-col gap-8 max-w-7xl mx-auto w-full px-4 py-8">
         {league && <LeagueOverView league={league} />}
         <TabList />
       </div>
