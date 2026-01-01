@@ -1,10 +1,20 @@
 "use client";
+
+import { M_PLUS_1 } from "next/font/google";
+
+import { ApiResponse } from "@/api/types";
+import { LeagueListResponse } from "@/types/leagues";
+
 import { useLeagues } from "../hooks";
 import LeagueCard from "./LeagueCard";
 import LeagueCardSkeleton from "./LeagueCardSkeleton";
 
-const LeagueListing = () => {
-  const { leagues, isLoading } = useLeagues();
+interface Props {
+  initialLeagues: ApiResponse<LeagueListResponse>;
+}
+
+const LeagueListing: React.FC<Props> = ({ initialLeagues }) => {
+  const { leagues, isLoading } = useLeagues(1, 20, initialLeagues);
 
   const handleLeagueClick = (leagueId: number) => {
     console.log(`Navigate to /leagues/${leagueId}`);

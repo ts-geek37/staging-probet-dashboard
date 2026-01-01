@@ -1,23 +1,26 @@
-import { useEffect, useState } from "react";
+"use client";
 
-import { mockLeagues } from "@/mockdata";
-import { League } from "@/types/league";
+import useSWR from "swr";
 
-export const useLeagues = () => {
-  const [leagues, setLeagues] = useState<League[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
+import { ApiResponse } from "@/api/types";
+import { LeagueListResponse } from "@/types/leagues";
 
-  useEffect(() => {
-    const fetchLeagues = async () => {
-      setIsLoading(true);
+export function useLeagues(
+  page = 1,
+  limit = 20,
+  initialData?: ApiResponse<LeagueListResponse>,
+) {
+  const response = useSWR<ApiResponse<LeagueListResponse>>(
+    `/api/leagues?page=${page}&limit=${limit}`,
+    {
+      fallbackData: initialData,
+      revalidateOnMount: false,
+    },
+  );
 
-      await new Promise((resolve) => setTimeout(resolve, 2000));
-      setLeagues(mockLeagues);
-      setIsLoading(false);
-    };
-
-    fetchLeagues();
-  }, []);
-
-  return { leagues, isLoading };
-};
+  return {
+    leagues: response.data?.data?.data || [],
+    isLoading: !response.data && !response.error,
+    error: response.error,
+  };
+}

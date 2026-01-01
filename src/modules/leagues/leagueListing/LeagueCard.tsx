@@ -1,10 +1,10 @@
 import { ChevronRight } from "lucide-react";
 
 import { Card, CardContent } from "@/components/ui/card";
-import { League } from "@/types";
+import { LeagueListItem } from "@/types/leagues";
 
 interface LeagueCardProps {
-  league: League;
+  league: LeagueListItem;
   onClick: () => void;
 }
 
@@ -17,25 +17,23 @@ const LeagueCard: React.FC<LeagueCardProps> = ({ league, onClick }) => {
       <CardContent className="flex flex-col gap-2">
         <div className="flex items-start justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-full bg-transparent flex items-center justify-center text-2xl">
-              {league.logo_path}
-            </div>
+            {/* <div className="w-10 h-10 rounded-full bg-transparent flex items-center justify-center text-2xl">
+              {league.logo}
+            </div> */}
             <div>
               <h3 className="text-white group-hover:text-primary-green font-medium text-base">
                 {league.name}
               </h3>
               <div className="flex items-center gap-1.5 mt-1">
-                <span className="text-sm">{league.country.image_path}</span>
-                <span className="text-gray-400 text-sm">
-                  {league.country.name}
-                </span>
+                <span className="text-sm">{league.country}</span>
+                <span className="text-gray-400 text-sm">{league.country}</span>
               </div>
             </div>
           </div>
           <ChevronRight className="w-5 h-5 text-gray-400 group-hover:text-primary-green" />
         </div>
         <p className="text-gray-500 group-hover:text-primary-green text-sm self-end">
-          {league.current_season.name}
+          {league.season}
         </p>
       </CardContent>
     </Card>
