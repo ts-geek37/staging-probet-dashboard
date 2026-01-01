@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 
 const Banner: React.FC = () => {
   return (
-    <section className="relative flex min-h-120 w-full flex-col items-center justify-center overflow-hidden bg-primary-bg px-4  sm:px-0 sm:my-auto text-center ">
+    <section className="relative flex min-h-120 w-full flex-col items-center justify-center overflow-hidden bg-primary-bg px-4 mb-10 md:mb-15 sm:pt-20 sm:pb-40 text-center">
       <div className="absolute inset-0 sm:hidden">
         <div className="h-80 w-80 rounded-full bg-primary-neon opacity-40 blur-[120px]" />
       </div>

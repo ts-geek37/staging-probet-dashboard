@@ -1,11 +1,10 @@
 import Image from "next/image";
 import React from "react";
+
 import LeagueBanner from "../LeagueBanner";
 import { useLeague } from "../provider";
 
-interface Props {}
-
-const Standings: React.FC<Props> = () => {
+const Standings: React.FC = () => {
   const { data } = useLeague();
   return (
     <div className="flex-1 text-white">

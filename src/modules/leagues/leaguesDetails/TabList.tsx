@@ -1,12 +1,12 @@
+import { useState } from "react";
+
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { LeagueView } from "@/types/leagues";
-import { useState } from "react";
+
 import { LeagueTabs } from "../constant";
 import LeagueTab from "../leageTabs";
 
-type Props = {};
-
-const TabList: React.FC<Props> = () => {
+const TabList: React.FC = () => {
   const [activeTab, setActiveTab] = useState<LeagueView>(LeagueView.OVERVIEW);
 
   return (

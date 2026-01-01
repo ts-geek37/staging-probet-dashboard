@@ -11,8 +11,8 @@ export interface MatchProps {
   scoreB: number;
   teamALogo?: string;
   teamBLogo?: string;
-  livePercentageA: number;
-  livePercentageB: number;
+  leagueName?: string;
+  leagueLogo?: string;
 }
 
 const LiveMatchCard: React.FC<MatchProps> = ({
@@ -22,14 +22,26 @@ const LiveMatchCard: React.FC<MatchProps> = ({
   scoreB,
   teamALogo,
   teamBLogo,
-  livePercentageA,
-  livePercentageB,
+  leagueName,
+  leagueLogo,
 }) => {
   return (
-    <Card className="bg-[#0b1619] border border-[#16A085] rounded-none w-full sm:w-90 lg:w-110 overflow-hidden">
-      <CardContent className="p-4 space-y-6">
+    <Card className="bg-[#0b1619] border border-[#16A085] rounded-none w-full sm:w-80 lg:w-102 overflow-hidden">
+      <CardContent className=" space-y-6">
         <div className="flex justify-between items-center">
-          <h3 className="text-white text-lg font-bold">Live Match</h3>
+          {leagueName && leagueLogo && (
+            <div className="flex items-center gap-2 text-base text-white">
+              <div className="w-5 h-5 relative">
+                <Image
+                  src={leagueLogo}
+                  alt={leagueName}
+                  fill
+                  className="object-contain"
+                />
+              </div>
+              <span>{leagueName}</span>
+            </div>
+          )}
           <Badge variant="live">Live</Badge>
         </div>
 
@@ -70,20 +82,6 @@ const LiveMatchCard: React.FC<MatchProps> = ({
             <span className="text-primary-lightgreen text-xl font-bold">
               {scoreB}
             </span>
-          </div>
-        </div>
-
-        <div className="space-y-1.5">
-          <div className="relative w-full h-1 bg-[#1e293b] rounded-full overflow-hidden">
-            <div
-              className="h-full bg-primary-lightgreen transition-all duration-500"
-              style={{ width: `${livePercentageA}%` }}
-            />
-          </div>
-
-          <div className="flex justify-between text-[11px] text-[#94a3b8] font-medium">
-            <span>{livePercentageA}%</span>
-            <span>{livePercentageB}%</span>
           </div>
         </div>
       </CardContent>

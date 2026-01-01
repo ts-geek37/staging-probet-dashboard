@@ -1,6 +1,8 @@
 "use client";
-import { LeagueView } from "@/types/leagues";
 import React from "react";
+
+import { LeagueView } from "@/types/leagues";
+
 import Matches from "./Matches";
 import Overview from "./Overview";
 import Standings from "./Standings";

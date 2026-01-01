@@ -8,8 +8,6 @@ export interface UpcomingMatchProps {
   time: string;
   teamA: string;
   teamB: string;
-  scoreA: number;
-  scoreB: number;
   teamALogo?: string;
   teamBLogo?: string;
 }
@@ -19,13 +17,11 @@ const UpcomingMatchCard: React.FC<UpcomingMatchProps> = ({
   time,
   teamA,
   teamB,
-  scoreA,
-  scoreB,
   teamALogo,
   teamBLogo,
 }) => {
   return (
-    <Card className="bg-[#12151C] border border-[#16A085] rounded-none w-full sm:w-90">
+    <Card className="bg-[#12151C] border border-[#16A085] rounded-none w-full  sm:w-80 lg:w-102">
       <CardContent className="px-5 space-y-6">
         <div className="flex justify-between items-center text-xs font-semibold text-white">
           <span className="text-white text-lg">{date}</span>
@@ -35,38 +31,34 @@ const UpcomingMatchCard: React.FC<UpcomingMatchProps> = ({
         <div className="space-y-4">
           <div className="flex justify-between items-center">
             <div className="flex items-center gap-3">
-              <div className="w-6 h-6 relative">
-                {teamALogo && (
+              {teamALogo && (
+                <div className="w-6 h-6 relative">
                   <Image
                     src={teamALogo}
                     alt={teamA}
                     fill
                     style={{ objectFit: "contain" }}
-                    className="absolute"
                   />
-                )}
-              </div>
+                </div>
+              )}
               <span className="text-gray-400 text-sm">{teamA}</span>
             </div>
-            <span className="text-white text-lg">{scoreA}</span>
           </div>
 
           <div className="flex justify-between items-center">
             <div className="flex items-center gap-3">
-              <div className="w-6 h-6 relative">
-                {teamBLogo && (
+              {teamBLogo && (
+                <div className="w-6 h-6 relative">
                   <Image
                     src={teamBLogo}
                     alt={teamB}
                     fill
                     style={{ objectFit: "contain" }}
-                    className="absolute"
                   />
-                )}
-              </div>
+                </div>
+              )}
               <span className="text-gray-400 text-sm">{teamB}</span>
             </div>
-            <span className="text-white text-lg">{scoreB}</span>
           </div>
         </div>
       </CardContent>

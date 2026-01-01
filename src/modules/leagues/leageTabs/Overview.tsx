@@ -1,11 +1,10 @@
 import Image from "next/image";
 import React from "react";
+
 import { overviewStats } from "../constant";
 import { useLeague } from "../provider";
 
-interface Props {}
-
-const Overview: React.FC<Props> = () => {
+const Overview: React.FC = () => {
   const { data } = useLeague();
   return (
     <div className="flex flex-col gap-6">

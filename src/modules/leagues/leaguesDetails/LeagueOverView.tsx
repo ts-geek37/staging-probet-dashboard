@@ -1,6 +1,7 @@
-import { LeagueHeader } from "@/types/leagues";
 import Image from "next/image";
 import React from "react";
+
+import { LeagueHeader } from "@/types/leagues";
 
 interface Props {
   league: LeagueHeader;

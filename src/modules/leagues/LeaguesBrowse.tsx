@@ -1,4 +1,3 @@
-
 import { ApiResponse } from "@/api/types";
 import Ads from "@/components/Ads";
 import { LeagueListResponse } from "@/types/leagues";

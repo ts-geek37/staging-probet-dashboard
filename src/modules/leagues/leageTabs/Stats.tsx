@@ -1,5 +1,6 @@
-import { LeagueStats } from "@/types/leagues";
 import React from "react";
+
+import { LeagueStats } from "@/types/leagues";
 
 interface Props {
   data?: LeagueStats;

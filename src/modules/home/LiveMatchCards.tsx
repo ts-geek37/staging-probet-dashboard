@@ -2,9 +2,15 @@ import Link from "next/link";
 import React from "react";
 
 import LiveMatchCard from "@/components/LiveMatchCard";
-import { liveMatchCardsMock } from "@/mock-data/mock";
+import { LiveMatch } from "@/types/home";
 
-const LiveMatchCards: React.FC = () => {
+interface Props {
+  matches: LiveMatch[];
+}
+
+const LiveMatchCards: React.FC<Props> = ({ matches }) => {
+  if (!matches.length) return null;
+
   return (
     <section className="px-4 sm:px-6 py-10 md:py-20 text-white">
       <div className="max-w-7xl mx-auto space-y-10">
@@ -16,14 +22,24 @@ const LiveMatchCards: React.FC = () => {
             <p className="text-sm sm:text-base">Live and upcoming fixtures</p>
           </div>
 
-          <Link href="/matches" className="text-gray-500 hover:text-white">
+          <Link href="/matches" className="text-primary-gray hover:text-white">
             View all
           </Link>
         </div>
 
         <div className="flex flex-wrap gap-6 justify-center items-center md:justify-start md:items-start">
-          {liveMatchCardsMock.map((match, index) => (
-            <LiveMatchCard key={index} {...match} />
+          {matches.map((match) => (
+            <LiveMatchCard
+              key={match.id}
+              teamA={match.home_team.name}
+              teamB={match.away_team.name}
+              scoreA={match.home_team.score}
+              scoreB={match.away_team.score}
+              teamALogo={match.home_team.logo}
+              teamBLogo={match.away_team.logo}
+              leagueName={match.league.name}
+              leagueLogo={match.league.logo}
+            />
           ))}
         </div>
       </div>

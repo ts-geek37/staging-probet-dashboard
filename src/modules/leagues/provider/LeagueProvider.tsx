@@ -1,6 +1,7 @@
+import React, { createContext, useContext } from "react";
+
 import { ApiResponse } from "@/api/types";
 import { LeagueResponse } from "@/types/leagues";
-import React, { createContext, useContext } from "react";
 
 export type InitialLeaguesType = ApiResponse<LeagueResponse>;
 

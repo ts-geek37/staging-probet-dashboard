@@ -4,7 +4,8 @@ interface Props {
   banner: "champions" | "betting";
 }
 const LeagueBanner: React.FC<Props> = ({ banner }) => {
-  const src = banner === "champions" ? "/league/banner.png" : "/sport-betting-banner.png";
+  const src =
+    banner === "champions" ? "/league/banner.png" : "/sport-betting-banner.png";
   return (
     <Image
       src={src}
