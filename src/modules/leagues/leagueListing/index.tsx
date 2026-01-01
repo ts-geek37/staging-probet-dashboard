@@ -15,50 +15,60 @@ interface Props {
   initialLeagues: ApiResponse<LeagueListResponse>;
 }
 
+const PAGE_SIZE = 8;
+
 const LeagueListing: React.FC<Props> = ({ initialLeagues }) => {
-  const [search, setSearch] = useState<string | undefined>(undefined);
+  const [search, setSearch] = useState<string>("");
   const [page, setPage] = useState(1);
 
-  const { leagues, isLoading } = useLeagues(page, 8, initialLeagues, search);
+  const { leagues, pagination, isLoading } = useLeagues({
+    page,
+    limit: PAGE_SIZE,
+    search,
+    initialData: initialLeagues,
+  });
 
-  const handleLeagueClick = (leagueId: number) => {
-    console.log(`Navigate to /leagues/${leagueId}`);
+  const handleSearchChange = (value: string) => {
+    setPage(1);
+    setSearch(value);
   };
+
   return (
     <div className="flex flex-col gap-4">
       <div className="text-white flex flex-col gap-2">
-        <h1 className="text-4xl font-bold mb-2">European Leagues</h1>
-        <p>
-          Explore standings, matches, and statistics for top European football
-          leagues.
-        </p>
+        <h1 className="text-4xl font-bold mb-2">Leagues</h1>
+        <p>Explore leagues from across the world.</p>
       </div>
 
       <SearchBar
-        onSearchChange={(value) => setSearch(value)}
+        value={search}
+        onSearchChange={handleSearchChange}
         placeholder="Search leagues or countries"
       />
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
         {isLoading
-          ? Array.from({ length: 8 }).map((_, index) => (
+          ? Array.from({ length: PAGE_SIZE }).map((_, index) => (
               <LeagueCardSkeleton key={index} />
             ))
           : leagues.map((league) => (
               <LeagueCard
                 key={league.id}
                 league={league}
-                onClick={() => handleLeagueClick(league.id)}
+                onClick={function (): void {
+                  console.log("clicked");
+                }}
               />
             ))}
       </div>
-      <Pagination
-        currentPage={page}
-        totalPages={Math.ceil(
-          (initialLeagues?.data?.pagination?.total ?? 0) / 8,
-        )}
-        onPageChange={setPage}
-      />
+
+      {pagination && pagination.totalPages > 1 && (
+        <Pagination
+          currentPage={page}
+          totalPages={pagination.totalPages}
+          onPageChange={setPage}
+        />
+      )}
     </div>
   );
 };
