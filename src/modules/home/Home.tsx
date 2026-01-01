@@ -3,13 +3,16 @@
 import React from "react";
 
 import { ApiResponse } from "@/api/types";
+import { VIPBanner } from "@/components";
 import { HomeResponse } from "@/types/home";
 
-import { VIPBanner } from "@/components";
 import Banner from "./Banner";
-import LiveMatchCard from "./LiveMatchCards";
-import UpcomingMatchCards from "./UpcomingMatchCards";
 import { useHome } from "./hooks";
+import LatestNews from "./LatestNews";
+import LiveMatchCard from "./LiveMatchCards";
+import PredictionBanner from "./PredictionBanner";
+import TopEuropeanLeaguesPage from "./TopEuropeanLeagues";
+import UpcomingMatchCards from "./UpcomingMatchCards";
 
 interface Props {
   initialHome: ApiResponse<HomeResponse>;
@@ -28,6 +31,14 @@ const Home: React.FC<Props> = ({ initialHome }) => {
       <VIPBanner />
       <UpcomingMatchCards matches={data.upcoming_matches} />
       <VIPBanner />
+      <TopEuropeanLeaguesPage
+        topLeagues={data.top_leagues}
+        standings={data.league_standings}
+      />
+      <VIPBanner />
+      <PredictionBanner />
+      <VIPBanner />
+      <LatestNews news={data.latest_news} />
     </>
   );
 };

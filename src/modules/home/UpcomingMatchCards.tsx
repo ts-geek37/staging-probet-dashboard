@@ -22,7 +22,7 @@ const UpcomingMatchCards: React.FC<Props> = ({ matches }) => {
 
           <Link
             href="/matches"
-            className="text-gray-500 hover:text-white transition-colors"
+            className="text-primary-gray hover:text-white transition-colors"
           >
             View all
           </Link>

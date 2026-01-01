@@ -1,0 +1,74 @@
+import Link from "next/link";
+import React from "react";
+
+import NewsCard from "@/components/NewsCard";
+import { VIPBanner } from "@/components";
+
+interface NewsItem {
+  id: string;
+  title: string;
+  excerpt: string;
+  image: string;
+  category: string;
+  published_at: string;
+}
+
+interface Props {
+  news: NewsItem[];
+}
+
+const LatestNews: React.FC<Props> = ({ news }) => {
+  if (!news?.length) return null;
+
+  const [mainNews, ...sideNews] = news;
+
+  return (
+    <section className="px-4 sm:px-6 py-10 md:py-20 text-white">
+      <div className="max-w-7xl mx-auto space-y-10">
+        <div className="flex items-end justify-between gap-6">
+          <div className="space-y-2">
+            <h2 className="text-2xl sm:text-5xl font-bold">Latest News</h2>
+            <p className="text-sm sm:text-base text-white">
+              Stay updated with football stories
+            </p>
+          </div>
+
+          <Link href="/news" className="text-primary-gray hover:text-white">
+            View all
+          </Link>
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <div className="lg:col-span-2 h-70 sm:h-105">
+            <NewsCard
+              title={mainNews.title}
+              excerpt={mainNews.excerpt}
+              image={mainNews.image}
+              category={mainNews.category}
+              published_at={mainNews.published_at}
+              isMain
+            />
+          </div>
+
+          <div className="flex flex-col gap-4">
+            {sideNews.slice(0, 3).map((item) => (
+              <NewsCard
+                key={item.id}
+                title={item.title}
+                image={item.image}
+                category={item.category}
+                published_at={item.published_at}
+              />
+            ))}
+          </div>
+        </div>
+      </div>
+      <div className="pt-15">
+       <VIPBanner />
+       </div>
+    </section>
+
+  );
+};
+
+export default LatestNews;

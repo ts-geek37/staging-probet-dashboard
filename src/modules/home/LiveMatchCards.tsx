@@ -22,7 +22,7 @@ const LiveMatchCards: React.FC<Props> = ({ matches }) => {
             <p className="text-sm sm:text-base">Live and upcoming fixtures</p>
           </div>
 
-          <Link href="/matches" className="text-gray-500 hover:text-white">
+          <Link href="/matches" className="text-primary-gray hover:text-white">
             View all
           </Link>
         </div>
