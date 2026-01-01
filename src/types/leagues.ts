@@ -110,6 +110,7 @@ export interface LeagueListItem {
   country: string;
   season: string;
   logo: string;
+  country_flag: string;
 }
 
 export interface PaginationMeta {

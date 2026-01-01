@@ -1,4 +1,5 @@
 import { ChevronRight } from "lucide-react";
+import Image from "next/image";
 
 import { Card, CardContent } from "@/components/ui/card";
 import { LeagueListItem } from "@/types/leagues";
@@ -17,15 +18,25 @@ const LeagueCard: React.FC<LeagueCardProps> = ({ league, onClick }) => {
       <CardContent className="flex flex-col gap-2">
         <div className="flex items-start justify-between">
           <div className="flex items-center gap-3">
-            {/* <div className="w-10 h-10 rounded-full bg-transparent flex items-center justify-center text-2xl">
-              {league.logo}
-            </div> */}
+            <Image
+              src={league.logo}
+              alt={league.name}
+              width={1000}
+              height={150}
+              className=" size-10 object-cover"
+            />
             <div>
               <h3 className="text-white group-hover:text-primary-green font-medium text-base">
                 {league.name}
               </h3>
               <div className="flex items-center gap-1.5 mt-1">
-                <span className="text-sm">{league.country}</span>
+                <Image
+                  src={league.country_flag}
+                  alt={league.country}
+                  width={20}
+                  height={20}
+                  className="size-5 object-cover"
+                />
                 <span className="text-gray-400 text-sm">{league.country}</span>
               </div>
             </div>

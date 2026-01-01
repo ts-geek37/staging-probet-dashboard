@@ -1,8 +1,10 @@
 "use client";
 
-import { M_PLUS_1 } from "next/font/google";
+import { useState } from "react";
 
 import { ApiResponse } from "@/api/types";
+import { SearchBar } from "@/components";
+import Pagination from "@/components/Pagination";
 import { LeagueListResponse } from "@/types/leagues";
 
 import { useLeagues } from "../hooks";
@@ -14,7 +16,10 @@ interface Props {
 }
 
 const LeagueListing: React.FC<Props> = ({ initialLeagues }) => {
-  const { leagues, isLoading } = useLeagues(1, 20, initialLeagues);
+  const [search, setSearch] = useState<string | undefined>(undefined);
+  const [page, setPage] = useState(1);
+
+  const { leagues, isLoading } = useLeagues(page, 8, initialLeagues, search);
 
   const handleLeagueClick = (leagueId: number) => {
     console.log(`Navigate to /leagues/${leagueId}`);
@@ -29,6 +34,11 @@ const LeagueListing: React.FC<Props> = ({ initialLeagues }) => {
         </p>
       </div>
 
+      <SearchBar
+        onSearchChange={(value) => setSearch(value)}
+        placeholder="Search leagues or countries"
+      />
+
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
         {isLoading
           ? Array.from({ length: 8 }).map((_, index) => (
@@ -42,6 +52,13 @@ const LeagueListing: React.FC<Props> = ({ initialLeagues }) => {
               />
             ))}
       </div>
+      <Pagination
+        currentPage={page}
+        totalPages={Math.ceil(
+          (initialLeagues?.data?.pagination?.total ?? 0) / 8,
+        )}
+        onPageChange={setPage}
+      />
     </div>
   );
 };
