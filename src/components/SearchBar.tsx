@@ -7,30 +7,37 @@ import { Input } from "@/components/ui/input";
 import { useDebounce } from "@/modules/leagues/hooks";
 
 type Props = {
+  value?: string;
   delay?: number;
   placeholder?: string;
   onSearchChange: (value: string) => void;
 };
 
 const SearchBar: React.FC<Props> = ({
-  delay = 500,
+  value = "",
+  delay = 300,
   placeholder = "Search...",
   onSearchChange,
 }) => {
-  const [value, setValue] = useState("");
-  const debouncedSearch = useDebounce(value, delay);
+  const [searchValue, setSearchValue] = useState(value);
+
+  const debouncedValue = useDebounce(searchValue, delay);
 
   useEffect(() => {
-    onSearchChange(debouncedSearch);
-  }, [debouncedSearch, onSearchChange]);
+    setSearchValue(value);
+  }, [value]);
+
+  useEffect(() => {
+    onSearchChange(debouncedValue);
+  }, [debouncedValue, onSearchChange]);
 
   return (
     <div className="flex items-center gap-2">
       <div className="relative w-full">
         <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
         <Input
-          value={value}
-          onChange={(e) => setValue(e.target.value)}
+          value={searchValue}
+          onChange={(e) => setSearchValue(e.target.value)}
           placeholder={placeholder}
           className="pl-9 text-white"
         />
