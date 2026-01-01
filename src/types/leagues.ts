@@ -12,6 +12,7 @@ export interface LeagueHeader {
   name: string;
   country: string;
   season: string;
+  country_flag: string;
   logo: string;
 }
 
