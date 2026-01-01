@@ -10,6 +10,7 @@ import { LeagueListResponse } from "@/types/leagues";
 import { useLeagues } from "../hooks";
 import LeagueCard from "./LeagueCard";
 import LeagueCardSkeleton from "./LeagueCardSkeleton";
+import { useRouter } from "next/navigation";
 
 interface Props {
   initialLeagues: ApiResponse<LeagueListResponse>;
@@ -19,6 +20,7 @@ const PAGE_SIZE = 8;
 
 const LeagueListing: React.FC<Props> = ({ initialLeagues }) => {
   const [search, setSearch] = useState<string>("");
+  const router = useRouter();
   const [page, setPage] = useState(1);
 
   const { leagues, pagination, isLoading } = useLeagues({
@@ -55,9 +57,7 @@ const LeagueListing: React.FC<Props> = ({ initialLeagues }) => {
               <LeagueCard
                 key={league.id}
                 league={league}
-                onClick={function (): void {
-                  console.log("clicked");
-                }}
+                onClick={()=> router.push(`/leagues/${league.id}`)}
               />
             ))}
       </div>

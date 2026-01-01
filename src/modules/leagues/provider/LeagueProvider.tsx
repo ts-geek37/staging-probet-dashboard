@@ -2,9 +2,14 @@ import { ApiResponse } from "@/api/types";
 import { LeagueResponse } from "@/types/leagues";
 import React, { createContext, useContext } from "react";
 
-export type InitialLeaguesType = ApiResponse<LeagueResponse>;
+export type InitialLeagueType = ApiResponse<LeagueResponse>;
+type LeaguesContextValue = InitialLeagueType & {
+  setLeague: React.Dispatch<React.SetStateAction<InitialLeagueType>>;
+};
 
-const LeaguesContext = createContext<InitialLeaguesType | undefined>(undefined);
+const LeaguesContext = createContext<LeaguesContextValue | undefined>(
+  undefined,
+);
 
 export const useLeague = () => {
   const context = useContext(LeaguesContext);
@@ -14,11 +19,12 @@ export const useLeague = () => {
 };
 
 export const LeaguesProvider: React.FC<{
-  initialLeagues: InitialLeaguesType;
+  initialLeague: InitialLeagueType;
   children: React.ReactNode;
-}> = ({ initialLeagues, children }) => {
+}> = ({ initialLeague, children }) => {
+  const [league, setLeague] = React.useState<InitialLeagueType>(initialLeague);
   return (
-    <LeaguesContext.Provider value={initialLeagues}>
+    <LeaguesContext.Provider value={{ ...league, setLeague }}>
       {children}
     </LeaguesContext.Provider>
   );

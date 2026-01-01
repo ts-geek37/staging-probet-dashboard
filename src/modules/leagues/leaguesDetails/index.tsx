@@ -12,7 +12,7 @@ interface Props {
 const LeaguesDetails: React.FC<Props> = ({ initialLeagues }) => {
   const league = initialLeagues?.data?.league;
   return (
-    <LeaguesProvider initialLeagues={initialLeagues}>
+    <LeaguesProvider initialLeague={initialLeagues}>
       <div className="flex-1 flex flex-col gap-8 max-w-7xl mx-auto w-full py-8">
         {league && <LeagueOverView league={league} />}
         <TabList />
