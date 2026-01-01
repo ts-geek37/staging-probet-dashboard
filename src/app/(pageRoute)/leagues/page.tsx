@@ -2,22 +2,16 @@ import { getLeagues } from "@/api/leagues";
 import { LeaguesBrowse } from "@/modules/leagues";
 
 type LeaguesPageProps = {
-  searchParams?: {
-    page?: string;
-    limit?: string;
-    search?: string;
-  };
+  searchParams: Promise<{ page?: string; limit?: string; search?: string }>;
 };
 
 const LeaguesPage: React.FC<LeaguesPageProps> = async ({ searchParams }) => {
-  const page = Number(searchParams?.page) || 1;
-  const limit = Number(searchParams?.limit) || 12;
-  const search = searchParams?.search?.trim() || undefined;
+  const { page, limit, search } = await searchParams;
 
   const response = await getLeagues({
-    page: page,
-    limit: limit,
-    search,
+    page: Number(page) || 1,
+    limit: Number(limit) || 12,
+    search : search?.trim() || "",
   });
   const initialLeagues = response.data;
 
