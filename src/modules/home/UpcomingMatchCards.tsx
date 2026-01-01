@@ -2,9 +2,16 @@ import Link from "next/link";
 import React from "react";
 
 import UpcomingMatchCard from "@/components/UpcomingMatchCard";
-import { upcomingMatchCardsMock } from "@/mock-data/mock";
+import { UpcomingMatch } from "@/types/home";
+import { formatUtcTime } from "@/utils/date";
 
-const UpcomingMatchCards: React.FC = () => {
+interface Props {
+  matches: UpcomingMatch[];
+}
+
+const UpcomingMatchCards: React.FC<Props> = ({ matches }) => {
+  if (!matches.length) return null;
+
   return (
     <section className="px-4 sm:px-6 py-10 md:py-20 text-white">
       <div className="max-w-7xl mx-auto space-y-10">
@@ -22,8 +29,16 @@ const UpcomingMatchCards: React.FC = () => {
         </div>
 
         <div className="flex flex-wrap gap-6 justify-center items-center md:justify-start md:items-start">
-          {upcomingMatchCardsMock.map((match, index) => (
-            <UpcomingMatchCard key={index} {...match} />
+          {matches.map((match) => (
+            <UpcomingMatchCard
+              key={match.id}
+              teamA={match.home_team.name}
+              teamB={match.away_team.name}
+              teamALogo={match.home_team.logo}
+              teamBLogo={match.away_team.logo}
+              date={match.date}
+              time={formatUtcTime(match.kickoff_time)}
+            />
           ))}
         </div>
       </div>
