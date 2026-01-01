@@ -7,11 +7,11 @@ import { useLeague } from "../provider";
 const Standings: React.FC = () => {
   const { data } = useLeague();
   return (
-    <div className="flex-1 text-white">
-      <div className="space-y-6">
+    <div className="flex-1 text-white flex flex-col gap-12">
+      <div className="flex flex-col gap-6">
         <h2 className="text-2xl font-bold">Premier League Standings</h2>
 
-        <div className="border border-gray-800 rounded-lg overflow-hidden">
+        <div className="w-full overflow-y-scroll border border-gray-800 rounded-lg">
           <table className="w-full">
             <thead className="border-b border-gray-800">
               <tr>
@@ -87,14 +87,22 @@ const Standings: React.FC = () => {
                   </td>
                   <td className="px-4 py-4">
                     <div className="flex items-center justify-center gap-1">
-                      {row.form.map((result, index) => (
-                        <div
-                          key={index}
-                          className={`w-6 h-6 rounded flex items-center justify-center text-xs font-medium`}
-                        >
-                          {result}
-                        </div>
-                      ))}
+                      {row.form.map((result, index) => {
+                        const color =
+                          result === "W"
+                            ? "bg-green-500"
+                            : result === "L"
+                              ? "bg-red-500"
+                              : "bg-yellow-500";
+                        return (
+                          <div
+                            key={index}
+                            className={`w-6 h-6 rounded flex items-center justify-center text-xs font-medium ${color}`}
+                          >
+                            {result}
+                          </div>
+                        );
+                      })}
                     </div>
                   </td>
                 </tr>

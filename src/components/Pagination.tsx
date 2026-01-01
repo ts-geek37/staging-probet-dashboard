@@ -55,7 +55,7 @@ const Pagination: FC<Props> = ({ currentPage, totalPages, onPageChange }) => {
         </PaginationItem>
 
         {pages.map((page, index) => (
-          <>
+          <div key={index}>
             {index > 0 && page - pages[index - 1] > 1 && (
               <PaginationEllipsis className="text-white" />
             )}
@@ -70,7 +70,7 @@ const Pagination: FC<Props> = ({ currentPage, totalPages, onPageChange }) => {
                 {page}
               </PaginationLink>
             </PaginationItem>
-          </>
+          </div>
         ))}
 
         <PaginationItem>
