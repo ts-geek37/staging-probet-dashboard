@@ -26,22 +26,25 @@ const LiveMatchCard: React.FC<MatchProps> = ({
   leagueLogo,
 }) => {
   return (
-    <Card className="bg-[#0b1619] border border-[#16A085] rounded-none w-full sm:w-80 lg:w-102 overflow-hidden">
+    <Card className="bg-[#0b1619] border border-[#16A085] rounded-none w-full sm:w-80 md:w-80 xl:w-90 2xl:w-102 overflow-hidden">
       <CardContent className=" space-y-6">
         <div className="flex justify-between items-center">
-          {leagueName && leagueLogo && (
+          {leagueName && (
             <div className="flex items-center gap-2 text-base text-white">
-              <div className="w-5 h-5 relative">
-                <Image
-                  src={leagueLogo}
-                  alt={leagueName}
-                  fill
-                  className="object-contain"
-                />
-              </div>
+              {leagueLogo && (
+                <div className="w-5 h-5 relative">
+                  <Image
+                    src={leagueLogo}
+                    alt={leagueName}
+                    fill
+                    className="object-contain"
+                  />
+                </div>
+              )}
               <span>{leagueName}</span>
             </div>
           )}
+
           <Badge variant="live">Live</Badge>
         </div>
 
