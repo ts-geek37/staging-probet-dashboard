@@ -1,7 +1,7 @@
+import { Card, CardContent } from "@/components/ui/card";
+import { cn } from "@/lib/utils";
 import Image from "next/image";
 import React from "react";
-
-import { Card, CardContent } from "@/components/ui/card";
 
 export interface UpcomingMatchProps {
   date: string;
@@ -10,6 +10,7 @@ export interface UpcomingMatchProps {
   teamB: string;
   teamALogo?: string;
   teamBLogo?: string;
+  className?: string;
 }
 
 const UpcomingMatchCard: React.FC<UpcomingMatchProps> = ({
@@ -19,9 +20,15 @@ const UpcomingMatchCard: React.FC<UpcomingMatchProps> = ({
   teamB,
   teamALogo,
   teamBLogo,
+  className,
 }) => {
   return (
-    <Card className="bg-[#12151C] border border-[#16A085] rounded-none w-full  sm:w-80 lg:w-102">
+    <Card
+      className={cn(
+        "bg-[#12151C] border border-[#16A085] rounded-none w-full sm:w-80 lg:w-102",
+        className,
+      )}
+    >
       <CardContent className="px-5 space-y-6">
         <div className="flex justify-between items-center text-xs font-semibold text-white">
           <span className="text-white text-lg">{date}</span>

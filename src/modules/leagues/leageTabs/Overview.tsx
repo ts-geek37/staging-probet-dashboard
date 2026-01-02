@@ -4,6 +4,7 @@ import React from "react";
 import { ApiResponse } from "@/api/types";
 import { LeagueResponse } from "@/types/leagues";
 
+import MatchListing from "@/components/MatchListing";
 import { overviewStats } from "../constant";
 import { useLeagueOverview } from "../hooks";
 import LeagueBanner from "../LeagueBanner";
@@ -13,7 +14,7 @@ interface Props {
 }
 
 const Overview: React.FC<Props> = ({ initialLeagues }) => {
-  const { overview, league } = useLeagueOverview(
+  const { overview, league, recentMatches } = useLeagueOverview(
     initialLeagues?.data?.league?.id ?? 0,
     initialLeagues,
   );
@@ -79,6 +80,13 @@ const Overview: React.FC<Props> = ({ initialLeagues }) => {
         </div>
       </div>
       <LeagueBanner banner="betting" />
+      {!!recentMatches && (
+        <MatchListing
+          title="Recent Matches"
+          matches={recentMatches}
+          mode="upcoming"
+        />
+      )}
     </div>
   );
 };

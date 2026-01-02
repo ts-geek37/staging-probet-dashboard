@@ -1,6 +1,7 @@
 export interface LeagueResponse {
   league: LeagueHeader;
   overview?: LeagueOverview;
+  recent: LeagueMatch[];
   standings?: LeagueStandings;
   matches?: LeagueMatches;
   stats?: LeagueStats;

@@ -11,7 +11,7 @@ const useLeagueTeams = (leagueId: number) => {
   );
 
   return {
-    teams: response.data?.data?.teams?.teams ?? null,
+    teams: response.data?.data?.teams?.teams ?? [],
     isLoading: !response.data && !response.error,
     error: response.error,
   };

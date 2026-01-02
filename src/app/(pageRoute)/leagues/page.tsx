@@ -4,8 +4,7 @@ import { LeaguesBrowse } from "@/modules/leagues";
 const LeaguesPage = async () => {
   const response = await getLeagues({
     page: 1,
-    limit: 20,
-    search: "",
+    limit: 12,
   });
   const initialLeagues = response.data;
 

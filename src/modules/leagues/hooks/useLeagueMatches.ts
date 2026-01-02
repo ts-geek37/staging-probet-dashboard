@@ -9,9 +9,22 @@ const useLeagueMatches = (leagueId: number) => {
   const response = useSWR<ApiResponse<LeagueResponse>>(
     `/api/leagues/${leagueId}?view=${LeagueView.MATCHES}`,
   );
+  const leagueName = response.data?.data?.league?.name;
+  const recentMatches =
+    response.data?.data?.matches?.recent?.map((match) => ({
+      ...match,
+      leagueName,
+    })) ?? [];
+
+  const upcomingMatches =
+    response.data?.data?.matches?.upcoming?.map((match) => ({
+      ...match,
+      leagueName,
+    })) ?? [];
 
   return {
-    matches: response.data?.data?.matches ?? null,
+    upcomingMatches,
+    recentMatches,
     isLoading: !response.data && !response.error,
     error: response.error,
   };
