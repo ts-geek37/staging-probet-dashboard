@@ -1,7 +1,8 @@
+import { ClerkProvider } from "@clerk/nextjs";
 import React from "react";
 import { Toaster } from "sonner";
 
-import { ClerkProviderWrapper, StoreProvider } from "@/context";
+import { SWRProvider } from "@/context";
 
 import Footer from "./Footer";
 import Header from "./header";
@@ -12,16 +13,16 @@ interface LayoutProps {
 
 const AppLayout: React.FC<LayoutProps> = ({ children }) => {
   return (
-    <ClerkProviderWrapper>
-      <StoreProvider>
+    <ClerkProvider>
+      <SWRProvider>
         <div className="min-h-screen flex flex-col">
           <Header />
           {children}
           <Footer />
         </div>
         <Toaster />
-      </StoreProvider>
-    </ClerkProviderWrapper>
+      </SWRProvider>
+    </ClerkProvider>
   );
 };
 

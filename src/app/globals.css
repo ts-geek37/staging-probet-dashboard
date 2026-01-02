@@ -27,7 +27,9 @@
   --color-primary-green: var(--primary-green);
   --color-primary-yellow: var(--primary-yellow);
   --color-primary-neon: var(--primary-neon);
-  --color-neon-foreground: var(--neon-foreground);
+  --color-primary-bg: var(--primary-bg);
+  --color-primary-lightgreen: var(--primary-lightgreen);
+  --color-primary-gray: var(--primary-gray);
   --color-destructive: var(--destructive);
   --color-accent-foreground: var(--accent-foreground);
   --color-accent: var(--accent);
@@ -90,7 +92,9 @@
   --primary-green: #16a085;
   --primary-yellow: #f2c94c;
   --primary-neon: #00e1ff;
-  --neon-foreground: #004e89;
+  --primary-bg: #060911;
+  --primary-lightgreen: #22c55e;
+  --primary-gray: #888886;
 }
 
 .dark {
@@ -134,4 +138,31 @@
   body {
     @apply bg-background text-foreground;
   }
+}
+
+.toc-sidebar::-webkit-scrollbar {
+  display: none;
+}
+
+.toc-sidebar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+::-webkit-scrollbar {
+  width: 4px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #727272;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #636363;
 }

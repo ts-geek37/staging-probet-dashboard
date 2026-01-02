@@ -1,5 +1,6 @@
 "use client";
 
+import { UserButton, useUser } from "@clerk/nextjs";
 import { Menu, X } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -27,9 +28,13 @@ const MobileNavSheet: React.FC<Props> = ({
   vipLink,
   triggerClassName,
 }) => {
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState<boolean>(() => {
+    if (typeof window === "undefined") return false;
+    return !window.matchMedia("(min-width: 1024px)").matches;
+  });
+  const { user } = useUser();
 
-    useEffect(() => {
+  useEffect(() => {
     const media = window.matchMedia("(min-width: 1024px)");
 
     const handleChange = (e: MediaQueryListEvent) => {
@@ -39,10 +44,6 @@ const MobileNavSheet: React.FC<Props> = ({
     };
 
     media.addEventListener("change", handleChange);
-
-    if (media.matches) {
-      setOpen(false);
-    }
 
     return () => {
       media.removeEventListener("change", handleChange);
@@ -72,7 +73,12 @@ const MobileNavSheet: React.FC<Props> = ({
           </Button>
         </SheetClose>
 
-        <nav className="flex flex-col gap-4 mt-8">
+        <nav className="flex flex-col gap-4">
+          {user && (
+            <div className="sm:hidden size-10">
+              <UserButton />
+            </div>
+          )}
           {links.map((link) => {
             const Icon = link.icon;
 

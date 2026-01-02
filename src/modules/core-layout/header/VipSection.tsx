@@ -1,4 +1,4 @@
-import { UserAvatar, useUser } from "@clerk/nextjs";
+import { UserButton, useUser } from "@clerk/nextjs";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
@@ -35,7 +35,9 @@ const VipSection: React.FC<VipSectionProps> = ({ onNavigate }) => {
       </Link>
 
       {user ? (
-        <UserAvatar rounded />
+        <div className="hidden sm:block">
+          <UserButton />
+        </div>
       ) : (
         <Button
           variant="ghost"
