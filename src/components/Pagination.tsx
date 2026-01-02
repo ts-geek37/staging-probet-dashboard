@@ -55,7 +55,7 @@ const Pagination: FC<Props> = ({ currentPage, totalPages, onPageChange }) => {
         </PaginationItem>
 
         {pages.map((page, index) => (
-          <div key={index}>
+          <div key={index} className="flex items-center">
             {index > 0 && page - pages[index - 1] > 1 && (
               <PaginationEllipsis className="text-white" />
             )}

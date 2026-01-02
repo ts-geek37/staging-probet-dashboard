@@ -1,12 +1,13 @@
 import React from "react";
 
-import { LeagueTeams } from "@/types/leagues";
+import { useLeagueTeams } from "../hooks";
 
 interface Props {
-  data?: LeagueTeams;
+  id: number;
 }
 
-const Teams: React.FC<Props> = ({ data }) => {
+const Teams: React.FC<Props> = ({ id }) => {
+  const { teams } = useLeagueTeams(id);
   return (
     <div className="space-y-4 text-white">
       <h2 className="text-xl font-semibold">Teams</h2>

@@ -1,28 +1,40 @@
 import Image from "next/image";
 import React from "react";
 
-import { overviewStats } from "../constant";
-import { useLeague } from "../provider";
+import { ApiResponse } from "@/api/types";
+import { LeagueResponse } from "@/types/leagues";
 
-const Overview: React.FC = () => {
-  const { data } = useLeague();
+import { overviewStats } from "../constant";
+import { useLeagueOverview } from "../hooks";
+import LeagueBanner from "../LeagueBanner";
+
+interface Props {
+  initialLeagues: ApiResponse<LeagueResponse>;
+}
+
+const Overview: React.FC<Props> = ({ initialLeagues }) => {
+  const { overview, league } = useLeagueOverview(
+    initialLeagues?.data?.league?.id ?? 0,
+    initialLeagues,
+  );
+
   return (
     <div className="flex flex-col gap-6">
       <div className="grid grid-cols-1 md:grid-cols-3 items-center gap-6">
         <div className="md:col-span-2 space-y-6">
           <div className="flex flex-col gap-2">
             <h2 className="text-xl text-white font-semibold">
-              About {data?.league?.name}
+              About {league?.name}
             </h2>
             <p className="text-gray-400 leading-relaxed">
-              {data?.overview?.description}
+              {overview?.description}
             </p>
           </div>
 
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
             {overviewStats.map(({ key, label, format }) => {
-              const value = data?.overview?.[key];
-              const finalValue = format ? value?.toFixed(2) : value;
+              const value = overview?.[key];
+              const finalValue = format ? Number(value).toFixed(2) : value;
               return (
                 <div
                   key={key}
@@ -39,9 +51,11 @@ const Overview: React.FC = () => {
         </div>
 
         <div className="md:col-span-1">
-          <h3 className="text-lg text-white font-semibold mb-4">Top 5 Teams</h3>
+          <h3 className="text-lg text-white font-semibold mb-4">
+            Top {overview?.top_teams?.length} Teams
+          </h3>
           <div className="bg-slate-800 border border-gray-800 rounded-lg px-3 md:px-6 py-3 ">
-            {data?.overview?.top_teams.map((team) => (
+            {overview?.top_teams.map((team) => (
               <div
                 key={team.id}
                 className="flex items-center justify-between py-2"
@@ -64,14 +78,7 @@ const Overview: React.FC = () => {
           </div>
         </div>
       </div>
-
-      <Image
-        src="/sport-betting-banner.png"
-        alt={"sport-betting-banner"}
-        width={1000}
-        height={1000}
-        className="w-full h-80 object-cover"
-      />
+      <LeagueBanner banner="betting" />
     </div>
   );
 };

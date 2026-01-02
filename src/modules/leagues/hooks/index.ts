@@ -1,3 +1,7 @@
 export { default as useDebounce } from "./useDebounce";
-export { default as useLeagueFetch } from "./useLeagueFetch";
 export * from "./useLeagues";
+export { default as useLeagueOverview } from "./useLeagueOverview";
+export { default as useLeagueStandings } from "./useLeagueStandings";
+export { default as useLeagueMatches } from "./useLeagueMatches";
+export { default as useLeagueStats } from "./useLeagueStats";
+export { default as useLeagueTeams } from "./useLeagueTeams";
