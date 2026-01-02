@@ -8,15 +8,9 @@ import { useMatches } from "./hooks";
 import { MatchesListing } from "./listing";
 import { MatchStatusTabs } from "./listing/tabs";
 
-interface Props {
-  status: MatchListStatus;
-  onStatusChange: (s: MatchListStatus) => void;
-}
+const MatchesListingPresentation: React.FC = () => {
+  const [status, setStatus] = useState<MatchListStatus>(MatchListStatus.LIVE);
 
-const MatchesListingPresentation: React.FC<Props> = ({
-  status,
-  onStatusChange,
-}) => {
   const [page, setPage] = useState(1);
 
   const { matches, pagination, isLoading } = useMatches({
@@ -29,7 +23,7 @@ const MatchesListingPresentation: React.FC<Props> = ({
     <section>
       <h1>Match Center</h1>
 
-      <MatchStatusTabs activeStatus={status} onChange={onStatusChange} />
+      <MatchStatusTabs activeStatus={status} onChange={setStatus} />
 
       <MatchesListing matches={matches} isLoading={isLoading} />
 

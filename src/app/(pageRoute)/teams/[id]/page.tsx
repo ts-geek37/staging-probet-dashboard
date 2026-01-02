@@ -1,11 +1,48 @@
 import { getTeamDetail } from "@/api/teams";
 import { TeamDetailPresentation } from "@/modules/teams";
 import { TeamDetailView } from "@/types/teams";
+import { seo } from "@/utils/seo";
+import { Metadata } from "next";
 
 interface Props {
   params: Promise<{ id: string }>;
 }
+export const generateMetadata = async ({
+  params,
+}: Props): Promise<Metadata> => {
+  const { id } = await params;
 
+  try {
+    const response = await getTeamDetail({
+      id,
+      view: TeamDetailView.OVERVIEW,
+    });
+
+    const team = response?.data;
+
+    if (!team) {
+      return seo({
+        title: "Team",
+        description:
+          "Explore team details, fixtures, standings, and football predictions on ProBets.",
+      });
+    }
+
+    return seo({
+      title: team?.name || "Team",
+      description:
+        team?.name && team?.founded
+          ? `${team.name} football club, founded in ${team.founded}. Fixtures, squad, stats, and latest updates.`
+          : "Football team details, fixtures, squad, and statistics.",
+    });
+  } catch {
+    return seo({
+      title: "Team",
+      description:
+        "Explore team details, fixtures, standings, and football predictions on ProBets.",
+    });
+  }
+};
 const TeamDetailPage = async ({ params }: Props) => {
   const { id } = await params;
 
