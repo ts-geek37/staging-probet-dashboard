@@ -5,6 +5,7 @@ const LeaguesPage = async () => {
   const response = await getLeagues({
     page: 1,
     limit: 20,
+    search: "",
   });
   const initialLeagues = response.data;
 

@@ -5,22 +5,46 @@ import useSWR from "swr";
 import { ApiResponse } from "@/api/types";
 import { LeagueListResponse } from "@/types/leagues";
 
-export function useLeagues(
-  page = 1,
-  limit = 20,
-  initialData?: ApiResponse<LeagueListResponse>,
-) {
-  const response = useSWR<ApiResponse<LeagueListResponse>>(
-    `/api/leagues?page=${page}&limit=${limit}`,
+interface UseLeaguesParams {
+  page: number;
+  limit: number;
+  search?: string;
+  initialData?: ApiResponse<LeagueListResponse>;
+}
+
+export const useLeagues = ({
+  page,
+  limit,
+  search,
+  initialData,
+}: UseLeaguesParams) => {
+  const params = new URLSearchParams({
+    page: String(page),
+    limit: String(limit),
+  });
+  if (search?.trim()) {
+    params.set("search", search.trim());
+  }
+  const key = `/api/leagues?${params.toString()}`;
+
+  const { data, error, isLoading } = useSWR<ApiResponse<LeagueListResponse>>(
+    key,
     {
       fallbackData: initialData,
       revalidateOnMount: false,
+      keepPreviousData: true,
     },
   );
 
   return {
-    leagues: response.data?.data?.data || [],
-    isLoading: !response.data && !response.error,
-    error: response.error,
+    leagues: data?.data?.data ?? [],
+    pagination: data?.data?.pagination
+      ? {
+          total: data.data.pagination.total,
+          totalPages: Math.ceil(data.data.pagination.total / limit),
+        }
+      : null,
+    isLoading,
+    error,
   };
-}
+};
