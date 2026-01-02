@@ -10,7 +10,6 @@ import { MatchStatusTabs } from "./listing/tabs";
 
 const MatchesListingPresentation: React.FC = () => {
   const [status, setStatus] = useState<MatchListStatus>(MatchListStatus.LIVE);
-
   const [page, setPage] = useState(1);
 
   const { matches, pagination, isLoading } = useMatches({
