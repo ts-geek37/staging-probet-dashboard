@@ -7,20 +7,17 @@ import {
 
 import { ApiResponse } from "./types";
 
-export function getLeagueDetail(params: {
+export const getLeagueDetail = (params: {
   id: number | string;
   view: LeagueView;
-}): Promise<ApiResponse<LeagueResponse>> {
-  return serverFetch<LeagueResponse>(
-    `/api/leagues/${params.id}?view=${params.view}`,
-  );
-}
+}): Promise<ApiResponse<LeagueResponse>> =>
+  serverFetch<LeagueResponse>(`/api/leagues/${params.id}?view=${params.view}`);
 
-export function getLeagues(params: {
+export const getLeagues = (params: {
   page: number;
   limit: number;
   search?: string;
-}): Promise<ApiResponse<LeagueListResponse>> {
+}): Promise<ApiResponse<LeagueListResponse>> => {
   const query = new URLSearchParams({
     page: String(params.page),
     limit: String(params.limit),
@@ -28,4 +25,4 @@ export function getLeagues(params: {
   });
 
   return serverFetch<LeagueListResponse>(`/api/leagues?${query.toString()}`);
-}
+};

@@ -3,18 +3,36 @@ import {
   MatchDetailResponse,
   MatchDetailView,
   MatchesListResponse,
+  MatchEventsResponse,
+  MatchLineupsResponse,
   MatchListStatus,
+  MatchOverviewResponse,
+  MatchPredictionsResponse,
+  MatchStatsResponse,
 } from "@/types/matches";
 
 import { ApiResponse } from "./types";
 
-export function getMatches(params: {
+type MatchDetailByView<V extends MatchDetailView> =
+  V extends MatchDetailView.OVERVIEW
+    ? MatchOverviewResponse
+    : V extends MatchDetailView.STATS
+      ? MatchStatsResponse
+      : V extends MatchDetailView.LINEUPS
+        ? MatchLineupsResponse
+        : V extends MatchDetailView.EVENTS
+          ? MatchEventsResponse
+          : V extends MatchDetailView.PREDICTIONS
+            ? MatchPredictionsResponse
+            : never;
+
+export const getMatches = (params: {
   status: MatchListStatus;
   page: number;
   limit: number;
   leagueId?: number;
   search?: string;
-}): Promise<ApiResponse<MatchesListResponse>> {
+}): Promise<ApiResponse<MatchesListResponse>> => {
   const query = new URLSearchParams({
     status: params.status,
     page: String(params.page),
@@ -24,13 +42,13 @@ export function getMatches(params: {
   });
 
   return serverFetch<MatchesListResponse>(`/api/matches?${query.toString()}`);
-}
+};
 
-export function getMatchDetail(params: {
+export function getMatchDetail<V extends MatchDetailView>(params: {
   id: number | string;
-  view: MatchDetailView;
-}): Promise<ApiResponse<MatchDetailResponse>> {
-  return serverFetch<MatchDetailResponse>(
+  view: V;
+}): Promise<ApiResponse<MatchDetailByView<V>>> {
+  return serverFetch<MatchDetailByView<V>>(
     `/api/matches/${params.id}?view=${params.view}`,
   );
 }
