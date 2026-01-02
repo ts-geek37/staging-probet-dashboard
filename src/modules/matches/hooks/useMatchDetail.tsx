@@ -1,6 +1,7 @@
 "use client";
 
 import useSWR from "swr";
+
 import { ApiResponse } from "@/api/types";
 import { MatchDetailResponse, MatchDetailView } from "@/types/matches";
 

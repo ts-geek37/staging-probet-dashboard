@@ -1,10 +1,10 @@
 import { serverFetch } from "@/api/http";
 import {
-    PlayerDetailView,
-    PlayerListResponse,
-    PlayerMatchesResponse,
-    PlayerOverviewResponse,
-    PlayerStatsResponse
+  PlayerDetailView,
+  PlayerListResponse,
+  PlayerMatchesResponse,
+  PlayerOverviewResponse,
+  PlayerStatsResponse,
 } from "@/types/players";
 
 import { ApiResponse } from "./types";

@@ -1,7 +1,9 @@
 "use client";
 
 import React, { useState } from "react";
+
 import { MatchDetailView, MatchOverviewResponse } from "@/types/matches";
+
 import { MatchHeader } from "./details";
 import { MatchDetailTabs } from "./details/tabs";
 

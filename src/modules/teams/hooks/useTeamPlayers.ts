@@ -1,8 +1,9 @@
 "use client";
 
+import useSWR from "swr";
+
 import { ApiResponse } from "@/api/types";
 import { PlayerListResponse } from "@/types/players";
-import useSWR from "swr";
 
 const useTeamPlayers = (
   teamId: number,

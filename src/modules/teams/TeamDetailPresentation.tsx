@@ -1,11 +1,12 @@
 "use client";
 
-import { ApiResponse } from "@/api/types";
-import { TeamDetailView, TeamOverviewResponse } from "@/types/teams";
 import { useState } from "react";
 
-import TeamHeader from "./TeamHeader";
+import { ApiResponse } from "@/api/types";
+import { TeamDetailView, TeamOverviewResponse } from "@/types/teams";
+
 import { TeamDetailTabs } from "./tabs";
+import TeamHeader from "./TeamHeader";
 
 interface Props {
   teamId: number;

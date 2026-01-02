@@ -7,6 +7,7 @@ import {
   TeamSquadResponse,
   TeamStatsResponse,
 } from "@/types/teams";
+
 import { ApiResponse } from "./types";
 
 type TeamDetailByView<V extends TeamDetailView> =

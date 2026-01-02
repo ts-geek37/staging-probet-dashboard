@@ -1,6 +1,6 @@
 import { getPlayerDetail } from "@/api/players";
-import { PlayerDetailView } from "@/types/players";
 import { PlayerDetailPresentation } from "@/modules/players";
+import { PlayerDetailView } from "@/types/players";
 
 interface Props {
   params: Promise<{ id: string }>;

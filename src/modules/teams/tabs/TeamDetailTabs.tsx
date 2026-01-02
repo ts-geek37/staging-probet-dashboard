@@ -1,8 +1,8 @@
 import { ApiResponse } from "@/api/types";
 import { TeamDetailView, TeamOverviewResponse } from "@/types/teams";
 
-import TeamOverviewTab from "./TeamOverviewTab";
 import TeamMatchesTab from "./TeamMatchesTab";
+import TeamOverviewTab from "./TeamOverviewTab";
 import TeamSquadTab from "./TeamSquadTab";
 import TeamStatsTab from "./TeamStatsTab";
 

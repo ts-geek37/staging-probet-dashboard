@@ -1,7 +1,9 @@
 "use client";
 
 import React from "react";
+
 import { MatchDetailView } from "@/types/matches";
+
 import { useMatchDetail } from "../../hooks";
 
 interface Props {

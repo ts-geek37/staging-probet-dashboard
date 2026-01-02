@@ -1,6 +1,6 @@
 import { getMatchDetail } from "@/api/matches";
-import { MatchDetailView } from "@/types/matches";
 import { MatchDetailPresentation } from "@/modules/matches";
+import { MatchDetailView } from "@/types/matches";
 
 interface PageProps {
   params: {

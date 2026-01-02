@@ -1,4 +1,5 @@
 import React from "react";
+
 import { MatchCard as Match } from "@/types/matches";
 
 interface Props {

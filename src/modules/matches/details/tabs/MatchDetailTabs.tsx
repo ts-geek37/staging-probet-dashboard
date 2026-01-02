@@ -1,11 +1,12 @@
 import React from "react";
+
 import { MatchDetailView } from "@/types/matches";
-import MatchOverviewTab from "./MatchOverviewTab";
-import MatchPredictionsTab from "./MatchPredictionsTab";
+
 import MatchEventsTab from "./MatchEventsTab";
 import MatchLineupsTab from "./MatchLineupsTab";
+import MatchOverviewTab from "./MatchOverviewTab";
+import MatchPredictionsTab from "./MatchPredictionsTab";
 import MatchStatsTab from "./MatchStatsTab";
-
 
 interface Props {
   matchId: number;
@@ -22,18 +23,13 @@ const MatchDetailTabs: React.FC<Props> = ({
     <section>
       <nav>
         {Object.values(MatchDetailView).map((tab) => (
-          <button
-            key={tab}
-            onClick={() => onTabChange(tab)}
-          >
+          <button key={tab} onClick={() => onTabChange(tab)}>
             {tab}
           </button>
         ))}
       </nav>
 
-      {activeTab === MatchDetailView.OVERVIEW && (
-        <MatchOverviewTab />
-      )}
+      {activeTab === MatchDetailView.OVERVIEW && <MatchOverviewTab />}
 
       {activeTab === MatchDetailView.STATS && (
         <MatchStatsTab matchId={matchId} />
