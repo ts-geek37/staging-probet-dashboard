@@ -1,8 +1,9 @@
+import { Metadata } from "next";
+
 import { getLeagueDetail } from "@/api/leagues";
 import { LeaguesDetails } from "@/modules/leagues";
 import { LeagueView } from "@/types/leagues";
 import { seo } from "@/utils/seo";
-import { Metadata } from "next";
 
 interface Props {
   params: {

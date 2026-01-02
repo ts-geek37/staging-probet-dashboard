@@ -1,8 +1,9 @@
+import { Metadata } from "next";
+
 import { getTeamDetail } from "@/api/teams";
 import { TeamDetailPresentation } from "@/modules/teams";
 import { TeamDetailView } from "@/types/teams";
 import { seo } from "@/utils/seo";
-import { Metadata } from "next";
 
 interface Props {
   params: Promise<{ id: string }>;

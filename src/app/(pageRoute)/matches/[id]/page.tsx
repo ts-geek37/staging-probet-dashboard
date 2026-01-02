@@ -1,8 +1,9 @@
+import { Metadata } from "next";
+
 import { getMatchDetail } from "@/api/matches";
 import { MatchDetailPresentation } from "@/modules/matches";
 import { MatchDetailView } from "@/types/matches";
 import { seo } from "@/utils/seo";
-import { Metadata } from "next";
 
 interface PageProps {
   params: Promise<{
@@ -32,7 +33,8 @@ export const generateMetadata = async ({
     }
 
     return seo({
-      title: match?.home_team?.name + " vs " + match?.away_team?.name || "League",
+      title:
+        match?.home_team?.name + " vs " + match?.away_team?.name || "League",
       description: match?.away_team?.name + " vs " + match?.home_team?.name,
     });
   } catch {

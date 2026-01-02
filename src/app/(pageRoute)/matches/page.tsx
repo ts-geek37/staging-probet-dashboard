@@ -1,7 +1,7 @@
+import { Metadata } from "next";
 import React from "react";
 
 import { MatchesListingPresentation } from "@/modules/matches";
-import { Metadata } from "next";
 import { seo } from "@/utils/seo";
 
 export const metadata: Metadata = seo({
@@ -12,7 +12,10 @@ export const metadata: Metadata = seo({
 
 const MatchesPage: React.FC = () => {
   return <MatchesListingPresentation />;
-  console.log("🚀 ~ MatchesPage ~ MatchesListingPresentation:", MatchesListingPresentation)
+  console.log(
+    "🚀 ~ MatchesPage ~ MatchesListingPresentation:",
+    MatchesListingPresentation,
+  );
 };
 
 export default MatchesPage;
