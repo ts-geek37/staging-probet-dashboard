@@ -1,5 +1,7 @@
-import React from "react";
+"use client";
 
+import React from "react";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { MatchDetailView } from "@/types/matches";
 
 import MatchEventsTab from "./MatchEventsTab";
@@ -19,34 +21,48 @@ const MatchDetailTabs: React.FC<Props> = ({
   activeTab,
   onTabChange,
 }) => {
+  const tabs = Object.values(MatchDetailView);
+
+  const formatTabLabel = (label: string) =>
+    label.toLowerCase().replace(/\b\w/g, (c) => c.toUpperCase());
+
   return (
-    <section>
-      <nav>
-        {Object.values(MatchDetailView).map((tab) => (
-          <button key={tab} onClick={() => onTabChange(tab)}>
-            {tab}
-          </button>
+    <Tabs
+      value={activeTab}
+      onValueChange={(value : string) => onTabChange(value as MatchDetailView)}
+      className="w-full"
+    >
+      <TabsList className="bg-transparent flex gap-2 overflow-x-auto whitespace-nowrap rounded-none justify-start h-auto p-0 flex-wrap">
+        {tabs.map((tab) => (
+          <TabsTrigger
+            key={tab}
+            value={tab}
+            className="w-30 rounded-xl px-4 py-2 text-sm sm:text-base font-medium text-white border border-primary-gray/20 shrink-0 data-[state=active]:bg-primary-green transition-all"
+          >
+            {formatTabLabel(tab)}
+          </TabsTrigger>
         ))}
-      </nav>
+      </TabsList>
 
-      {activeTab === MatchDetailView.OVERVIEW && <MatchOverviewTab />}
 
-      {activeTab === MatchDetailView.STATS && (
-        <MatchStatsTab matchId={matchId} />
-      )}
+      <div className="mt-6">
+        <TabsContent value={MatchDetailView.OVERVIEW}>
+          <MatchOverviewTab  />
+        </TabsContent>
 
-      {activeTab === MatchDetailView.LINEUPS && (
-        <MatchLineupsTab matchId={matchId} />
-      )}
+        <TabsContent value={MatchDetailView.STATS}>
+          <MatchStatsTab matchId={matchId} />
+        </TabsContent>
 
-      {activeTab === MatchDetailView.EVENTS && (
-        <MatchEventsTab matchId={matchId} />
-      )}
+        <TabsContent value={MatchDetailView.LINEUPS}>
+          <MatchLineupsTab matchId={matchId} />
+        </TabsContent>
 
-      {activeTab === MatchDetailView.PREDICTIONS && (
-        <MatchPredictionsTab matchId={matchId} />
-      )}
-    </section>
+        <TabsContent value={MatchDetailView.EVENTS}>
+          <MatchEventsTab matchId={matchId} />
+        </TabsContent>
+      </div>
+    </Tabs>
   );
 };
 
