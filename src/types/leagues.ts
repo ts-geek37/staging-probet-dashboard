@@ -81,6 +81,7 @@ export interface LeagueStats {
     player_id: number;
     name: string;
     team: string;
+    team_logo_url: string;
     goals: number;
   }>;
 }

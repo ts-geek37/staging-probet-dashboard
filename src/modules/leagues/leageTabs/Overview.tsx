@@ -32,14 +32,14 @@ const Overview: React.FC<Props> = ({ initialLeagues }) => {
             </p>
           </div>
 
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="grid grid-cols-2 xl:grid-cols-4 justify-center items-center gap-2 sm:gap-4">
             {overviewStats.map(({ key, label, format }) => {
               const value = overview?.[key];
               const finalValue = format ? Number(value).toFixed(2) : value;
               return (
                 <div
                   key={key}
-                  className="bg-slate-800 border border-gray-800 rounded-lg p-3 sm:p-6"
+                  className="bg-slate-800 text-center border border-gray-800 rounded-lg p-3 sm:p-6"
                 >
                   <div className="text-3xl font-bold text-primary-green mb-2">
                     {finalValue ?? 0}
@@ -55,11 +55,11 @@ const Overview: React.FC<Props> = ({ initialLeagues }) => {
           <h3 className="text-lg text-white font-semibold mb-4">
             Top {overview?.top_teams?.length} Teams
           </h3>
-          <div className="bg-slate-800 border border-gray-800 rounded-lg px-3 md:px-6 py-3 ">
+          <div className="flex flex-col gap-2">
             {overview?.top_teams.map((team) => (
               <div
                 key={team.id}
-                className="flex items-center justify-between py-2"
+                className=" bg-slate-800 border border-gray-800 rounded-lg flex items-center justify-between p-3"
               >
                 <div className="flex items-center gap-3">
                   <Image
@@ -71,7 +71,7 @@ const Overview: React.FC<Props> = ({ initialLeagues }) => {
                   />
                   <span className="text-white">{team.name}</span>
                 </div>
-                <span className="text-primary-green font-semibold">
+                <span className="text-primary-green bg-primary-green/10 px-4 py-1 rounded-full text-sm font-semibold">
                   {team.points}pts
                 </span>
               </div>

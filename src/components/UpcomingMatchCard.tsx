@@ -23,6 +23,11 @@ const UpcomingMatchCard: React.FC<UpcomingMatchProps> = ({
   teamBLogo,
   className,
 }) => {
+  const formattedDate = new Date(date).toLocaleDateString("en-US", {
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+  });
   return (
     <Card
       className={cn(
@@ -32,7 +37,7 @@ const UpcomingMatchCard: React.FC<UpcomingMatchProps> = ({
     >
       <CardContent className="px-5 space-y-6">
         <div className="flex justify-between items-center text-xs font-semibold text-white">
-          <span className="text-white text-lg">{date}</span>
+          <span className="text-white text-lg">{formattedDate}</span>
           <span className="text-white text-lg">{time}</span>
         </div>
 

@@ -4,7 +4,6 @@ import useSWR from "swr";
 
 import { ApiResponse } from "@/api/types";
 import { LeagueResponse, LeagueView } from "@/types/leagues";
-import { transformToUpcomingMatch } from "@/utils/transformLeagueMatch";
 
 const useLeagueOverview = (
   leagueId: number,
