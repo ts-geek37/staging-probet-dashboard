@@ -17,9 +17,6 @@ const TabList: React.FC<Props> = ({ initialLeagues }) => {
   const handleTabChange = (value: string) => {
     setActiveTab(value as LeagueView);
   };
-
-  const id = initialLeagues?.data?.league?.id ?? 0;
-
   return (
     <Tabs value={activeTab} onValueChange={handleTabChange} className="w-full">
       <TabsList className="bg-transparent flex gap-2 overflow-x-auto whitespace-nowrap rounded-none justify-start h-auto p-0 flex-wrap">

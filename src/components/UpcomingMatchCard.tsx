@@ -1,7 +1,8 @@
-import { Card, CardContent } from "@/components/ui/card";
-import { cn } from "@/lib/utils";
 import Image from "next/image";
 import React from "react";
+
+import { Card, CardContent } from "@/components/ui/card";
+import { cn } from "@/lib/utils";
 
 export interface UpcomingMatchProps {
   date: string;

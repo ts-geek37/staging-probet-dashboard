@@ -1,10 +1,11 @@
+import Image from "next/image";
 import React from "react";
 
+import { Card } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
-import Image from "next/image";
+
 import { useLeagueTeams } from "../hooks";
 import LeagueBanner from "../LeagueBanner";
-import { Card } from "@/components/ui/card";
 
 interface Props {
   id: number;

@@ -1,6 +1,5 @@
 "use client";
 
-
 interface LeaguesEmptyStateProps {
   searchQuery: string;
 }
@@ -16,12 +15,13 @@ const EmptyLeagues: React.FC<LeaguesEmptyStateProps> = ({ searchQuery }) => {
         {searchQuery ? (
           <>
             No results for{" "}
-            <span className="font-medium text-white">“{searchQuery}”</span>
-            . Try refining your search or clearing filters.
+            <span className="font-medium text-white">“{searchQuery}”</span>. Try
+            refining your search or clearing filters.
           </>
         ) : (
           <>
-            No leagues match your current filters. Adjust them to continue exploring.
+            No leagues match your current filters. Adjust them to continue
+            exploring.
           </>
         )}
       </p>

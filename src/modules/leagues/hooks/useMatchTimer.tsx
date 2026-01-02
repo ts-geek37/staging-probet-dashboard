@@ -18,12 +18,14 @@ const useMatchTimer = (date: string) => {
   const month = matchDate
     .toLocaleDateString("en-US", { month: "short" })
     .toUpperCase();
-  const time = matchDate.getHours() !== 0 || matchDate.getMinutes() !== 0 ?
-    matchDate.toLocaleTimeString("en-US", {
-      hour: "2-digit",
-      minute: "2-digit",
-      hour12: false,
-    }) : "12:00";
+  const time =
+    matchDate.getHours() !== 0 || matchDate.getMinutes() !== 0
+      ? matchDate.toLocaleTimeString("en-US", {
+          hour: "2-digit",
+          minute: "2-digit",
+          hour12: false,
+        })
+      : "12:00";
 
   useEffect(() => {
     const calculateTimeRemaining = () => {

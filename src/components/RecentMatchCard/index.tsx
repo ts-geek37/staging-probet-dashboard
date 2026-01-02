@@ -5,6 +5,7 @@ import Image from "next/image";
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
 import { useMatchTimer } from "@/modules/leagues/hooks";
+
 import MatchTimer from "./MatchTimer";
 
 interface Team {
@@ -25,7 +26,8 @@ const RecentMatchCard: React.FC<RecentMatchProps> = ({
   teamB,
   matchDate,
 }) => {
-  const { timeRemaining, isWithin12Hours, month, time } = useMatchTimer(matchDate);
+  const { timeRemaining, isWithin12Hours, month, time } =
+    useMatchTimer(matchDate);
 
   return (
     <Card className="flex bg-gray-900 border-none rounded-none items-center w-full justify-between gap-6 px-6 py-4">

@@ -2,9 +2,9 @@ import Image from "next/image";
 import React from "react";
 
 import { ApiResponse } from "@/api/types";
+import MatchListing from "@/components/MatchListing";
 import { LeagueResponse } from "@/types/leagues";
 
-import MatchListing from "@/components/MatchListing";
 import { overviewStats } from "../constant";
 import { useLeagueOverview } from "../hooks";
 import LeagueBanner from "../LeagueBanner";

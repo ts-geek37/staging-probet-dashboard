@@ -8,7 +8,7 @@ export type MatchWithOptionalLeague = LeagueMatch & {
 };
 
 export const transformToUpcomingMatch = (
-  match: MatchWithOptionalLeague
+  match: MatchWithOptionalLeague,
 ): UpcomingMatchProps => {
   const kickoff = new Date(match.kickoff_time);
   return {
@@ -25,7 +25,7 @@ export const transformToUpcomingMatch = (
 };
 
 export const transformToRecentMatch = (
-  match: MatchWithOptionalLeague
+  match: MatchWithOptionalLeague,
 ): RecentMatchProps => {
   const kickoff = new Date(match.kickoff_time);
   return {
