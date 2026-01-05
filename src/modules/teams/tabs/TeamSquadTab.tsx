@@ -45,12 +45,17 @@ const TeamSquadTab = ({ teamId }: { teamId: number }) => {
                     </p>
                   </div>
                   <div>
-                    <Image
-                      src={player.flagUrl}
-                      alt={player.nationality}
-                      width={20}
-                      height={20}
-                    />
+                    {player?.flagUrl && (
+                      <Image
+                        src={player.flagUrl}
+                        alt={player?.nationality ?? "Flag"}
+                        width={20}
+                        height={20}
+                        onError={(e) => {
+                          e.currentTarget.src = "/no-image.png";
+                        }}
+                      />
+                    )}
                   </div>
                 </div>
               </Card>

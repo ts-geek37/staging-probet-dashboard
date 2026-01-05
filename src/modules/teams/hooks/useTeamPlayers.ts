@@ -24,6 +24,8 @@ const useTeamPlayers = (teamId: number) => {
   );
   const squad = response.data?.data?.squad ?? [];
   const sections: SquadSection[] = squad.reduce((acc, player) => {
+    if (!player?.position) return acc;
+
     const existingSection = acc.find(
       (section) => section.key === player.position,
     );

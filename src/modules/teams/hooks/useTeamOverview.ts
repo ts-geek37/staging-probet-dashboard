@@ -33,33 +33,39 @@ const useTeamOverview = (
 
   const teamInfo = team
     ? [
-        { label: "Country", value: team.country },
-        { label: "Founded", value: team.founded ?? "N/A" },
-        { label: "League", value: team.league.name },
-        { label: "Season", value: team.league.season },
+        { label: "Country", value: team?.country ?? "N/A" },
+        { label: "Founded", value: team?.founded ?? "N/A" },
+        { label: "League", value: team?.league?.name ?? "N/A" },
+        { label: "Season", value: team?.league?.season ?? "N/A" },
       ]
     : [];
 
   const venueInfo = team
     ? [
-        { label: "Stadium", value: team.stadium.name ?? "N/A" },
+        { label: "Stadium", value: team?.stadium?.name ?? "N/A" },
         {
           label: "Capacity",
-          value: team.stadium.capacity?.toLocaleString() ?? "N/A",
+          value: team?.stadium?.capacity?.toLocaleString() ?? "N/A",
         },
       ]
     : [];
 
   const performanceStats = team
     ? [
-        { label: "Played", value: team.season_summary.played },
-        { label: "Won", value: team.season_summary.won },
-        { label: "Drawn", value: team.season_summary.drawn },
-        { label: "Lost", value: team.season_summary.lost },
-        { label: "Goals Scored", value: team.key_stats.goals_scored },
-        { label: "Goals Conceded", value: team.key_stats.goals_conceded },
-        { label: "Clean Sheets", value: team.key_stats.clean_sheets },
-        { label: "Goal Difference", value: team.key_stats.goal_difference },
+        { label: "Played", value: team?.season_summary?.played ?? 0 },
+        { label: "Won", value: team?.season_summary?.won ?? 0 },
+        { label: "Drawn", value: team?.season_summary?.drawn ?? 0 },
+        { label: "Lost", value: team?.season_summary?.lost ?? 0 },
+        { label: "Goals Scored", value: team?.key_stats?.goals_scored ?? 0 },
+        {
+          label: "Goals Conceded",
+          value: team?.key_stats?.goals_conceded ?? 0,
+        },
+        { label: "Clean Sheets", value: team?.key_stats?.clean_sheets ?? 0 },
+        {
+          label: "Goal Difference",
+          value: team?.key_stats?.goal_difference ?? 0,
+        },
       ]
     : [];
 

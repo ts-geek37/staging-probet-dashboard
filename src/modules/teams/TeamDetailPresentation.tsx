@@ -11,13 +11,14 @@ import TeamHeader from "./TeamHeader";
 
 interface Props {
   teamId: number;
-  initialData: ApiResponse<TeamOverviewResponse>;
+  initialData: ApiResponse<TeamOverviewResponse> | null;
 }
 
 const TeamDetailPresentation = ({ teamId, initialData }: Props) => {
   const [activeTab, setActiveTab] = useState<TeamDetailView>(
     TeamDetailView.OVERVIEW,
   );
+  if (!initialData) return null;
   return (
     <div className="text-white">
       <TeamHeader team={initialData.data} />

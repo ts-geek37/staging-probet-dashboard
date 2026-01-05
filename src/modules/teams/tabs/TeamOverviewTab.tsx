@@ -16,7 +16,7 @@ const TeamOverviewTab: React.FC<Props> = ({ initialData }) => {
     initialData?.data?.id ?? 0,
     initialData,
   );
-  if (!team) return null;
+  if (!initialData || !team) return null;
 
   return (
     <div className="grid grid-cols-1 gap-6 md:grid-cols-2">

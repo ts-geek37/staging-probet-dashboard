@@ -10,7 +10,7 @@ const useTeamHeader = (team: TeamBase | null): UseTeamsHeaderResult | null => {
   return useMemo(() => {
     if (!team) return null;
 
-    const words = team.name.split(" ").filter(Boolean);
+    const words = team?.name.split(" ").filter(Boolean);
 
     const shortName =
       words.length === 1

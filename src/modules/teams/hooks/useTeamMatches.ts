@@ -25,7 +25,11 @@ const useTeamMatches = (teamId: number) => {
       title: "Upcoming Fixtures",
       matches: upcomingMatches,
     },
-  ];
+  ].filter(Boolean) as {
+    key: string;
+    title: string;
+    matches: NonNullable<typeof upcomingMatches | typeof recentMatches>;
+  }[];
 
   return {
     sections,
