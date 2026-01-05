@@ -1,10 +1,12 @@
 "use client";
 
 import React from "react";
-import { MatchDetailView, MatchOverviewResponse } from "@/types/matches";
-import { useMatchDetail } from "../../hooks";
-import MatchPrediction from "../../components/MatchPrediction";
+
 import { NoData, SkeletonCardLoader } from "@/components";
+import { MatchDetailView, MatchOverviewResponse } from "@/types/matches";
+
+import MatchPrediction from "../../components/MatchPrediction";
+import { useMatchDetail } from "../../hooks";
 
 interface Props {
   matchId: number;
@@ -40,7 +42,7 @@ const MatchOverviewTab: React.FC<Props> = ({ matchId }) => {
       </div>
       <div className="flex justify-center items-start h-full">
         <div className="w-full h-full">
-          <MatchPrediction home={0.45} draw={0.25} away={0.30} />
+          <MatchPrediction home={0.45} draw={0.25} away={0.3} />
         </div>
       </div>
     </div>

@@ -1,7 +1,9 @@
 "use client";
 
 import React from "react";
+
 import { MatchListStatus } from "@/types/matches";
+
 import FinishedMatches from "./FinishedMatches";
 import LiveMatches from "./LiveMatches";
 import UpcomingMatches from "./UpcomingMatches";

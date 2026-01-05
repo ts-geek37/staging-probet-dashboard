@@ -1,10 +1,10 @@
 import Link from "next/link";
 import React from "react";
 
+import { NoData } from "@/components";
 import UpcomingMatchCard from "@/components/UpcomingMatchCard";
 import { UpcomingMatch } from "@/types/home";
 import { formatUtcTime } from "@/utils/date";
-import { NoData } from "@/components";
 
 interface Props {
   matches: UpcomingMatch[];

@@ -25,7 +25,7 @@ const MatchPrediction: React.FC<MatchPredictionProps> = ({
 
       <div className="flex flex-col justify-center h-full">
         <div className="flex w-full h-2 rounded-lg overflow-hidden mb-4">
-          <div className="bg-green-500" style={{ width: `${homeWidth}%`}} />
+          <div className="bg-green-500" style={{ width: `${homeWidth}%` }} />
           <div className="bg-yellow-400" style={{ width: `${drawWidth}%` }} />
           <div className="bg-red-500" style={{ width: `${awayWidth}%` }} />
         </div>

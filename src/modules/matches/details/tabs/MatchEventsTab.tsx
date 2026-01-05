@@ -1,10 +1,12 @@
 "use client";
 
 import React from "react";
-import { MatchDetailView, MatchEventsResponse } from "@/types/matches";
-import useMatchDetail from "../../hooks/useMatchDetail";
+
 import { NoData, SkeletonCardLoader } from "@/components";
+import { MatchDetailView, MatchEventsResponse } from "@/types/matches";
+
 import MatchEvents from "../../components/MatchEvents";
+import useMatchDetail from "../../hooks/useMatchDetail";
 
 interface Props {
   matchId: number;
@@ -16,7 +18,7 @@ const MatchEventsTab: React.FC<Props> = ({ matchId }) => {
   const eventsData = data as MatchEventsResponse | undefined;
 
   if (isLoading) return <SkeletonCardLoader />;
-  if (!eventsData ) return <NoData message="Events not available" />;
+  if (!eventsData) return <NoData message="Events not available" />;
 
   return (
     <div className="bg-[#14181F] border border-primary-gray/20 rounded-xl p-4 space-y-2">

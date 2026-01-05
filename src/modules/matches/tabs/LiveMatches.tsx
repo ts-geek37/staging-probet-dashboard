@@ -1,12 +1,14 @@
 "use client";
 
-import React from "react";
 import Link from "next/link";
+import React from "react";
+
+import { NoData, SkeletonCardLoader } from "@/components";
 import LiveMatchCard from "@/components/LiveMatchCard";
 import LeagueBanner from "@/modules/leagues/LeagueBanner";
 import { MatchListStatus } from "@/types/matches";
+
 import useMatches from "../hooks/useMatches";
-import { NoData, SkeletonCardLoader } from "@/components";
 
 interface Props {
   search?: string;
@@ -23,9 +25,7 @@ const LiveMatches: React.FC<Props> = ({ search }) => {
   if (isLoading) return <SkeletonCardLoader />;
 
   if (!matches?.length) {
-    return (
-     <NoData message="No matches found" />
-    );
+    return <NoData message="No matches found" />;
   }
   return (
     <>

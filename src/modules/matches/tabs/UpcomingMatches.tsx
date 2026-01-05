@@ -3,17 +3,17 @@
 import Image from "next/image";
 import React from "react";
 
+import { NoData } from "@/components";
 import { MatchListStatus } from "@/types/matches";
 
 import UpcomingMatchCard from "../components/UpcomingMatchCard";
 import useMatches from "../hooks/useMatches";
-import { NoData } from "@/components";
 
 interface Props {
   search?: string;
 }
 
-const UpcomingMatches: React.FC<Props> = ({search}) => {
+const UpcomingMatches: React.FC<Props> = ({ search }) => {
   const { matches } = useMatches({
     status: MatchListStatus.UPCOMING,
     page: 1,
@@ -22,9 +22,7 @@ const UpcomingMatches: React.FC<Props> = ({search}) => {
   });
 
   if (!matches?.length) {
-    return (
-     <NoData message="No matches found" />
-    );
+    return <NoData message="No matches found" />;
   }
 
   return (

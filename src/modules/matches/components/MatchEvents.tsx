@@ -1,7 +1,7 @@
 "use client";
 
-import React from "react";
 import { Repeat, Square, Volleyball } from "lucide-react";
+import React from "react";
 
 import { MatchEventsResponse } from "@/types/matches";
 
@@ -48,7 +48,9 @@ const MatchEvents: React.FC<Props> = ({
   return (
     <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3 px-4 py-2 rounded-md bg-[#232529]">
       <div className="hidden sm:flex items-center gap-3">
-        <span className="text-primary-green font-medium">{event.minute}'</span>
+        <span className="text-primary-green font-medium">
+          {event.minute}&apos;
+        </span>
 
         <span className="text-white font-medium">{teamName}</span>
         <IconComponent className={`w-4 h-4 ${iconClass}`} />
@@ -59,7 +61,7 @@ const MatchEvents: React.FC<Props> = ({
       <div className="flex flex-col sm:hidden gap-1">
         <div className="flex items-center gap-2">
           <span className="text-primary-green font-medium">
-            {event.minute}'
+            {event.minute}&apos;
           </span>
           <span className="text-white font-medium">{teamName}</span>
         </div>

@@ -3,11 +3,11 @@
 import Image from "next/image";
 import React from "react";
 
+import { NoData } from "@/components";
 import { MatchListStatus } from "@/types/matches";
 
 import FinishedMatchCard from "../components/FinishedMatchCard";
 import useMatches from "../hooks/useMatches";
-import { NoData } from "@/components";
 
 interface Props {
   search?: string;
@@ -22,9 +22,7 @@ const FinishedMatches: React.FC<Props> = ({ search }) => {
   });
 
   if (!matches?.length) {
-    return (
-     <NoData message="No matches found" />
-    );
+    return <NoData message="No matches found" />;
   }
 
   return (

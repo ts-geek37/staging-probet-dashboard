@@ -1,9 +1,10 @@
 "use client";
 
+import Image from "next/image";
 import React from "react";
+
 import { Card, CardContent } from "@/components/ui/card";
 import { MatchOverviewResponse } from "@/types/matches";
-import Image from "next/image";
 
 interface Props {
   match: MatchOverviewResponse;

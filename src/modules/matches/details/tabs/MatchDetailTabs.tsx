@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { MatchDetailView } from "@/types/matches";
 
@@ -29,7 +30,7 @@ const MatchDetailTabs: React.FC<Props> = ({
   return (
     <Tabs
       value={activeTab}
-      onValueChange={(value : string) => onTabChange(value as MatchDetailView)}
+      onValueChange={(value: string) => onTabChange(value as MatchDetailView)}
       className="w-full"
     >
       <TabsList className="bg-transparent flex gap-2 overflow-x-auto whitespace-nowrap rounded-none justify-start h-auto p-0 flex-wrap">
@@ -44,10 +45,9 @@ const MatchDetailTabs: React.FC<Props> = ({
         ))}
       </TabsList>
 
-
       <div className="mt-6">
         <TabsContent value={MatchDetailView.OVERVIEW}>
-          <MatchOverviewTab matchId={matchId}  />
+          <MatchOverviewTab matchId={matchId} />
         </TabsContent>
 
         <TabsContent value={MatchDetailView.STATS}>
@@ -65,7 +65,6 @@ const MatchDetailTabs: React.FC<Props> = ({
         <TabsContent value={MatchDetailView.PREDICTIONS}>
           <MatchPredictionsTab matchId={matchId} />
         </TabsContent>
-
       </div>
     </Tabs>
   );

@@ -1,7 +1,8 @@
 "use client";
 
-import React from "react";
+import Image from "next/image";
 import Link from "next/link";
+import React from "react";
 
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { MatchCard } from "@/types/matches";
@@ -24,9 +25,11 @@ const FinishedMatchCard: React.FC<FinishedMatchCardProps> = ({ match }) => {
           {[match.home_team, match.away_team].map((team) => (
             <div key={team.id} className="flex items-center justify-between">
               <div className="flex items-center gap-3 flex-1 min-w-0">
-                <img
+                <Image
                   src={team.logo}
                   alt={team.name}
+                  width={24}
+                  height={24}
                   className="h-6 w-6 object-contain shrink-0 rounded-full"
                 />
                 <span className="text-base font-medium text-white/60 truncate">

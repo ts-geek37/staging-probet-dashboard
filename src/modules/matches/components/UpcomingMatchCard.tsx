@@ -1,12 +1,13 @@
 "use client";
 
+import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { MatchCard } from "@/types/matches";
 import { formatKickoffTime } from "@/utils/formatKickoffTime";
-import Link from "next/link";
 
 interface UpcomingMatchCardProps {
   match: MatchCard;
@@ -34,9 +35,11 @@ const UpcomingMatchCard: React.FC<UpcomingMatchCardProps> = ({ match }) => {
         <CardContent className="px-5">
           <div className="flex items-center justify-between gap-4">
             <div className="flex items-center gap-3 flex-1 min-w-0">
-              <img
+              <Image
                 src={match.home_team.logo}
                 alt={match.home_team.name}
+                width={28}
+                height={28}
                 className="h-7 w-7 object-contain shrink-0"
               />
               <span className="text-base font-medium text-primary-gray truncate">
@@ -55,9 +58,11 @@ const UpcomingMatchCard: React.FC<UpcomingMatchCardProps> = ({ match }) => {
               <span className="text-lg font-medium text-primary-gray truncate text-right">
                 {match.away_team.name}
               </span>
-              <img
+              <Image
                 src={match.away_team.logo}
                 alt={match.away_team.name}
+                width={28}
+                height={28}
                 className="h-7 w-7 object-contain shrink-0"
               />
             </div>

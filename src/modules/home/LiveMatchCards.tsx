@@ -1,9 +1,9 @@
 import Link from "next/link";
 import React from "react";
 
+import { NoData } from "@/components";
 import LiveMatchCard from "@/components/LiveMatchCard";
 import { LiveMatch } from "@/types/home";
-import { NoData } from "@/components";
 
 interface Props {
   matches: LiveMatch[];

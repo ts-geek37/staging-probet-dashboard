@@ -2,11 +2,11 @@
 
 import React from "react";
 
+import { NoData, SkeletonCardLoader } from "@/components";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { MatchDetailView, MatchLineupsResponse } from "@/types/matches";
 
 import { useMatchDetail } from "../../hooks";
-import { NoData, SkeletonCardLoader } from "@/components";
 
 interface Props {
   matchId: number;
@@ -15,7 +15,7 @@ interface Props {
 const MatchLineupsTab: React.FC<Props> = ({ matchId }) => {
   const { data, isLoading } = useMatchDetail(matchId, MatchDetailView.LINEUPS);
 
-  if (isLoading) return <SkeletonCardLoader/>;
+  if (isLoading) return <SkeletonCardLoader />;
   if (!data) return <NoData message="Lineups not available" />;
 
   const { lineups, home_team, away_team } = data as MatchLineupsResponse;
