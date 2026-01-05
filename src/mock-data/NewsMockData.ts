@@ -19,8 +19,8 @@ export const footballNewsMock: FootballNews[] = [
       "A last-minute strike changed everything as the stadium erupted in disbelief",
     category: "Match Report",
     content: [
-      "The Premier League witnessed another dramatic night as a late goal completely shifted the momentum of the match.",
-      "Throughout the first half, possession was evenly split, with both sides struggling to break down compact defensive lines.",
+      "Structured gripped tape invisible moulded cups for sauppor firm hold strong powermesh front liner sport detail. Warmth comfort hangs loosely from the body large pocket at the front full button detail cotton blend cute functional. bright primary colours punchy palette pleated cheerleader vibe stripe trims. Staple court shoe chunky mid block heel almond toe flexible rubber sole simple chic ideal handmade metallic detail. Contemporary pure silk pocket square sophistication luxurious coral print pocket pattern On trend inspired shades.",
+      "Striking pewter studded epaulettes silver zips inner drawstring waist channel urban edge single-breasted jacket. Engraved attention to detail elegant with neutral colors chem quartz leather strap fastens with a pin a buckle clasp. Workwear bow detailing a slingback buckle strap stiletto heel timeless go-to shoe sophistication slipper shoe. Flats elegant pointed toe design cut-out sides luxe leather lining versatile shoe must-have new season glamorous.",
       "The tempo increased significantly after halftime, with substitutions injecting fresh energy into the match.",
       "As the clock ticked past the 90th minute, it seemed inevitable that the match would end in a draw.",
       "In a stunning turn of events, a quick counterattack resulted in a perfectly placed shot into the bottom corner.",
@@ -36,12 +36,10 @@ export const footballNewsMock: FootballNews[] = [
     subtitle: "The teenager delivered a composed performance beyond his years",
     category: "International",
     content: [
-      "International football welcomed a new rising star as the young midfielder made his debut under intense pressure.",
-      "Playing against experienced opposition, he showcased excellent ball control and positional awareness.",
-      "In the second half, his confidence grew, and he began driving forward with intent.",
-      "The coaching staff praised his discipline and tactical understanding.",
-      "Fans quickly took notice, applauding every touch as his influence on the game became more evident.",
-      "With performances like this, his future at the international level looks extremely promising.",
+      "Structured gripped tape invisible moulded cups for sauppor firm hold strong powermesh front liner sport detail. Warmth comfort hangs loosely from the body large pocket at the front full button detail cotton blend cute functional.bright primary colours punchy palette pleated cheerleader vibe stripe trims. Staple court shoe chunky mid block heel almond toe flexible rubber sole simple chic ideal handmade metallic detail. Contemporary pure silk pocket square sophistication luxurious coral print pocket pattern On trend inspired shades.",      "In a stunning turn of events, a quick counterattack resulted in a perfectly placed shot into the bottom corner.",
+      "Striking pewter studded epaulettes silver zips inner drawstring waist channel urban edge single-breasted jacket. Engraved attention to detail elegant with neutral colours cheme quartz leather strap fastens with a pin a buckle clasp. Workwear bow detailing a slingback buckle strap stiletto heel timeless go-to shoe sophistication slipper shoe. Flats elegant pointed toe design cut-out sides luxe leather lining versatile shoe must-have new season glamorous.",
+      "The tempo increased significantly after halftime, with substitutions injecting fresh energy into the match.",
+      "As the clock ticked past the 90th minute, it seemed inevitable that the match would end in a draw.",
     ],
   },
   {
