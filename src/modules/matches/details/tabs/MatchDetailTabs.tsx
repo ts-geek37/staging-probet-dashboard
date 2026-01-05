@@ -37,7 +37,7 @@ const MatchDetailTabs: React.FC<Props> = ({
           <TabsTrigger
             key={tab}
             value={tab}
-            className="w-30 rounded-xl px-4 py-2 text-sm sm:text-base font-medium text-white border border-primary-gray/20 shrink-0 data-[state=active]:bg-primary-green transition-all"
+            className="w-30 rounded-xl px-4 py-2 text-sm sm:text-base font-medium text-white border border-primary-gray/20  data-[state=active]:bg-primary-green"
           >
             {formatTabLabel(tab)}
           </TabsTrigger>
@@ -47,7 +47,7 @@ const MatchDetailTabs: React.FC<Props> = ({
 
       <div className="mt-6">
         <TabsContent value={MatchDetailView.OVERVIEW}>
-          <MatchOverviewTab  />
+          <MatchOverviewTab matchId={matchId}  />
         </TabsContent>
 
         <TabsContent value={MatchDetailView.STATS}>
@@ -61,6 +61,11 @@ const MatchDetailTabs: React.FC<Props> = ({
         <TabsContent value={MatchDetailView.EVENTS}>
           <MatchEventsTab matchId={matchId} />
         </TabsContent>
+
+        <TabsContent value={MatchDetailView.PREDICTIONS}>
+          <MatchPredictionsTab matchId={matchId} />
+        </TabsContent>
+
       </div>
     </Tabs>
   );

@@ -2,20 +2,31 @@
 
 import React from "react";
 import Link from "next/link";
-
 import LiveMatchCard from "@/components/LiveMatchCard";
 import LeagueBanner from "@/modules/leagues/LeagueBanner";
 import { MatchListStatus } from "@/types/matches";
-
 import useMatches from "../hooks/useMatches";
+import { NoData, SkeletonCardLoader } from "@/components";
 
-const LiveMatches: React.FC = () => {
-  const { matches } = useMatches({
+interface Props {
+  search?: string;
+}
+
+const LiveMatches: React.FC<Props> = ({ search }) => {
+  const { matches, isLoading } = useMatches({
     status: MatchListStatus.LIVE,
     page: 1,
     limit: 6,
+    search,
   });
 
+  if (isLoading) return <SkeletonCardLoader />;
+
+  if (!matches?.length) {
+    return (
+     <NoData message="No matches found" />
+    );
+  }
   return (
     <>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

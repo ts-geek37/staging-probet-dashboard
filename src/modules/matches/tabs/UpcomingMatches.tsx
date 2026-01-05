@@ -7,17 +7,23 @@ import { MatchListStatus } from "@/types/matches";
 
 import UpcomingMatchCard from "../components/UpcomingMatchCard";
 import useMatches from "../hooks/useMatches";
+import { NoData } from "@/components";
 
-const UpcomingMatches: React.FC = () => {
+interface Props {
+  search?: string;
+}
+
+const UpcomingMatches: React.FC<Props> = ({search}) => {
   const { matches } = useMatches({
     status: MatchListStatus.UPCOMING,
     page: 1,
     limit: 6,
+    search,
   });
 
   if (!matches?.length) {
     return (
-      <div className="text-sm text-[#6e7681]">No upcoming matches found</div>
+     <NoData message="No matches found" />
     );
   }
 

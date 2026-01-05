@@ -1,18 +1,21 @@
 "use client";
 
 import React from "react";
-
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { MatchListStatus } from "@/types/matches";
-
 import MatchTabContent from "./MatchTabs";
 
 interface Props {
   activeStatus: MatchListStatus;
   onChange: (status: MatchListStatus) => void;
+  search?: string;
 }
 
-const MatchStatusTabs: React.FC<Props> = ({ activeStatus, onChange }) => {
+const MatchStatusTabs: React.FC<Props> = ({
+  activeStatus,
+  onChange,
+  search,
+}) => {
   const statuses = Object.values(MatchListStatus);
 
   const formatStatusLabel = (status: string) =>
@@ -38,7 +41,7 @@ const MatchStatusTabs: React.FC<Props> = ({ activeStatus, onChange }) => {
 
       {statuses.map((status) => (
         <TabsContent key={status} value={status} className="mt-6">
-          <MatchTabContent status={status} />
+          <MatchTabContent status={status} search={search} />
         </TabsContent>
       ))}
     </Tabs>

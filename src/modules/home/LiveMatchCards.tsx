@@ -3,17 +3,16 @@ import React from "react";
 
 import LiveMatchCard from "@/components/LiveMatchCard";
 import { LiveMatch } from "@/types/home";
+import { NoData } from "@/components";
 
 interface Props {
   matches: LiveMatch[];
 }
 
 const LiveMatchCards: React.FC<Props> = ({ matches }) => {
-  if (!matches.length) return null;
-
   return (
-    <section className="px-4 sm:px-6 py-10 md:py-20 text-white">
-      <div className="max-w-7xl mx-auto space-y-10">
+    <section className="py-10 md:py-20 text-white">
+      <div className="space-y-10">
         <div className="flex items-end justify-between gap-6">
           <div className="space-y-2">
             <h1 className="text-2xl sm:text-5xl font-bold">
@@ -27,21 +26,31 @@ const LiveMatchCards: React.FC<Props> = ({ matches }) => {
           </Link>
         </div>
 
-        <div className="flex flex-wrap gap-6 justify-center items-center md:justify-start md:items-start">
-          {matches.map((match) => (
-            <LiveMatchCard
-              key={match.id}
-              teamA={match.home_team.name}
-              teamB={match.away_team.name}
-              scoreA={match.home_team.score}
-              scoreB={match.away_team.score}
-              teamALogo={match.home_team.logo}
-              teamBLogo={match.away_team.logo}
-              leagueName={match.league.name}
-              leagueLogo={match.league.logo}
-            />
-          ))}
-        </div>
+        {!matches?.length ? (
+          <NoData message="No matches found" />
+        ) : (
+          <div className="flex flex-wrap gap-6 justify-center items-center md:justify-start md:items-start">
+            {matches.map((match) => (
+              <Link
+                key={match.id}
+                href={`/matches/${match.id}`}
+                className="block"
+              >
+                <LiveMatchCard
+                  key={match.id}
+                  teamA={match.home_team.name}
+                  teamB={match.away_team.name}
+                  scoreA={match.home_team.score}
+                  scoreB={match.away_team.score}
+                  teamALogo={match.home_team.logo}
+                  teamBLogo={match.away_team.logo}
+                  leagueName={match.league.name}
+                  leagueLogo={match.league.logo}
+                />
+              </Link>
+            ))}
+          </div>
+        )}
       </div>
     </section>
   );

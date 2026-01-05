@@ -11,9 +11,9 @@ interface Props {
 
 const MatchHeader: React.FC<Props> = ({ match }) => {
   return (
-    <Card className="w-full mx-auto my-6 bg-[#0B0E14] border-primary-gray/20 text-white overflow-hidden px-0">
-      <CardContent className="flex flex-col items-center justify-center">
-        <p className="text-xs font-medium text-primary-gray mb-6 uppercase tracking-wider">
+    <Card className="w-full mx-auto my-6 bg-[#14181F] border-primary-gray/20 text-white overflow-hidden ">
+      <CardContent className="flex flex-col items-center justify-center px-2 sm:px-6">
+        <p className="text-xs font-medium text-primary-gray mb-6 uppercase">
           {match.league.name}
         </p>
 

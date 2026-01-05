@@ -17,7 +17,7 @@ const UpcomingMatchCard: React.FC<UpcomingMatchCardProps> = ({ match }) => {
 
   return (
     <Link href={`/matches/${match.id}`} className="block">
-      <Card className="w-full sm:w-80 md:w-80 xl:w-90 2xl:w-102 rounded-none border border-primary-green bg-[#0d1117] text-[#e6edf3]">
+      <Card className="w-full sm:w-90 2xl:w-102 rounded-none border border-primary-green bg-[#0d1117] text-[#e6edf3]">
         <div className="px-5 pb-0 flex items-center justify-between">
           <span className="text-xl font-bold text-white tracking-tight flex-1">
             {match.league.name}

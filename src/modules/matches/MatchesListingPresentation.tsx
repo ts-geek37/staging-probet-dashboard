@@ -14,7 +14,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { MatchListStatus } from "@/types/matches";
 
-import { MatchStatusTabs } from "./tabs";
+import MatchStatusTabs from "./tabs/MatchStatusTabs";
 
 interface Props {
   status: MatchListStatus;
@@ -25,11 +25,9 @@ const MatchesListingPresentation: React.FC<Props> = ({
   status,
   onStatusChange,
 }) => {
-  const [page, setPage] = useState(1);
   const [search, setSearch] = useState("");
 
   const handleSearchChange = (value: string) => {
-    setPage(1);
     setSearch(value);
   };
 
@@ -97,7 +95,11 @@ const MatchesListingPresentation: React.FC<Props> = ({
           </DropdownMenu>
         </div>
 
-        <MatchStatusTabs activeStatus={status} onChange={onStatusChange} />
+        <MatchStatusTabs
+          activeStatus={status}
+          onChange={onStatusChange}
+          search={search}
+        />
       </div>
     </section>
   );

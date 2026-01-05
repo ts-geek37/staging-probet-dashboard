@@ -3,8 +3,9 @@
 import React from "react";
 
 import { MatchDetailView } from "@/types/matches";
-
 import { useMatchDetail } from "../../hooks";
+import MatchPrediction from "../../components/MatchPrediction";
+import { NoData, SkeletonCardLoader } from "@/components";
 
 interface Props {
   matchId: number;
@@ -13,13 +14,15 @@ interface Props {
 const MatchPredictionsTab: React.FC<Props> = ({ matchId }) => {
   const { data, isLoading } = useMatchDetail(
     matchId,
-    MatchDetailView.PREDICTIONS,
+    MatchDetailView.PREDICTIONS
   );
 
-  if (isLoading) return <p>Loading predictions…</p>;
-  if (!data || !("prediction" in data)) return <p>No predictions available</p>;
+ if (isLoading) return <SkeletonCardLoader />;
+  if (!data || !("prediction" in data)) return <NoData message="Prediction not available" />;
 
-  return <pre>{JSON.stringify(data.prediction, null, 2)}</pre>;
+  const { home_win_probability, draw_probability, away_win_probability } = data.prediction;
+
+  return <MatchPrediction home={home_win_probability} draw={draw_probability} away={away_win_probability} />;
 };
 
 export default MatchPredictionsTab;

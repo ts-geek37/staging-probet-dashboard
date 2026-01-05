@@ -7,17 +7,23 @@ import { MatchListStatus } from "@/types/matches";
 
 import FinishedMatchCard from "../components/FinishedMatchCard";
 import useMatches from "../hooks/useMatches";
+import { NoData } from "@/components";
 
-const FinishedMatches: React.FC = () => {
+interface Props {
+  search?: string;
+}
+
+const FinishedMatches: React.FC<Props> = ({ search }) => {
   const { matches } = useMatches({
     status: MatchListStatus.FINISHED,
     page: 1,
     limit: 6,
+    search,
   });
 
   if (!matches?.length) {
     return (
-      <div className="text-sm text-[#6e7681]">No finished matches found</div>
+     <NoData message="No matches found" />
     );
   }
 
