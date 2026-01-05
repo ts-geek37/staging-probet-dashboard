@@ -46,7 +46,9 @@ const TeamOverviewTab: React.FC<Props> = ({ initialData }) => {
                     {item.value}
                   </p>
                 ) : (
-                  <p className="text-sm sm:text-base font-medium">{item.value}</p>
+                  <p className="text-sm sm:text-base font-medium">
+                    {item.value}
+                  </p>
                 )}
               </div>
             ))}

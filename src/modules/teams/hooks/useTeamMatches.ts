@@ -10,8 +10,25 @@ const useTeamMatches = (teamId: number) => {
     `/api/teams/${teamId}?view=${TeamDetailView.MATCHES}`,
   );
 
+  const matches = response.data?.data?.matches;
+  const upcomingMatches = matches?.upcoming;
+  const recentMatches = matches?.recent;
+
+  const sections = [
+    recentMatches && {
+      key: "recent",
+      title: "Recent Results",
+      matches: recentMatches,
+    },
+    upcomingMatches && {
+      key: "upcoming",
+      title: "Upcoming Fixtures",
+      matches: upcomingMatches,
+    },
+  ];
+
   return {
-    matches: response.data?.data?.matches ?? [],
+    sections,
     isLoading: !response.data && !response.error,
     error: response.error,
   };

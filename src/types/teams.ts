@@ -72,7 +72,7 @@ export interface TeamOverviewResponse extends TeamBase {
 }
 
 export interface TeamMatchesResponse extends TeamBase {
-  matches: TeamMatchSummary[];
+  matches: { recent: TeamMatchSummary[]; upcoming: TeamMatchSummary[] };
 }
 
 export interface TeamSquadResponse extends TeamBase {
@@ -105,11 +105,17 @@ export interface TeamMatchSummary {
   score: string | null;
   competition: string;
 }
+export enum PlayerPosition {
+  Goalkeeper = "Goalkeeper",
+  Defender = "Defender",
+  Midfielder = "Midfielder",
+  Forward = "Forward",
+}
 
 export interface TeamPlayerSummary {
   player_id: number;
   name: string;
-  position: string | null;
+  position: PlayerPosition;
   shirt_number: number | null;
   nationality: string;
   photo: string | null;
