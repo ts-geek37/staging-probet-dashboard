@@ -26,19 +26,21 @@ const Home: React.FC<Props> = ({ initialHome }) => {
   return (
     <>
       <Banner />
-      <VIPBanner />
-      <LiveMatchCard matches={data.live_matches} />
-      <VIPBanner />
-      <UpcomingMatchCards matches={data.upcoming_matches} />
-      <VIPBanner />
-      <TopEuropeanLeaguesPage
-        topLeagues={data.top_leagues}
-        standings={data.league_standings}
-      />
-      <VIPBanner />
-      <PredictionBanner />
-      <VIPBanner />
-      <LatestNews news={data.latest_news} />
+      <div className="max-w-7xl mx-auto px-4">
+        <VIPBanner />
+        <LiveMatchCard matches={data.live_matches} />
+        <VIPBanner />
+        <UpcomingMatchCards matches={data.upcoming_matches} />
+        <VIPBanner />
+        <TopEuropeanLeaguesPage
+          topLeagues={data.top_leagues}
+          standings={data.league_standings}
+        />
+        <VIPBanner />
+        <PredictionBanner />
+        <VIPBanner />
+        <LatestNews news={data.latest_news} />
+      </div>
     </>
   );
 };
