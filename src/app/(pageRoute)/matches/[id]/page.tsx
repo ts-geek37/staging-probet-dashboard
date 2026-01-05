@@ -3,14 +3,12 @@ import { MatchDetailPresentation } from "@/modules/matches";
 import { MatchDetailView } from "@/types/matches";
 
 interface PageProps {
-  params: {
-    id: string;
-  };
+  params: Promise<{ id: string }>;
 }
 
 const MatchDetailPage = async ({ params }: PageProps) => {
   const response = await getMatchDetail({
-    id: params.id,
+    id: (await params).id,
     view: MatchDetailView.OVERVIEW,
   });
 

@@ -24,7 +24,7 @@ const TeamOverviewTab: React.FC<Props> = ({ initialData }) => {
         <Card
           key={section.key}
           className={cn(
-            "bg-slate-800 text-white max-md:gap-4 border-none",
+            "text-white max-md:gap-4 border-none ",
             section.colSpan,
           )}
         >

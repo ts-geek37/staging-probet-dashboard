@@ -29,7 +29,7 @@ const TeamSquadTab = ({ teamId }: { teamId: number }) => {
               <Card
                 key={player.player_id}
                 onClick={() => router.push(`/players/${player.player_id}`)}
-                className="group flex-row p-3 bg-slate-800 w-full border border-transparent transition-colors hover:border-primary-green cursor-pointer"
+                className="group flex-row p-3 w-full border border-transparent transition-colors hover:border-primary-green cursor-pointer"
               >
                 <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary-green/5 text-primary-green font-semibold transition-colors group-hover:bg-primary-green/20">
                   {player.shirt_number ?? "-"}

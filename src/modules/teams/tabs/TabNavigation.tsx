@@ -29,7 +29,7 @@ const TabNavigation: React.FC<TabNavigationProps> = ({
           <Button
             key={tab.value}
             className={cn(
-              "px-2 ms:px-4 py-2 relative transition-all text-xs sm:text-sm md:text-base bg-transparent",
+              "px-2 ms:px-4 py-2 relative transition-all text-xs sm:text-sm bg-transparent",
               isActive ? "text-primary-green" : "text-muted-foreground",
             )}
             onClick={() => onTabChange(tab.value)}

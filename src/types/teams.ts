@@ -88,6 +88,11 @@ export interface TeamStatsResponse extends TeamBase {
     goals_scored: number;
     goals_conceded: number;
     clean_sheets: number;
+    goal_difference: number;
+    possession_percentage: number;
+    pass_accuracy_percentage: number;
+    average_shots: number;
+    performance_index: number;
   };
 }
 

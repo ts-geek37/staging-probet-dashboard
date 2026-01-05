@@ -13,8 +13,8 @@ const TeamMatchesTab = ({ teamId }: { teamId: number }) => {
 
   return (
     <div className="space-y-10">
-      {sections.map((section) => (
-        <div key={section?.key} className="space-y-4">
+      {sections.map((section, index) => (
+        <div key={index} className="space-y-4">
           <h3 className="text-sm font-semibold">{section?.title}</h3>
 
           <div className="space-y-3">
@@ -22,7 +22,7 @@ const TeamMatchesTab = ({ teamId }: { teamId: number }) => {
               <Card
                 key={match.match_id}
                 onClick={() => router.push(`/matches/${match.match_id}`)}
-                className="group flex-row bg-slate-800 items-center justify-between px-4 py-3 border border-transparent transition-colors hover:border-primary-green cursor-pointer"
+                className="group flex-row items-center justify-between px-4 py-3 border border-transparent transition-colors hover:border-primary-green cursor-pointer"
               >
                 <div className="flex items-center gap-4">
                   <div className="flex h-9 w-9 items-center justify-center rounded-full bg-primary-green/5 text-xs text-primary-green/80 transition-colors group-hover:text-primary-green group-hover:bg-primary-green/20 font-semibold">

@@ -22,7 +22,7 @@ const TeamDetailPresentation = ({ teamId, initialData }: Props) => {
     <div className="text-white">
       <TeamHeader team={initialData.data} />
 
-      <div className="w-full max-w-7xl mx-auto flex flex-col gap-6 px-4 xl:px-0 pt-3 lg:pt-6 pb-12">
+      <div className="w-full max-w-7xl mx-auto flex flex-col gap-6 px-4 xl:px-0 pt-3 lg:pt-6 pb-8 md:pb-12">
         <TabNavigation activeTab={activeTab} onTabChange={setActiveTab} />
         <TeamDetailTabs
           activeTab={activeTab}
