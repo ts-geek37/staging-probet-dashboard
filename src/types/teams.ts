@@ -40,6 +40,7 @@ export interface TeamBase {
   name: string;
   logo: string;
   country: string;
+  country_flag: string;
   founded: number | null;
   stadium: {
     name: string | null;
