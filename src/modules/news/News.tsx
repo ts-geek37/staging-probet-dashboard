@@ -1,10 +1,10 @@
 "use client";
 
+import Link from "next/link";
 import React from "react";
 
 import { NewsCard } from "@/components";
 import { footballNewsMock } from "@/mock-data/NewsMockData";
-import Link from "next/link";
 
 const News: React.FC = () => {
   const [mainNews, ...sideNews] = footballNewsMock;

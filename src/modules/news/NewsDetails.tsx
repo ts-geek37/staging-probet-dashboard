@@ -1,8 +1,8 @@
 import React from "react";
 
+import { NoData } from "@/components";
 import NewsCard from "@/components/NewsCard";
 import { footballNewsMock } from "@/mock-data/NewsMockData";
-import { NoData } from "@/components";
 
 interface Props {
   id: number;
