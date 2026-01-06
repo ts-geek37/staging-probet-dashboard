@@ -39,7 +39,7 @@ const SearchBar: React.FC<Props> = ({
           value={searchValue}
           onChange={(e) => setSearchValue(e.target.value)}
           placeholder={placeholder}
-          className="pl-9 text-white"
+          className="pl-9 text-white text-sm"
         />
       </div>
     </div>

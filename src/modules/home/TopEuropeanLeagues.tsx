@@ -20,7 +20,7 @@ const TopEuropeanLeaguesPage: React.FC<Props> = ({ topLeagues, standings }) => {
             <h1 className="text-2xl sm:text-5xl font-bold">
               Top European Leagues
             </h1>
-            <p className="text-sm sm:text-base">
+            <p className="text-xs sm:text-base">
               Browse European football competitions
             </p>
           </div>
