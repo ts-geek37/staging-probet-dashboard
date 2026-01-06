@@ -19,10 +19,10 @@ const LeagueStandingsTable: React.FC<Props> = ({ standings }) => {
   return (
     <div className="rounded-xl border border-[#1D1D1D] overflow-hidden">
       <div className="flex items-center justify-between px-4 py-5 border-b border-white/10">
-        <h3 className="text-white font-semibold">
+        <h3 className="text-white font-semibold text-sm">
           {standings.league.name} Standings
         </h3>
-        <span className="text-sm sm:text-base text-primary-gray cursor-pointer hover:text-white">
+        <span className="text-[12px] sm:text-base text-primary-gray cursor-pointer hover:text-white">
           Full Table &gt;
         </span>
       </div>

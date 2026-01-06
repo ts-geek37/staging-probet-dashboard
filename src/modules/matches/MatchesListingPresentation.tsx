@@ -1,34 +1,91 @@
 "use client";
 
+import { ChevronDown } from "lucide-react";
+import Image from "next/image";
 import React, { useState } from "react";
 
+import { SearchBar } from "@/components";
+import { Button } from "@/components/ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { MatchListStatus } from "@/types/matches";
 
-import { useMatches } from "./hooks";
-import { MatchesListing } from "./listing";
-import { MatchStatusTabs } from "./listing/tabs";
+import MatchStatusTabs from "./tabs/MatchStatusTabs";
 
 const MatchesListingPresentation: React.FC = () => {
   const [status, setStatus] = useState<MatchListStatus>(MatchListStatus.LIVE);
-  const [page, setPage] = useState(1);
+  // const [page, setPage] = useState(1);
+  const [search, setSearch] = useState("");
 
-  const { matches, pagination, isLoading } = useMatches({
-    status,
-    page,
-    limit: 20,
-  });
+  const handleSearchChange = (value: string) => {
+    setSearch(value);
+  };
+
+  const statusOptions: { label: string; value: MatchListStatus }[] = [
+    { label: "Live", value: MatchListStatus.LIVE },
+    { label: "Scheduled", value: MatchListStatus.UPCOMING },
+    { label: "Finished", value: MatchListStatus.FINISHED },
+  ];
+
+  const currentLabel =
+    statusOptions.find((s) => s.value === status)?.label ?? "Live";
 
   return (
-    <section>
-      <h1>Match Center</h1>
+    <section className="pb-10 md:pb-20 text-white space-y-10">
+      <Image
+        src="/adsBg.jpg"
+        alt="Promotion Banner"
+        width={1920}
+        height={360}
+        className="w-full h-20 object-cover"
+        priority
+      />
 
       <MatchStatusTabs activeStatus={status} onChange={setStatus} />
 
-      <MatchesListing matches={matches} isLoading={isLoading} />
+      <div className="flex items-center gap-4 w-full">
+        <div className="flex-1">
+          <SearchBar
+            value={search}
+            onSearchChange={handleSearchChange}
+            placeholder="Search teams or leagues"
+          />
+        </div>
 
-      {pagination?.has_next && (
-        <button onClick={() => setPage((p) => p + 1)}>Load more</button>
-      )}
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button className="bg-primary-green flex items-center gap-2 text-white">
+              {currentLabel}
+              <ChevronDown className="w-4 h-4" />
+            </Button>
+          </DropdownMenuTrigger>
+
+          <DropdownMenuContent
+            align="end"
+            className="bg-gray-800 text-white w-40"
+          >
+            {statusOptions.map((option) => (
+              <DropdownMenuItem
+                key={option.value}
+                onClick={() => setStatus(option.value)}
+                className="cursor-pointer hover:bg-primary-green"
+              >
+                {option.label}
+              </DropdownMenuItem>
+            ))}
+          </DropdownMenuContent>
+        </DropdownMenu>
+      </div>
+
+      <MatchStatusTabs
+        activeStatus={status}
+        onChange={setStatus}
+        search={search}
+      />
     </section>
   );
 };

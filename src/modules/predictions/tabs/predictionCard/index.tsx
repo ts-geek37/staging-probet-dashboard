@@ -1,9 +1,11 @@
 "use client";
 
-import { Card } from "@/components/ui/card";
-import { PredictionCardVariant, PredictionMatchCard } from "@/types/prediction";
 import { useRouter } from "next/navigation";
 import React from "react";
+
+import { Card } from "@/components/ui/card";
+import { PredictionCardVariant, PredictionMatchCard } from "@/types/prediction";
+
 import PredictionBar from "./PredictionBar";
 import TeamsDisplay from "./TeamsDisplay";
 

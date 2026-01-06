@@ -23,7 +23,6 @@ const StatsGrid: React.FC<StatsGridProps> = ({
   variant = "default",
   isLastCentered = false,
 }) => {
-  
   const child = () => (
     <div className={cn("grid gap-4", columns)}>
       {stats.map((stat, index) => {

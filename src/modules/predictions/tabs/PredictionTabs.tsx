@@ -1,5 +1,6 @@
 import { TabList } from "@/components";
 import { PredictionTab } from "@/types/prediction";
+
 import { usePrediction } from "../hooks";
 import PredictionCard from "./predictionCard";
 
@@ -12,24 +13,22 @@ export const MatchDayTabs = [
 const PredictionTabs = () => {
   const { activeTab, onTabChange, matches } = usePrediction();
 
-  const TabContent = () => {
-    return (
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {matches.length > 0 ? (
-          matches?.map((match) => <PredictionCard {...match} />)
-        ) : (
-          <div>No matches found</div>
-        )}
-      </div>
-    );
-  };
-
   return (
     <TabList
       tabs={MatchDayTabs}
       activeTab={activeTab}
       onTabChange={onTabChange}
-      renderContent={<TabContent />}
+      renderContent={
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {matches.length > 0 ? (
+            matches?.map((match, index) => (
+              <PredictionCard key={index} {...match} />
+            ))
+          ) : (
+            <div>No matches found</div>
+          )}
+        </div>
+      }
     />
   );
 };

@@ -188,5 +188,5 @@ export const MOCK_MATCHES: PredictionMatchCard[] = [
       name: "Manchester United",
       logo: "https://upload.wikimedia.org/wikipedia/en/7/7a/Manchester_United_FC_crest.svg",
     },
-  }
+  },
 ];

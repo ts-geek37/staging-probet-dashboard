@@ -29,12 +29,7 @@ const UpcomingMatchCard: React.FC<UpcomingMatchProps> = ({
     year: "numeric",
   });
   return (
-    <Card
-      className={cn(
-        "bg-[#12151C] border border-[#16A085] rounded-none w-full sm:w-80 lg:w-102",
-        className,
-      )}
-    >
+    <Card className="bg-[#12151C] border border-primary-green rounded-none w-full">
       <CardContent className="px-5 space-y-6">
         <div className="flex justify-between items-center text-xs font-semibold text-white">
           <span className="text-white text-lg">{formattedDate}</span>

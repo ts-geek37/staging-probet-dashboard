@@ -1,4 +1,5 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+
 export interface TabConfig<T extends string> {
   value: T;
   label: string;

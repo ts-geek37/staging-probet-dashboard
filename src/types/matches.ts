@@ -1,7 +1,6 @@
 export enum MatchListStatus {
   LIVE = "live",
-  UPCOMING = "upcoming",
-  TOMORROW = "tomorrow",
+  UPCOMING = "scheduled",
   FINISHED = "finished",
 }
 

@@ -3,6 +3,7 @@
 import { Ads } from "@/components";
 import { Card } from "@/components/ui/card";
 import LeagueBanner from "@/modules/leagues/LeagueBanner";
+
 import { usePrediction } from "./hooks";
 import { PredictionTabs } from "./tabs";
 

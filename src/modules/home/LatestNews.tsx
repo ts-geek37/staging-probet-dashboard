@@ -23,12 +23,12 @@ const LatestNews: React.FC<Props> = ({ news }) => {
   const [mainNews, ...sideNews] = news;
 
   return (
-    <section className="px-4 sm:px-6 py-10 md:py-20 text-white">
-      <div className="max-w-7xl mx-auto space-y-10">
+    <section className="py-10 md:py-20 text-white">
+      <div className="space-y-10">
         <div className="flex items-end justify-between gap-6">
           <div className="space-y-2">
-            <h2 className="text-2xl sm:text-5xl font-bold">Latest News</h2>
-            <p className="text-sm sm:text-base text-white">
+            <h2 className="text-xl sm:text-5xl font-bold">Latest News</h2>
+            <p className="text-xs sm:text-base text-white">
               Stay updated with football stories
             </p>
           </div>

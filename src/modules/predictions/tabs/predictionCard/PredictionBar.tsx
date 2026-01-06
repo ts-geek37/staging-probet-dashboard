@@ -1,7 +1,8 @@
-import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
 import { LockKeyhole } from "lucide-react";
 import React from "react";
+
+import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
 interface PredictionBarProps {
   prediction: number;
@@ -27,7 +28,7 @@ const PredictionBar: React.FC<PredictionBarProps> = ({
           </Button>
         </div>
       )}
-      <div className={cn("mt-auto ",isLocked ? "blur-sm" : undefined)}>
+      <div className={cn("mt-auto ", isLocked ? "blur-sm" : undefined)}>
         <div className="w-full bg-muted h-2 rounded-full overflow-hidden">
           <div
             className="h-full bg-primary-green transition-all duration-300"

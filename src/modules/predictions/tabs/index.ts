@@ -1,1 +1,1 @@
-export {default as PredictionTabs} from "./PredictionTabs";
+export { default as PredictionTabs } from "./PredictionTabs";

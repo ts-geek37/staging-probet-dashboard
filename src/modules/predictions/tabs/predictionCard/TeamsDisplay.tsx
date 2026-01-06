@@ -1,6 +1,7 @@
-import { PredictionMatchCard } from "@/types/prediction";
 import Image from "next/image";
 import React from "react";
+
+import { PredictionMatchCard } from "@/types/prediction";
 
 interface TeamsDisplayProps {
   match: PredictionMatchCard;
@@ -9,17 +10,13 @@ interface TeamsDisplayProps {
 
 const TeamsDisplay: React.FC<TeamsDisplayProps> = ({ match, layout }) => {
   const hasScore =
-    match.home_team.score !== undefined &&
-    match.away_team.score !== undefined;
+    match.home_team.score !== undefined && match.away_team.score !== undefined;
 
   if (layout === "stacked") {
     return (
       <div className="space-y-2">
         {[match.home_team, match.away_team].map((team) => (
-          <div
-            key={team.name}
-            className="flex items-center justify-between"
-          >
+          <div key={team.name} className="flex items-center justify-between">
             <div className="flex items-center gap-2 flex-1 min-w-0">
               <Image
                 src={team.logo}
@@ -34,9 +31,7 @@ const TeamsDisplay: React.FC<TeamsDisplayProps> = ({ match, layout }) => {
             </div>
 
             {team.score !== undefined && (
-              <span className="text-sm font-bold">
-                {team.score}
-              </span>
+              <span className="text-sm font-bold">{team.score}</span>
             )}
           </div>
         ))}

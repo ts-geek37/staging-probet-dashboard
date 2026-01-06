@@ -1,6 +1,7 @@
+import { useMemo, useState } from "react";
+
 import { MOCK_MATCHES } from "@/mock-data/prediction";
 import { PredictionCardVariant, PredictionTab } from "@/types/prediction";
-import { useMemo, useState } from "react";
 
 const usePrediction = () => {
   const [activeTab, setActiveTab] = useState<PredictionTab>(
@@ -37,6 +38,7 @@ const usePrediction = () => {
       (match) => match.status === activeTab,
     ).map((match, index) => ({
       match,
+      // eslint-disable-next-line react-hooks/purity
       prediction: Math.floor(Math.random() * 100),
       variant: index !== 0 ? "vip" : ("prediction" as PredictionCardVariant),
     }));

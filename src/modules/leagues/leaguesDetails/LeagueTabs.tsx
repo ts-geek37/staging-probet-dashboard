@@ -3,6 +3,7 @@ import { useState } from "react";
 import { ApiResponse } from "@/api/types";
 import { TabList } from "@/components";
 import { LeagueResponse, LeagueView } from "@/types/leagues";
+
 import { LeaguesTabs } from "../constant";
 import LeagueTab from "../leageTabs";
 
