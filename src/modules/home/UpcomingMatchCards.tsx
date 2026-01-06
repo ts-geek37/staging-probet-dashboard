@@ -16,7 +16,7 @@ const UpcomingMatchCards: React.FC<Props> = ({ matches }) => {
       <div className="space-y-10">
         <div className="flex items-end justify-between gap-6">
           <div className="space-y-2">
-            <h1 className="text-2xl sm:text-5xl font-bold">Upcoming Matches</h1>
+            <h1 className="text-xl sm:text-5xl font-bold">Upcoming Matches</h1>
           </div>
 
           <Link
@@ -35,7 +35,7 @@ const UpcomingMatchCards: React.FC<Props> = ({ matches }) => {
               <Link
                 key={match.id}
                 href={`/matches/${match.id}`}
-                className="block"
+                className="block w-full sm:w-80 lg:w-100"
               >
                 <UpcomingMatchCard
                   key={match.id}

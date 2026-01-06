@@ -1,6 +1,10 @@
 "use client";
 
+import React from "react";
+
 import { usePlayerMatches } from "../hooks";
+import { NoData, SkeletonCardLoader } from "@/components";
+import { PlayerMatchCard } from "../components";
 
 interface Props {
   playerId: number;
@@ -9,18 +13,21 @@ interface Props {
 const PlayerMatchesTab: React.FC<Props> = ({ playerId }) => {
   const { matches, isLoading } = usePlayerMatches(playerId);
 
-  if (isLoading) return null;
+  if (isLoading) return <SkeletonCardLoader />;
+
+  if (!matches) return <NoData message="No matches history" />;
 
   return (
-    <div>
+    <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
       {matches.map((match) => (
-        <div key={match.match_id}>
-          <p>{match.competition}</p>
-          <p>Opponent: {match.opponent}</p>
-          <p>Minutes: {match.minutes_played ?? "N/A"}</p>
-          <p>Goals: {match.goals ?? 0}</p>
-          <p>Assists: {match.assists ?? 0}</p>
-        </div>
+        <PlayerMatchCard
+          key={match.match_id}
+          competition={match.competition}
+          opponent={match.opponent}
+          minutes_played={match.minutes_played}
+          goals={match.goals}
+          assists={match.assists}
+        />
       ))}
     </div>
   );

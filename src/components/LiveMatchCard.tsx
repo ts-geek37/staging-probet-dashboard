@@ -26,7 +26,7 @@ const LiveMatchCard: React.FC<MatchProps> = ({
   leagueLogo,
 }) => {
   return (
-    <Card className="bg-[#0b1619] border border-primary-green rounded-none w-full sm:w-80 lg:w-100 overflow-hidden">
+    <Card className="bg-[#0b1619] border border-primary-green rounded-none w-full overflow-hidden">
       <CardContent className=" space-y-6">
         <div className="flex justify-between items-center">
           {leagueName && (

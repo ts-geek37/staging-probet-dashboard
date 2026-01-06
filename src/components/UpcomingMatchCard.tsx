@@ -21,7 +21,7 @@ const UpcomingMatchCard: React.FC<UpcomingMatchProps> = ({
   teamBLogo,
 }) => {
   return (
-    <Card className="bg-[#12151C] border border-primary-green rounded-none w-full  sm:w-80 lg:w-100">
+    <Card className="bg-[#12151C] border border-primary-green rounded-none w-full">
       <CardContent className="px-5 space-y-6">
         <div className="flex justify-between items-center text-xs font-semibold text-white">
           <span className="text-white text-lg">{date}</span>
