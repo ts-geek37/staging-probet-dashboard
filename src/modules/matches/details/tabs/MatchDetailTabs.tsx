@@ -2,6 +2,7 @@
 
 import React from "react";
 
+import TabNavigation from "@/components/TabNavigation";
 import { MatchDetailView } from "@/types/matches";
 
 import MatchEventsTab from "./MatchEventsTab";
@@ -9,7 +10,6 @@ import MatchLineupsTab from "./MatchLineupsTab";
 import MatchOverviewTab from "./MatchOverviewTab";
 import MatchPredictionsTab from "./MatchPredictionsTab";
 import MatchStatsTab from "./MatchStatsTab";
-import TabNavigation from "@/components/TabNavigation";
 
 interface Props {
   matchId: number;

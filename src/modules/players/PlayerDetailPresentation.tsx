@@ -3,12 +3,12 @@
 import React, { useState } from "react";
 
 import { ApiResponse } from "@/api/types";
+import { NoData } from "@/components";
 import TabNavigation from "@/components/TabNavigation";
 import { PlayerDetailView, PlayerOverviewResponse } from "@/types/players";
 
 import PlayerHeader from "./PlayerHeader";
 import { PlayerDetailTabs } from "./tabs";
-import { NoData } from "@/components";
 
 export const playerTabs = [
   { label: "Profile", value: PlayerDetailView.OVERVIEW },

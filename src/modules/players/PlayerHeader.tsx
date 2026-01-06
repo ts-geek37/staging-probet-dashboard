@@ -1,10 +1,11 @@
 "use client";
 
-import React from "react";
 import Image from "next/image";
+import React from "react";
+
 import { NoData } from "@/components";
-import { PlayerOverviewResponse } from "@/types/players";
 import { Badge } from "@/components/ui/badge";
+import { PlayerOverviewResponse } from "@/types/players";
 
 interface Props {
   player: PlayerOverviewResponse;

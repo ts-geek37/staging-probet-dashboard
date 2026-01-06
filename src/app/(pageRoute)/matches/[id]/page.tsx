@@ -7,8 +7,6 @@ interface PageProps {
 }
 
 const MatchDetailPage = async ({ params }: PageProps) => {
-  const resolvedParams = await params;
-
   const response = await getMatchDetail({
     id: (await params).id,
     view: MatchDetailView.OVERVIEW,

@@ -1,14 +1,13 @@
 "use client";
 
-import React from "react";
-
 import { Calendar, Footprints, Ruler, Scale } from "lucide-react";
+import Image from "next/image";
+import React from "react";
 
 import { ApiResponse } from "@/api/types";
 import { PlayerOverviewResponse } from "@/types/players";
 
 import { OverviewCard } from "../components";
-
 import { usePlayerOverview } from "../hooks";
 
 interface Props {
@@ -81,10 +80,12 @@ const PlayerOverviewTab: React.FC<Props> = ({ initialData }) => {
       <OverviewCard title="Current Team">
         <div className="flex items-center gap-4">
           <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-white/5">
-            <img
+            <Image
               src="/football.png"
               alt={player.team.name}
-              className="h-9 w-9"
+              width={36}
+              height={36}
+              className="h-9 w-9 object-contain"
             />
           </div>
 

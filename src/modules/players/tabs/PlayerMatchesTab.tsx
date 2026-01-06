@@ -2,9 +2,10 @@
 
 import React from "react";
 
-import { usePlayerMatches } from "../hooks";
 import { NoData, SkeletonCardLoader } from "@/components";
+
 import { PlayerMatchCard } from "../components";
+import { usePlayerMatches } from "../hooks";
 
 interface Props {
   playerId: number;

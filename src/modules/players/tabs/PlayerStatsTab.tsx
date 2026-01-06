@@ -1,10 +1,12 @@
 "use client";
 
 import React from "react";
-import { SeasonHistoryTable, PlayerStatsCard } from "../components";
-import { usePlayerStats } from "../hooks";
+
 import { SkeletonCardLoader, NoData } from "@/components";
 import type { PlayerStatsResponse } from "@/types/players";
+
+import { SeasonHistoryTable, PlayerStatsCard } from "../components";
+import { usePlayerStats } from "../hooks";
 
 interface Props {
   playerId: number;
