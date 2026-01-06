@@ -3,7 +3,6 @@
 import { ApiResponse } from "@/api/types";
 import { LeagueResponse } from "@/types/leagues";
 
-import { LeaguesProvider } from "../provider";
 import LeagueOverView from "./LeagueOverView";
 import TabList from "./TabList";
 
@@ -12,13 +11,13 @@ interface Props {
 }
 const LeaguesDetails: React.FC<Props> = ({ initialLeagues }) => {
   const league = initialLeagues?.data?.league;
+  const leagueId = league?.id;
+
   return (
-    <LeaguesProvider initialLeague={initialLeagues}>
-      <div className="flex-1 flex flex-col gap-8 max-w-7xl mx-auto w-full px-4 py-8">
-        {league && <LeagueOverView league={league} />}
-        <TabList />
-      </div>
-    </LeaguesProvider>
+    <div className="flex-1 flex flex-col gap-8 max-w-7xl mx-auto w-full px-4 py-12  ">
+      {league && <LeagueOverView league={league} />}
+      {leagueId && <TabList initialLeagues={initialLeagues} />}
+    </div>
   );
 };
 

@@ -1,11 +1,17 @@
 import Image from "next/image";
 import React from "react";
 
+import { useLeagueStandings } from "../hooks";
 import LeagueBanner from "../LeagueBanner";
-import { useLeague } from "../provider";
 
-const Standings: React.FC = () => {
-  const { data } = useLeague();
+interface Props {
+  id: number;
+}
+
+const Standings: React.FC<Props> = ({ id }) => {
+  const { standings } = useLeagueStandings(id);
+
+  const data = { standings };
   return (
     <div className="flex-1 text-white flex flex-col gap-12">
       <div className="flex flex-col gap-6">
