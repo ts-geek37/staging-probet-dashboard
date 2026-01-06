@@ -2,6 +2,7 @@ import Image from "next/image";
 import React from "react";
 
 import { Card, CardContent } from "@/components/ui/card";
+import { cn } from "@/lib/utils";
 
 export interface UpcomingMatchProps {
   date: string;
@@ -10,6 +11,7 @@ export interface UpcomingMatchProps {
   teamB: string;
   teamALogo?: string;
   teamBLogo?: string;
+  className?: string;
 }
 
 const UpcomingMatchCard: React.FC<UpcomingMatchProps> = ({
@@ -19,12 +21,18 @@ const UpcomingMatchCard: React.FC<UpcomingMatchProps> = ({
   teamB,
   teamALogo,
   teamBLogo,
+  className,
 }) => {
+  const formattedDate = new Date(date).toLocaleDateString("en-US", {
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+  });
   return (
-    <Card className="bg-[#12151C] border border-primary-green rounded-none w-full  sm:w-80 lg:w-100">
+    <Card className="bg-[#12151C] border border-primary-green rounded-none w-full">
       <CardContent className="px-5 space-y-6">
         <div className="flex justify-between items-center text-xs font-semibold text-white">
-          <span className="text-white text-lg">{date}</span>
+          <span className="text-white text-lg">{formattedDate}</span>
           <span className="text-white text-lg">{time}</span>
         </div>
 

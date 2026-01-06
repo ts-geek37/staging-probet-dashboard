@@ -15,10 +15,10 @@ const LiveMatchCards: React.FC<Props> = ({ matches }) => {
       <div className="space-y-10">
         <div className="flex items-end justify-between gap-6">
           <div className="space-y-2">
-            <h1 className="text-2xl sm:text-5xl font-bold">
+            <h1 className="text-xl sm:text-5xl font-bold">
               Today&apos;s Matches
             </h1>
-            <p className="text-sm sm:text-base">Live and upcoming fixtures</p>
+            <p className="text-xs sm:text-base">Live and upcoming fixtures</p>
           </div>
 
           <Link href="/matches" className="text-primary-gray hover:text-white">
@@ -34,7 +34,7 @@ const LiveMatchCards: React.FC<Props> = ({ matches }) => {
               <Link
                 key={match.id}
                 href={`/matches/${match.id}`}
-                className="block"
+                className="block w-full sm:w-80 lg:w-100"
               >
                 <LiveMatchCard
                   key={match.id}

@@ -34,7 +34,7 @@ const MatchHeader: React.FC<Props> = ({ match }) => {
             </span>
           </div>
           <div className="flex flex-col items-center mx-12">
-            <div className="text-3xl sm:text-6xl font-bold tracking-tighter mb-2">
+            <div className="text-2xl min-[350px]:text-4xl md:text-6xl font-bold tracking-tighter mb-2">
               {match.score.home} - {match.score.away}
             </div>
             <p className="text-sm font-semibold text-gray-400">

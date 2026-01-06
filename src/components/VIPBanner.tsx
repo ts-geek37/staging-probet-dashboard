@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 const VipBanner: React.FC = () => {
   return (
     <section>
-      <div className="relative mx-auto flex h-30 sm:h-40 max-w-7xl items-center justify-between overflow-hidden bg-linear-to-r from-[#0b1c1a] via-[#0f2f2a] to-[#0b1c1a] px-6 md:px-10">
+      <div className="relative mx-auto flex max-sm:flex-col min-h-35 p-3 max-w-7xl items-center justify-between overflow-hidden bg-linear-to-r from-[#0b1c1a] via-[#0f2f2a] to-[#0b1c1a] px-6 md:px-10">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(34,197,94,0.25),transparent_40%)]" />
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_right,rgba(234,179,8,0.2),transparent_45%)]" />
 
@@ -26,11 +26,11 @@ const VipBanner: React.FC = () => {
           </p>
         </div>
 
-        <div className="relative z-10">
-          <Link href="/price">
+        <div className="relative z-10 max-sm:w-full">
+          <Link href="/price" className="w-full">
             <Button
               variant="secondary"
-              className="rounded-full px-6 py-5 text-sm font-semibold md:text-base"
+              className="rounded-full max-sm:w-full px-6 py-5 text-sm font-semibold md:text-base"
             >
               View Plans
             </Button>

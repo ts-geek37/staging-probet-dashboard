@@ -1,31 +1,22 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
+import { ApiResponse } from "@/api/types";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { LeagueView } from "@/types/leagues";
+import { LeagueResponse, LeagueView } from "@/types/leagues";
 
 import { LeagueTabs } from "../constant";
-import { useLeagueFetch } from "../hooks";
 import LeagueTab from "../leageTabs";
-import { useLeague } from "../provider";
 
-const TabList: React.FC = () => {
+interface Props {
+  initialLeagues: ApiResponse<LeagueResponse>;
+}
+
+const TabList: React.FC<Props> = ({ initialLeagues }) => {
   const [activeTab, setActiveTab] = useState<LeagueView>(LeagueView.OVERVIEW);
-  const { data: league, setLeague } = useLeague();
-  const { data } = useLeagueFetch({
-    id: String(league?.league?.id ?? ""),
-    view: activeTab,
-  });
-
-  useEffect(() => {
-    if (data) {
-      setLeague(data);
-    }
-  }, [data, setLeague]);
 
   const handleTabChange = (value: string) => {
     setActiveTab(value as LeagueView);
   };
-
   return (
     <Tabs value={activeTab} onValueChange={handleTabChange} className="w-full">
       <TabsList className="bg-transparent flex gap-2 overflow-x-auto whitespace-nowrap rounded-none justify-start h-auto p-0 flex-wrap">
@@ -41,7 +32,7 @@ const TabList: React.FC = () => {
       </TabsList>
 
       <TabsContent value={activeTab} className="mt-6">
-        <LeagueTab tab={activeTab} />
+        <LeagueTab tab={activeTab} initialLeagues={initialLeagues} />
       </TabsContent>
     </Tabs>
   );
