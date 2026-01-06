@@ -35,7 +35,7 @@ const UpcomingMatchCards: React.FC<Props> = ({ matches }) => {
               <Link
                 key={match.id}
                 href={`/matches/${match.id}`}
-                className="block"
+                className="block w-full sm:w-80 lg:w-100"
               >
                 <UpcomingMatchCard
                   key={match.id}
