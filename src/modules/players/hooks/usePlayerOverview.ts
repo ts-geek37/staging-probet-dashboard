@@ -4,6 +4,7 @@ import useSWR from "swr";
 
 import { ApiResponse } from "@/api/types";
 import { PlayerDetailView, PlayerOverviewResponse } from "@/types/players";
+import { getFlagUrlByName } from "@/utils/countryFlag";
 
 const usePlayerOverview = (
   playerId: number,
@@ -16,9 +17,11 @@ const usePlayerOverview = (
       revalidateOnMount: false,
     },
   );
+  const data = response?.data?.data
+  const player = data ? { ...data, country_flag: getFlagUrlByName(data.nationality) } : null
 
   return {
-    player: response.data?.data ?? null,
+    player,
     isLoading: !response.data && !response.error,
     error: response.error,
   };
