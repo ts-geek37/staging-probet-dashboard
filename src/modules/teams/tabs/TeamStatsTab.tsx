@@ -1,21 +1,28 @@
 "use client";
 
 import { useTeamStats } from "../hooks";
+import StatsGrid from "../StatsGrid";
 
 const TeamStatsTab = ({ teamId }: { teamId: number }) => {
-  const { stats, isLoading } = useTeamStats(teamId);
-
-  if (isLoading || !stats) return null;
+  const { overviewStats, goalStats, performanceStats } = useTeamStats(teamId);
 
   return (
-    <div>
-      <p>Matches played: {stats.stats.matches_played}</p>
-      <p>Wins: {stats.stats.wins}</p>
-      <p>Draws: {stats.stats.draws}</p>
-      <p>Losses: {stats.stats.losses}</p>
-      <p>Goals scored: {stats.stats.goals_scored}</p>
-      <p>Goals conceded: {stats.stats.goals_conceded}</p>
-      <p>Clean sheets: {stats.stats.clean_sheets}</p>
+    <div className="flex flex-col gap-4">
+      <StatsGrid stats={overviewStats} />
+
+      <StatsGrid
+        title="Goals"
+        stats={goalStats}
+        columns="grid-cols-1 sm:grid-cols-2 lg:grid-cols-3"
+        variant="nested"
+        isLastCentered
+      />
+
+      <StatsGrid
+        title="Performance"
+        stats={performanceStats}
+        variant="nested"
+      />
     </div>
   );
 };

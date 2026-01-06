@@ -6,9 +6,7 @@ import { MatchDetailView } from "@/types/matches";
 import { seo } from "@/utils/seo";
 
 interface PageProps {
-  params: Promise<{
-    id: string;
-  }>;
+  params: Promise<{ id: string }>;
 }
 
 export const generateMetadata = async ({
@@ -47,9 +45,8 @@ export const generateMetadata = async ({
 };
 
 const MatchDetailPage = async ({ params }: PageProps) => {
-  const { id } = await params;
   const response = await getMatchDetail({
-    id,
+    id: (await params).id,
     view: MatchDetailView.OVERVIEW,
   });
 

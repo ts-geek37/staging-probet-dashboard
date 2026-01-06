@@ -3,25 +3,52 @@
 import useSWR from "swr";
 
 import { ApiResponse } from "@/api/types";
-import { PlayerListResponse } from "@/types/players";
+import {
+  PlayerPosition,
+  TeamDetailView,
+  TeamPlayerSummary,
+  TeamSquadResponse,
+} from "@/types/teams";
+import { getFlagUrlByName } from "@/utils/countryFlag";
 
-const useTeamPlayers = (
-  teamId: number,
-  page = 1,
-  limit = 50,
-  initialData?: ApiResponse<PlayerListResponse>,
-) => {
-  const response = useSWR<ApiResponse<PlayerListResponse>>(
-    `/api/players?teamId=${teamId}&page=${page}&limit=${limit}`,
-    {
-      fallbackData: initialData,
-      revalidateOnMount: false,
-    },
+type playerWithFlag = TeamPlayerSummary & { flagUrl: string };
+interface SquadSection {
+  key: PlayerPosition;
+  label: string;
+  players: playerWithFlag[];
+}
+
+const useTeamPlayers = (teamId: number) => {
+  const response = useSWR<ApiResponse<TeamSquadResponse>>(
+    `/api/teams/${teamId}?view=${TeamDetailView.SQUAD}`,
   );
+  const squad = response.data?.data?.squad ?? [];
+  const sections: SquadSection[] = squad.reduce((acc, player) => {
+    if (!player?.position) return acc;
+
+    const existingSection = acc.find(
+      (section) => section.key === player.position,
+    );
+    const country = player?.nationality;
+    const flagUrl = getFlagUrlByName(country);
+    const playerWithFlag = { ...player, flagUrl };
+
+    if (existingSection) {
+      existingSection.players.push(playerWithFlag);
+    } else {
+      acc.push({
+        key: player.position,
+        label: player.position,
+        players: [playerWithFlag],
+      });
+    }
+
+    return acc;
+  }, [] as SquadSection[]);
 
   return {
-    players: response.data?.data?.data ?? [],
-    pagination: response.data?.data?.pagination,
+    sections,
+    players: squad,
     isLoading: !response.data && !response.error,
     error: response.error,
   };
