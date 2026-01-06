@@ -19,20 +19,20 @@ const LeagueCard: React.FC<LeagueCardProps> = ({ league, onClick }) => {
         <div className="flex items-start justify-between">
           <div className="flex items-center gap-3">
             <Image
-              src={league.logo}
-              alt={league.name}
+              src={league?.logo || "/no-image.png"}
+              alt={league?.name}
               width={1000}
               height={150}
               className=" size-10 object-cover"
             />
             <div>
               <h3 className="text-white group-hover:text-primary-green font-medium text-base">
-                {league.name}
+                {league?.name}
               </h3>
               <div className="flex items-center gap-1.5 mt-1">
                 <Image
-                  src={league.country_flag}
-                  alt={league.country}
+                  src={league?.country_flag || "/no-image.png"}
+                  alt={league?.country || ""}
                   width={20}
                   height={20}
                   className="size-5 object-cover"

@@ -1,6 +1,6 @@
 import { LeagueView } from "@/types/leagues";
 
-export const LeagueTabs = [
+export const LeaguesTabs = [
   { value: LeagueView.OVERVIEW, label: "Overview" },
   { value: LeagueView.STANDINGS, label: "Standings" },
   { value: LeagueView.MATCHES, label: "Matches" },
