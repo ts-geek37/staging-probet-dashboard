@@ -53,59 +53,58 @@ const Stats: React.FC<Props> = ({ id }) => {
         />
       </div>
 
-      <div className="grid gap-8 md:gap-12 lg:gap-16 md:grid-cols-[2fr_3fr]">
+      <div className="grid gap-8 md:gap-12 lg:gap-16 md:grid-cols-[2fr_1fr]">
         <div className="flex flex-col gap-4">
-          <h3 className="text-lg font-semibold">Top Scorers</h3>
-          <div className="flex flex-col gap-4">
-            {isLoading
-              ? Array.from({ length: 3 }).map((_, index) => (
-                  <div
-                    key={index}
-                    className="flex items-center justify-between rounded-lg bg-slate-800 px-4 py-3"
-                  >
-                    <div className="flex items-center gap-3">
-                      <Skeleton className="h-8 w-8 rounded-full" />
-                      <div className="flex flex-col gap-2">
-                        <Skeleton className="h-4 w-32" />
-                        <Skeleton className="h-3 w-20" />
-                      </div>
-                    </div>
-                    <Skeleton className="h-6 w-10 rounded-full" />
-                  </div>
-                ))
-              : stats?.top_scorers.map((scorer, index) => (
-                  <div
-                    key={index}
-                    className="flex items-center justify-between rounded-lg bg-slate-800 px-4 py-3"
-                  >
-                    <div className="flex items-center gap-3">
-                      <Image
-                        src={scorer.team_logo_url}
-                        alt={scorer.team}
-                        width={32}
-                        height={32}
-                        className="rounded-full"
-                      />
-                      <div className="flex flex-col">
-                        <span className="text-lg font-medium text-white">
-                          {scorer.name}
-                        </span>
-                        <span className="text-xs text-gray-400">
-                          {scorer.team}
-                        </span>
-                      </div>
-                    </div>
-                    <Badge className="bg-primary-green/20 px-3 py-1 text-sm font-semibold text-primary-green hover:bg-primary-green/20">
-                      {scorer.goals}
-                    </Badge>
-                  </div>
-                ))}
+          <h3 className="text-lg font-semibold">Scoring Statistics</h3>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <Card className="bg-slate-800 p-4 border-none flex justify-between items-center">
+              <span className="text-gray-400">Home Goals %</span>
+              <span className="text-xl font-bold text-primary-green">
+                {stats?.scoring?.home_goals_percentage ?? 0}%
+              </span>
+            </Card>
+            <Card className="bg-slate-800 p-4 border-none flex justify-between items-center">
+              <span className="text-gray-400">Away Goals %</span>
+              <span className="text-xl font-bold text-primary-green">
+                {stats?.scoring?.away_goals_percentage ?? 0}%
+              </span>
+            </Card>
+            <Card className="bg-slate-800 p-4 border-none flex justify-between items-center">
+              <span className="text-gray-400">Over 2.5 %</span>
+              <span className="text-xl font-bold text-primary-green">
+                {stats?.scoring?.over_25_percentage ?? 0}%
+              </span>
+            </Card>
+            <Card className="bg-slate-800 p-4 border-none flex justify-between items-center">
+              <span className="text-gray-400">Under 2.5 %</span>
+              <span className="text-xl font-bold text-primary-green">
+                {stats?.scoring?.under_25_percentage ?? 0}%
+              </span>
+            </Card>
           </div>
         </div>
 
-        <div className="space-y-4">
-          <LeagueBanner banner="betting" />
+        <div className="flex flex-col gap-4">
+          <h3 className="text-lg font-semibold">Discipline</h3>
+          <div className="grid grid-cols-1 gap-4">
+            <Card className="bg-slate-800 p-4 border-none flex justify-between items-center">
+              <span className="text-gray-400">Avg Yellow Cards</span>
+              <span className="text-xl font-bold text-yellow-500">
+                {stats?.discipline?.average_yellow_cards ?? 0}
+              </span>
+            </Card>
+            <Card className="bg-slate-800 p-4 border-none flex justify-between items-center">
+              <span className="text-gray-400">Avg Red Cards</span>
+              <span className="text-xl font-bold text-red-500">
+                {stats?.discipline?.average_red_cards ?? 0}
+              </span>
+            </Card>
+          </div>
         </div>
+      </div>
+
+      <div className="space-y-4">
+        <LeagueBanner banner="betting" />
       </div>
     </div>
   );

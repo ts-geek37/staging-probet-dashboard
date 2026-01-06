@@ -14,19 +14,19 @@ const Matches: React.FC<Props> = ({ id }) => {
 
   return (
     <div className="flex-1 text-white flex flex-col gap-12">
-      {upcomingMatches && (
+      {upcomingMatches.length > 0 && (
         <MatchListing
           title="Upcoming Matches"
           matches={upcomingMatches}
-          mode="recent"
+          mode="upcoming"
         />
       )}
       <LeagueBanner banner="betting" />
-      {recentMatches && (
+      {recentMatches.length > 0 && (
         <MatchListing
           title="Recent Matches"
           matches={recentMatches}
-          mode="upcoming"
+          mode="recent"
         />
       )}
     </div>

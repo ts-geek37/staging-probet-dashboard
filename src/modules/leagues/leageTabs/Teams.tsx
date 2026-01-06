@@ -1,3 +1,4 @@
+/*
 import Image from "next/image";
 import React from "react";
 
@@ -53,4 +54,7 @@ const Teams: React.FC<Props> = ({ id }) => {
   );
 };
 
+export default Teams;
+*/
+const Teams = () => null;
 export default Teams;

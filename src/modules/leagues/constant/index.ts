@@ -4,8 +4,7 @@ export const LeagueTabs = [
   { value: LeagueView.OVERVIEW, label: "Overview" },
   { value: LeagueView.STANDINGS, label: "Standings" },
   { value: LeagueView.MATCHES, label: "Matches" },
-  { value: LeagueView.TEAMS, label: "Teams" },
-  { value: LeagueView.STATS, label: "Stats" },
+  { value: LeagueView.STATISTICS, label: "Stats" },
 ];
 type LeagueStatsKey =
   | "total_teams"

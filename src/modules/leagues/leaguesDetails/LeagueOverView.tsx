@@ -1,13 +1,13 @@
 import Image from "next/image";
 import React from "react";
 
-import { LeagueHeader } from "@/types/leagues";
+import { LeagueProfileResponse } from "@/types/leagues";
 
 interface Props {
-  league: LeagueHeader;
+  league: LeagueProfileResponse;
 }
 const LeagueOverView: React.FC<Props> = ({ league }) => {
-  const { logo, name, country, country_flag, season } = league ?? {};
+  const { logo, name, country, current_season } = league ?? {};
   return (
     <div className="flex items-center gap-4">
       <Image
@@ -21,14 +21,14 @@ const LeagueOverView: React.FC<Props> = ({ league }) => {
         <h1 className="text-3xl text-white font-bold">{name}</h1>
         <div className="flex items-center gap-2 mt-1">
           <Image
-            src={country_flag || "/league/banner.png"}
-            alt={country || "League Banner"}
+            src={country?.flag || "/league/banner.png"}
+            alt={country?.name || "League Banner"}
             width={20}
             height={15}
             className="rounded"
           />
-          <span className="text-gray-400">{country}</span>
-          <span className="text-gray-400">• {season}</span>
+          <span className="text-gray-400">{country?.name}</span>
+          <span className="text-gray-400">• {current_season?.name}</span>
         </div>
       </div>
     </div>

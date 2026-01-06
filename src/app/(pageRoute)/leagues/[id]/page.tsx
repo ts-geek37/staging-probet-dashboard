@@ -33,8 +33,8 @@ export const generateMetadata = async ({
     }
 
     return seo({
-      title: league?.league?.name || "League",
-      description: league?.overview?.description,
+      title: league?.name || "League",
+      description: `${league.name} football competition in ${league.country.name}. Get season information, standings, and key details on ProBets.`,
     });
   } catch {
     return seo({

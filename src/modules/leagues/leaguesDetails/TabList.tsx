@@ -2,13 +2,17 @@ import { useState } from "react";
 
 import { ApiResponse } from "@/api/types";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { LeagueResponse, LeagueView } from "@/types/leagues";
+import {
+  LeagueProfileResponse,
+  LeagueResponse,
+  LeagueView,
+} from "@/types/leagues";
 
 import { LeagueTabs } from "../constant";
 import LeagueTab from "../leageTabs";
 
 interface Props {
-  initialLeagues: ApiResponse<LeagueResponse>;
+  initialLeagues: ApiResponse<LeagueProfileResponse>;
 }
 
 const TabList: React.FC<Props> = ({ initialLeagues }) => {

@@ -1,26 +1,31 @@
 "use client";
-
 import useSWR from "swr";
 
-import { ApiResponse } from "@/api/types";
-import { LeagueResponse, LeagueView } from "@/types/leagues";
+import { getLeagueDetail } from "@/api/leagues";
+import { LeagueView } from "@/types/leagues";
 
 const useLeagueMatches = (leagueId: number) => {
-  const response = useSWR<ApiResponse<LeagueResponse>>(
-    `/api/leagues/${leagueId}?view=${LeagueView.MATCHES}`,
+  const response = useSWR(
+    leagueId ? [leagueId, LeagueView.MATCHES] : null,
+    () => getLeagueDetail({ id: leagueId, view: LeagueView.MATCHES }),
   );
-  const leagueName = response.data?.data?.league?.name;
-  const recentMatches =
-    response.data?.data?.matches?.recent?.map((match) => ({
-      ...match,
-      leagueName,
-    })) ?? [];
 
-  const upcomingMatches =
-    response.data?.data?.matches?.upcoming?.map((match) => ({
+  const leagueName = response.data?.data?.league?.name;
+  const matches = response.data?.data?.matches ?? [];
+
+  const recentMatches = matches
+    .filter((m) => m.status === "FT")
+    .map((match) => ({
       ...match,
       leagueName,
-    })) ?? [];
+    }));
+
+  const upcomingMatches = matches
+    .filter((m) => m.status !== "FT")
+    .map((match) => ({
+      ...match,
+      leagueName,
+    }));
 
   return {
     upcomingMatches,

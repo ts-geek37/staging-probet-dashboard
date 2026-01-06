@@ -2,7 +2,11 @@
 import React from "react";
 
 import { ApiResponse } from "@/api/types";
-import { LeagueResponse, LeagueView } from "@/types/leagues";
+import {
+  LeagueProfileResponse,
+  LeagueResponse,
+  LeagueView,
+} from "@/types/leagues";
 
 import Matches from "./Matches";
 import Overview from "./Overview";
@@ -12,11 +16,11 @@ import Teams from "./Teams";
 
 interface Props {
   tab: LeagueView;
-  initialLeagues: ApiResponse<LeagueResponse>;
+  initialLeagues: ApiResponse<LeagueProfileResponse>;
 }
 
 const LeagueTab: React.FC<Props> = ({ tab, initialLeagues }) => {
-  const id = initialLeagues?.data?.league?.id ?? 0;
+  const id = initialLeagues?.data?.id ?? 0;
   switch (tab) {
     case LeagueView.OVERVIEW:
       return <Overview initialLeagues={initialLeagues} />;
@@ -24,10 +28,8 @@ const LeagueTab: React.FC<Props> = ({ tab, initialLeagues }) => {
       return <Standings id={id} />;
     case LeagueView.MATCHES:
       return <Matches id={id} />;
-    case LeagueView.STATS:
+    case LeagueView.STATISTICS:
       return <Stats id={id} />;
-    case LeagueView.TEAMS:
-      return <Teams id={id} />;
     default:
       return null;
   }

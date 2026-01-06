@@ -1,16 +1,16 @@
 "use client";
 
 import { ApiResponse } from "@/api/types";
-import { LeagueResponse } from "@/types/leagues";
+import { LeagueProfileResponse } from "@/types/leagues";
 
 import LeagueOverView from "./LeagueOverView";
 import TabList from "./TabList";
 
 interface Props {
-  initialLeagues: ApiResponse<LeagueResponse>;
+  initialLeagues: ApiResponse<LeagueProfileResponse>;
 }
 const LeaguesDetails: React.FC<Props> = ({ initialLeagues }) => {
-  const league = initialLeagues?.data?.league;
+  const league = initialLeagues?.data;
   const leagueId = league?.id;
 
   return (

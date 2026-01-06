@@ -1,3 +1,4 @@
+/*
 "use client";
 
 import useSWR from "swr";
@@ -17,4 +18,7 @@ const useLeagueTeams = (leagueId: number) => {
   };
 };
 
+export default useLeagueTeams;
+*/
+const useLeagueTeams = () => ({ teams: [], isLoading: false, error: null });
 export default useLeagueTeams;
