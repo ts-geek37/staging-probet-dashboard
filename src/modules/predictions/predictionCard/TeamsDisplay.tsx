@@ -14,7 +14,7 @@ const TeamsDisplay: React.FC<TeamsDisplayProps> = ({ match, layout }) => {
 
   if (layout === "stacked") {
     return (
-      <div className="space-y-2">
+      <div className="flex flex-col gap-3 pt-2">
         {[match.home_team, match.away_team].map((team) => (
           <div key={team.name} className="flex items-center justify-between">
             <div className="flex items-center gap-2 flex-1 min-w-0">

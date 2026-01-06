@@ -1,8 +1,8 @@
-import { TabList } from "@/components";
+import { NoData, TabList } from "@/components";
 import { PredictionTab } from "@/types/prediction";
 
 import { usePrediction } from "../hooks";
-import PredictionCard from "./predictionCard";
+import PredictionCard from "../predictionCard";
 
 export const MatchDayTabs = [
   { value: PredictionTab.TODAY, label: "Today" },
@@ -25,7 +25,7 @@ const PredictionTabs = () => {
               <PredictionCard key={index} {...match} />
             ))
           ) : (
-            <div>No matches found</div>
+            <NoData message="No predictions found" />
           )}
         </div>
       }

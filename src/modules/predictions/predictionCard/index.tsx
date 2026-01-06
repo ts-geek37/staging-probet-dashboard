@@ -42,26 +42,24 @@ const PredictionCard: React.FC<PredictionCardProps> = ({
 
   return (
     <Card className="text-white p-4 border-none gap-3 min-h-[175px] sm:min-h-[200px]">
-      <div className="flex items-center justify-between text-xs">
+      <div className="flex items-center justify-between text-xs sm:text-sm">
         <span>{formattedDate}</span>
         <span>{formattedTime}</span>
       </div>
 
-      {variant === "prediction" ? (
-        <>
+      <div className="flex flex-col gap-2">
+        {variant === "prediction" ? (
           <TeamsDisplay match={match} layout="stacked" />
-          <PredictionBar prediction={prediction} />
-        </>
-      ) : (
-        <>
+        ) : (
           <TeamsDisplay match={match} layout="horizontal" />
-          <PredictionBar
-            prediction={prediction}
-            isLocked
-            onUnlock={handleVIPClick}
-          />
-        </>
-      )}
+        )}
+      </div>
+
+      <PredictionBar
+        prediction={prediction}
+        isLocked={variant !== "prediction"}
+        onUnlock={handleVIPClick}
+      />
     </Card>
   );
 };
