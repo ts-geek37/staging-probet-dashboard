@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 
 import { AppLayout } from "@/modules/core-layout";
+import { seo } from "@/utils/seo";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -14,11 +15,7 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-export const metadata: Metadata = {
-  title: "ProBets",
-  description:
-    "Pro Bet is a football-focused web platform delivering live scores, fixtures, match insights, predictions, and football news across global leagues. The platform includes a VIP subscription model to unlock premium prediction content. The system is built using an API-first approach to ensure faster delivery, lower backend complexity, and scalability.",
-};
+export const metadata: Metadata = seo();
 
 export default function RootLayout({
   children,

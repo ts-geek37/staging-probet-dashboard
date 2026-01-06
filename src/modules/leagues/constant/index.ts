@@ -1,14 +1,23 @@
 import { LeagueView } from "@/types/leagues";
 
-export const LeagueTabs = [
+export const LeaguesTabs = [
   { value: LeagueView.OVERVIEW, label: "Overview" },
   { value: LeagueView.STANDINGS, label: "Standings" },
   { value: LeagueView.MATCHES, label: "Matches" },
   { value: LeagueView.TEAMS, label: "Teams" },
   { value: LeagueView.STATS, label: "Stats" },
 ];
+type LeagueStatsKey =
+  | "total_teams"
+  | "matches_played"
+  | "goals_scored"
+  | "goals_per_match";
 
-export const overviewStats = [
+export const overviewStats: {
+  key: LeagueStatsKey;
+  label: string;
+  format: boolean;
+}[] = [
   {
     key: "total_teams",
     label: "Total Teams",
@@ -29,4 +38,4 @@ export const overviewStats = [
     label: "Goals per Match",
     format: true,
   },
-] as const;
+];

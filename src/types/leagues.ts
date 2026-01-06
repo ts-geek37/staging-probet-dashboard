@@ -1,6 +1,7 @@
 export interface LeagueResponse {
   league: LeagueHeader;
   overview?: LeagueOverview;
+  recent: LeagueMatch[];
   standings?: LeagueStandings;
   matches?: LeagueMatches;
   stats?: LeagueStats;
@@ -80,6 +81,7 @@ export interface LeagueStats {
     player_id: number;
     name: string;
     team: string;
+    team_logo_url: string;
     goals: number;
   }>;
 }

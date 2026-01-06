@@ -42,7 +42,7 @@ const UpcomingMatchCard: React.FC<UpcomingMatchCardProps> = ({ match }) => {
                 height={28}
                 className="h-7 w-7 object-contain shrink-0"
               />
-              <span className="text-base font-medium text-primary-gray truncate">
+              <span className="text-xs sm:text-base font-medium text-primary-gray truncate">
                 {match.home_team.name}
               </span>
             </div>
@@ -55,7 +55,7 @@ const UpcomingMatchCard: React.FC<UpcomingMatchCardProps> = ({ match }) => {
             </div>
 
             <div className="flex items-center justify-end gap-3 flex-1 min-w-0">
-              <span className="text-lg font-medium text-primary-gray truncate text-right">
+              <span className="text-xs sm:text-base font-medium text-primary-gray truncate text-right">
                 {match.away_team.name}
               </span>
               <Image

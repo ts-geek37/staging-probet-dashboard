@@ -12,7 +12,7 @@ type VipSectionProps = {
 
 const VipSection: React.FC<VipSectionProps> = ({ onNavigate }) => {
   const Icon = vipLink.icon;
-  const { user } = useUser();
+  const { user, isSignedIn } = useUser();
   const router = useRouter();
 
   const handleLogin = () => {
@@ -48,13 +48,15 @@ const VipSection: React.FC<VipSectionProps> = ({ onNavigate }) => {
         </Button>
       )}
 
-      <Button
-        onClick={handleGetStarted}
-        variant="neon"
-        className="max-sm:w-full"
-      >
-        Get started
-      </Button>
+      {!isSignedIn && (
+        <Button
+          onClick={handleGetStarted}
+          variant="neon"
+          className="max-sm:w-full"
+        >
+          Get started
+        </Button>
+      )}
     </>
   );
 };

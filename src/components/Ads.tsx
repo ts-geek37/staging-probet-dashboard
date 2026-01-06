@@ -9,7 +9,7 @@ const Ads: React.FC = () => {
         alt="Advertisement"
         height={100}
         width={1000}
-        className="object-cover"
+        className="w-full object-cover"
       />
     </div>
   );

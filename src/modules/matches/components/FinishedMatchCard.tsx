@@ -37,7 +37,7 @@ const FinishedMatchCard: React.FC<FinishedMatchCardProps> = ({ match }) => {
                 </span>
               </div>
 
-              <span className="text-2xl font-medium text-white/60 shrink-0">
+              <span className="text-base font-medium text-white/60 shrink-0">
                 {team.score ?? 0}
               </span>
             </div>
