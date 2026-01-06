@@ -25,23 +25,20 @@ const Pagination: FC<Props> = ({ currentPage, totalPages, onPageChange }) => {
       return Array.from({ length: totalPages }, (_, i) => i + 1);
     }
 
-    const pageSet = new Set<number>();
+    const pageNumbers: number[] = [];
 
-    pageSet.add(1);
-    pageSet.add(totalPages - 1);
-    pageSet.add(totalPages);
-
-    pageSet.add(currentPage);
-    if (currentPage > 1) {
-      pageSet.add(currentPage - 1);
+    pageNumbers.push(1);
+    if (currentPage <= 3) {
+      pageNumbers.push(2, 3);
+    } else if (currentPage >= totalPages - 2) {
+      pageNumbers.push(totalPages - 2, totalPages - 1);
+    } else {
+      pageNumbers.push(currentPage - 1, currentPage, currentPage + 1);
     }
-    if (currentPage < totalPages) {
-      pageSet.add(currentPage + 1);
-    }
+    pageNumbers.push(totalPages);
 
-    return Array.from(pageSet).sort((a, b) => a - b);
+    return Array.from(new Set(pageNumbers)).sort((a, b) => a - b);
   }, [currentPage, totalPages]);
-
   if (totalPages <= 1) return null;
 
   return (
