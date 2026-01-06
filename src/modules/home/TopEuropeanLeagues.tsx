@@ -13,8 +13,8 @@ interface Props {
 
 const TopEuropeanLeaguesPage: React.FC<Props> = ({ topLeagues, standings }) => {
   return (
-    <section className="px-4 sm:px-6 py-10 md:py-20 text-white">
-      <div className="max-w-7xl mx-auto">
+    <section className="py-10 md:py-20 text-white">
+      <div>
         <div className="flex items-center justify-between mb-8">
           <div className="space-y-2">
             <h1 className="text-2xl sm:text-5xl font-bold">

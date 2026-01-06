@@ -6,41 +6,31 @@ import { ApiResponse } from "@/api/types";
 import { TeamDetailView, TeamOverviewResponse } from "@/types/teams";
 
 import { TeamDetailTabs } from "./tabs";
+import TabNavigation from "./tabs/TabNavigation";
 import TeamHeader from "./TeamHeader";
 
 interface Props {
   teamId: number;
-  initialData: ApiResponse<TeamOverviewResponse>;
+  initialData: ApiResponse<TeamOverviewResponse> | null;
 }
 
 const TeamDetailPresentation = ({ teamId, initialData }: Props) => {
   const [activeTab, setActiveTab] = useState<TeamDetailView>(
     TeamDetailView.OVERVIEW,
   );
+  if (!initialData) return null;
   return (
-    <div>
+    <div className="text-white">
       <TeamHeader team={initialData.data} />
 
-      <div>
-        <button onClick={() => setActiveTab(TeamDetailView.OVERVIEW)}>
-          Overview
-        </button>
-        <button onClick={() => setActiveTab(TeamDetailView.MATCHES)}>
-          Matches
-        </button>
-        <button onClick={() => setActiveTab(TeamDetailView.SQUAD)}>
-          Squad
-        </button>
-        <button onClick={() => setActiveTab(TeamDetailView.STATS)}>
-          Stats
-        </button>
+      <div className="w-full max-w-7xl mx-auto flex flex-col gap-6 px-4 xl:px-0 pt-3 lg:pt-6 pb-8 md:pb-12">
+        <TabNavigation activeTab={activeTab} onTabChange={setActiveTab} />
+        <TeamDetailTabs
+          activeTab={activeTab}
+          teamId={teamId}
+          initialData={initialData}
+        />
       </div>
-
-      <TeamDetailTabs
-        activeTab={activeTab}
-        teamId={teamId}
-        initialData={initialData}
-      />
     </div>
   );
 };

@@ -9,8 +9,8 @@ import { StatCard } from "./components";
 
 const PredictionBanner: React.FC = () => {
   return (
-    <section className="relative px-4 sm:px-6 py-10 md:py-20 text-white overflow-hidden">
-      <div className="max-w-7xl mx-auto">
+    <section className="relative py-10 md:py-20 text-white overflow-hidden">
+      <div className="">
         <div className="relative overflow-hidden rounded-2xl border border-[#01E1FA]/20 bg-primary-bg">
           <div className="absolute inset-0 pointer-events-none">
             <div className="hidden sm:block absolute -bottom-28 -left-28 h-80 w-105 rounded-full bg-primary-neon opacity-20 blur-[140px]" />

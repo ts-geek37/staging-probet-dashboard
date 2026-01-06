@@ -1,41 +1,60 @@
 "use client";
 
 import { ApiResponse } from "@/api/types";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { cn } from "@/lib/utils";
 import { TeamOverviewResponse } from "@/types/teams";
+
+import { useTeamOverview } from "../hooks";
 
 interface Props {
   initialData: ApiResponse<TeamOverviewResponse>;
 }
 
 const TeamOverviewTab: React.FC<Props> = ({ initialData }) => {
-  if (!initialData.success || !initialData.data) return null;
-
-  const team = initialData.data;
+  const { team, sections } = useTeamOverview(
+    initialData?.data?.id ?? 0,
+    initialData,
+  );
+  if (!initialData || !team) return null;
 
   return (
-    <div>
-      <div>
-        <p>Played: {team.season_summary.played}</p>
-        <p>Won: {team.season_summary.won}</p>
-        <p>Drawn: {team.season_summary.drawn}</p>
-        <p>Lost: {team.season_summary.lost}</p>
-      </div>
+    <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+      {sections.map((section) => (
+        <Card
+          key={section.key}
+          className={cn(
+            "text-white max-md:gap-4 border-none ",
+            section.colSpan,
+          )}
+        >
+          <CardHeader>
+            <CardTitle className="lg:text-lg font-semibold text-primary-green">
+              {section.title}
+            </CardTitle>
+          </CardHeader>
 
-      <div>
-        <p>Goals scored: {team.key_stats.goals_scored}</p>
-        <p>Goals conceded: {team.key_stats.goals_conceded}</p>
-        <p>Clean sheets: {team.key_stats.clean_sheets}</p>
-        <p>Goal difference: {team.key_stats.goal_difference}</p>
-      </div>
+          <CardContent className={`grid gap-4 ${section.columns}`}>
+            {section.items.map((item) => (
+              <div key={item.label} className="space-y-1 text-white/80">
+                <p className="text-xs sm:text-sm font-medium tracking-wider text-muted-foreground">
+                  {item.label}
+                </p>
 
-      <div>
-        {team.recent_matches.map((match) => (
-          <div key={match.match_id}>
-            <p>{match.opponent}</p>
-            <p>{match.score ?? "TBD"}</p>
-          </div>
-        ))}
-      </div>
+                {item.variant === "stat" ? (
+                  <p className="text-xl sm:text-2xl font-bold tracking-tight">
+                    {item.value}
+                  </p>
+                ) : (
+                  <p className="text-sm sm:text-base font-medium">
+                    {item.value}
+                  </p>
+                )}
+              </div>
+            ))}
+          </CardContent>
+        </Card>
+      ))}
     </div>
   );
 };

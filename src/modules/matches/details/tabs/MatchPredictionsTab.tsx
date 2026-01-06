@@ -2,8 +2,10 @@
 
 import React from "react";
 
+import { NoData, SkeletonCardLoader } from "@/components";
 import { MatchDetailView } from "@/types/matches";
 
+import MatchPrediction from "../../components/MatchPrediction";
 import { useMatchDetail } from "../../hooks";
 
 interface Props {
@@ -16,10 +18,20 @@ const MatchPredictionsTab: React.FC<Props> = ({ matchId }) => {
     MatchDetailView.PREDICTIONS,
   );
 
-  if (isLoading) return <p>Loading predictions…</p>;
-  if (!data || !("prediction" in data)) return <p>No predictions available</p>;
+  if (isLoading) return <SkeletonCardLoader />;
+  if (!data || !("prediction" in data))
+    return <NoData message="Prediction not available" />;
 
-  return <pre>{JSON.stringify(data.prediction, null, 2)}</pre>;
+  const { home_win_probability, draw_probability, away_win_probability } =
+    data.prediction;
+
+  return (
+    <MatchPrediction
+      home={home_win_probability}
+      draw={draw_probability}
+      away={away_win_probability}
+    />
+  );
 };
 
 export default MatchPredictionsTab;
