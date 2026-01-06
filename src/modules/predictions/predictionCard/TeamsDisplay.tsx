@@ -19,18 +19,21 @@ const TeamsDisplay: React.FC<TeamsDisplayProps> = ({ match, layout }) => {
           <div key={team.name} className="flex items-center justify-between">
             <div className="flex items-center gap-2 flex-1 min-w-0">
               <Image
-                src={team.logo}
-                alt={team.name}
-                width={1000}
-                height={1000}
+                src={team?.logo || "/no-image.png"}
+                alt={team?.name || "Team Logo"}
+                width={100}
+                height={100}
                 className="size-7 object-contain flex-shrink-0"
+                onError={(e) => {
+                  e.currentTarget.src = "/no-image.png";
+                }}
               />
               <span className="text-sm font-medium line-clamp-1">
-                {team.name}
+                {team?.name ?? "Unknown Team"}
               </span>
             </div>
 
-            {team.score !== undefined && (
+            {team?.score !== undefined && (
               <span className="text-sm font-bold">{team.score}</span>
             )}
           </div>
@@ -43,35 +46,41 @@ const TeamsDisplay: React.FC<TeamsDisplayProps> = ({ match, layout }) => {
     <div className="flex items-center justify-between gap-3">
       <div className="flex items-center gap-2 flex-1 min-w-0">
         <Image
-          src={match.home_team.logo}
-          alt={match.home_team.name}
-          width={1000}
-          height={1000}
+          src={match?.home_team?.logo || "/no-image.png"}
+          alt={match?.home_team?.name || "Home Team"}
+          width={100}
+          height={100}
           className="size-7 object-contain flex-shrink-0"
+          onError={(e) => {
+            e.currentTarget.src = "/no-image.png";
+          }}
         />
         <span className="text-sm font-medium line-clamp-1">
-          {match.home_team.name}
+          {match?.home_team?.name ?? "Unknown Team"}
         </span>
       </div>
 
       {hasScore && (
         <div className="flex-shrink-0 px-4">
           <span className="text-sm font-bold whitespace-nowrap">
-            {match.home_team.score} - {match.away_team.score}
+            {match?.home_team?.score} - {match?.away_team?.score}
           </span>
         </div>
       )}
 
       <div className="flex items-center gap-2 flex-1 min-w-0 justify-end">
         <span className="text-sm font-medium line-clamp-1 text-right">
-          {match.away_team.name}
+          {match?.away_team?.name ?? "Unknown Team"}
         </span>
         <Image
-          src={match.away_team.logo}
-          alt={match.away_team.name}
-          width={1000}
-          height={1000}
+          src={match?.away_team?.logo || "/no-image.png"}
+          alt={match?.away_team?.name || "Away Team"}
+          width={100}
+          height={100}
           className="size-7 object-contain flex-shrink-0"
+          onError={(e) => {
+            e.currentTarget.src = "/no-image.png";
+          }}
         />
       </div>
     </div>

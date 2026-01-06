@@ -3,6 +3,7 @@ import { PredictionTab } from "@/types/prediction";
 
 import { usePrediction } from "../hooks";
 import PredictionCard from "../predictionCard";
+import PredictionCardSkeleton from "../predictionCard/PredictionCardSkeleton";
 
 export const MatchDayTabs = [
   { value: PredictionTab.TODAY, label: "Today" },
@@ -11,7 +12,7 @@ export const MatchDayTabs = [
 ];
 
 const PredictionTabs = () => {
-  const { activeTab, onTabChange, matches } = usePrediction();
+  const { activeTab, onTabChange, matches, isLoading } = usePrediction();
 
   return (
     <TabList
@@ -19,15 +20,23 @@ const PredictionTabs = () => {
       activeTab={activeTab}
       onTabChange={onTabChange}
       renderContent={
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {matches.length > 0 ? (
-            matches?.map((match, index) => (
-              <PredictionCard key={index} {...match} />
-            ))
-          ) : (
+        <>
+          {isLoading ? (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {Array.from({ length: 3 }).map((_, index) => (
+                <PredictionCardSkeleton key={index} />
+              ))}
+            </div>
+          ) : !matches || matches?.length === 0 ? (
             <NoData message="No predictions found" />
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {matches.map((match, index) => (
+                <PredictionCard key={index} {...match} />
+              ))}
+            </div>
           )}
-        </div>
+        </>
       }
     />
   );

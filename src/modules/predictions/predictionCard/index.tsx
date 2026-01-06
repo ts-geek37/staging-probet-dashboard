@@ -26,19 +26,23 @@ const PredictionCard: React.FC<PredictionCardProps> = ({
     router.push("/price");
   };
 
-  const kickoffDate = new Date(match.kickoff_time);
+  const kickoffDate = match?.kickoff_time ? new Date(match.kickoff_time) : null;
 
-  const formattedDate = kickoffDate.toLocaleDateString("en-US", {
-    month: "short",
-    day: "2-digit",
-    year: "numeric",
-  });
+  const formattedDate = kickoffDate
+    ? kickoffDate.toLocaleDateString("en-US", {
+        month: "short",
+        day: "2-digit",
+        year: "numeric",
+      })
+    : "Date TBD";
 
-  const formattedTime = kickoffDate.toLocaleTimeString("en-GB", {
-    hour: "2-digit",
-    minute: "2-digit",
-    hour12: false,
-  });
+  const formattedTime = kickoffDate
+    ? kickoffDate.toLocaleTimeString("en-GB", {
+        hour: "2-digit",
+        minute: "2-digit",
+        hour12: false,
+      })
+    : "--:--";
 
   return (
     <Card className="text-white p-4 border-none gap-3 min-h-[175px] sm:min-h-[200px]">

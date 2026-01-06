@@ -1,12 +1,25 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 import { MOCK_MATCHES } from "@/mock-data/prediction";
-import { PredictionCardVariant, PredictionTab } from "@/types/prediction";
+import {
+  PredictionCardVariant,
+  PredictionMatchCard,
+  PredictionTab,
+} from "@/types/prediction";
 
 const usePrediction = () => {
   const [activeTab, setActiveTab] = useState<PredictionTab>(
     PredictionTab.TODAY,
   );
+  const [isLoading, setIsLoading] = useState(false);
+  const [matches, setMatches] = useState<
+    | {
+        match: PredictionMatchCard;
+        prediction: number;
+        variant: PredictionCardVariant;
+      }[]
+    | null
+  >(null);
 
   const onTabChange = (tab: PredictionTab) => {
     setActiveTab(tab);
@@ -33,17 +46,24 @@ const usePrediction = () => {
     ];
   }, []);
 
-  const matches = useMemo(() => {
-    const matches = MOCK_MATCHES.filter(
-      (match) => match.status === activeTab,
-    ).map((match, index) => ({
-      match,
-      // eslint-disable-next-line react-hooks/purity
-      prediction: Math.floor(Math.random() * 100),
-      variant: index !== 0 ? "vip" : ("prediction" as PredictionCardVariant),
-    }));
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setIsLoading(true);
 
-    return matches;
+    const timeout = setTimeout(() => {
+      const nextMatches = MOCK_MATCHES.filter(
+        (match) => match.status === activeTab,
+      ).map((match, index) => ({
+        match,
+        prediction: Math.floor(Math.random() * 100),
+        variant: index !== 0 ? "vip" : ("prediction" as PredictionCardVariant),
+      }));
+
+      setMatches(nextMatches);
+      setIsLoading(false);
+    }, 800);
+
+    return () => clearTimeout(timeout);
   }, [activeTab]);
 
   return {
@@ -51,6 +71,8 @@ const usePrediction = () => {
     matches,
     activeTab,
     onTabChange,
+    isLoading,
+    error: null,
   };
 };
 
