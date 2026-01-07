@@ -19,6 +19,7 @@ const Matches: React.FC<Props> = ({ id }) => {
         <MatchListing
           title="Live Matches"
           matches={liveMatches}
+          BadgeText="Live"
           mode="recent"
         />
       )}

@@ -5,10 +5,7 @@ import { LeagueView } from "@/types/leagues";
 
 import Matches from "./Matches";
 import Standings from "./Standings";
-import Stats from "./Stats";
-// to-do: remove file if not used
-// import Overview from "./Overview";
-// import Teams from "./Teams";
+import Stats from "./stats";
 
 interface Props {
   tab: LeagueView;

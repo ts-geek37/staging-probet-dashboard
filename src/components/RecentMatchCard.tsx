@@ -17,6 +17,7 @@ export interface RecentMatchProps {
   teamA: Team;
   teamB: Team;
   matchDate: string;
+  BadgeText?: string;
 }
 
 const RecentMatchCard: React.FC<RecentMatchProps> = ({
@@ -24,15 +25,19 @@ const RecentMatchCard: React.FC<RecentMatchProps> = ({
   teamA,
   teamB,
   matchDate,
+  BadgeText
 }) => {
   const { timeUnits, matchState, month, time } = useMatchTimer(matchDate);
 
   return (
-    <Card className="flex bg-gray-900 border-none rounded-none items-center size-full justify-between gap-3 sm:gap-6 px-6 py-4">
+    <Card className="flex border-none rounded-none items-center size-full justify-between gap-3 sm:gap-6 px-6 py-4">
       <div className="flex items-center justify-between w-full gap-3">
         <h3 className="text-lg font-semibold text-white">{leagueName}</h3>
-
-        {matchState === "WITHIN_12_HOURS" ? (
+        {BadgeText ? (
+          <Badge className="bg-primary-neon/20 px-3 py-2 text-sm text-primary-neon hover:bg-primary-neon/20">
+            {BadgeText}
+          </Badge>
+        ) : matchState === "WITHIN_12_HOURS" ? (
           <div className="flex items-center gap-3">
             {timeUnits.map(({ label, value }, index) => (
               <React.Fragment key={label}>
@@ -53,7 +58,7 @@ const RecentMatchCard: React.FC<RecentMatchProps> = ({
           </div>
         ) : (
           <Badge className="bg-primary-neon/20 px-3 py-2 text-sm text-primary-neon hover:bg-primary-neon/20">
-            Upcoming
+            {matchState === "PAST" ? "Finished" : "Upcoming"}
           </Badge>
         )}
       </div>

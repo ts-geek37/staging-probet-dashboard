@@ -14,6 +14,7 @@ interface MatchListingProps {
   description?: string;
   matches: MatchWithOptionalLeague[];
   mode: MatchMode;
+  BadgeText?: string;
 }
 
 const MatchListing: React.FC<MatchListingProps> = ({
@@ -21,6 +22,7 @@ const MatchListing: React.FC<MatchListingProps> = ({
   description,
   matches,
   mode,
+  BadgeText,
 }) => {
   return (
     <div className="w-full">
@@ -32,6 +34,7 @@ const MatchListing: React.FC<MatchListingProps> = ({
           const transformedMatch = transformLeagueMatch(match, mode);
 
           if (mode === "recent") {
+            (transformedMatch as RecentMatchProps).BadgeText = BadgeText;
             return (
               <RecentMatchCard
                 key={index}

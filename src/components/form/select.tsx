@@ -33,21 +33,23 @@ const SelectField: React.FC<SelectProps> = ({
   return (
     <Select value={value} onValueChange={onChange}>
       <SelectTrigger
-        className={`w-40 bg-slate-800 border-slate-700 text-white ${className ?? ""}`}
+        className={`w-52 bg-slate-800 border-slate-700 text-white ${className ?? ""}`}
       >
         <SelectValue placeholder={placeholder} />
       </SelectTrigger>
 
       <SelectContent className="bg-slate-800 border-slate-700">
-        {options.map((option) => (
-          <SelectItem
-            key={option.value}
-            value={option.value}
-            className="text-white focus:bg-slate-700 focus:text-white"
-          >
-            {option.label}
-          </SelectItem>
-        ))}
+        <div className="max-h-48 overflow-y-auto">
+          {options.map((option) => (
+            <SelectItem
+              key={option.value}
+              value={option.value}
+              className="text-white focus:bg-slate-700 focus:text-white"
+            >
+              {option.label}
+            </SelectItem>
+          ))}
+        </div>
       </SelectContent>
     </Select>
   );
