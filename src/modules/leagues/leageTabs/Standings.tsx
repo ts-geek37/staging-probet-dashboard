@@ -20,48 +20,50 @@ const Standings: React.FC<Props> = ({ id }) => {
       <div className="w-full border border-gray-800 rounded-lg">
         <table className="w-full">
           <thead className="border-b border-gray-800">
-            <tr>
-              <th className="text-left text-xs font-medium text-gray-400 px-4 py-3 w-12">
+            <tr className="[&>th]:px-4 [&>th]:py-3">
+              <th className="text-left text-sm sm:text-base font-medium text-gray-400 w-12">
                 #
               </th>
-              <th className="text-left text-xs font-medium text-gray-400 px-4 py-3">
+              <th className="text-left text-sm sm:text-base font-medium text-gray-400">
                 Team
               </th>
-              <th className="text-center text-xs font-medium text-gray-400 px-4 py-3 w-20">
+              <th className="text-center text-sm sm:text-base font-medium text-gray-400 w-20">
                 PTS
               </th>
             </tr>
           </thead>
+
           <tbody>
             {standings?.map((row, index) => (
               <tr
                 key={row?.team?.id}
                 onClick={() => router.push(`/teams/${row?.team?.id}`)}
                 className={cn(
-                  "group border-b border-gray-800 hover:bg-[#1a1f2e]/50 transition-colors cursor-pointer",
+                  "group border-b border-gray-800 cursor-pointer transition-colors",
+                  "[&>td]:px-4 [&>td]:py-4",
                   index % 2 === 0 ? "bg-slate-900/20" : "bg-transparent",
                 )}
               >
-                <td className="px-4 py-4 text-sm font-medium group-hover:text-primary-green transition-colors">
+                <td className="text-sm sm:text-base font-medium group-hover:text-primary-green transition-colors">
                   {row?.position?.toString()}
                 </td>
-                <td className="px-4 py-4">
+
+                <td>
                   <div className="flex items-center gap-3">
                     <Image
-                      src={
-                        !!row?.team?.logo ? row?.team?.logo : "/no-image.png"
-                      }
+                      src={row?.team?.logo || "/no-image.png"}
                       alt={row?.team?.name}
                       width={24}
                       height={24}
                       className="rounded-full"
                     />
-                    <span className="text-sm font-medium group-hover:text-primary-green transition-colors">
+                    <span className="text-sm sm:text-base font-medium group-hover:text-primary-green transition-colors">
                       {row?.team?.name}
                     </span>
                   </div>
                 </td>
-                <td className="px-4 py-4 text-center text-sm font-semibold group-hover:text-primary-green transition-colors">
+
+                <td className="text-center text-sm sm:text-base font-semibold group-hover:text-primary-green transition-colors">
                   {row?.points}
                 </td>
               </tr>
