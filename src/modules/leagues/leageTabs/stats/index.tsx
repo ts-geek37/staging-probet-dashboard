@@ -1,13 +1,13 @@
 import Image from "next/image";
 import React from "react";
 
+import { NoData } from "@/components";
 import { SelectField } from "@/components/form";
 import { StatCard } from "@/components/StatCard";
 
-import { NoData } from "@/components";
+import StatsSkeleton from "./StatsSkeleton";
 import { useLeagueStats } from "../../hooks";
 import LeagueBanner from "../../LeagueBanner";
-import StatsSkeleton from "./StatsSkeleton";
 
 interface Props {
   id: number;

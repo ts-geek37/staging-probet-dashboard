@@ -1,7 +1,9 @@
 "use client";
 
-import { StatCardSkeleton } from "@/components/StatCard";
 import Image from "next/image";
+
+import { StatCardSkeleton } from "@/components/StatCard";
+
 import LeagueBanner from "../../LeagueBanner";
 
 const StatsSkeleton = () => {
@@ -53,4 +55,4 @@ const StatsSkeleton = () => {
   );
 };
 
-export default StatsSkeleton
+export default StatsSkeleton;

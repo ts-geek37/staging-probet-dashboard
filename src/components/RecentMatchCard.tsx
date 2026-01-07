@@ -25,7 +25,7 @@ const RecentMatchCard: React.FC<RecentMatchProps> = ({
   teamA,
   teamB,
   matchDate,
-  BadgeText
+  BadgeText,
 }) => {
   const { timeUnits, matchState, month, time } = useMatchTimer(matchDate);
 
