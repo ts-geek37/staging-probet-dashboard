@@ -4,54 +4,38 @@ import useSWR from "swr";
 
 import { ApiResponse } from "@/api/types";
 import {
-  PlayerPosition,
-  TeamDetailView,
-  TeamPlayerSummary,
-  TeamSquadResponse,
+  PlayerApi,
+  PlayerWithFlag,
+  SquadSection,
+  TeamPlayersResponse,
 } from "@/types/teams";
 import { getFlagUrlByName } from "@/utils/countryFlag";
 
-type playerWithFlag = TeamPlayerSummary & { flagUrl: string };
-interface SquadSection {
-  key: PlayerPosition;
-  label: string;
-  players: playerWithFlag[];
-}
-
 const useTeamPlayers = (teamId: number) => {
-  const response = useSWR<ApiResponse<TeamSquadResponse>>(
-    `/api/teams/${teamId}?view=${TeamDetailView.SQUAD}`,
+  const { data, error } = useSWR<ApiResponse<TeamPlayersResponse>>(
+    `/api/v2/teams/${teamId}/players`,
   );
-  const squad = response.data?.data?.squad ?? [];
-  const sections: SquadSection[] = squad.reduce((acc, player) => {
-    if (!player?.position) return acc;
 
-    const existingSection = acc.find(
-      (section) => section.key === player.position,
-    );
-    const country = player?.nationality;
-    const flagUrl = getFlagUrlByName(country);
-    const playerWithFlag = { ...player, flagUrl };
+  const isLoading = !data && !error;
 
-    if (existingSection) {
-      existingSection.players.push(playerWithFlag);
-    } else {
-      acc.push({
-        key: player.position,
-        label: player.position,
-        players: [playerWithFlag],
-      });
-    }
+  const players: PlayerWithFlag[] =
+    data?.data?.players.map((p: PlayerApi) => ({
+      ...p,
+      flagUrl: getFlagUrlByName(p.nationality),
+    })) ?? [];
 
-    return acc;
-  }, [] as SquadSection[]);
+  const sections: SquadSection[] = players.reduce(
+    (acc: SquadSection[], player) => {
+      const posLabel = player.position?.label ?? "Unknown";
+      const existing = acc.find((s) => s.key === posLabel);
+      if (existing) existing.players.push(player);
+      else acc.push({ key: posLabel, label: posLabel, players: [player] });
+      return acc;
+    },
+    [],
+  );
 
-  return {
-    sections,
-    players: squad,
-    isLoading: !response.data && !response.error,
-    error: response.error,
-  };
+  return { players, sections, isLoading, error };
 };
 
 export default useTeamPlayers;

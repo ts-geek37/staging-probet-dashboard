@@ -17,8 +17,10 @@ const usePlayerOverview = (
       revalidateOnMount: false,
     },
   );
-  const data = response?.data?.data
-  const player = data ? { ...data, country_flag: getFlagUrlByName(data.nationality) } : null
+  const data = response?.data?.data;
+  const player = data
+    ? { ...data, country_flag: getFlagUrlByName(data.nationality) }
+    : null;
 
   return {
     player,

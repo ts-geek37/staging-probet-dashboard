@@ -1,68 +1,64 @@
 "use client";
 
-import { Trophy } from "lucide-react";
 import Image from "next/image";
-import Link from "next/link";
 
-import { TeamBase } from "@/types/teams";
+import { NoData } from "@/components";
+import { TeamHeaderApi } from "@/types/teams";
 
-import { useTeamHeader } from "./hooks";
+import useTeamHeader from "./hooks/useTeamHeader";
 
 interface Props {
-  team: TeamBase | null;
+  team: TeamHeaderApi | null;
 }
 
-const TeamHeader = ({ team }: Props) => {
+const TeamHeader: React.FC<Props> = ({ team }) => {
   const headerData = useTeamHeader(team);
-  if (!headerData) return null;
 
   return (
-    <div className="w-full border-b border-gray-800">
-      <div className="flex items-start sm:items-center gap-3 md:gap-5 w-full max-w-7xl mx-auto py-4 lg:py-8 px-5 xl:px-0">
-        <div className="border border-gray-600 p-2 rounded-lg">
-          <Image
-            src={headerData?.logo || "/no-image.png"}
-            alt={headerData?.name || ""}
-            width={48}
-            height={48}
-            className="h-10 w-10 md:h-12 md:w-12 object-contain"
-            onError={(e) => {
-              e.currentTarget.src = "/no-image.png";
-            }}
-          />
-        </div>
-
-        <div className="flex flex-col gap-2">
-          <div className="flex items-center gap-2">
-            <h1 className="text-xl md:text-3xl font-semibold">
-              {headerData?.name}
-            </h1>
-            <span className="rounded bg-primary-green/20 px-2 py-1 text-xs sm:text-sm font-medium text-primary-green">
-              {headerData?.shortName}
-            </span>
-          </div>
-
-          <div className="flex flex-wrap gap-2 items-center text-gray-400">
-            <div className="flex items-center gap-2 text-sm sm:text-base">
+    <div className="w-full border-b border-primary-gray/20">
+      <div className="mx-auto w-full max-w-7xl px-4 py-4 md:py-7 md:px-6">
+        {!headerData ? (
+          <NoData message="Team data not available" />
+        ) : (
+          <div className="flex items-start gap-4 sm:items-center">
+            <div>
               <Image
-                src={headerData?.country_flag || "/no-image.png"}
-                alt={headerData?.country || ""}
-                width={20}
-                height={14}
-                className="h-3.5 w-5 object-contain"
+                src={headerData.logo || "/no-image.png"}
+                alt={headerData.name}
+                width={48}
+                height={48}
+                className="h-15 w-15 object-contain sm:h-20 md:w-20"
               />
-              <span>{headerData?.country}</span>
             </div>
+            <div className="flex flex-col gap-2">
+              <div className="flex items-center gap-2">
+                <h1 className="text-base font-semibold sm:text-3xl">
+                  {headerData.name}
+                </h1>
+                <span className="rounded bg-primary-green/20 px-2 py-1 text-xs font-medium text-primary-green sm:text-sm">
+                  {headerData.shortName}
+                </span>
+              </div>
 
-            <Link
-              href={`/leagues/${headerData?.league?.id}`}
-              className="flex items-center gap-2 text-sm sm:text-base"
-            >
-              <Trophy className="size-4 md:size-5 text-primary-green" />
-              <span>{headerData?.league?.name}</span>
-            </Link>
+              <div className="flex flex-wrap items-center gap-3 text-gray-400">
+                {headerData.countryName && (
+                  <div className="flex items-center gap-2 text-sm sm:text-base">
+                    {headerData.countryFlag && (
+                      <Image
+                        src={headerData.countryFlag}
+                        alt={headerData.countryName}
+                        width={20}
+                        height={14}
+                        className="h-3.5 w-5 object-contain"
+                      />
+                    )}
+                    <span>{headerData.countryName}</span>
+                  </div>
+                )}
+              </div>
+            </div>
           </div>
-        </div>
+        )}
       </div>
     </div>
   );

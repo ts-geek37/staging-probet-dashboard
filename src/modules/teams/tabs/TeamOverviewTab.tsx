@@ -1,60 +1,72 @@
 "use client";
 
+import { MapPin } from "lucide-react";
+import React from "react";
+
 import { ApiResponse } from "@/api/types";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { cn } from "@/lib/utils";
+import {
+  DataError,
+  NoData,
+  SkeletonCardLoader,
+  OverviewCard,
+} from "@/components";
 import { TeamOverviewResponse } from "@/types/teams";
 
-import { useTeamOverview } from "../hooks";
+import useTeamOverview from "../hooks/useTeamOverview";
 
 interface Props {
   initialData: ApiResponse<TeamOverviewResponse>;
 }
 
 const TeamOverviewTab: React.FC<Props> = ({ initialData }) => {
-  const { team, sections } = useTeamOverview(
+  const { team, isLoading, error } = useTeamOverview(
     initialData?.data?.id ?? 0,
     initialData,
   );
-  if (!initialData || !team) return null;
+
+  if (isLoading) return <SkeletonCardLoader />;
+  if (error) return <DataError />;
+  if (!team) return <NoData message="Team data not available" />;
 
   return (
     <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-      {sections.map((section) => (
-        <Card
-          key={section.key}
-          className={cn(
-            "text-white max-md:gap-4 border-none ",
-            section.colSpan,
-          )}
-        >
-          <CardHeader>
-            <CardTitle className="lg:text-lg font-semibold text-primary-green">
-              {section.title}
-            </CardTitle>
-          </CardHeader>
+      <OverviewCard
+        title="Team Info"
+        items={[
+          { label: "Full Name", value: team.name, image: team.logo },
+          { label: "Short Code", value: team.short_code, type: "badge" },
+          { label: "Founded", value: team.founded },
+          {
+            label: "Country",
+            value: team.country?.name,
+            image: team.country?.flag,
+          },
+        ]}
+      />
 
-          <CardContent className={`grid gap-4 ${section.columns}`}>
-            {section.items.map((item) => (
-              <div key={item.label} className="space-y-1 text-white/80">
-                <p className="text-xs sm:text-sm font-medium tracking-wider text-muted-foreground">
-                  {item.label}
-                </p>
+      {team.stadium && (
+        <OverviewCard
+          title="Venue & Stadium"
+          items={[
+            {
+              label: "Stadium",
+              value: team.stadium.name ?? "N/A",
+              icon: <MapPin className="w-4 h-4 text-white" />,
+            },
+            {
+              label: "Capacity",
+              value: team.stadium.capacity?.toLocaleString() ?? "N/A",
+            },
+          ]}
+        />
+      )}
 
-                {item.variant === "stat" ? (
-                  <p className="text-xl sm:text-2xl font-bold tracking-tight">
-                    {item.value}
-                  </p>
-                ) : (
-                  <p className="text-sm sm:text-base font-medium">
-                    {item.value}
-                  </p>
-                )}
-              </div>
-            ))}
-          </CardContent>
-        </Card>
-      ))}
+      {team.current_season && (
+        <OverviewCard
+          title="Season Info"
+          items={[{ label: "Season Name", value: team.current_season.name }]}
+        />
+      )}
     </div>
   );
 };

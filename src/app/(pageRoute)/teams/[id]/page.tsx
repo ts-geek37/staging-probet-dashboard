@@ -16,7 +16,6 @@ export const generateMetadata = async ({
   try {
     const response = await getTeamDetail({
       id,
-      view: TeamDetailView.OVERVIEW,
     });
 
     const team = response?.data;
@@ -51,7 +50,6 @@ const TeamDetailPage = async ({ params }: Props) => {
 
   const response = await getTeamDetail({
     id: teamId,
-    view: TeamDetailView.OVERVIEW,
   });
 
   return <TeamDetailPresentation teamId={teamId} initialData={response} />;

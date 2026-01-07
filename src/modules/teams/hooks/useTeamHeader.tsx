@@ -1,26 +1,41 @@
 import { useMemo } from "react";
 
-import { TeamBase } from "@/types/teams";
+import { TeamHeaderApi } from "@/types/teams";
 
-interface UseTeamsHeaderResult extends TeamBase {
+export interface UseTeamHeaderResult {
+  id: number;
+  name: string;
   shortName: string;
+  logo: string | null;
+  countryName?: string;
+  countryFlag?: string;
 }
 
-const useTeamHeader = (team: TeamBase | null): UseTeamsHeaderResult | null => {
+const useTeamHeader = (
+  team: TeamHeaderApi | null,
+): UseTeamHeaderResult | null => {
   return useMemo(() => {
     if (!team) return null;
 
-    const words = team?.name.split(" ").filter(Boolean);
-
     const shortName =
-      words.length === 1
-        ? words[0].slice(0, 3).toUpperCase()
-        : words.map((word) => word[0].toUpperCase()).join("");
+      team.short_code ??
+      team.name
+        .split(" ")
+        .filter(Boolean)
+        .map((w) => w[0])
+        .join("")
+        .slice(0, 3)
+        .toUpperCase();
 
     return {
+      id: team.id,
+      name: team.name,
       shortName,
-      ...team,
+      logo: team.logo ?? null,
+      countryName: team.country?.name,
+      countryFlag: team.country?.flag,
     };
   }, [team]);
 };
+
 export default useTeamHeader;

@@ -22,7 +22,7 @@ const TabNavigation: React.FC<TabNavigationProps> = ({
   onTabChange,
 }) => {
   return (
-    <div className="flex gap-2 border-b border-gray-700">
+    <div className="flex gap-2 border-b border-gray-700 mb-5">
       {tabs.map((tab) => {
         const isActive = activeTab === tab.value;
         return (

@@ -3,38 +3,42 @@
 import useSWR from "swr";
 
 import { ApiResponse } from "@/api/types";
-import { TeamDetailView, TeamMatchesResponse } from "@/types/teams";
+import type { TeamMatchesResponse } from "@/types/teams";
 
 const useTeamMatches = (teamId: number) => {
-  const response = useSWR<ApiResponse<TeamMatchesResponse>>(
-    `/api/teams/${teamId}?view=${TeamDetailView.MATCHES}`,
+  const { data, error } = useSWR<ApiResponse<TeamMatchesResponse>>(
+    `/api/v2/teams/${teamId}/matches`,
   );
 
-  const matches = response.data?.data?.matches;
-  const upcomingMatches = matches?.upcoming;
-  const recentMatches = matches?.recent;
+  const isLoading = !data && !error;
 
-  const sections = [
-    recentMatches && {
-      key: "recent",
-      title: "Recent Results",
-      matches: recentMatches,
-    },
-    upcomingMatches && {
-      key: "upcoming",
-      title: "Upcoming Fixtures",
-      matches: upcomingMatches,
-    },
-  ].filter(Boolean) as {
-    key: string;
-    title: string;
-    matches: NonNullable<typeof upcomingMatches | typeof recentMatches>;
-  }[];
+  const formatDate = (dateStr: string) =>
+    new Date(dateStr).toLocaleDateString("en-GB", {
+      day: "2-digit",
+      month: "short",
+      year: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+
+  const getStatusColor = (status: string) => {
+    switch (status.toUpperCase()) {
+      case "FT":
+        return "text-green-500";
+      case "UPCOMING":
+        return "text-yellow-400";
+      default:
+        return "text-gray-400";
+    }
+  };
 
   return {
-    sections,
-    isLoading: !response.data && !response.error,
-    error: response.error,
+    latest: data?.data?.latest ?? [],
+    upcoming: data?.data?.upcoming ?? [],
+    isLoading,
+    error,
+    formatDate,
+    getStatusColor,
   };
 };
 

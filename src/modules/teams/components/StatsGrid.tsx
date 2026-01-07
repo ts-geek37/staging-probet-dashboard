@@ -32,7 +32,7 @@ const StatsGrid: React.FC<StatsGridProps> = ({
           <Card
             key={stat.label}
             className={cn(
-              "group gap-1 py-4 items-center justify-center border border-transparent",
+              "group gap-1 py-4 items-center justify-center border border-primary-gray/20 transition-all duration-300 ease-in-out hover:border-primary-green hover:scale-102 ho",
               variant === "nested"
                 ? "hover:border-primary-green"
                 : "hover:border-gray-700",
@@ -41,7 +41,7 @@ const StatsGrid: React.FC<StatsGridProps> = ({
           >
             <p
               className={cn(
-                "text-2xl font-semibold",
+                "text-xl sm:text-2xl font-semibold",
                 stat.color ?? "text-white group-hover:text-primary-green",
               )}
             >
@@ -58,7 +58,7 @@ const StatsGrid: React.FC<StatsGridProps> = ({
     return (
       <Card
         className={cn(
-          "gap-3 sm:gap-5 border max-sm:py-3 border-gray-800 bg-transparent",
+          "gap-3 sm:gap-5 border max-sm:py-3 border-gray-800 bg-transparent px-3 sm:px-6",
           title && "px-3 sm:px-6",
         )}
       >
