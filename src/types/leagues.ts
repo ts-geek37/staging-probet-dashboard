@@ -58,18 +58,8 @@ export interface LeagueMatch {
   id: number;
   kickoff_time: string;
   status: "UPCOMING" | "LIVE" | "FT";
-  home_team: {
-    id: number;
-    name: string;
-    logo: string;
-    score?: number;
-  };
-  away_team: {
-    id: number;
-    name: string;
-    logo: string;
-    score?: number;
-  };
+  home_team: MatchTeam;
+  away_team: MatchTeam;
 }
 
 export interface LeagueStats {
@@ -97,7 +87,7 @@ export interface LeagueTeams {
 export enum LeagueView {
   OVERVIEW = "profile",
   STANDINGS = "standings",
-  STATISTICS = "statistics",
+  STATISTICS = "stats",
   MATCHES = "matches",
 }
 export enum MatchListStatus {
@@ -134,8 +124,8 @@ export interface PaginationMeta {
 export interface Season {
   id: number;
   name: string;
-  starting_at?: string | null;
-  ending_at?: string | null;
+  starting_at: string | null;
+  ending_at: string | null;
 }
 export interface Country {
   name: string;
@@ -172,7 +162,10 @@ export interface LeagueStandingsResponse {
     name: string;
     country: string;
   };
-  season: Partial<Season>;
+  season: {
+    id: number;
+    name: string;
+  };
   table: {
     position: number;
     team: {
@@ -183,12 +176,7 @@ export interface LeagueStandingsResponse {
     points: number;
   }[];
 }
-
-export interface LeagueStatisticsResponse {
-  league: {
-    id: number;
-    name: string;
-  };
+export interface LeagueSeasonStatistics {
   season: {
     id: number;
     name: string;
@@ -197,8 +185,6 @@ export interface LeagueStatisticsResponse {
     matches_played: number | null;
     total_goals: number | null;
     average_goals_per_match: number | null;
-    yellow_cards: number | null;
-    red_cards: number | null;
   };
   scoring: {
     home_goals_percentage: number | null;
@@ -207,9 +193,19 @@ export interface LeagueStatisticsResponse {
     under_25_percentage: number | null;
   };
   discipline: {
+    yellow_cards: number | null;
+    red_cards: number | null;
     average_yellow_cards: number | null;
     average_red_cards: number | null;
   };
+}
+
+export interface LeagueStatisticsResponse {
+  league: {
+    id: number;
+    name: string;
+  };
+  seasons: LeagueSeasonStatistics[];
 }
 export interface LeagueMatchesResponse {
   league: {
@@ -220,11 +216,5 @@ export interface LeagueMatchesResponse {
     id: number;
     name: string;
   };
-  matches: {
-    id: number;
-    kickoff_time: string;
-    status: "UPCOMING" | "LIVE" | "FT" | string;
-    home_team: MatchTeam;
-    away_team: MatchTeam;
-  }[];
+  matches: LeagueMatch[];
 }

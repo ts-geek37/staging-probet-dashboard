@@ -1,29 +1,22 @@
 "use client";
 import React from "react";
 
-import { ApiResponse } from "@/api/types";
-import {
-  LeagueProfileResponse,
-  LeagueResponse,
-  LeagueView,
-} from "@/types/leagues";
+import { LeagueView } from "@/types/leagues";
 
 import Matches from "./Matches";
-import Overview from "./Overview";
 import Standings from "./Standings";
 import Stats from "./Stats";
-import Teams from "./Teams";
+// to-do: remove file if not used
+// import Overview from "./Overview";
+// import Teams from "./Teams";
 
 interface Props {
   tab: LeagueView;
-  initialLeagues: ApiResponse<LeagueProfileResponse>;
+  id: number;
 }
 
-const LeagueTab: React.FC<Props> = ({ tab, initialLeagues }) => {
-  const id = initialLeagues?.data?.id ?? 0;
+const LeagueTab: React.FC<Props> = ({ tab, id }) => {
   switch (tab) {
-    case LeagueView.OVERVIEW:
-      return <Overview initialLeagues={initialLeagues} />;
     case LeagueView.STANDINGS:
       return <Standings id={id} />;
     case LeagueView.MATCHES:

@@ -19,8 +19,8 @@ export const transformToUpcomingMatch = (
     }),
     teamA: match.home_team.name,
     teamB: match.away_team.name,
-    teamALogo: match.home_team.logo,
-    teamBLogo: match.away_team.logo,
+    teamALogo: match?.home_team?.logo ?? "/no-image.png",
+    teamBLogo: match?.away_team?.logo ?? "/no-image.png",
   };
 };
 
@@ -33,11 +33,11 @@ export const transformToRecentMatch = (
     matchDate: kickoff.toLocaleDateString(),
     teamA: {
       name: match.home_team.name,
-      logo: match.home_team.logo,
+      logo: match.home_team.logo ?? "/no-image.png",
     },
     teamB: {
       name: match.away_team.name,
-      logo: match.away_team.logo,
+      logo: match.away_team.logo ?? "/no-image.png",
     },
   };
 };

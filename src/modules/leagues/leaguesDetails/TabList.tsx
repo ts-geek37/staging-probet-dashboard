@@ -1,22 +1,17 @@
 import { useState } from "react";
 
-import { ApiResponse } from "@/api/types";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import {
-  LeagueProfileResponse,
-  LeagueResponse,
-  LeagueView,
-} from "@/types/leagues";
+import { LeagueView } from "@/types/leagues";
 
 import { LeagueTabs } from "../constant";
 import LeagueTab from "../leageTabs";
 
 interface Props {
-  initialLeagues: ApiResponse<LeagueProfileResponse>;
+  id: number;
 }
 
-const TabList: React.FC<Props> = ({ initialLeagues }) => {
-  const [activeTab, setActiveTab] = useState<LeagueView>(LeagueView.OVERVIEW);
+const TabList: React.FC<Props> = ({ id }) => {
+  const [activeTab, setActiveTab] = useState<LeagueView>(LeagueView.STANDINGS);
 
   const handleTabChange = (value: string) => {
     setActiveTab(value as LeagueView);
@@ -36,7 +31,7 @@ const TabList: React.FC<Props> = ({ initialLeagues }) => {
       </TabsList>
 
       <TabsContent value={activeTab} className="mt-6">
-        <LeagueTab tab={activeTab} initialLeagues={initialLeagues} />
+        <LeagueTab tab={activeTab} id={id} />
       </TabsContent>
     </Tabs>
   );

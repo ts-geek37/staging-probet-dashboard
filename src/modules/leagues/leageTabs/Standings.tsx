@@ -9,13 +9,14 @@ interface Props {
 }
 
 const Standings: React.FC<Props> = ({ id }) => {
-  const { standings } = useLeagueStandings(id);
+  const { standings, league, season } = useLeagueStandings(id);
 
-  const data = { standings };
   return (
     <div className="flex-1 text-white flex flex-col gap-12">
       <div className="flex flex-col gap-6">
-        <h2 className="text-2xl font-bold">Premier League Standings</h2>
+        <h2 className="text-2xl font-bold">
+          {league?.name || "Unknown League"}
+        </h2>
 
         <div className="w-full border border-gray-800 rounded-lg">
           <table className="w-full">
@@ -33,32 +34,32 @@ const Standings: React.FC<Props> = ({ id }) => {
               </tr>
             </thead>
             <tbody>
-              {standings.map((row) => (
+              {standings?.map((row) => (
                 <tr
-                  key={row.team.id}
+                  key={row?.team?.id}
                   className="border-b border-gray-800 hover:bg-[#1a1f2e]/50 transition-colors"
                 >
                   <td className="px-4 py-4 text-sm font-medium">
-                    {row.position}
+                    {row?.position?.toString()}
                   </td>
                   <td className="px-4 py-4">
                     <div className="flex items-center gap-3">
-                      {row.team.logo && (
+                      {row?.team?.logo && (
                         <Image
-                          src={row.team.logo}
-                          alt={row.team.name}
+                          src={row?.team?.logo}
+                          alt={row?.team?.name}
                           width={24}
                           height={24}
                           className="rounded-full"
                         />
                       )}
                       <span className="text-sm font-medium">
-                        {row.team.name}
+                        {row?.team?.name}
                       </span>
                     </div>
                   </td>
                   <td className="px-4 py-4 text-center text-sm font-semibold">
-                    {row.points}
+                    {row?.points}
                   </td>
                 </tr>
               ))}

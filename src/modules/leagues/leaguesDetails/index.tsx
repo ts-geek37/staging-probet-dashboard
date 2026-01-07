@@ -15,8 +15,8 @@ const LeaguesDetails: React.FC<Props> = ({ initialLeagues }) => {
 
   return (
     <div className="flex-1 flex flex-col gap-8 max-w-7xl mx-auto w-full px-4 py-12  ">
-      {league && <LeagueOverView league={league} />}
-      {leagueId && <TabList initialLeagues={initialLeagues} />}
+      {league && <LeagueOverView initialLeagues={initialLeagues} />}
+      {leagueId && <TabList id={leagueId} />}
     </div>
   );
 };

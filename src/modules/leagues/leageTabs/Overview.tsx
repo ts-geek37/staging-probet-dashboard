@@ -14,11 +14,6 @@ interface Props {
 }
 
 const Overview: React.FC<Props> = ({ initialLeagues }) => {
-  const { overview } = useLeagueOverview(
-    initialLeagues?.data?.id ?? 0,
-    initialLeagues,
-  );
-
   return (
     <div className="flex flex-col gap-6">
       <div className="grid grid-cols-1 md:grid-cols-3 items-center gap-6">
@@ -30,6 +25,7 @@ const Overview: React.FC<Props> = ({ initialLeagues }) => {
 
         <div className="md:col-span-1"></div>
       </div>
+      {/* It's Image */}
       <LeagueBanner banner="betting" />
     </div>
   );

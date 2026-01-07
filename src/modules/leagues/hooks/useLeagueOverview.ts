@@ -18,7 +18,7 @@ const useLeagueOverview = (
   );
 
   return {
-    overview: response.data?.data,
+    league: response.data?.data,
     isLoading: !response.data && !response.error,
     error: response.error,
   };
