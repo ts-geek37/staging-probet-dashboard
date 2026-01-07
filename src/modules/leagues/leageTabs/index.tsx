@@ -4,7 +4,7 @@ import React from "react";
 import { LeagueView } from "@/types/leagues";
 
 import Matches from "./Matches";
-import Standings from "./Standings";
+import Standings from "./standings";
 import Stats from "./stats";
 
 interface Props {
