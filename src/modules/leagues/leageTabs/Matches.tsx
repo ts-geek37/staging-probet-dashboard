@@ -14,7 +14,7 @@ const Matches: React.FC<Props> = ({ id }) => {
   const { recentMatches, upcomingMatches, liveMatches } = useLeagueMatches(id);
 
   return (
-    <div className="flex-1 text-white flex flex-col gap-12">
+    <div className="flex-1 text-white flex flex-col gap-4 sm:gap-8 md:gap-12">
       {liveMatches.length > 0 && (
         <MatchListing
           title="Live Matches"
