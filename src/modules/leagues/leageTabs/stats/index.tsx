@@ -53,7 +53,7 @@ const Stats: React.FC<Props> = ({ id }) => {
   return (
     <div className="w-full text-white flex flex-col gap-10">
       <div className="flex flex-col gap-4">
-        <div className="flex max-[410px]:flex-col items-start sm:items-center justify-between">
+        <div className="flex max-[420px]:flex-col gap-2 items-start sm:items-center justify-between">
           <h2 className="text-xl font-semibold">Season Statistics</h2>
           <SelectField
             value={selectedSeasonId?.toString()}
@@ -91,7 +91,7 @@ const Stats: React.FC<Props> = ({ id }) => {
           alt="ads"
           width={1000}
           height={1000}
-          className="w-full max-md:order-1 h-full max-h-80 object-cover row-span-2 "
+          className="w-full max-md:order-1 h-full md:max-lg:max-h-80 object-cover row-span-2 "
         />
 
         <div className="flex flex-col gap-4">

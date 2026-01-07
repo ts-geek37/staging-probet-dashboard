@@ -1,9 +1,9 @@
 import { RecentMatchProps } from "@/components/RecentMatchCard";
 import { UpcomingMatchProps } from "@/components/UpcomingMatchCard";
-import { LeagueMatch } from "@/types/leagues";
+import { MatchListItem } from "@/types/leagues";
 
 export type MatchMode = "recent" | "upcoming";
-export type MatchWithOptionalLeague = LeagueMatch & {
+export type MatchWithOptionalLeague = MatchListItem & {
   leagueName?: string;
 };
 
@@ -17,10 +17,10 @@ export const transformToUpcomingMatch = (
       hour: "2-digit",
       minute: "2-digit",
     }),
-    teamA: match.home_team.name,
-    teamB: match.away_team.name,
-    teamALogo: match?.home_team?.logo ?? "/no-image.png",
-    teamBLogo: match?.away_team?.logo ?? "/no-image.png",
+    teamA: match.teams.home.name,
+    teamB: match.teams.away.name,
+    teamALogo: match?.teams?.home?.logo ?? "/no-image.png",
+    teamBLogo: match?.teams?.away?.logo ?? "/no-image.png",
   };
 };
 
@@ -32,14 +32,14 @@ export const transformToRecentMatch = (
     leagueName: match.leagueName ?? "Unknown League",
     matchDate: kickoff.toLocaleDateString(),
     teamA: {
-      name: match.home_team.name,
-      logo: match.home_team.logo ?? "/no-image.png",
-      score: match.home_team?.score?.goals,
+      name: match.teams.home.name,
+      logo: match.teams.home.logo ?? "/no-image.png",
+      score: match.score?.home ?? 0,
     },
     teamB: {
-      name: match.away_team.name,
-      logo: match.away_team.logo ?? "/no-image.png",
-      score: match.away_team?.score?.goals,
+      name: match.teams.away.name,
+      logo: match.teams.away.logo ?? "/no-image.png",
+      score: match.score?.away ?? 0,
     },
   };
 };

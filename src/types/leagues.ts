@@ -207,6 +207,52 @@ export interface LeagueStatisticsResponse {
   };
   seasons: LeagueSeasonStatistics[];
 }
+export interface MatchTeam {
+  id: number;
+  name: string;
+  logo: string | null;
+}
+
+export interface MatchScore {
+  home: number | null;
+  away: number | null;
+}
+
+export interface MatchTeams {
+  home: MatchTeam;
+  away: MatchTeam;
+}
+export type MatchStatus = "UPCOMING" | "LIVE" | "FT";
+
+export interface Venue {
+  id: number;
+  name: string;
+  capacity: number;
+  city: string;
+  country: string;
+  surface: string;
+  image: string;
+}
+
+export interface MatchListItem {
+  id: number;
+  kickoff_time: string;
+  status: MatchStatus;
+  league: {
+    id: number;
+    name: string;
+    logo: string | null;
+  };
+  season?: {
+    id: number;
+    name: string;
+  };
+  venue?: Venue;
+  teams: MatchTeams;
+  score?: MatchScore;
+  referee?: string;
+}
+
 export interface LeagueMatchesResponse {
   league: {
     id: number;
@@ -216,5 +262,5 @@ export interface LeagueMatchesResponse {
     id: number;
     name: string;
   };
-  matches: LeagueMatch[];
+  matches: MatchListItem[];
 }
