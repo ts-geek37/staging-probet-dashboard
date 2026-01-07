@@ -91,7 +91,7 @@ const Stats: React.FC<Props> = ({ id }) => {
           alt="ads"
           width={1000}
           height={1000}
-          className="w-full max-md:order-3 h-full max-h-80 object-cover row-span-2 "
+          className="w-full max-md:order-1 h-full max-h-80 object-cover row-span-2 "
         />
 
         <div className="flex flex-col gap-4">

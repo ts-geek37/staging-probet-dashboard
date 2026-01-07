@@ -34,10 +34,12 @@ export const transformToRecentMatch = (
     teamA: {
       name: match.home_team.name,
       logo: match.home_team.logo ?? "/no-image.png",
+      score: match.home_team?.score?.goals,
     },
     teamB: {
       name: match.away_team.name,
       logo: match.away_team.logo ?? "/no-image.png",
+      score: match.away_team?.score?.goals,
     },
   };
 };

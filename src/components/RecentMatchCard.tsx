@@ -10,6 +10,7 @@ import { useMatchTimer } from "@/modules/leagues/hooks";
 interface Team {
   name: string;
   logo: string;
+  score?: number;
 }
 
 export interface RecentMatchProps {
@@ -56,10 +57,14 @@ const RecentMatchCard: React.FC<RecentMatchProps> = ({
               </React.Fragment>
             ))}
           </div>
-        ) : (
+        ) : matchState === "UPCOMING" ? (
           <Badge className="bg-primary-neon/20 px-3 py-2 text-sm text-primary-neon hover:bg-primary-neon/20">
-            {matchState === "PAST" ? "Finished" : "Upcoming"}
+            Upcoming
           </Badge>
+        ) : (
+          <span className="text-white font-semibold">
+            {teamA.score + " - " + teamB.score}
+          </span>
         )}
       </div>
 
