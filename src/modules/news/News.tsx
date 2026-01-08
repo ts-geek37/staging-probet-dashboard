@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import React from "react";
 
 import { NewsCard } from "@/components";
@@ -32,15 +33,16 @@ const News: React.FC = () => {
         </div>
 
         {sideNews.map((news) => (
-          <NewsCard
-            key={news.id}
-            title={news.title}
-            excerpt={news.subtitle}
-            image={news.image}
-            category={news.category}
-            published_at={news.publishedAt}
-            isBelow
-          />
+          <Link key={news.id} href={`/news/${news.id}`} className="block">
+            <NewsCard
+              title={news.title}
+              excerpt={news.subtitle}
+              image={news.image}
+              category={news.category}
+              published_at={news.publishedAt}
+              isBelow
+            />
+          </Link>
         ))}
       </div>
     </section>

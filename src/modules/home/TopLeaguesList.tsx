@@ -14,9 +14,7 @@ const TopLeaguesList: React.FC<Props> = ({ leagues }) => {
 
   return (
     <div className="space-y-3">
-      {leagues.map((league, index) => {
-        const isActive = index === 0;
-
+      {leagues.map((league) => {
         return (
           <Card
             key={league.id}

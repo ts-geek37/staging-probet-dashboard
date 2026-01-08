@@ -1,38 +1,61 @@
 "use client";
 
+import React from "react";
+
+import { SkeletonCardLoader, NoData } from "@/components";
+import type { PlayerStatsResponse } from "@/types/players";
+
+import { SeasonHistoryTable, PlayerStatsCard } from "../components";
 import { usePlayerStats } from "../hooks";
 
 interface Props {
   playerId: number;
 }
 
-const PlayerStatsTab = ({ playerId }: Props) => {
-  const { stats, isLoading } = usePlayerStats(playerId);
+const PlayerStatsTab: React.FC<Props> = ({ playerId }) => {
+  const { stats, isLoading } = usePlayerStats(playerId) as {
+    stats: PlayerStatsResponse | null;
+    isLoading: boolean;
+  };
 
-  if (isLoading || !stats) return null;
+  if (isLoading) return <SkeletonCardLoader />;
+  if (!stats) return <NoData message="No stats available" />;
+
+  const currentSeason = stats.seasons[0];
+
+  const currentSeasonStats = [
+    { label: "Appearances", value: currentSeason.appearances },
+    { label: "Goals", value: currentSeason.goals },
+    { label: "Assists", value: currentSeason.assists },
+    { label: "Minutes", value: currentSeason.minutes.toLocaleString() },
+  ];
+
+  const disciplineStats = [
+    {
+      label: "Yellow Cards",
+      value: stats.career_totals.yellow_cards,
+      color: "text-primary-yellow",
+    },
+    {
+      label: "Red Cards",
+      value: stats.career_totals.red_cards,
+      color: "text-primary-red",
+    },
+  ];
 
   return (
-    <div>
-      <div>
-        <p>Apps: {stats.career_totals.appearances}</p>
-        <p>Goals: {stats.career_totals.goals}</p>
-        <p>Assists: {stats.career_totals.assists}</p>
-        <p>Yellow cards: {stats.career_totals.yellow_cards}</p>
-        <p>Red cards: {stats.career_totals.red_cards}</p>
-      </div>
-
-      <div>
-        {stats.seasons.map((season) => (
-          <div key={`${season.season}-${season.competition}`}>
-            <p>{season.season}</p>
-            <p>{season.competition}</p>
-            <p>Apps: {season.appearances}</p>
-            <p>Goals: {season.goals}</p>
-            <p>Assists: {season.assists}</p>
-            <p>Minutes: {season.minutes}</p>
-          </div>
-        ))}
-      </div>
+    <div className="space-y-6 py-6">
+      <PlayerStatsCard
+        title={`Current Season (${currentSeason.season})`}
+        stats={currentSeasonStats}
+      />
+      <PlayerStatsCard
+        title="Discipline"
+        stats={disciplineStats}
+        columns="grid-cols-2"
+        hoverBorderColor="group-hover:border-primary-yellow"
+      />
+      <SeasonHistoryTable seasons={stats.seasons} />
     </div>
   );
 };
