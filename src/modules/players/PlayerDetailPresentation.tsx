@@ -5,20 +5,20 @@ import React, { useState } from "react";
 import { ApiResponse } from "@/api/types";
 import { NoData } from "@/components";
 import TabNavigation from "@/components/TabNavigation";
-import { PlayerDetailView, PlayerOverviewResponse } from "@/types/players";
+import { PlayerDetailView, PlayerProfileResponse } from "@/types/players";
 
 import PlayerHeader from "./PlayerHeader";
 import { PlayerDetailTabs } from "./tabs";
 
 export const playerTabs = [
-  { label: "Profile", value: PlayerDetailView.OVERVIEW },
+  { label: "Profile", value: PlayerDetailView.Profile },
   { label: "Stats", value: PlayerDetailView.STATS },
   { label: "Matches", value: PlayerDetailView.MATCHES },
 ];
 
 interface Props {
   playerId: number;
-  initialData: ApiResponse<PlayerOverviewResponse>;
+  initialData: ApiResponse<PlayerProfileResponse>;
 }
 
 const PlayerDetailPresentation: React.FC<Props> = ({
@@ -26,10 +26,10 @@ const PlayerDetailPresentation: React.FC<Props> = ({
   initialData,
 }) => {
   const [activeTab, setActiveTab] = useState<PlayerDetailView>(
-    PlayerDetailView.OVERVIEW,
+    PlayerDetailView.Profile,
   );
   if (!initialData.data) {
-    return <NoData message="No data available" />;
+    return <NoData message="No data available for this player" />;
   }
 
   return (

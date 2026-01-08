@@ -21,14 +21,7 @@ const PlayerMatchesTab: React.FC<Props> = ({ playerId }) => {
   return (
     <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
       {matches.map((match) => (
-        <PlayerMatchCard
-          key={match.match_id}
-          competition={match.competition}
-          opponent={match.opponent}
-          minutes_played={match.minutes_played}
-          goals={match.goals}
-          assists={match.assists}
-        />
+        <PlayerMatchCard key={match.id} match={match} />
       ))}
     </div>
   );

@@ -10,7 +10,7 @@ interface Props {
 }
 
 const OverviewCard: React.FC<Props> = ({ title, children }) => (
-  <Card className="h-full rounded-xl border border-primary-gray/20 bg-[#14181F] ">
+  <Card className="h-full rounded-xl border border-primary-gray/20">
     <CardHeader>
       <CardTitle className="text-base font-semibold text-white">
         {title}

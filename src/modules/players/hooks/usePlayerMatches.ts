@@ -7,7 +7,7 @@ import { PlayerDetailView, PlayerMatchesResponse } from "@/types/players";
 
 const usePlayerMatches = (playerId: number) => {
   const response = useSWR<ApiResponse<PlayerMatchesResponse>>(
-    `/api/players/${playerId}?view=${PlayerDetailView.MATCHES}`,
+    `/api/v2/players/${playerId}/${PlayerDetailView.MATCHES}`,
   );
 
   return {
