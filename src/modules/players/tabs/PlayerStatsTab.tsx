@@ -2,11 +2,15 @@
 
 import React from "react";
 
-import { NoData, SkeletonCardLoader } from "@/components";
-
-import { PlayerStatsCard, SeasonOverview } from "../components";
-import { usePlayerStats } from "../hooks";
+import { NoData } from "@/components";
 import { Card, CardContent } from "@/components/ui/card";
+
+import {
+  PlayerStatsCard,
+  SeasonOverview,
+  PlayerStatsLoading,
+} from "../components";
+import { usePlayerStats } from "../hooks";
 
 interface Props {
   playerId: number;
@@ -26,7 +30,7 @@ const PlayerStatsTab: React.FC<Props> = ({ playerId }) => {
     isLoading,
   } = usePlayerStats(playerId);
 
-  if (isLoading) return <SkeletonCardLoader />;
+  if (isLoading) return <PlayerStatsLoading />;
   if (!stats) return <NoData message="No stats available" />;
 
   return (

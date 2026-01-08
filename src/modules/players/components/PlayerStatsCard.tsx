@@ -2,7 +2,6 @@
 
 import React from "react";
 
-
 export interface PlayerStatItem {
   label: string;
   value: number | string;
@@ -31,7 +30,9 @@ const PlayerStatsCard: React.FC<PlayerStatsCardProps> = ({
           key={stat.label}
           className="rounded-lg bg-zinc-900 border border-gray-800 p-3 sm:p-4 text-center transition-colors hover:border-primary-green/50 group"
         >
-          <p className="sm:text-xl lg:text-2xl font-semibold text-white group-hover:text-primary-green">{stat.value}</p>
+          <p className="sm:text-xl lg:text-2xl font-semibold text-white group-hover:text-primary-green">
+            {stat.value}
+          </p>
           <p className="mt-1 text-xs sm:text-sm lg:text-base tracking-wide text-gray-400 group-hover:text-primary-green">
             {stat.label}
           </p>
