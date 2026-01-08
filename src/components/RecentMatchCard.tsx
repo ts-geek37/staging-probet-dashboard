@@ -19,6 +19,7 @@ export interface RecentMatchProps {
   teamB: Team;
   matchDate: string;
   BadgeText?: string;
+  onClick?: () => void;
 }
 
 const RecentMatchCard: React.FC<RecentMatchProps> = ({
@@ -27,11 +28,15 @@ const RecentMatchCard: React.FC<RecentMatchProps> = ({
   teamB,
   matchDate,
   BadgeText,
+  onClick,
 }) => {
   const { timeUnits, matchState, month, time } = useMatchTimer(matchDate);
 
   return (
-    <Card className="flex border-none rounded-none items-center size-full justify-between gap-3 sm:gap-6 px-6 py-4">
+    <Card
+      className="flex border-none rounded-none items-center size-full justify-between gap-3 sm:gap-6 px-6 py-4"
+      onClick={onClick}
+    >
       <div className="flex items-center justify-between w-full gap-3">
         <h3 className="text-lg font-semibold text-white">{leagueName}</h3>
         {BadgeText ? (

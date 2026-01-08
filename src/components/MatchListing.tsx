@@ -6,6 +6,7 @@ import {
   transformLeagueMatch,
 } from "@/utils/transformLeagueMatch";
 
+import { useRouter } from "next/navigation";
 import RecentMatchCard, { RecentMatchProps } from "./RecentMatchCard";
 import UpcomingMatchCard, { UpcomingMatchProps } from "./UpcomingMatchCard";
 
@@ -24,6 +25,10 @@ const MatchListing: React.FC<MatchListingProps> = ({
   mode,
   BadgeText,
 }) => {
+  const router = useRouter();
+  const onClick = (matchId: number) => {
+    router.push(`/matches/${matchId}`);
+  };
   return (
     <div className="w-full">
       <h2 className="text-lg text-white font-semibold mb-4">{title}</h2>
@@ -38,6 +43,7 @@ const MatchListing: React.FC<MatchListingProps> = ({
             return (
               <RecentMatchCard
                 key={index}
+                onClick={() => onClick(match?.id)}
                 {...(transformedMatch as RecentMatchProps)}
               />
             );
@@ -46,6 +52,7 @@ const MatchListing: React.FC<MatchListingProps> = ({
             <UpcomingMatchCard
               key={index}
               className="!w-full"
+              onClick={() => onClick(match?.id)}
               {...(transformedMatch as UpcomingMatchProps)}
             />
           );
