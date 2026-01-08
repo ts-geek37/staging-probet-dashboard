@@ -1,6 +1,6 @@
 export interface LeagueMatch {
   id: number;
-  kickoff_time: string
+  kickoff_time: string;
   status: "UPCOMING" | "LIVE" | "FT";
   home_team: MatchTeam;
   away_team: MatchTeam;

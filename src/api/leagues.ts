@@ -3,7 +3,7 @@ import {
   LeaguesListResponse,
   LeagueView,
   LeagueViewResponseMap,
-  MatchListStatus
+  MatchListStatus,
 } from "@/types/leagues";
 
 import { ApiResponse } from "./types";

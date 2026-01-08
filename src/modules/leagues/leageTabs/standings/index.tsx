@@ -1,9 +1,9 @@
 import React from "react";
 
-import useLeagueStandings from "../../hooks/useLeagueStandings";
-import LeagueBanner from "../../LeagueBanner";
 import { StandingCard } from "./StandingCard";
 import StandingCardSkeleton from "./StandingCardSkeleon";
+import useLeagueStandings from "../../hooks/useLeagueStandings";
+import LeagueBanner from "../../LeagueBanner";
 
 interface Props {
   id: number;

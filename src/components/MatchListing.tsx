@@ -1,12 +1,13 @@
 "use client";
 
+import { useRouter } from "next/navigation";
+
 import {
   MatchMode,
   MatchWithOptionalLeague,
   transformLeagueMatch,
 } from "@/utils/transformLeagueMatch";
 
-import { useRouter } from "next/navigation";
 import RecentMatchCard, { RecentMatchProps } from "./RecentMatchCard";
 import UpcomingMatchCard, { UpcomingMatchProps } from "./UpcomingMatchCard";
 
