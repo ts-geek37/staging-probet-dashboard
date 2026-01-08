@@ -50,7 +50,9 @@ const PlayerStatsCard: React.FC<PlayerStatsCardProps> = ({
           >
             {stat.value}
           </p>
-          <p className="mt-1 text-xs sm:text-sm text-muted-foreground">{stat.label}</p>
+          <p className="mt-1 text-xs sm:text-sm text-muted-foreground">
+            {stat.label}
+          </p>
         </div>
       ))}
     </CardContent>
