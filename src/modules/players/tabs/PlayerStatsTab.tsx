@@ -3,7 +3,6 @@
 import React from "react";
 
 import { NoData, SkeletonCardLoader } from "@/components";
-import { SelectField } from "@/components/form";
 
 import { PlayerStatsCard, SeasonOverview } from "../components";
 import { usePlayerStats } from "../hooks";
@@ -31,12 +30,15 @@ const PlayerStatsTab: React.FC<Props> = ({ playerId }) => {
 
   return (
     <div className="space-y-6">
-      <SelectField
-        options={seasonOptions}
-        value={currentSeason?.season?.id}
-        onChange={(str) => SetSeasonId(Number(str))}
-      />
-      {!!currentSeason && <SeasonOverview {...currentSeason} />}
+      {!!currentSeason && (
+        <SeasonOverview
+          {...currentSeason}
+          rating={currentSeason?.stats?.rating ?? 0}
+          OnSeasonChange={SetSeasonId}
+          seasonOptions={seasonOptions}
+          selectedSeasonId={currentSeason?.season?.id}
+        />
+      )}
       <PlayerStatsCard
         title={`Season Stats (${currentSeason?.season?.name})`}
         stats={currentSeasonStats}

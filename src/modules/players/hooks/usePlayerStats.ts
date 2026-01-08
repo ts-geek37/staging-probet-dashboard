@@ -50,10 +50,6 @@ const usePlayerStats = (playerId: number) => {
           label: "Minutes",
           value: s.minutes_played.toLocaleString(),
         },
-        s?.rating != null && {
-          label: "Rating",
-          value: s.rating.toFixed(2),
-        },
       ].flatMap((item) => item || []) as PlayerStatItem[],
 
       attacking: [
@@ -68,6 +64,10 @@ const usePlayerStats = (playerId: number) => {
         s?.shots_on_target != null && {
           label: "Shots on Target",
           value: s.shots_on_target,
+        },
+        s?.pass_accuracy != null && {
+          label: "Pass Accuracy",
+          value: `${s.pass_accuracy}%`,
         },
         s?.shots_off_target != null && {
           label: "Shots off Target",
@@ -93,6 +93,10 @@ const usePlayerStats = (playerId: number) => {
           value: s.interceptions,
         },
         s?.clearances != null && { label: "Clearances", value: s.clearances },
+        s?.shots_blocked != null && {
+          label: "Shots Blocked",
+          value: s.shots_blocked,
+        },
         s?.duels_won != null &&
           s?.duels_total != null && {
             label: "Duels Won",

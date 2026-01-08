@@ -38,19 +38,19 @@ const PlayerStatsCard: React.FC<PlayerStatsCardProps> = ({
         <div
           key={stat.label}
           className={cn(
-            "group rounded-xl border border-transparent bg-[#181d25] px-6 py-4 text-center",
+            "group rounded-xl border border-transparent bg-[#181d25] px-3 sm:px-6 py-2 sm:py-4 text-center",
             hoverBorderColor,
           )}
         >
           <p
             className={cn(
-              "text-2xl font-semibold",
+              "text-lg sm:text-xl md:text-2xl font-semibold",
               stat.color ?? "text-white group-hover:text-primary-green",
             )}
           >
             {stat.value}
           </p>
-          <p className="mt-1 text-sm text-muted-foreground">{stat.label}</p>
+          <p className="mt-1 text-xs sm:text-sm text-muted-foreground">{stat.label}</p>
         </div>
       ))}
     </CardContent>
