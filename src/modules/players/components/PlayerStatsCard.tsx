@@ -5,7 +5,7 @@ import React from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 
-interface PlayerStatItem {
+export interface PlayerStatItem {
   label: string;
   value: number | string;
   color?: string;

@@ -20,7 +20,7 @@ const PlayerOverviewTab: React.FC<Props> = ({ initialData }) => {
   if (isLoading || !player) return null;
 
   return (
-    <div className="grid grid-cols-1 gap-6 py-6 lg:grid-cols-2">
+    <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
       <OverviewCard title="Personal Information">
         {personalInfoRows
           .filter((row) => !!row.value)

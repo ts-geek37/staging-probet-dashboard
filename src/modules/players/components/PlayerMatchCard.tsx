@@ -1,6 +1,7 @@
 import Image from "next/image";
 import React from "react";
 
+import { Card } from "@/components/ui/card";
 import { MatchListItem } from "@/types/players";
 
 interface Props {
@@ -10,24 +11,30 @@ interface Props {
 const PlayerMatchCard: React.FC<Props> = ({ match }) => {
   const { teams, score, league, kickoff_time } = match;
 
-  const date = new Date(kickoff_time).toLocaleDateString();
+  const date = new Date(kickoff_time).toLocaleDateString("en-US", {
+    day: "2-digit",
+    month: "short",
+    year: "numeric",
+  });
 
   return (
-    <div className="rounded-xl border border-primary-gray/20 bg-[#14181F] p-4 flex flex-col gap-4">
-      <div className="flex items-center justify-between">
+    <Card className="group rounded-xl border border-primary-gray/20 hover:border-primary-green p-4 gap-4">
+      <div className="flex items-center justify-between min-h-16">
         <div className="flex items-center gap-2">
-          {league.logo && (
-            <Image
-              src={league.logo}
-              alt={league.name}
-              width={16}
-              height={16}
-              className="object-contain"
-            />
-          )}
-          <span className="text-xs text-primary-gray">{league.name}</span>
+          <Image
+            src={league?.logo ?? "/no-image.png"}
+            alt={league?.name}
+            width={1000}
+            height={1000}
+            className="size-12 rounded-xl object-contain"
+          />
+          <span className="text-sm sm:text-base text-primary-gray group-hover:text-primary-green">
+            {league.name}
+          </span>
         </div>
-        <span className="text-xs text-primary-gray">{date}</span>
+        <span className="text-xs text-primary-gray group-hover:text-primary-green">
+          {date}
+        </span>
       </div>
 
       <div className="flex items-center justify-between px-2">
@@ -36,12 +43,12 @@ const PlayerMatchCard: React.FC<Props> = ({ match }) => {
             <Image
               src={teams.home.logo}
               alt={teams.home.name}
-              width={32}
-              height={32}
-              className="object-contain"
+              width={1000}
+              height={1000}
+              className="size-10 md:size-12 object-contain"
             />
           )}
-          <span className="text-xs text-center text-white truncate w-full">
+          <span className="text-xs md:text-sm group-hover:text-primary-green text-center text-white truncate w-full">
             {teams.home.name}
           </span>
         </div>
@@ -60,17 +67,17 @@ const PlayerMatchCard: React.FC<Props> = ({ match }) => {
             <Image
               src={teams.away.logo}
               alt={teams.away.name}
-              width={32}
-              height={32}
-              className="object-contain"
+              width={1000}
+              height={1000}
+              className="size-10 md:size-12 object-contain"
             />
           )}
-          <span className="text-xs text-center text-white truncate w-full">
+          <span className="text-xs md:text-sm group-hover:text-primary-green text-center text-white truncate w-full">
             {teams.away.name}
           </span>
         </div>
       </div>
-    </div>
+    </Card>
   );
 };
 

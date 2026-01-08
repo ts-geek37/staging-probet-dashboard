@@ -168,6 +168,11 @@ export interface MatchListItem {
 
 export interface PlayerMatchesResponse {
   matches: MatchListItem[];
+  pagination: {
+    page: number;
+    limit: number;
+    total_pages: number;
+  };
 }
 
 export type PlayerDetailResponse =
