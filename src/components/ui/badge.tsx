@@ -5,19 +5,24 @@ import * as React from "react";
 import { cn } from "@/lib/utils";
 
 const badgeVariants = cva(
-  "inline-flex items-center justify-center rounded-full border px-2 py-0.5 text-xs font-medium w-fit whitespace-nowrap shrink-0 [&>svg]:size-3 gap-1 [&>svg]:pointer-events-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive transition-[color,box-shadow] overflow-hidden",
+  "inline-flex items-center justify-center rounded-full px-2 py-0.5 text-xs font-medium w-fit whitespace-nowrap shrink-0 [&>svg]:size-3 gap-1 [&>svg]:pointer-events-none focus-visible:ring-2 focus-visible:ring-ring transition-[color,box-shadow] overflow-hidden",
   {
     variants: {
       variant: {
         default:
-          "border-transparent bg-primary text-primary-foreground [a&]:hover:bg-primary/90",
-        live: "px-3 py-1 border-none relative flex items-center bg-[#1b0f0f] text-[#AE0F0A] before:content-[''] before:block before:w-2 before:h-2 before:rounded-full before:bg-[#AE0F0A] before:mr-1 before:animate-pulse",
+          "border-transparent bg-primary text-primary-foreground hover:bg-primary/90",
+        live:
+          "bg-primary-red/20 text-primary-red relative flex items-center sm:px-4 py-1 sm:py-2 text-xs sm:text-sm before:content-[''] before:block before:w-2 before:h-2 before:rounded-full before:bg-primary-red before:mr-1 before:animate-pulse",
+        upcoming:
+          "bg-primary-neon/20 text-primary-neon px-3 sm:px-4 py-1 sm:py-2 text-xs sm:text-sm",
+        finished:
+          "bg-primary-gray/20 text-primary-gray px-3 sm:px-4 py-1 sm:py-2 text-xs sm:text-sm",
         secondary:
-          "border-transparent bg-secondary text-secondary-foreground [a&]:hover:bg-secondary/90",
+          "border-transparent bg-secondary text-secondary-foreground hover:bg-secondary/90",
         destructive:
-          "border-transparent bg-destructive text-white [a&]:hover:bg-destructive/90 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40 dark:bg-destructive/60",
+          "border-transparent bg-destructive text-white hover:bg-destructive/90 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40",
         outline:
-          "text-foreground [a&]:hover:bg-accent [a&]:hover:text-accent-foreground",
+          "text-foreground hover:bg-accent hover:text-accent-foreground",
       },
     },
     defaultVariants: {
@@ -34,7 +39,6 @@ function Badge({
 }: React.ComponentProps<"span"> &
   VariantProps<typeof badgeVariants> & { asChild?: boolean }) {
   const Comp = asChild ? Slot : "span";
-
   return (
     <Comp
       data-slot="badge"

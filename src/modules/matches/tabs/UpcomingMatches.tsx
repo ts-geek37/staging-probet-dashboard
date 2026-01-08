@@ -1,49 +1,78 @@
 "use client";
 
 import Image from "next/image";
-import React from "react";
+import React, { useState } from "react";
 
-import { NoData } from "@/components";
-import { MatchListStatus } from "@/types/matches";
+import {
+  DataError,
+  NoData,
+  Pagination,
+  SkeletonCardLoader,
+} from "@/components";
+import { MatchStatus } from "@/types/matches";
 
-import UpcomingMatchCard from "../components/UpcomingMatchCard";
 import useMatches from "../hooks/useMatches";
+import MatchCard from "@/components/MatchesCard";
 
 interface Props {
   search?: string;
 }
 
 const UpcomingMatches: React.FC<Props> = ({ search }) => {
-  const { matches } = useMatches({
-    status: MatchListStatus.UPCOMING,
-    page: 1,
-    limit: 6,
-    search,
+  const [currentPage, setCurrentPage] = useState(1);
+  const { matches, isLoading, error, totalPages } = useMatches({
+    tab: "upcoming" as MatchStatus,
+    page: currentPage,
+    limit: 20,
+    q: search,
   });
 
-  if (!matches?.length) {
-    return <NoData message="No matches found" />;
-  }
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  if (isLoading) return <SkeletonCardLoader />;
+
+  if (!matches.length) return <NoData message="No matches found" />;
+
+  if (error) return <DataError />;
 
   return (
-    <div className="grid grid-cols-1 xl:grid-cols-[1fr_400px] gap-6 items-start">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {matches.map((match) => (
-          <UpcomingMatchCard key={match.id} match={match} />
-        ))}
+    <>
+      <div className="grid grid-cols-1 xl:grid-cols-[1fr_400px] gap-6 items-start">
+        <div className="flex flex-col">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {matches.map((match) => (
+              <MatchCard
+                key={match.id}
+                match={match}
+                href={`/matches/${match.id}`}
+              />
+            ))}
+          </div>
+          {/* {totalPages > 1 && (
+            <div className="mt-5 flex justify-center">
+              <Pagination
+                currentPage={currentPage}
+                totalPages={totalPages}
+                onPageChange={handlePageChange}
+              />
+            </div>
+          )} */}
+        </div>
+        <div className="overflow-hidden">
+          <Image
+            src="/adsBg.jpg"
+            alt="Promotion Banner"
+            width={500}
+            height={100}
+            className="w-full h-60 sm:h-110 object-cover"
+            priority
+          />
+        </div>
       </div>
-
-      <div className="overflow-hidden ">
-        <Image
-          src="/adsBg.jpg"
-          alt="Promotion Banner"
-          width={500}
-          height={100}
-          className="w-full h-90 object-cover"
-          priority
-        />
-      </div>
-    </div>
+    </>
   );
 };
 

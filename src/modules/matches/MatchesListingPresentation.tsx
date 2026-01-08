@@ -18,7 +18,6 @@ import MatchStatusTabs from "./tabs/MatchStatusTabs";
 
 const MatchesListingPresentation: React.FC = () => {
   const [status, setStatus] = useState<MatchListStatus>(MatchListStatus.LIVE);
-  // const [page, setPage] = useState(1);
   const [search, setSearch] = useState("");
 
   const handleSearchChange = (value: string) => {
@@ -44,48 +43,50 @@ const MatchesListingPresentation: React.FC = () => {
         className="w-full h-20 object-cover"
         priority
       />
-
-      <MatchStatusTabs activeStatus={status} onChange={setStatus} />
-
-      <div className="flex items-center gap-4 w-full">
-        <div className="flex-1">
-          <SearchBar
-            value={search}
-            onSearchChange={handleSearchChange}
-            placeholder="Search teams or leagues"
-          />
+       <div className="max-w-7xl mx-auto px-4 space-y-10">
+        <div className="flex flex-col sm:flex-row items-start sm:items-end justify-between gap-6">
+          <div className="space-y-2">
+            <h1 className="text-2xl sm:text-5xl font-bold">Match Center</h1>
+            <p className="text-sm sm:text-base text-white">
+              Live scores and upcoming fixtures
+            </p>
+          </div>
         </div>
 
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button className="bg-primary-green flex items-center gap-2 text-white">
-              {currentLabel}
-              <ChevronDown className="w-4 h-4" />
-            </Button>
-          </DropdownMenuTrigger>
+        <div className="flex items-center gap-4 w-full">
+          <div className="flex-1">
+            <SearchBar
+              value={search}
+              onSearchChange={handleSearchChange}
+              placeholder="Search teams or leagues"
+            />
+          </div>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button className="bg-primary-green flex items-center gap-2 text-white">
+                {currentLabel}
+                <ChevronDown className="w-4 h-4" />
+              </Button>
+            </DropdownMenuTrigger>
 
-          <DropdownMenuContent
-            align="end"
-            className="bg-gray-800 text-white w-40"
-          >
-            {statusOptions.map((option) => (
-              <DropdownMenuItem
-                key={option.value}
-                onClick={() => setStatus(option.value)}
-                className="cursor-pointer hover:bg-primary-green"
-              >
-                {option.label}
-              </DropdownMenuItem>
-            ))}
-          </DropdownMenuContent>
-        </DropdownMenu>
+            <DropdownMenuContent
+              align="end"
+              className="bg-gray-800 text-white w-40"
+            >
+              {statusOptions.map((option) => (
+                <DropdownMenuItem
+                  key={option.value}
+                  onClick={() => setStatus(option.value)}
+                  className="cursor-pointer hover:bg-primary-green"
+                >
+                  {option.label}
+                </DropdownMenuItem>
+              ))}
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </div>
+        <MatchStatusTabs activeStatus={status} onChange={setStatus} />
       </div>
-
-      <MatchStatusTabs
-        activeStatus={status}
-        onChange={setStatus}
-        search={search}
-      />
     </section>
   );
 };

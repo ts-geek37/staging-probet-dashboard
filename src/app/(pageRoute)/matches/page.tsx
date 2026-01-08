@@ -12,10 +12,6 @@ export const metadata: Metadata = seo({
 
 const MatchesPage: React.FC = () => {
   return <MatchesListingPresentation />;
-  console.log(
-    "🚀 ~ MatchesPage ~ MatchesListingPresentation:",
-    MatchesListingPresentation,
-  );
 };
 
 export default MatchesPage;
