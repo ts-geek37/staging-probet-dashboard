@@ -16,9 +16,9 @@ interface Props {
 
 const LiveMatches: React.FC<Props> = ({ search }) => {
   const [currentPage, setCurrentPage] = useState(1);
-  const limit = 20;
+  const limit = 6;
 
-  const { matches, totalPages, isLoading , error} = useMatches({
+  const { matches, totalPages, isLoading, error } = useMatches({
     tab: "live" as MatchStatus,
     page: currentPage,
     limit,
@@ -32,11 +32,9 @@ const LiveMatches: React.FC<Props> = ({ search }) => {
 
   if (isLoading) return <SkeletonCardLoader />;
 
-  if (!matches.length)
-    return <NoData message="No matches found" />;
+  if (!matches.length) return <NoData message="No matches found" />;
 
-  if(error)
-    return <DataError />
+  if (error) return <DataError />;
 
   return (
     <>
@@ -49,16 +47,13 @@ const LiveMatches: React.FC<Props> = ({ search }) => {
           />
         ))}
       </div>
-
-      {/* {totalPages > 0 && (
-        <div className="mt-6 flex justify-center">
-          <Pagination
-            currentPage={currentPage}
-            totalPages={totalPages}
-            onPageChange={handlePageChange}
-          />
-        </div>
-      )} */}
+      <div className="mt-6 flex justify-center">
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPageChange={handlePageChange}
+        />
+      </div>
 
       <div className="pt-15">
         <LeagueBanner banner="champions" />

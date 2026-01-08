@@ -23,7 +23,7 @@ const UpcomingMatches: React.FC<Props> = ({ search }) => {
   const { matches, isLoading, error, totalPages } = useMatches({
     tab: "upcoming" as MatchStatus,
     page: currentPage,
-    limit: 20,
+    limit: 4,
     q: search,
   });
 
@@ -51,7 +51,7 @@ const UpcomingMatches: React.FC<Props> = ({ search }) => {
               />
             ))}
           </div>
-          {/* {totalPages > 1 && (
+
             <div className="mt-5 flex justify-center">
               <Pagination
                 currentPage={currentPage}
@@ -59,7 +59,7 @@ const UpcomingMatches: React.FC<Props> = ({ search }) => {
                 onPageChange={handlePageChange}
               />
             </div>
-          )} */}
+
         </div>
         <div className="overflow-hidden">
           <Image

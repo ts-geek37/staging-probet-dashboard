@@ -1,14 +1,24 @@
 "use client";
 
 import useSWR from "swr";
-
 import { ApiResponse } from "@/api/types";
-import { MatchDetailResponse, MatchDetailView } from "@/types/matches";
+import {
+  MatchDetailView,
+  MatchDetailViewResponseMap,
+} from "@/types/matches";
 
-const useMatchDetail = (matchId: number, view: MatchDetailView) => {
-  const { data, error, isLoading } = useSWR<ApiResponse<MatchDetailResponse>>(
-    `/api/matches/${matchId}?view=${view}`,
-  );
+const useMatchDetail = <V extends MatchDetailView>(
+  matchId: number,
+  view: V = MatchDetailView.OVERVIEW as V
+) => {
+  const endpoint =
+    view === MatchDetailView.OVERVIEW
+      ? `/api/v2/matches/${matchId}`
+      : `/api/v2/matches/${matchId}/${view}`;
+
+  const { data, error, isLoading } = useSWR<
+    ApiResponse<MatchDetailViewResponseMap[V]>
+  >(endpoint);
 
   return {
     data: data?.data,

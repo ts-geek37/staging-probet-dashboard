@@ -8,7 +8,6 @@ import { MatchDetailView } from "@/types/matches";
 import MatchEventsTab from "./MatchEventsTab";
 import MatchLineupsTab from "./MatchLineupsTab";
 import MatchOverviewTab from "./MatchOverviewTab";
-import MatchPredictionsTab from "./MatchPredictionsTab";
 import MatchStatsTab from "./MatchStatsTab";
 
 interface Props {
@@ -47,9 +46,6 @@ const MatchDetailTabs: React.FC<Props> = ({
         )}
         {activeTab === MatchDetailView.EVENTS && (
           <MatchEventsTab matchId={matchId} />
-        )}
-        {activeTab === MatchDetailView.PREDICTIONS && (
-          <MatchPredictionsTab matchId={matchId} />
         )}
       </div>
     </div>

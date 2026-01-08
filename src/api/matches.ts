@@ -1,14 +1,12 @@
 import { serverFetch } from "@/api/http";
 import {
-  MatchDetailResponse,
   MatchDetailView,
   MatchesListResponse,
   MatchEventsResponse,
   MatchLineupsResponse,
   MatchOverviewResponse,
-  MatchPredictionsResponse,
   MatchStatsResponse,
-  MatchStatus, // ✅ NEW
+  MatchStatus,
 } from "@/types/matches";
 
 
@@ -23,8 +21,6 @@ type MatchDetailByView<V extends MatchDetailView> =
   ? MatchLineupsResponse
   : V extends MatchDetailView.EVENTS
   ? MatchEventsResponse
-  : V extends MatchDetailView.PREDICTIONS
-  ? MatchPredictionsResponse
   : never;
 
 export const getMatches = (params: {
@@ -45,12 +41,14 @@ export const getMatches = (params: {
   );
 };
 
-
 export function getMatchDetail<V extends MatchDetailView>(params: {
   id: number | string;
   view: V;
 }): Promise<ApiResponse<MatchDetailByView<V>>> {
-  return serverFetch<MatchDetailByView<V>>(
-    `/api/matches/${params.id}?view=${params.view}`,
-  );
+  const endpoint =
+    params.view === MatchDetailView.OVERVIEW
+      ? `/api/v2/matches/${params.id}`
+      : `/api/v2/matches/${params.id}/${params.view}`;
+
+  return serverFetch<MatchDetailByView<V>>(endpoint);
 }

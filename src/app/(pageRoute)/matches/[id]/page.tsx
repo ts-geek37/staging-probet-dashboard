@@ -30,10 +30,13 @@ export const generateMetadata = async ({
       });
     }
 
+    const home = match.teams.home.name;
+    const away = match.teams.away.name;
+    const league = match.league.name;
+
     return seo({
-      title:
-        match?.home_team?.name + " vs " + match?.away_team?.name || "League",
-      description: match?.away_team?.name + " vs " + match?.home_team?.name,
+      title: `${home} vs ${away} | ${league}`,
+      description: `Live match details, score, stats, and lineups for ${home} vs ${away} in the ${league}.`,
     });
   } catch {
     return seo({
@@ -45,8 +48,10 @@ export const generateMetadata = async ({
 };
 
 const MatchDetailPage = async ({ params }: PageProps) => {
+  const { id } = await params;
+
   const response = await getMatchDetail({
-    id: (await params).id,
+    id,
     view: MatchDetailView.OVERVIEW,
   });
 
