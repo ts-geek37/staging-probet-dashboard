@@ -6,6 +6,7 @@ import { NoData, SkeletonCardLoader } from "@/components";
 
 import { PlayerStatsCard, SeasonOverview } from "../components";
 import { usePlayerStats } from "../hooks";
+import { Card, CardContent } from "@/components/ui/card";
 
 interface Props {
   playerId: number;
@@ -39,25 +40,32 @@ const PlayerStatsTab: React.FC<Props> = ({ playerId }) => {
           selectedSeasonId={currentSeason?.season?.id}
         />
       )}
-      <PlayerStatsCard
-        title={`Season Stats (${currentSeason?.season?.name})`}
-        stats={currentSeasonStats}
-      />
+      <Card className="border-none shadow-2xl py-0">
+        <CardContent className="space-y-4 sm:space-y-8 py-6 sm:p-6">
+          <PlayerStatsCard title="Season Overview" stats={currentSeasonStats} />
 
-      {attackingStats.length > 0 && (
-        <PlayerStatsCard title="Attacking & Passing" stats={attackingStats} />
-      )}
+          {attackingStats.length > 0 && (
+            <PlayerStatsCard
+              title="Attacking & Passing"
+              stats={attackingStats}
+            />
+          )}
 
-      {defensiveStats.length > 0 && (
-        <PlayerStatsCard title="Defensive & Physical" stats={defensiveStats} />
-      )}
+          {defensiveStats.length > 0 && (
+            <PlayerStatsCard
+              title="Defensive & Physical"
+              stats={defensiveStats}
+            />
+          )}
 
-      {disciplineStats.length > 0 && (
-        <PlayerStatsCard
-          title="Discipline & Team Record"
-          stats={disciplineStats}
-        />
-      )}
+          {disciplineStats.length > 0 && (
+            <PlayerStatsCard
+              title="Discipline & Team Record"
+              stats={disciplineStats}
+            />
+          )}
+        </CardContent>
+      </Card>
     </div>
   );
 };
