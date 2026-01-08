@@ -21,24 +21,12 @@ const useTeamMatches = (teamId: number) => {
       minute: "2-digit",
     });
 
-  const getStatusColor = (status: string) => {
-    switch (status.toUpperCase()) {
-      case "FT":
-        return "text-green-500";
-      case "UPCOMING":
-        return "text-yellow-400";
-      default:
-        return "text-gray-400";
-    }
-  };
-
   return {
     latest: data?.data?.latest ?? [],
     upcoming: data?.data?.upcoming ?? [],
     isLoading,
     error,
     formatDate,
-    getStatusColor,
   };
 };
 

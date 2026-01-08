@@ -13,7 +13,7 @@ interface Props {
 }
 
 const TeamMatches: React.FC<Props> = ({ teamId }) => {
-  const { latest, upcoming, isLoading, error, formatDate, getStatusColor } =
+  const { latest, upcoming, isLoading, error, formatDate } =
     useTeamMatches(teamId);
 
   if (isLoading) return <SkeletonCardLoader />;
@@ -36,7 +36,6 @@ const TeamMatches: React.FC<Props> = ({ teamId }) => {
                 match={match}
                 type="latest"
                 formatDate={formatDate}
-                getStatusColor={getStatusColor}
               />
             ))}
           </div>
