@@ -12,7 +12,7 @@ interface Props {
 
 const TeamHeader: React.FC<Props> = ({ team }) => {
   const headerData = useTeamHeader(team);
-  if(!headerData) return null;
+  if (!headerData) return null;
 
   return (
     <div className="w-full border-b border-primary-gray/20">
