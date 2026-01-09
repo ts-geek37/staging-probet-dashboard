@@ -12,7 +12,7 @@ interface Props {
 
 const TeamHeader: React.FC<Props> = ({ team }) => {
   const headerData = useTeamHeader(team);
-  if(!headerData) return null;
+  if (!headerData) return null;
 
   return (
     <div className="w-full border-b border-primary-gray/20">
@@ -37,25 +37,24 @@ const TeamHeader: React.FC<Props> = ({ team }) => {
               </span>
             </div>
 
-              <div className="flex flex-wrap items-center gap-3 text-primary-gray">
-                {headerData.countryName && (
-                  <div className="flex items-center gap-2 text-sm sm:text-base">
-                    {headerData.countryFlag && (
-                      <Image
-                        src={headerData.countryFlag}
-                        alt={headerData.countryName}
-                        width={20}
-                        height={14}
-                        className="h-3.5 w-5 object-contain"
-                      />
-                    )}
-                    <span>{headerData.countryName}</span>
-                  </div>
-                )}
-              </div>
+            <div className="flex flex-wrap items-center gap-3 text-primary-gray">
+              {headerData.countryName && (
+                <div className="flex items-center gap-2 text-sm sm:text-base">
+                  {headerData.countryFlag && (
+                    <Image
+                      src={headerData.countryFlag}
+                      alt={headerData.countryName}
+                      width={20}
+                      height={14}
+                      className="h-3.5 w-5 object-contain"
+                    />
+                  )}
+                  <span>{headerData.countryName}</span>
+                </div>
+              )}
             </div>
           </div>
-        )}
+        </div>
       </div>
     </div>
   );

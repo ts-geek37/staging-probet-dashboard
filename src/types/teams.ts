@@ -1,3 +1,4 @@
+import { PaginationMeta } from "./leagues";
 import { MatchListItem, MatchStatus } from "./matches";
 
 export interface TeamCard {
@@ -43,8 +44,6 @@ export interface TeamOverviewResponse {
     name: string;
   } | null;
 }
-
-import { PaginationMeta } from "./leagues";
 
 export interface TeamListResponse {
   data: TeamOverviewResponse[];
