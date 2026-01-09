@@ -1,23 +1,27 @@
 "use client";
 
 import { Calendar, User } from "lucide-react";
-import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React from "react";
 
 import { Card } from "@/components/ui/card";
-import type { PlayerWithFlag } from "@/types/teams";
+import type { TeamPlayer } from "@/types/teams";
 
 interface Props {
-  player: PlayerWithFlag;
+  player: TeamPlayer;
   className?: string;
 }
 
 const PlayerCard: React.FC<Props> = ({ player, className }) => {
   const router = useRouter();
 
-  const startYear = new Date(player.contract.start).getFullYear();
-  const endYear = new Date(player.contract.end).getFullYear();
+  const startYear = player.contract.start
+    ? new Date(player.contract.start).getFullYear()
+    : "-";
+
+  const endYear = player.contract.end
+    ? new Date(player.contract.end).getFullYear()
+    : "-";
 
   return (
     <Card
@@ -41,17 +45,7 @@ const PlayerCard: React.FC<Props> = ({ player, className }) => {
           </p>
         </div>
 
-        <div className="flex flex-col items-end gap-1">
-          {player.flagUrl && (
-            <Image
-              src={player.flagUrl}
-              alt={player.nationality}
-              width={25}
-              height={25}
-              onError={(e) => (e.currentTarget.src = "/no-image.png")}
-            />
-          )}
-        </div>
+        <div className="flex flex-col items-end gap-1"></div>
       </div>
     </Card>
   );

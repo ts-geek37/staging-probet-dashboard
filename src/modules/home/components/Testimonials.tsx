@@ -19,9 +19,16 @@ const Testimonials: React.FC = () => {
 
   return (
     <div className="py-12 w-full">
-      <h2 className="text-2xl font-bold w-full text-white mb-8 text-center">
-        What Our Users Say
-      </h2>
+      <div className="flex flex-col gap-1 mb-5">
+        <h2 className="text-lg sm:text-xl md:text-2xl font-bold text-white text-center">
+          Trusted by Football Analysts Worldwide
+        </h2>
+
+        <p className="text-xs sm:text-sm md:text-base text-gray-400 max-w-2xl mx-auto text-center">
+          Real feedback from users who rely on Pro Bet for match statistics,
+          team insights, and data-driven football analysis.
+        </p>
+      </div>
 
       <Carousel
         plugins={[plugin.current]}
@@ -39,24 +46,26 @@ const Testimonials: React.FC = () => {
               key={testimonial.id}
               className="basis-full md:basis-1/2 lg:basis-1/3"
             >
-              <Card className="justify-between h-full rounded-xl border-primary-neon/20 backdrop-blur transition-all">
+              <Card className="group h-full rounded-xl border-primary-neon/20 backdrop-blur transition-all duration-300">
                 <div className="py-0 px-6 flex flex-col gap-4">
                   <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-full flex items-center justify-center border border-primary-neon/20">
+                    <div className="w-10 h-10 rounded-full flex items-center justify-center border border-primary-neon/20 group-hover:border-primary-neon/60 group-hover:bg-primary-neon/10">
                       <span className="text-primary-neon font-bold text-lg">
                         {testimonial.name.charAt(0)}
                       </span>
                     </div>
+
                     <div>
-                      <h4 className="text-white font-semibold">
+                      <h4 className="text-white font-semibold group-hover:text-primary-neon">
                         {testimonial.name}
                       </h4>
-                      <p className="text-xs text-gray-400">
+                      <p className="text-xs text-gray-400 group-hover:text-primary-neon/80">
                         {testimonial.country}
                       </p>
                     </div>
                   </div>
-                  <p className="text-gray-300 italic leading-relaxed">
+
+                  <p className="text-gray-300 italic leading-relaxed transition-colors duration-300 group-hover:text-gray-200">
                     &ldquo;{testimonial.feedback}&rdquo;
                   </p>
                 </div>

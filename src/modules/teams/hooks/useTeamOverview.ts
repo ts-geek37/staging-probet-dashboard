@@ -20,31 +20,29 @@ export const useTeamOverview = (
 
   const team = data?.data ?? null;
 
-  const teamInfo = team
-    ? [
-        { label: "Name", value: team.name ?? "N/A" },
-        { label: "Short Code", value: team.short_code ?? "N/A" },
-        { label: "Founded", value: team.founded ?? "N/A" },
-        { label: "Country", value: team.country?.name ?? "N/A" },
-      ]
-    : [];
+  const sections: OverviewSection[] = useMemo(() => {
+    if (!team) return [];
 
-  const venueInfo = team
-    ? [
-        { label: "Stadium", value: team.stadium?.name ?? "N/A" },
-        {
-          label: "Capacity",
-          value: team.stadium?.capacity?.toLocaleString() ?? "N/A",
-        },
-      ]
-    : [];
+    const teamInfo = [
+      { label: "Name", value: team.name ?? "N/A" },
+      { label: "Short Code", value: team.short_code ?? "N/A" },
+      { label: "Founded", value: team.founded ?? "N/A" },
+      { label: "Country", value: team.country?.name ?? "N/A" },
+    ];
 
-  const seasonInfo = team
-    ? [{ label: "Current Season", value: team.current_season?.name ?? "N/A" }]
-    : [];
+    const venueInfo = [
+      { label: "Stadium", value: team.stadium?.name ?? "N/A" },
+      {
+        label: "Capacity",
+        value: team.stadium?.capacity?.toLocaleString() ?? "N/A",
+      },
+    ];
 
-  const sections: OverviewSection[] = useMemo(
-    () => [
+    const seasonInfo = [
+      { label: "Current Season", value: team.current_season?.name ?? "N/A" },
+    ];
+
+    return [
       {
         key: "team-info",
         title: "Team Information",
@@ -63,9 +61,8 @@ export const useTeamOverview = (
         columns: "grid-cols-1 sm:grid-cols-2",
         items: seasonInfo.map((item) => ({ ...item, variant: "default" })),
       },
-    ],
-    [teamInfo, venueInfo, seasonInfo],
-  );
+    ];
+  }, [team]);
 
   return {
     team,

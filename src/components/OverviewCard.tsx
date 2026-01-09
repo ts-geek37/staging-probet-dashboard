@@ -8,10 +8,10 @@ import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 
 interface OverviewItem {
   label: string;
-  value?: string | number;
+  value?: string | number | null;
   type?: "text" | "badge" | "flag" | "icon";
   icon?: React.ReactNode;
-  image?: string;
+  image?: string | null;
 }
 
 interface OverviewCardProps {

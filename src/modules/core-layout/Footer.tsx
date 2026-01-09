@@ -18,7 +18,7 @@ const Footer: React.FC = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="relative w-full bg-primary-bg border-t border-white/10">
+    <footer className="relative w-full bg-primary-bg border-t-2 border-white/10">
       <div className="relative z-10 max-w-7xl mx-auto px-4 py-12 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-[2fr_1fr] gap-12 mb-12">
           <div className="flex flex-col gap-4">
@@ -43,7 +43,7 @@ const Footer: React.FC = () => {
           </div>
 
           <div>
-            <h3 className="text-lg font-semibold text-white mb-4">Connect</h3>
+            <h3 className="text-lg font-semibold text-white mb-4">Resources</h3>
             <ul className="space-y-3">
               {FOOTER_LINKS.map((link) => (
                 <li key={link.href}>

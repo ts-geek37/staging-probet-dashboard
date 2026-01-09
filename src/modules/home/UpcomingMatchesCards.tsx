@@ -1,13 +1,13 @@
+"use client";
+
 import Link from "next/link";
 import React from "react";
 
-import { NoData } from "@/components";
-import UpcomingMatchCard from "@/components/UpcomingMatchCard";
-import { UpcomingMatch } from "@/types/home";
-import { formatUtcTime } from "@/utils/date";
+import { NoData, MatchCard } from "@/components";
+import { MatchListItem } from "@/types/home";
 
 interface Props {
-  matches: UpcomingMatch[];
+  matches: MatchListItem[];
 }
 
 const UpcomingMatchCards: React.FC<Props> = ({ matches }) => {
@@ -18,7 +18,6 @@ const UpcomingMatchCards: React.FC<Props> = ({ matches }) => {
           <div className="space-y-2">
             <h1 className="text-xl sm:text-5xl font-bold">Upcoming Matches</h1>
           </div>
-
           <Link
             href="/matches"
             className="text-primary-gray hover:text-white transition-colors"
@@ -26,27 +25,16 @@ const UpcomingMatchCards: React.FC<Props> = ({ matches }) => {
             View all
           </Link>
         </div>
-
         {!matches?.length ? (
           <NoData message="No matches found" />
         ) : (
-          <div className="flex flex-wrap gap-6 justify-center items-center md:justify-start md:items-start">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {matches.map((match) => (
-              <Link
+              <MatchCard
                 key={match.id}
+                match={match}
                 href={`/matches/${match.id}`}
-                className="block w-full sm:w-80 lg:w-100"
-              >
-                <UpcomingMatchCard
-                  key={match.id}
-                  teamA={match.home_team.name}
-                  teamB={match.away_team.name}
-                  teamALogo={match.home_team.logo}
-                  teamBLogo={match.away_team.logo}
-                  date={match.date}
-                  time={formatUtcTime(match.kickoff_time)}
-                />
-              </Link>
+              />
             ))}
           </div>
         )}

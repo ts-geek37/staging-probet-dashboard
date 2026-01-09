@@ -6,7 +6,7 @@ import { ApiResponse } from "@/api/types";
 import { HomeResponse } from "@/types/home";
 
 export const useHome = (initialData?: ApiResponse<HomeResponse>) => {
-  const response = useSWR<ApiResponse<HomeResponse>>("/api/home", {
+  const response = useSWR<ApiResponse<HomeResponse>>("/api/v2/home", {
     fallbackData: initialData,
     revalidateOnMount: false,
   });

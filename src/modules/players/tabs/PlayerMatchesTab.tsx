@@ -2,10 +2,10 @@
 
 import React from "react";
 
-import { NoData, SkeletonCardLoader } from "@/components";
+import { NoData, SkeletonCardLoader, MatchCard } from "@/components";
 import Pagination from "@/components/Pagination";
+import { MatchListItem } from "@/types/teams";
 
-import { PlayerMatchCard } from "../components";
 import { usePlayerMatches } from "../hooks";
 
 interface Props {
@@ -18,21 +18,36 @@ const PlayerMatchesTab: React.FC<Props> = ({ playerId }) => {
 
   if (isLoading) return <SkeletonCardLoader />;
 
-  if (!matches || matches.length === 0)
-    return <NoData message="No matches history" />;
-
-  return (
-    <div className="flex flex-col gap-4 ">
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+  const renderMatches = (matches: MatchListItem[], emptyMessage: string) =>
+    !matches.length ? (
+      <NoData message={emptyMessage} />
+    ) : (
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {matches.map((match) => (
-          <PlayerMatchCard key={match.id} match={match} />
+          <MatchCard
+            key={match.id}
+            match={match}
+            href={`/matches/${match.id}`}
+          />
         ))}
       </div>
-      <Pagination
-        currentPage={page}
-        onPageChange={setPage}
-        totalPages={pagination?.total_pages || 1}
-      />
+    );
+
+  return (
+    <div className="space-y-6">
+      <section>
+        <h2 className="text-xl font-semibold mb-4 text-white">Match History</h2>
+
+        {renderMatches(matches ?? [], "No matches history")}
+      </section>
+
+      {pagination && pagination.total_pages > 1 && (
+        <Pagination
+          currentPage={page}
+          onPageChange={setPage}
+          totalPages={pagination.total_pages}
+        />
+      )}
     </div>
   );
 };

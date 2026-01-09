@@ -21,12 +21,14 @@ const StatusBadge: React.FC<{ status: MatchStatus }> = ({ status }) => {
     LIVE: MatchListStatus.LIVE,
     UPCOMING: MatchListStatus.UPCOMING,
     FT: MatchListStatus.FINISHED,
+    LATEST: MatchListStatus.FINISHED,
   };
 
   const labelMap: Record<MatchStatus, string> = {
     LIVE: "LIVE",
     UPCOMING: "UPCOMING",
     FT: "FINISHED",
+    LATEST: "FINISHED",
   };
 
   return <Badge variant={variantMap[status]}>{labelMap[status]}</Badge>;
@@ -58,16 +60,20 @@ const TeamRow: React.FC<{
         {team.name}
       </span>
     </div>
-    <span className="text-base font-semibold text-white">{value}</span>
+    <span className="text-base text-primary-gray">{value}</span>
   </div>
 );
 
 const MatchCard: React.FC<MatchCardProps> = ({ match, href, onClick }) => {
   const { kickoff_time, league, score, season, status, teams } = match;
 
-  const kickoffDate = new Date(kickoff_time);
-  const formattedDate = formatDate(kickoffDate);
-  const formattedTime = formatUtcTime(kickoff_time);
+  const kickoffTimeValue =
+    kickoff_time && kickoff_time !== "LATEST" ? kickoff_time : null;
+
+  const kickoffDate = kickoffTimeValue ? new Date(kickoffTimeValue) : null;
+
+  const formattedDate = kickoffDate ? formatDate(kickoffDate) : "--";
+  const formattedTime = kickoffDate ? formatUtcTime(kickoffTimeValue!) : "--";
 
   const isUpcoming = status === "UPCOMING";
 
@@ -83,7 +89,7 @@ const MatchCard: React.FC<MatchCardProps> = ({ match, href, onClick }) => {
       whileTap={{ scale: 0.98 }}
       transition={{ type: "spring", stiffness: 400, damping: 25 }}
     >
-      <Card className="cursor-pointer h-full border border-primary-gray/20 bg-[#14181F] py-3 gap-2 transition-all duration-300">
+      <Card className="cursor-pointer h-full border border-primary-gray/20 py-3 gap-2 transition-all duration-300">
         <CardHeader className="pb-2 pt-3 px-4">
           <div className="flex items-center justify-between gap-2">
             <div className="flex items-center gap-2.5 flex-1">

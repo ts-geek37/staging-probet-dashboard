@@ -85,10 +85,13 @@ const MatchesListingPresentation: React.FC = () => {
             </DropdownMenuContent>
           </DropdownMenu>
         </div>
-        <MatchStatusTabs activeStatus={status} onChange={setStatus} />
+        <MatchStatusTabs
+          activeStatus={status}
+          onChange={setStatus}
+          search={search}
+        />
       </div>
     </section>
   );
 };
-
 export default MatchesListingPresentation;
