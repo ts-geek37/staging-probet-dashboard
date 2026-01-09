@@ -1,23 +1,75 @@
 "use client";
 
-import React from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Repeat, Square, Trophy, Clock, ShieldAlert } from "lucide-react";
+import {
+  Repeat,
+  Square,
+  Trophy,
+  Clock,
+  ShieldAlert,
+  LucideIcon,
+} from "lucide-react";
+import React from "react";
+
 import { MatchEventItem } from "@/types/matches";
 
-const EVENT_CONFIG: Record<string, { label: string; icon: any; color: string; bgColor: string }> = {
-  GOAL: { label: "Goal", icon: Trophy, color: "text-green-400", bgColor: "bg-green-500/10" },
-  OWN_GOAL: { label: "Own Goal", icon: Trophy, color: "text-red-400", bgColor: "bg-red-500/10" },
-  PENALTY_GOAL: { label: "Penalty", icon: Trophy, color: "text-emerald-400", bgColor: "bg-emerald-500/10" },
-  CARD: { label: "Card", icon: Square, color: "text-yellow-400", bgColor: "bg-yellow-500/10" },
-  SUBSTITUTION: { label: "Substitution", icon: Repeat, color: "text-blue-400", bgColor: "bg-blue-500/10" },
-  VAR: { label: "VAR", icon: ShieldAlert, color: "text-purple-400", bgColor: "bg-purple-500/10" },
-  DEFAULT: { label: "Match Event", icon: Clock, color: "text-primary-gray", bgColor: "bg-primary-gray/10" },
+const EVENT_CONFIG: Record<
+  string,
+  { label: string; icon: LucideIcon; color: string; bgColor: string }
+> = {
+  GOAL: {
+    label: "Goal",
+    icon: Trophy,
+    color: "text-green-400",
+    bgColor: "bg-green-500/10",
+  },
+  OWN_GOAL: {
+    label: "Own Goal",
+    icon: Trophy,
+    color: "text-red-400",
+    bgColor: "bg-red-500/10",
+  },
+  PENALTY_GOAL: {
+    label: "Penalty",
+    icon: Trophy,
+    color: "text-emerald-400",
+    bgColor: "bg-emerald-500/10",
+  },
+  CARD: {
+    label: "Card",
+    icon: Square,
+    color: "text-yellow-400",
+    bgColor: "bg-yellow-500/10",
+  },
+  SUBSTITUTION: {
+    label: "Substitution",
+    icon: Repeat,
+    color: "text-blue-400",
+    bgColor: "bg-blue-500/10",
+  },
+  VAR: {
+    label: "VAR",
+    icon: ShieldAlert,
+    color: "text-purple-400",
+    bgColor: "bg-purple-500/10",
+  },
+  DEFAULT: {
+    label: "Match Event",
+    icon: Clock,
+    color: "text-primary-gray",
+    bgColor: "bg-primary-gray/10",
+  },
 };
 
-const MatchEvents: React.FC<{ event: MatchEventItem; index: number }> = ({ event, index }) => {
+interface Props {
+  event: MatchEventItem;
+  index: number;
+}
+
+const MatchEvents: React.FC<Props> = ({ event, index }) => {
   const config = EVENT_CONFIG[event.type] || EVENT_CONFIG.DEFAULT;
-  const isRedCard = event.type === "CARD" && event.detail?.toLowerCase().includes("red");
+  const isRedCard =
+    event.type === "CARD" && event.detail?.toLowerCase().includes("red");
 
   const iconColor = isRedCard ? "text-red-500" : config.color;
   const bgColor = isRedCard ? "bg-red-500/20" : config.bgColor;
@@ -28,17 +80,11 @@ const MatchEvents: React.FC<{ event: MatchEventItem; index: number }> = ({ event
       initial={{ opacity: 0, y: 20, filter: "blur(10px)" }}
       animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
       whileHover={{ x: 5 }}
-      transition={{
-        delay: index * 0.08,
-        duration: 0.4,
-        ease: "easeOut"
-      }}
+      transition={{ delay: index * 0.08, duration: 0.4, ease: "easeOut" }}
       className="group relative flex items-start gap-2 sm:gap-4 py-3 px-2 sm:px-4 rounded-2xl hover:bg-white/5 transition-colors overflow-hidden"
     >
-      {/* Indicator Line */}
       <div className="absolute left-0 top-0 bottom-0 w-0.5 bg-linear-to-b from-transparent via-white/10 to-transparent group-hover:via-primary-green/50 transition-all" />
 
-      {/* Left Section: Time + Icon */}
       <div className="flex items-center gap-2 sm:gap-3 shrink-0">
         <div className="min-w-9 sm:w-12 text-right">
           <motion.span
@@ -46,26 +92,21 @@ const MatchEvents: React.FC<{ event: MatchEventItem; index: number }> = ({ event
             animate={{ scale: 1 }}
             className="text-sm sm:text-xl font-black text-primary-green block"
           >
-            {event.minute}{event.extra_minute ? `+${event.extra_minute}` : ""}'
+            {event.minute}
+            {event.extra_minute ? `+${event.extra_minute}` : ""}
+            <span>&apos;</span>
           </motion.span>
         </div>
 
-        <motion.div
-          whileHover={{ rotate: [0, -10, 10, 0] }}
-          className={`p-1.5 sm:p-2.5 rounded-lg sm:rounded-xl ${bgColor} border border-white/5 shadow-lg relative shrink-0`}
+        <div
+          className={`relative p-1.5 sm:p-2.5 rounded-lg sm:rounded-xl ${bgColor} border border-white/5 shadow-lg shrink-0`}
         >
-          {event.type === "GOAL" && (
-            <motion.div
-              animate={{ opacity: [0, 0.5, 0], scale: [1, 1.5, 2] }}
-              transition={{ repeat: Infinity, duration: 2 }}
-              className="absolute inset-0 bg-green-400/20 rounded-full"
-            />
-          )}
-          <config.icon className={`w-4 h-4 sm:w-6 sm:h-6 ${iconColor} relative z-10`} strokeWidth={2.5} />
-        </motion.div>
+          <config.icon
+            className={`relative z-10 w-4 h-4 sm:w-6 sm:h-6 ${iconColor}`}
+            strokeWidth={2.5}
+          />
+        </div>
       </div>
-
-      {/* Content Section */}
       <div className="flex-1 pt-0.5 min-w-0">
         <div className="flex items-center gap-1.5 mb-0.5 flex-wrap">
           <motion.span
@@ -83,15 +124,16 @@ const MatchEvents: React.FC<{ event: MatchEventItem; index: number }> = ({ event
               className="w-3 h-3 sm:w-4 sm:h-4 rounded-full"
             />
           )}
+
           {event.team?.name && (
-            <span className="text-xs sm:text-sm text-primary-gray font-medium opacity-60 truncate ">
+            <span className="text-xs sm:text-sm text-primary-gray font-medium opacity-60 truncate">
               • {event.team.name}
             </span>
           )}
         </div>
 
         <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-x-3">
-          <h4 className="text-xs sm:text-sm font-bold text-white tracking-wide group-hover:text-primary-green transition-colors leading-tight truncate">
+          <h4 className="text-xs sm:text-sm font-bold text-white tracking-wide group-hover:text-primary-green transition-colors truncate">
             {event.player?.name || "Match Update"}
           </h4>
 

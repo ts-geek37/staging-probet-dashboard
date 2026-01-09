@@ -1,15 +1,14 @@
 "use client";
 
-import React from "react";
-
 import { motion } from "framer-motion";
 import Image from "next/image";
+import Link from "next/link";
+import React from "react";
 
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { MatchListItem, MatchListStatus, MatchStatus } from "@/types/matches";
 import { formatDate, formatUtcTime } from "@/utils";
-import Link from "next/link";
 
 interface MatchCardProps {
   match: MatchListItem;
@@ -49,19 +48,17 @@ const TeamLogo: React.FC<{ src: string | null; alt: string }> = ({
 );
 
 const TeamRow: React.FC<{
-  team: { name: string; logo: string | null };
+  team: { name: string; logo?: string | null };
   value: string | number;
-}> = ({ team, value = false }) => (
+}> = ({ team, value }) => (
   <div className="flex items-center justify-between gap-3">
     <div className="flex items-center gap-3 min-w-0 flex-1">
-      <TeamLogo src={team.logo} alt={team.name} />
+      <TeamLogo src={team.logo ?? null} alt={team.name} />
       <span className="truncate text-sm font-medium text-white">
         {team.name}
       </span>
     </div>
-    <span className="text-base font-semibold text-white">
-      {value}
-    </span>
+    <span className="text-base font-semibold text-white">{value}</span>
   </div>
 );
 

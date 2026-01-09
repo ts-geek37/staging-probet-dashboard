@@ -1,11 +1,12 @@
 "use client";
 
-import React from "react";
-import Image from "next/image";
-import { Card, CardContent } from "@/components/ui/card";
-import { MapPin, Users, Landmark } from "lucide-react";
 import { motion } from "framer-motion";
+import { MapPin, Users, Landmark } from "lucide-react";
+import Image from "next/image";
+import React from "react";
+
 import { NoData } from "@/components";
+import { Card, CardContent } from "@/components/ui/card";
 
 interface VenueInfoCardProps {
   venue?: {
@@ -27,7 +28,7 @@ const VenueInfoCard: React.FC<VenueInfoCardProps> = ({ venue }) => {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, ease: "easeOut" }}
     >
-      <Card className="relative bg-[#14181F] border-primary-gray/20 h-full text-white overflow-hidden">
+      <Card className="relative border-primary-gray/20 h-full text-white overflow-hidden">
         <div className="absolute inset-0">
           <Image
             src={venue.image || "/football-stadium.png"}

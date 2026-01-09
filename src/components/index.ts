@@ -12,5 +12,5 @@ export { default as VIPBanner } from "./VIPBanner";
 export { default as DataError } from "./DataError";
 export { default as OverviewCard } from "./OverviewCard";
 export { default as TabNavigation } from "./TabNavigation";
-export {default as Pagination} from "./Pagination";
-export {default as MatchCard} from "./MatchesCard";
+export { default as Pagination } from "./Pagination";
+export { default as MatchCard } from "./MatchesCard";

@@ -2,7 +2,6 @@ import Image from "next/image";
 import React from "react";
 
 import { Card, CardContent } from "@/components/ui/card";
-import { cn } from "@/lib/utils";
 
 export interface UpcomingMatchProps {
   date: string;
@@ -29,7 +28,7 @@ const UpcomingMatchCard: React.FC<UpcomingMatchProps> = ({
     year: "numeric",
   });
   return (
-    <Card className="bg-[#12151C] border border-primary-green rounded-none w-full">
+    <Card className="border border-primary-green rounded-none w-full">
       <CardContent className="px-5 space-y-6">
         <div className="flex justify-between items-center text-xs font-semibold text-white">
           <span className="text-white text-lg">{formattedDate}</span>

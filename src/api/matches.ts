@@ -4,24 +4,23 @@ import {
   MatchesListResponse,
   MatchEventsResponse,
   MatchLineupsResponse,
-  MatchOverviewResponse,
+  MatchListItem,
   MatchStatsResponse,
   MatchStatus,
 } from "@/types/matches";
-
 
 import { ApiResponse } from "./types";
 
 type MatchDetailByView<V extends MatchDetailView> =
   V extends MatchDetailView.OVERVIEW
-  ? MatchOverviewResponse
-  : V extends MatchDetailView.STATS
-  ? MatchStatsResponse
-  : V extends MatchDetailView.LINEUPS
-  ? MatchLineupsResponse
-  : V extends MatchDetailView.EVENTS
-  ? MatchEventsResponse
-  : never;
+    ? MatchListItem
+    : V extends MatchDetailView.STATS
+      ? MatchStatsResponse
+      : V extends MatchDetailView.LINEUPS
+        ? MatchLineupsResponse
+        : V extends MatchDetailView.EVENTS
+          ? MatchEventsResponse
+          : never;
 
 export const getMatches = (params: {
   tab: MatchStatus;

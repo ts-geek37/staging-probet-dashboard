@@ -148,7 +148,6 @@ export interface MatchEventsResponse {
 export interface MatchDetailViewResponseMap {
   [MatchDetailView.OVERVIEW]: MatchListItem;
   [MatchDetailView.STATS]: MatchStatsResponse;
-  [MatchDetailView.LINEUPS]: MatchLineupsResponse
+  [MatchDetailView.LINEUPS]: MatchLineupsResponse;
   [MatchDetailView.EVENTS]: MatchEventsResponse;
 }
-

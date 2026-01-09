@@ -1,11 +1,12 @@
 "use client";
 
 import React from "react";
+
 import { DataError, NoData, SkeletonCardLoader } from "@/components";
 import { MatchDetailView, MatchListItem } from "@/types/matches";
-import { useMatchDetail } from "../../hooks";
 
-import { MatchInfoCard, VenueInfoCard } from "../components";
+import { MatchInfoCard, VenueInfoCard } from "../../components";
+import { useMatchDetail } from "../../hooks";
 
 interface Props {
   matchId: number;

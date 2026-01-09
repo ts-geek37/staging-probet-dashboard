@@ -9,10 +9,10 @@ import {
   Pagination,
   SkeletonCardLoader,
 } from "@/components";
+import MatchCard from "@/components/MatchesCard";
 import { MatchStatus } from "@/types/matches";
 
 import useMatches from "../hooks/useMatches";
-import MatchCard from "@/components/MatchesCard";
 
 interface Props {
   search?: string;
@@ -52,14 +52,13 @@ const UpcomingMatches: React.FC<Props> = ({ search }) => {
             ))}
           </div>
 
-            <div className="mt-5 flex justify-center">
-              <Pagination
-                currentPage={currentPage}
-                totalPages={totalPages}
-                onPageChange={handlePageChange}
-              />
-            </div>
-
+          <div className="mt-5 flex justify-center">
+            <Pagination
+              currentPage={currentPage}
+              totalPages={totalPages}
+              onPageChange={handlePageChange}
+            />
+          </div>
         </div>
         <div className="overflow-hidden">
           <Image

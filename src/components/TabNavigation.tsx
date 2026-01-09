@@ -29,7 +29,7 @@ const TabNavigation = <T extends string | number>({
           <Button
             key={tab.value}
             className={cn(
-              "relative bg-transparent px-1 py-2 text-xs transition-all sm:px-4 sm:text-sm",
+              "relative bg-transparent px-1 py-2 text-xs transition-all sm:px-4 sm:text-sm capitalize",
               isActive ? "text-primary-green" : "text-muted-foreground",
             )}
             onClick={() => onTabChange(tab.value)}

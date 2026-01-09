@@ -1,14 +1,18 @@
 "use client";
 
-import Link from "next/link";
 import React, { useState } from "react";
 
-import { DataError, NoData, SkeletonCardLoader } from "@/components";
+import {
+  DataError,
+  NoData,
+  SkeletonCardLoader,
+  MatchCard,
+  Pagination,
+} from "@/components";
 import LeagueBanner from "@/modules/leagues/LeagueBanner";
 import { MatchStatus } from "@/types/matches";
 
 import useMatches from "../hooks/useMatches";
-import { MatchCard, Pagination } from "@/components";
 
 interface Props {
   search?: string;

@@ -13,7 +13,7 @@ interface Props {
 const MatchHeader: React.FC<Props> = ({ match }) => {
   const { league, teams, score, kickoff_time } = match;
   return (
-    <Card className="w-full mx-auto my-6 bg-[#14181F] border-primary-gray/20 text-white overflow-hidden ">
+    <Card className="w-full mx-auto my-6 border-primary-gray/20 text-white overflow-hidden ">
       <CardContent className="flex flex-col items-center justify-center px-2 sm:px-6">
         <div className="flex items-center gap-2 mb-6">
           <Image

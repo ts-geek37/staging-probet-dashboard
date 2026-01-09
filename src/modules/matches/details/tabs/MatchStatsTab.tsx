@@ -1,11 +1,12 @@
 "use client";
 
 import { FC } from "react";
+
 import { NoData, SkeletonCardLoader } from "@/components";
 import { Card, CardContent } from "@/components/ui/card";
 import { MatchDetailView } from "@/types/matches";
 
-import StatRow from "../../components/StatRow";
+import { StatsRow } from "../../components";
 import useMatchDetail from "../../hooks/useMatchDetail";
 
 interface Props {
@@ -13,10 +14,7 @@ interface Props {
 }
 
 const MatchStatsTab: FC<Props> = ({ matchId }) => {
-  const { data, isLoading } = useMatchDetail(
-    matchId,
-    MatchDetailView.STATS
-  );
+  const { data, isLoading } = useMatchDetail(matchId, MatchDetailView.STATS);
 
   if (isLoading) return <SkeletonCardLoader />;
   if (!data || data.teams.length < 2)
@@ -26,8 +24,7 @@ const MatchStatsTab: FC<Props> = ({ matchId }) => {
 
   const statKeys = Object.keys(homeTeam.statistics).filter(
     (key) =>
-      homeTeam.statistics[key] !== null &&
-      awayTeam.statistics[key] !== null
+      homeTeam.statistics[key] !== null && awayTeam.statistics[key] !== null,
   );
 
   if (statKeys.length === 0)
@@ -51,7 +48,7 @@ const MatchStatsTab: FC<Props> = ({ matchId }) => {
 
         <div className="w-full space-y-4 max-w-3xl">
           {statKeys.map((key) => (
-            <StatRow
+            <StatsRow
               key={key}
               label={key.replace(/_/g, " ")}
               home={homeTeam.statistics[key] ?? 0}

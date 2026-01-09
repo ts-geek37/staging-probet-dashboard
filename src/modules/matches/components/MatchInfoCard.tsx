@@ -1,9 +1,10 @@
 "use client";
 
-import React from "react";
-import { Card, CardContent } from "@/components/ui/card";
-import { Trophy, Calendar, Clock, UserCheck, CalendarDays } from "lucide-react";
 import { motion } from "framer-motion";
+import { Trophy, Calendar, Clock, UserCheck, CalendarDays } from "lucide-react";
+import React from "react";
+
+import { Card, CardContent } from "@/components/ui/card";
 
 interface MatchInfoCardProps {
   league?: { name: string };
@@ -30,7 +31,7 @@ const MatchInfoCard: React.FC<MatchInfoCardProps> = ({
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, ease: "easeOut" }}
     >
-      <Card className="bg-[#14181F] border-primary-gray/20 h-full text-white py-3">
+      <Card className="border-primary-gray/20 h-full text-white py-3">
         <CardContent className="p-4">
           <p className="text-sm sm:text-xl font-semibold mb-6">Match Info</p>
 

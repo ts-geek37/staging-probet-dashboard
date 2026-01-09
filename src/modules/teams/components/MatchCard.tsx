@@ -13,12 +13,7 @@ interface Props {
   getStatusColor?: (status: string) => string;
 }
 
-const MatchCard: React.FC<Props> = ({
-  match,
-  type,
-  formatDate,
-  getStatusColor,
-}) => {
+const MatchCard: React.FC<Props> = ({ match, type, formatDate }) => {
   const kickoffParts = formatDate(match.kickoff_time).split(" ");
   const day = kickoffParts[0];
   const month = kickoffParts[1];

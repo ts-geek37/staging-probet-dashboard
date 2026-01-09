@@ -22,7 +22,7 @@ const MatchDetailTabs: React.FC<Props> = ({
   onTabChange,
 }) => {
   const tabs = Object.values(MatchDetailView).map((tab) => ({
-    label: tab.toLowerCase().replace(/\b\w/g, (c) => c.toUpperCase()),
+    label: tab.toLowerCase(),
     value: tab,
   }));
 

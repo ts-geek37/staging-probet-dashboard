@@ -11,8 +11,7 @@ const badgeVariants = cva(
       variant: {
         default:
           "border-transparent bg-primary text-primary-foreground hover:bg-primary/90",
-        live:
-          "bg-primary-red/20 text-primary-red relative flex items-center sm:px-4 py-1 sm:py-2 text-xs sm:text-sm before:content-[''] before:block before:w-2 before:h-2 before:rounded-full before:bg-primary-red before:mr-1 before:animate-pulse",
+        live: "bg-primary-red/20 text-primary-red relative flex items-center sm:px-4 py-1 sm:py-2 text-xs sm:text-sm before:content-[''] before:block before:w-2 before:h-2 before:rounded-full before:bg-primary-red before:mr-1 before:animate-pulse",
         upcoming:
           "bg-primary-neon/20 text-primary-neon px-3 sm:px-4 py-1 sm:py-2 text-xs sm:text-sm",
         finished:
@@ -21,8 +20,7 @@ const badgeVariants = cva(
           "border-transparent bg-secondary text-secondary-foreground hover:bg-secondary/90",
         destructive:
           "border-transparent bg-destructive text-white hover:bg-destructive/90 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40",
-        outline:
-          "text-foreground hover:bg-accent hover:text-accent-foreground",
+        outline: "text-foreground hover:bg-accent hover:text-accent-foreground",
       },
     },
     defaultVariants: {

@@ -12,12 +12,7 @@ interface UseMatchesParams {
   q?: string;
 }
 
-const useMatches = ({
-  tab,
-  page = 1,
-  limit = 10,
-  q,
-}: UseMatchesParams) => {
+const useMatches = ({ tab, page = 1, limit = 10, q }: UseMatchesParams) => {
   const query = new URLSearchParams({
     tab,
     page: String(page),
@@ -25,18 +20,14 @@ const useMatches = ({
     ...(q ? { q } : {}),
   });
 
-  const { data, error, isLoading } = useSWR<
-    ApiResponse<MatchesListResponse>
-  >(`/api/v2/matches?${query.toString()}`);
+  const { data, error, isLoading } = useSWR<ApiResponse<MatchesListResponse>>(
+    `/api/v2/matches?${query.toString()}`,
+  );
 
   const matches = data?.data?.data ?? [];
   const pagination = data?.data?.pagination;
 
-  const totalPages = pagination
-    ? pagination.has_next
-      ? page + 1
-      : page
-    : 1;
+  const totalPages = pagination ? (pagination.has_next ? page + 1 : page) : 1;
 
   return {
     matches,
