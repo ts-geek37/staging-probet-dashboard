@@ -1,5 +1,6 @@
 import React from "react";
 
+import { Ads } from "@/components";
 import MatchListing from "@/components/MatchListing";
 
 import { useLeagueMatches } from "../hooks";
@@ -10,23 +11,32 @@ interface Props {
 }
 
 const Matches: React.FC<Props> = ({ id }) => {
-  const { recentMatches, upcomingMatches } = useLeagueMatches(id);
+  const { recentMatches, upcomingMatches, liveMatches } = useLeagueMatches(id);
 
   return (
-    <div className="flex-1 text-white flex flex-col gap-12">
-      {upcomingMatches && (
+    <div className="flex-1 text-white flex flex-col gap-4 sm:gap-8 md:gap-12">
+      {liveMatches.length > 0 && (
         <MatchListing
-          title="Upcoming Matches"
-          matches={upcomingMatches}
+          title="Live Matches"
+          matches={liveMatches}
+          BadgeText="Live"
           mode="recent"
         />
       )}
+      <Ads />
+      {upcomingMatches.length > 0 && (
+        <MatchListing
+          title="Upcoming Matches"
+          matches={upcomingMatches}
+          mode="upcoming"
+        />
+      )}
       <LeagueBanner banner="betting" />
-      {recentMatches && (
+      {recentMatches.length > 0 && (
         <MatchListing
           title="Recent Matches"
           matches={recentMatches}
-          mode="upcoming"
+          mode="recent"
         />
       )}
     </div>

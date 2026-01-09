@@ -1,75 +1,9 @@
-export interface LeagueResponse {
-  league: LeagueHeader;
-  overview?: LeagueOverview;
-  recent: LeagueMatch[];
-  standings?: LeagueStandings;
-  matches?: LeagueMatches;
-  stats?: LeagueStats;
-  teams?: LeagueTeams;
-}
-
-export interface LeagueHeader {
-  id: number;
-  name: string;
-  country: string;
-  season: string;
-  country_flag: string;
-  logo: string;
-}
-
-export interface LeagueOverview {
-  description: string;
-  total_teams: number;
-  matches_played: number;
-  goals_scored: number;
-  goals_per_match: number;
-  top_teams: Array<{
-    id: number;
-    name: string;
-    logo: string;
-    points: number;
-  }>;
-}
-
-export interface LeagueStandings {
-  table: Array<{
-    position: number;
-    team: {
-      id: number;
-      name: string;
-      logo: string;
-    };
-    played: number;
-    wins: number;
-    draws: number;
-    losses: number;
-    goal_difference: number;
-    points: number;
-    form: Array<"W" | "D" | "L">;
-  }>;
-}
-
-export interface LeagueMatches {
-  upcoming: LeagueMatch[];
-  recent: LeagueMatch[];
-}
-
 export interface LeagueMatch {
   id: number;
   kickoff_time: string;
   status: "UPCOMING" | "LIVE" | "FT";
-  home_team: {
-    id: number;
-    name: string;
-    logo: string;
-    score?: number;
-  };
-  away_team: {
-    id: number;
-    name: string;
-    logo: string;
-    score?: number;
-  };
+  home_team: MatchTeam;
+  away_team: MatchTeam;
 }
 
 export interface LeagueStats {
@@ -95,25 +29,33 @@ export interface LeagueTeams {
 }
 
 export enum LeagueView {
-  OVERVIEW = "overview",
+  OVERVIEW = "profile",
   STANDINGS = "standings",
+  STATISTICS = "stats",
   MATCHES = "matches",
-  STATS = "stats",
-  TEAMS = "teams",
+}
+export enum MatchListStatus {
+  LIVE = "live",
+  UPCOMING = "upcoming",
+  TOMORROW = "tomorrow",
+  FINISHED = "finished",
 }
 
-export interface LeagueListResponse {
-  data: LeagueListItem[];
-  pagination: PaginationMeta;
-}
-
-export interface LeagueListItem {
+export interface LeagueCard {
   id: number;
   name: string;
-  country: string;
-  season: string;
-  logo: string;
-  country_flag: string;
+  logo: string | null;
+  competition_type: "league" | "cup";
+  country: {
+    name: string;
+    code: string | null;
+    flag: string | null;
+  };
+}
+
+export interface LeaguesListResponse {
+  data: LeagueCard[];
+  pagination: PaginationMeta;
 }
 
 export interface PaginationMeta {
@@ -121,4 +63,148 @@ export interface PaginationMeta {
   limit: number;
   total: number;
   has_next: boolean;
+}
+
+export interface Season {
+  id: number;
+  name: string;
+  starting_at: string | null;
+  ending_at: string | null;
+}
+export interface Country {
+  name: string;
+  code: string | null;
+  flag: string | null;
+}
+
+export interface MatchTeam {
+  id: number;
+  name: string;
+  logo: string | null;
+  score: {
+    goals: number;
+  };
+}
+export interface LeagueViewResponseMap {
+  [LeagueView.OVERVIEW]: LeagueProfileResponse;
+  [LeagueView.STANDINGS]: LeagueStandingsResponse;
+  [LeagueView.STATISTICS]: LeagueStatisticsResponse;
+  [LeagueView.MATCHES]: LeagueMatchesResponse;
+}
+export interface LeagueProfileResponse {
+  id: number;
+  name: string;
+  logo: string | null;
+  competition_type: "league" | "cup";
+  country: Country;
+  current_season: Season | null;
+}
+export interface LeagueStanding {
+  position: number;
+  team: {
+    id: number;
+    name: string;
+    logo: string | null;
+  };
+  points: number;
+}
+export interface LeagueStandingsResponse {
+  league: {
+    id: number;
+    name: string;
+    country: string;
+  };
+  season: {
+    id: number;
+    name: string;
+  };
+  table: LeagueStanding[];
+}
+export interface LeagueSeasonStatistics {
+  season: {
+    id: number;
+    name: string;
+  };
+  overview: {
+    matches_played: number | null;
+    total_goals: number | null;
+    average_goals_per_match: number | null;
+  };
+  scoring: {
+    home_goals_percentage: number | null;
+    away_goals_percentage: number | null;
+    over_25_percentage: number | null;
+    under_25_percentage: number | null;
+  };
+  discipline: {
+    yellow_cards: number | null;
+    red_cards: number | null;
+    average_yellow_cards: number | null;
+    average_red_cards: number | null;
+  };
+}
+
+export interface LeagueStatisticsResponse {
+  league: {
+    id: number;
+    name: string;
+  };
+  seasons: LeagueSeasonStatistics[];
+}
+export interface MatchTeam {
+  id: number;
+  name: string;
+  logo: string | null;
+}
+
+export interface MatchScore {
+  home: number | null;
+  away: number | null;
+}
+
+export interface MatchTeams {
+  home: MatchTeam;
+  away: MatchTeam;
+}
+export type MatchStatus = "UPCOMING" | "LIVE" | "FT";
+
+export interface Venue {
+  id: number;
+  name: string;
+  capacity: number;
+  city: string;
+  country: string;
+  surface: string;
+  image: string;
+}
+
+export interface MatchListItem {
+  id: number;
+  kickoff_time: string;
+  status: MatchStatus;
+  league: {
+    id: number;
+    name: string;
+    logo: string | null;
+  };
+  season?: {
+    id: number;
+    name: string;
+  };
+  venue?: Venue;
+  teams: MatchTeams;
+  score?: MatchScore;
+  referee?: string;
+}
+
+export interface LeagueMatchesResponse {
+  league: {
+    id: number;
+    name: string;
+  };
+  season: {
+    id: number;
+    name: string;
+  };
+  matches: MatchListItem[];
 }

@@ -3,17 +3,17 @@ import {
   PlayerDetailView,
   PlayerListResponse,
   PlayerMatchesResponse,
-  PlayerOverviewResponse,
-  PlayerStatsResponse,
+  PlayerProfileResponse,
+  PlayerSeasonStatsResponse,
 } from "@/types/players";
 
 import { ApiResponse } from "./types";
 
 type PlayerDetailByView<V extends PlayerDetailView> =
-  V extends PlayerDetailView.OVERVIEW
-    ? PlayerOverviewResponse
+  V extends PlayerDetailView.Profile
+    ? PlayerProfileResponse
     : V extends PlayerDetailView.STATS
-      ? PlayerStatsResponse
+      ? PlayerSeasonStatsResponse
       : V extends PlayerDetailView.MATCHES
         ? PlayerMatchesResponse
         : never;
@@ -39,5 +39,5 @@ export const getPlayerDetail = <V extends PlayerDetailView>(params: {
   view: V;
 }): Promise<ApiResponse<PlayerDetailByView<V>>> =>
   serverFetch<PlayerDetailByView<V>>(
-    `/api/players/${params.id}?view=${params.view}`,
+    `/api/v2/players/${params.id}/${params.view}`,
   );

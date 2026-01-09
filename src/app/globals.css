@@ -55,6 +55,7 @@
 
 @theme {
   --breakpoint-nav: 1150px;
+  --breakpoint-mobile: 450px;
 }
 
 :root {

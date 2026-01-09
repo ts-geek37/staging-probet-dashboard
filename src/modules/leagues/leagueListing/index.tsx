@@ -6,7 +6,7 @@ import { useState } from "react";
 import { ApiResponse } from "@/api/types";
 import { SearchBar } from "@/components";
 import Pagination from "@/components/Pagination";
-import { LeagueListResponse } from "@/types/leagues";
+import { LeaguesListResponse } from "@/types/leagues";
 
 import { useLeagues } from "../hooks";
 import EmptyLeagues from "./EmptyLeagues";
@@ -14,7 +14,7 @@ import LeagueCard from "./LeagueCard";
 import LeagueCardSkeleton from "./LeagueCardSkeleton";
 
 interface Props {
-  initialLeagues: ApiResponse<LeagueListResponse>;
+  initialLeagues: ApiResponse<LeaguesListResponse>;
 }
 
 const PAGE_SIZE = 12;

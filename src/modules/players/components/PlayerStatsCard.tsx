@@ -2,10 +2,7 @@
 
 import React from "react";
 
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { cn } from "@/lib/utils";
-
-interface PlayerStatItem {
+export interface PlayerStatItem {
   label: string;
   value: number | string;
   color?: string;
@@ -21,40 +18,28 @@ interface PlayerStatsCardProps {
 const PlayerStatsCard: React.FC<PlayerStatsCardProps> = ({
   title,
   stats,
-  columns = "grid-cols-2 md:grid-cols-4",
-  hoverBorderColor = "hover:border-primary-green",
+  columns = "grid-cols-2 sm:grid-cols-3 lg:grid-cols-5",
 }) => (
-  <Card className="rounded-xl border border-primary-gray/20 bg-[#14181F]">
-    {title && (
-      <CardHeader>
-        <CardTitle className="text-base font-semibold text-white">
-          {title}
-        </CardTitle>
-      </CardHeader>
-    )}
-
-    <CardContent className={cn("grid gap-4", columns)}>
+  <div className="flex flex-col gap-4">
+    <h2 className="text-sm font-medium uppercase tracking-wider text-gray-400">
+      {title}
+    </h2>
+    <div className={`grid gap-4 ${columns}`}>
       {stats.map((stat) => (
         <div
           key={stat.label}
-          className={cn(
-            "group rounded-xl border border-transparent bg-[#181d25] px-6 py-4 text-center",
-            hoverBorderColor,
-          )}
+          className="rounded-lg bg-zinc-900 border border-gray-800 p-3 sm:p-4 text-center transition-colors hover:border-primary-green/50 group"
         >
-          <p
-            className={cn(
-              "text-2xl font-semibold",
-              stat.color ?? "text-white group-hover:text-primary-green",
-            )}
-          >
+          <p className="sm:text-xl lg:text-2xl font-semibold text-white group-hover:text-primary-green">
             {stat.value}
           </p>
-          <p className="mt-1 text-sm text-muted-foreground">{stat.label}</p>
+          <p className="mt-1 text-xs sm:text-sm lg:text-base tracking-wide text-gray-400 group-hover:text-primary-green">
+            {stat.label}
+          </p>
         </div>
       ))}
-    </CardContent>
-  </Card>
+    </div>
+  </div>
 );
 
 export default PlayerStatsCard;

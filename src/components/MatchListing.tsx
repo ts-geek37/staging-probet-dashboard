@@ -1,5 +1,7 @@
 "use client";
 
+import { useRouter } from "next/navigation";
+
 import {
   MatchMode,
   MatchWithOptionalLeague,
@@ -14,6 +16,7 @@ interface MatchListingProps {
   description?: string;
   matches: MatchWithOptionalLeague[];
   mode: MatchMode;
+  BadgeText?: string;
 }
 
 const MatchListing: React.FC<MatchListingProps> = ({
@@ -21,7 +24,12 @@ const MatchListing: React.FC<MatchListingProps> = ({
   description,
   matches,
   mode,
+  BadgeText,
 }) => {
+  const router = useRouter();
+  const onClick = (matchId: number) => {
+    router.push(`/matches/${matchId}`);
+  };
   return (
     <div className="w-full">
       <h2 className="text-lg text-white font-semibold mb-4">{title}</h2>
@@ -32,9 +40,11 @@ const MatchListing: React.FC<MatchListingProps> = ({
           const transformedMatch = transformLeagueMatch(match, mode);
 
           if (mode === "recent") {
+            (transformedMatch as RecentMatchProps).BadgeText = BadgeText;
             return (
               <RecentMatchCard
                 key={index}
+                onClick={() => onClick(match?.id)}
                 {...(transformedMatch as RecentMatchProps)}
               />
             );
@@ -43,6 +53,7 @@ const MatchListing: React.FC<MatchListingProps> = ({
             <UpcomingMatchCard
               key={index}
               className="!w-full"
+              onClick={() => onClick(match?.id)}
               {...(transformedMatch as UpcomingMatchProps)}
             />
           );
