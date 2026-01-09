@@ -27,7 +27,7 @@ const useMatches = ({ tab, page = 1, limit = 10, q }: UseMatchesParams) => {
   const matches = data?.data?.data ?? [];
   const pagination = data?.data?.pagination;
 
-  const totalPages = pagination ? (pagination.has_next ? page + 1 : page) : 1;
+  const totalPages = pagination?.total_pages ?? 0;
 
   return {
     matches,

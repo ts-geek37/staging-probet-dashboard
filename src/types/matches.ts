@@ -1,3 +1,5 @@
+import { PaginationMeta } from "./leagues";
+
 export enum MatchListStatus {
   LIVE = "live",
   UPCOMING = "upcoming",
@@ -59,11 +61,7 @@ export interface MatchListItem {
 export interface MatchesListResponse {
   tab: MatchStatus;
   data: MatchListItem[];
-  pagination: {
-    page: number;
-    limit: number;
-    has_next: boolean;
-  };
+  pagination: PaginationMeta;
 }
 
 export interface MatchStatsResponse {
