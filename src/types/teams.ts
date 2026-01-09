@@ -44,14 +44,11 @@ export interface TeamOverviewResponse {
   } | null;
 }
 
+import { PaginationMeta } from "./leagues";
+
 export interface TeamListResponse {
   data: TeamOverviewResponse[];
-  pagination: {
-    page: number;
-    limit: number;
-    total: number;
-    has_next: boolean;
-  };
+  pagination: PaginationMeta;
 }
 
 export interface TeamHeaderApi {

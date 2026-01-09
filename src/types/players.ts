@@ -4,14 +4,11 @@ export enum PlayerDetailView {
   MATCHES = "matches",
 }
 
+import { PaginationMeta } from "./leagues";
+
 export interface PlayerListResponse {
   data: PlayerCard[];
-  pagination: {
-    page: number;
-    limit: number;
-    total: number;
-    has_next: boolean;
-  };
+  pagination: PaginationMeta;
 }
 
 export interface PlayerCard {
@@ -168,11 +165,7 @@ export interface MatchListItem {
 
 export interface PlayerMatchesResponse {
   matches: MatchListItem[];
-  pagination: {
-    page: number;
-    limit: number;
-    total_pages: number;
-  };
+  pagination: PaginationMeta;
 }
 
 export type PlayerDetailResponse =

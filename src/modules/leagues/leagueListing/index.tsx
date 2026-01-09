@@ -49,33 +49,31 @@ const LeagueListing: React.FC<Props> = ({ initialLeagues }) => {
         placeholder="Search leagues or countries"
       />
 
-      {isLoading || leagues?.length > 0 ? (
+      {isLoading ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-          {isLoading &&
-            Array.from({ length: PAGE_SIZE }).map((_, index) => (
-              <LeagueCardSkeleton key={index} />
-            ))}
-
-          {!isLoading &&
-            leagues?.map((league) => (
-              <LeagueCard
-                key={league.id}
-                league={league}
-                onClick={() => router.push(`/leagues/${league.id}`)}
-              />
-            ))}
+          {Array.from({ length: PAGE_SIZE }).map((_, index) => (
+            <LeagueCardSkeleton key={index} />
+          ))}
+        </div>
+      ) : leagues?.length > 0 ? (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+          {leagues.map((league) => (
+            <LeagueCard
+              key={league.id}
+              league={league}
+              onClick={() => router.push(`/leagues/${league.id}`)}
+            />
+          ))}
         </div>
       ) : (
         <EmptyLeagues searchQuery={search} />
       )}
 
-      {pagination && pagination.totalPages > 1 && (
-        <Pagination
-          currentPage={page}
-          totalPages={pagination.totalPages}
-          onPageChange={setPage}
-        />
-      )}
+      <Pagination
+        currentPage={page}
+        totalPages={pagination?.totalPages ?? 0}
+        onPageChange={setPage}
+      />
     </div>
   );
 };

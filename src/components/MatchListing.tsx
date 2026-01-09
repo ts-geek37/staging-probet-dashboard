@@ -8,6 +8,7 @@ import {
   transformLeagueMatch,
 } from "@/utils/transformLeagueMatch";
 
+import MatchCardSkeleton from "./MatchCardSkeleton";
 import RecentMatchCard, { RecentMatchProps } from "./RecentMatchCard";
 import UpcomingMatchCard, { UpcomingMatchProps } from "./UpcomingMatchCard";
 
@@ -17,6 +18,7 @@ interface MatchListingProps {
   matches: MatchWithOptionalLeague[];
   mode: MatchMode;
   BadgeText?: string;
+  isLoading?: boolean;
 }
 
 const MatchListing: React.FC<MatchListingProps> = ({
@@ -25,6 +27,7 @@ const MatchListing: React.FC<MatchListingProps> = ({
   matches,
   mode,
   BadgeText,
+  isLoading = false,
 }) => {
   const router = useRouter();
   const onClick = (matchId: number) => {
@@ -36,28 +39,32 @@ const MatchListing: React.FC<MatchListingProps> = ({
       {description && <p className="text-sm sm:text-base">{description}</p>}
 
       <div className="grid grid-cols-1 md:grid-cols-2 items-center lg:grid-cols-3 gap-4">
-        {matches.map((match, index) => {
-          const transformedMatch = transformLeagueMatch(match, mode);
+        {isLoading
+          ? Array.from({ length: 10 }).map((_, index) => (
+              <MatchCardSkeleton key={index} mode={mode} />
+            ))
+          : matches.map((match, index) => {
+              const transformedMatch = transformLeagueMatch(match, mode);
 
-          if (mode === "recent") {
-            (transformedMatch as RecentMatchProps).BadgeText = BadgeText;
-            return (
-              <RecentMatchCard
-                key={index}
-                onClick={() => onClick(match?.id)}
-                {...(transformedMatch as RecentMatchProps)}
-              />
-            );
-          }
-          return (
-            <UpcomingMatchCard
-              key={index}
-              className="!w-full"
-              onClick={() => onClick(match?.id)}
-              {...(transformedMatch as UpcomingMatchProps)}
-            />
-          );
-        })}
+              if (mode === "recent") {
+                (transformedMatch as RecentMatchProps).BadgeText = BadgeText;
+                return (
+                  <RecentMatchCard
+                    key={index}
+                    onClick={() => onClick(match?.id)}
+                    {...(transformedMatch as RecentMatchProps)}
+                  />
+                );
+              }
+              return (
+                <UpcomingMatchCard
+                  key={index}
+                  className="!w-full"
+                  onClick={() => onClick(match?.id)}
+                  {...(transformedMatch as UpcomingMatchProps)}
+                />
+              );
+            })}
       </div>
     </div>
   );

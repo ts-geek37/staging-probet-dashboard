@@ -61,8 +61,8 @@ export interface LeaguesListResponse {
 export interface PaginationMeta {
   page: number;
   limit: number;
-  total: number;
-  has_next: boolean;
+  total_item: number;
+  total_pages: number;
 }
 
 export interface Season {

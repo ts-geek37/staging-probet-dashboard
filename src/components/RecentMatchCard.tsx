@@ -34,7 +34,7 @@ const RecentMatchCard: React.FC<RecentMatchProps> = ({
 
   return (
     <Card
-      className="flex border-none rounded-none items-center size-full justify-between gap-3 sm:gap-6 px-6 py-4"
+      className="flex border-primary-neon/20 hover:border-primary-neon/40 cursor-pointer rounded-none items-center size-full justify-between gap-3 sm:gap-6 px-6 py-4"
       onClick={onClick}
     >
       <div className="flex items-center justify-between w-full gap-3">
