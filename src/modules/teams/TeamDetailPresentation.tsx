@@ -3,7 +3,7 @@
 import { useState } from "react";
 
 import { ApiResponse } from "@/api/types";
-import { TabNavigation } from "@/components";
+import { NoData, TabNavigation } from "@/components";
 import { TeamDetailView, TeamOverviewResponse } from "@/types/teams";
 
 import { TeamDetailTabs } from "./tabs";
@@ -25,7 +25,12 @@ const TeamDetailPresentation = ({ teamId, initialData }: Props) => {
   const [activeTab, setActiveTab] = useState<TeamDetailView>(
     TeamDetailView.OVERVIEW,
   );
-  if (!initialData) return null;
+  if (!initialData?.data)
+    return (
+      <div className="flex-1 flex items-center justify-center max-w-7xl mx-auto w-full h-full">
+        <NoData message="No Data Found for this Team" />
+      </div>
+    );
   return (
     <div className="text-white">
       <TeamHeader team={initialData.data} />

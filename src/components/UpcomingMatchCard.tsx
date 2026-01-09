@@ -34,14 +34,15 @@ const UpcomingMatchCard: React.FC<UpcomingMatchProps> = ({
     <Card
       onClick={onClick}
       className={cn(
-        "bg-[#12151C] border border-primary-green rounded-none w-full",
+        "border border-primary-green/60 rounded-none w-full",
         className,
+        onClick && "group cursor-pointer hover:border-primary-green/80",
       )}
     >
       <CardContent className="px-5 space-y-6">
-        <div className="flex justify-between items-center text-xs font-semibold text-white">
-          <span className="text-white text-lg">{formattedDate}</span>
-          <span className="text-white text-lg">{time}</span>
+        <div className="flex justify-between items-center text-xs font-semibold text-white group-hover:text-primary-green">
+          <span className="text-lg">{formattedDate}</span>
+          <span className="text-lg">{time}</span>
         </div>
 
         <div className="space-y-4">

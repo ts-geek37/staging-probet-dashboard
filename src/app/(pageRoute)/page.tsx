@@ -12,7 +12,8 @@ const HomePage = async () => {
   const response = await getHome();
   if (!response?.data) return null;
 
-  return <Home initialHome={response} />;
+  // return <Home initialHome={response} />;
+  return <>HOME</>;
 };
 
 export default HomePage;
