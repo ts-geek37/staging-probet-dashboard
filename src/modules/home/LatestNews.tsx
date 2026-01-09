@@ -1,20 +1,14 @@
+"use client";
+
 import Link from "next/link";
 import React from "react";
 
 import { VIPBanner } from "@/components";
 import NewsCard from "@/components/NewsCard";
-
-interface NewsItem {
-  id: string;
-  title: string;
-  excerpt: string;
-  image: string;
-  category: string;
-  published_at: string;
-}
+import { NewsSummary } from "@/types/home";
 
 interface Props {
-  news: NewsItem[];
+  news: NewsSummary[];
 }
 
 const LatestNews: React.FC<Props> = ({ news }) => {
@@ -40,29 +34,32 @@ const LatestNews: React.FC<Props> = ({ news }) => {
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           <div className="lg:col-span-2 h-70 sm:h-105">
-            <NewsCard
-              title={mainNews.title}
-              excerpt={mainNews.excerpt}
-              image={mainNews.image}
-              category={mainNews.category}
-              published_at={mainNews.published_at}
-              isMain
-            />
+            <Link href={`/news/${mainNews.id}`}>
+              <NewsCard
+                title={mainNews.title}
+                excerpt={mainNews.excerpt}
+                image={mainNews.image}
+                category={mainNews.category}
+                published_at={mainNews.published_at}
+                isMain
+              />
+            </Link>
           </div>
-
           <div className="flex flex-col gap-4">
             {sideNews.slice(0, 3).map((item) => (
-              <NewsCard
-                key={item.id}
-                title={item.title}
-                image={item.image}
-                category={item.category}
-                published_at={item.published_at}
-              />
+              <Link key={item.id} href={`/news/${item.id}`}>
+                <NewsCard
+                  title={item.title}
+                  image={item.image}
+                  category={item.category}
+                  published_at={item.published_at}
+                />
+              </Link>
             ))}
           </div>
         </div>
       </div>
+
       <div className="pt-15">
         <VIPBanner />
       </div>

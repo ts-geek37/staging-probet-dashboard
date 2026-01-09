@@ -11,7 +11,7 @@ export interface MatchListFilters {
   q?: string;
 }
 
-export type MatchStatus = "UPCOMING" | "LIVE" | "FT";
+export type MatchStatus = "UPCOMING" | "LIVE" | "FT" | "LATEST";
 
 export interface MatchTeam {
   id: number;

@@ -1,29 +1,47 @@
-// src/types/team.ts
-export interface TeamCountryApi {
-  name: string;
-  code?: string;
-  flag?: string;
-}
+import { MatchListItem, MatchStatus } from "./matches";
 
-export interface TeamStadiumApi {
-  name?: string;
-  capacity?: number;
-}
-
-export interface TeamSeasonApi {
+export interface TeamCard {
   id: number;
   name: string;
+  short_code: string | null;
+  logo: string | null;
+
+  country: {
+    name: string;
+    code: string | null;
+    flag: string | null;
+  };
+
+  founded: number | null;
+
+  stadium: {
+    name: string | null;
+    capacity: number | null;
+  };
 }
 
 export interface TeamOverviewResponse {
   id: number;
   name: string;
-  short_code?: string;
-  logo?: string;
-  founded?: number;
-  country?: TeamCountryApi;
-  stadium?: TeamStadiumApi;
-  current_season?: TeamSeasonApi;
+  short_code: string | null;
+  logo: string | null;
+  founded: number | null;
+
+  country: {
+    name: string;
+    code: string | null;
+    flag: string | null;
+  };
+
+  stadium: {
+    name: string | null;
+    capacity: number | null;
+  };
+
+  current_season: {
+    id: number;
+    name: string;
+  } | null;
 }
 
 export interface TeamListResponse {
@@ -41,12 +59,36 @@ export interface TeamHeaderApi {
   name: string;
   short_code?: string;
   logo?: string;
-  founded?: number;
-  country?: TeamCountryApi;
-  stadium?: TeamStadiumApi;
-  current_season?: TeamSeasonApi;
+  country: {
+    name: string;
+    flag: string;
+  };
 }
 
+export interface TeamPlayer {
+  id: number;
+  name: string;
+  photo: string | null;
+
+  position: {
+    id: number | null;
+    label: string | null;
+  };
+
+  jersey_number: number | null;
+  nationality: string | null;
+
+  contract: {
+    start: string | null;
+    end: string | null;
+  };
+}
+
+export interface TeamPlayersResponse {
+  team_id: number;
+  label: string;
+  players: TeamPlayer[];
+}
 export interface OverviewSection {
   key: string;
   title: string;
@@ -59,112 +101,58 @@ export interface OverviewSection {
   }[];
 }
 
-export interface PlayerPosition {
-  id: number;
-  label: string;
-}
-
-export interface PlayerContract {
-  start: string;
-  end: string;
-}
-
-export interface PlayerApi {
-  id: number;
-  name: string;
-  photo: string | null;
-  position: PlayerPosition;
-  jersey_number: number | null;
-  nationality: string;
-  contract: {
-    start: string;
-    end: string;
-  };
-}
-
-export interface TeamPlayersResponse {
-  team_id: number;
-  players: PlayerApi[];
-}
-
-export interface PlayerWithFlag extends PlayerApi {
-  flagUrl: string;
-}
-
-export interface SquadSection {
-  key: string;
-  label: string;
-  players: PlayerWithFlag[];
-}
-
-export interface TeamMatchLeagueApi {
-  id: number;
-  name: string;
-  logo: string;
-}
-
-export interface TeamMatchSideApi {
-  id: number;
-  name: string;
-  logo: string | null;
-}
-
-export interface TeamMatchTeamsApi {
-  home: TeamMatchSideApi;
-  away: TeamMatchSideApi;
-}
-
-export interface TeamMatchScoreApi {
-  home: number;
-  away: number;
-}
-
-export interface TeamMatchApi {
-  id: number;
-  kickoff_time: string;
-  status: string;
-  league: TeamMatchLeagueApi;
-  teams: TeamMatchTeamsApi;
-  score?: TeamMatchScoreApi;
-}
-
 export interface TeamMatchesResponse {
-  latest: TeamMatchApi[];
-  upcoming: TeamMatchApi[];
+  latest: MatchListItem[];
+  upcoming: MatchListItem[];
 }
 
-export interface SeasonStatsApi {
+export interface TeamSeasonStatsItem {
   season: {
     id: number;
     name: string;
   };
-  stats: {
-    goals_for: number;
-    goals_against: number;
-    shots: number;
-    yellow_cards: number;
-    red_cards: number;
-    minutes_played: number;
-    clean_sheets: number;
-    wins: number;
-    draws: number;
-    losses: number;
+  stats?: {
+    games_played?: number | null;
+
+    goals_for?: number | null;
+    goals_against?: number | null;
+
+    wins?: number | null;
+    draws?: number | null;
+    losses?: number | null;
+
+    shots?: number | null;
+    corners?: number | null;
+    attacks?: number | null;
+    dangerous_attacks?: number | null;
+
+    possession?: number | null;
+    rating?: number | null;
+
+    yellow_cards?: number | null;
+    red_cards?: number | null;
+
+    minutes_played?: number | null;
+    expected_goals?: number | null;
+
+    clean_sheets?: number | null;
+    failed_to_score?: number | null;
+
+    average_player_age?: number | null;
+    average_player_height?: number | null;
+    foreign_players?: number | null;
+
+    points_per_game?: number | null;
   };
 }
 
-export interface TeamStatsApi {
+export interface TeamSeasonStatsResponse {
   team: {
     id: number;
     name: string;
-    logo: string;
+    logo: string | null;
   };
-  seasons: SeasonStatsApi[];
-}
-
-export interface StatItem {
-  label: string;
-  value: string | number;
-  color?: string;
+  seasons: TeamSeasonStatsItem[];
 }
 
 export enum TeamDetailView {
@@ -173,3 +161,5 @@ export enum TeamDetailView {
   SQUAD = "squad",
   STATS = "stats",
 }
+
+export type { MatchListItem, MatchStatus };

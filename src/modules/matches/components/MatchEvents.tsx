@@ -9,6 +9,7 @@ import {
   ShieldAlert,
   LucideIcon,
 } from "lucide-react";
+import Image from "next/image";
 import React from "react";
 
 import { MatchEventItem } from "@/types/matches";
@@ -118,10 +119,12 @@ const MatchEvents: React.FC<Props> = ({ event, index }) => {
           </motion.span>
 
           {event.team?.logo && (
-            <img
+            <Image
               src={event.team.logo}
-              alt=""
-              className="w-3 h-3 sm:w-4 sm:h-4 rounded-full"
+              alt={event.team.name ?? "Team logo"}
+              width={16}
+              height={16}
+              className="rounded-full"
             />
           )}
 

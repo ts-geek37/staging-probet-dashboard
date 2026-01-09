@@ -3,8 +3,12 @@
 import { useState } from "react";
 
 import { ApiResponse } from "@/api/types";
-import { TabNavigation } from "@/components";
-import { TeamDetailView, TeamOverviewResponse } from "@/types/teams";
+import { NoData, TabNavigation } from "@/components";
+import {
+  TeamDetailView,
+  TeamHeaderApi,
+  TeamOverviewResponse,
+} from "@/types/teams";
 
 import { TeamDetailTabs } from "./tabs";
 import TeamHeader from "./TeamHeader";
@@ -25,10 +29,10 @@ const TeamDetailPresentation = ({ teamId, initialData }: Props) => {
   const [activeTab, setActiveTab] = useState<TeamDetailView>(
     TeamDetailView.OVERVIEW,
   );
-  if (!initialData) return null;
+  if (!initialData) return <NoData />;
   return (
     <div className="text-white">
-      <TeamHeader team={initialData.data} />
+      <TeamHeader team={initialData.data as TeamHeaderApi} />
 
       <div className="w-full max-w-7xl mx-auto px-4 md:px-6 py-6">
         <div className="max-w-7xl mx-auto pb-4">

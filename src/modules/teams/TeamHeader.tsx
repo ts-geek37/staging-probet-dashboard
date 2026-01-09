@@ -8,7 +8,7 @@ import { TeamHeaderApi } from "@/types/teams";
 import useTeamHeader from "./hooks/useTeamHeader";
 
 interface Props {
-  team: TeamHeaderApi | null;
+  team: TeamHeaderApi;
 }
 
 const TeamHeader: React.FC<Props> = ({ team }) => {
@@ -40,7 +40,7 @@ const TeamHeader: React.FC<Props> = ({ team }) => {
                 </span>
               </div>
 
-              <div className="flex flex-wrap items-center gap-3 text-gray-400">
+              <div className="flex flex-wrap items-center gap-3 text-primary-gray">
                 {headerData.countryName && (
                   <div className="flex items-center gap-2 text-sm sm:text-base">
                     {headerData.countryFlag && (

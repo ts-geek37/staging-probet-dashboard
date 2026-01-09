@@ -1,7 +1,6 @@
 import { LeagueView } from "@/types/leagues";
 
 export const LeagueTabs = [
-
   { value: LeagueView.STANDINGS, label: "Standings" },
   { value: LeagueView.MATCHES, label: "Matches" },
   { value: LeagueView.STATISTICS, label: "Stats" },

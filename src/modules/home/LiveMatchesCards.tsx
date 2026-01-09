@@ -1,12 +1,13 @@
+"use client";
+
 import Link from "next/link";
 import React from "react";
 
-import { NoData } from "@/components";
-import LiveMatchCard from "@/components/LiveMatchCard";
-import { LiveMatch } from "@/types/home";
+import { NoData, MatchCard } from "@/components";
+import { MatchListItem } from "@/types/home";
 
 interface Props {
-  matches: LiveMatch[];
+  matches: MatchListItem[];
 }
 
 const LiveMatchCards: React.FC<Props> = ({ matches }) => {
@@ -25,29 +26,16 @@ const LiveMatchCards: React.FC<Props> = ({ matches }) => {
             View all
           </Link>
         </div>
-
         {!matches?.length ? (
           <NoData message="No matches found" />
         ) : (
-          <div className="flex flex-wrap gap-6 justify-center items-center md:justify-start md:items-start">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {matches.map((match) => (
-              <Link
+              <MatchCard
                 key={match.id}
+                match={match}
                 href={`/matches/${match.id}`}
-                className="block w-full sm:w-80 lg:w-100"
-              >
-                <LiveMatchCard
-                  key={match.id}
-                  teamA={match.home_team.name}
-                  teamB={match.away_team.name}
-                  scoreA={match.home_team.score}
-                  scoreB={match.away_team.score}
-                  teamALogo={match.home_team.logo}
-                  teamBLogo={match.away_team.logo}
-                  leagueName={match.league.name}
-                  leagueLogo={match.league.logo}
-                />
-              </Link>
+              />
             ))}
           </div>
         )}

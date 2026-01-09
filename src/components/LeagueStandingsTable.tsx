@@ -1,81 +1,73 @@
 import Image from "next/image";
 import React from "react";
 
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
-import { LeagueStandings } from "@/types/home";
+import { TeamCard } from "@/types/home";
+
+import NoData from "./NoData";
 
 interface Props {
-  standings: LeagueStandings;
+  standings?: TeamCard[];
 }
 
 const LeagueStandingsTable: React.FC<Props> = ({ standings }) => {
+  if (!standings || standings.length === 0) return <NoData />;
+
   return (
-    <div className="rounded-xl border border-[#1D1D1D] overflow-hidden">
-      <div className="flex items-center justify-between px-4 py-5 border-b border-white/10">
-        <h3 className="text-white font-semibold text-sm">
-          {standings.league.name} Standings
-        </h3>
+    <div className="rounded-xl border border-primary-gray/20 overflow-hidden">
+      <div className="flex items-center justify-between px-4 py-5 border-b border-primary-gray/20">
+        <h3 className="text-white font-semibold text-sm">League Standings</h3>
         <span className="text-[12px] sm:text-base text-primary-gray cursor-pointer hover:text-white">
           Full Table &gt;
         </span>
       </div>
 
-      <Table>
-        <TableHeader>
-          <TableRow className="border-b border-white/10 text-base">
-            <TableHead className="w-12 px-4  text-primary-gray">#</TableHead>
-            <TableHead className="text-primary-gray">Team</TableHead>
-            <TableHead className="w-12 text-right  text-primary-gray">
-              P
-            </TableHead>
-            <TableHead className="w-12 pr-6 text-primary-gray">PTS</TableHead>
-          </TableRow>
-        </TableHeader>
+      <div className="flex flex-col divide-y divide-primary-gray/20">
+        {standings.map((league) => (
+          <div
+            key={league.id ?? league.name}
+            className="flex items-center justify-between px-4 py-3 "
+          >
+            <div className="flex items-center gap-3">
+              <div className="relative w-8 h-8">
+                {league.logo && (
+                  <Image
+                    src={league.logo || "/no-image.png"}
+                    alt=""
+                    width={27}
+                    height={18}
+                    className="object-contain"
+                  />
+                )}
+              </div>
 
-        <TableBody>
-          {standings.table.map((row) => (
-            <TableRow
-              key={row.team.id}
-              className="border-b border-white/5  text-base sm:text-xl"
-            >
-              <TableCell className="px-4 py-4 sm:py-8 text-white">
-                {row.position}
-              </TableCell>
+              <div className="flex flex-col gap-1">
+                <span className="text-white font-medium text-sm sm:text-base">
+                  {league.name}
+                </span>
 
-              <TableCell className="py-4">
-                <div className="flex items-center gap-3">
-                  <div className="relative w-5 h-5 shrink-0">
+                <div className="flex items-center gap-2 text-primary-gray text-sm">
+                  {league.country?.flag && (
                     <Image
-                      src={row.team.logo}
-                      alt={row.team.name}
-                      fill
-                      className="object-contain"
+                      src={league.country.flag}
+                      alt={league.country?.name}
+                      width={20}
+                      height={14}
+                      className="object-contain hidden sm:block"
                     />
-                  </div>
-                  <span className="text-gray-300 text-base sm:text-xl">
-                    {row.team.name}
+                  )}
+                  <span className="text-xs sm:text-sm">
+                    {league.country?.name} ({league.country?.code})
                   </span>
                 </div>
-              </TableCell>
-
-              <TableCell className="py-4 text-right text-primary-gray">
-                {row.played}
-              </TableCell>
-
-              <TableCell className="py-4 pr-6 text-right font-medium text-primary-gray">
-                {row.points}
-              </TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
+              </div>
+            </div>
+            <div className="flex flex-col gap-1 text-right text-xs">
+              <span className="text-primary-gray">{league.founded}</span>
+              <span className="text-primary-gray">{league.stadium.name}</span>
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
   );
 };

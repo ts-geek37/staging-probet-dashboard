@@ -5,7 +5,6 @@ import React from "react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Skeleton } from "@/components/ui/skeleton";
 import { cn } from "@/lib/utils";
 import { LeagueStanding } from "@/types/leagues";
 
@@ -20,7 +19,7 @@ export const StandingCard: React.FC<StandingCardProps> = ({ row }) => {
     <Card
       key={row?.team?.id}
       className={cn(
-        "border-gray-800 h-full hover:border-primary-green transition-all group bg-slate-900/40",
+        "border-primary-gray h-full hover:border-primary-green transition-all group",
       )}
     >
       <CardContent className="flex-1 flex flex-col h-full px-4 gap-3 py-4">

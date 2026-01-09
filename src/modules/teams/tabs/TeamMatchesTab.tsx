@@ -2,67 +2,54 @@
 
 import React from "react";
 
-import { DataError, NoData, SkeletonCardLoader } from "@/components";
-import { TeamMatchApi } from "@/types/teams";
+import { DataError, NoData, SkeletonCardLoader, MatchCard } from "@/components";
+import { MatchListItem } from "@/types/teams";
 
-import MatchCard from "../components/MatchCard";
 import { useTeamMatches } from "../hooks";
 
 interface Props {
   teamId: number;
 }
 
-const TeamMatches: React.FC<Props> = ({ teamId }) => {
-  const { latest, upcoming, isLoading, error, formatDate } =
-    useTeamMatches(teamId);
+const TeamMatchesTab: React.FC<Props> = ({ teamId }) => {
+  const { latest, upcoming, isLoading, error } = useTeamMatches(teamId);
 
   if (isLoading) return <SkeletonCardLoader />;
   if (error) return <DataError />;
   if (!latest || !upcoming) return <NoData message="Team data not available" />;
 
+  const renderMatches = (matches: MatchListItem[], emptyMessage: string) =>
+    !matches.length ? (
+      <NoData message={emptyMessage} />
+    ) : (
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {matches.map((match) => (
+          <MatchCard
+            key={match.id}
+            match={match}
+            href={`/matches/${match.id}`}
+          />
+        ))}
+      </div>
+    );
+
   return (
-    <div className="space-y-8">
+    <div className="space-y-12">
       <section>
         <h2 className="text-xl font-semibold mb-4 text-white">
           Recent Matches
         </h2>
-        {latest.length === 0 ? (
-          <p className="text-gray-400">No recent matches available.</p>
-        ) : (
-          <div className="flex flex-wrap gap-4">
-            {latest.map((match: TeamMatchApi) => (
-              <MatchCard
-                key={match.id}
-                match={match}
-                type="latest"
-                formatDate={formatDate}
-              />
-            ))}
-          </div>
-        )}
+        {renderMatches(latest, "No latest matches")}
       </section>
 
       <section>
         <h2 className="text-xl font-semibold mb-4 text-white">
           Upcoming Fixtures
         </h2>
-        {upcoming.length === 0 ? (
-          <p className="text-gray-400">No upcoming fixtures.</p>
-        ) : (
-          <div className="flex flex-wrap gap-4">
-            {upcoming.map((match: TeamMatchApi) => (
-              <MatchCard
-                key={match.id}
-                match={match}
-                type="upcoming"
-                formatDate={formatDate}
-              />
-            ))}
-          </div>
-        )}
+        {renderMatches(upcoming, "No upcoming fixtures")}
       </section>
     </div>
   );
 };
 
-export default TeamMatches;
+export default TeamMatchesTab;
