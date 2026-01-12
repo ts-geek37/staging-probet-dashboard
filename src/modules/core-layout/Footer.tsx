@@ -32,7 +32,7 @@ const Footer: React.FC = () => {
               />
             </Link>
             <p className="text-sm text-white/60 max-w-2xl leading-relaxed">
-              <span className="text-primary-green font-medium">Pro Bet</span> is
+              <span className="text-primary-green font-medium">ProBet</span> is
               an informational football analytics platform. We do not{" "}
               <span className="text-primary-green font-medium">
                 promote or facilitate betting or gambling

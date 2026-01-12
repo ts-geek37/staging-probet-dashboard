@@ -1,7 +1,6 @@
-import React from "react";
-import AboutHero from "@/modules/sections/AboutHero";
-import OurPhilosophy from "@/modules/sections/OurPhilosophy";
+import About from "@/modules/sections/about";
 import { seo } from "@/utils/seo";
+import React from "react";
 
 export const metadata = seo({
   title: "About Us – Pro Bet | Football Insights & Analytics",
@@ -10,12 +9,7 @@ export const metadata = seo({
 });
 
 const AboutPage: React.FC = () => {
-  return (
-    <main className="flex-1 flex flex-col">
-      <AboutHero />
-      <OurPhilosophy />
-    </main>
-  );
+  return <About />;
 };
 
 export default AboutPage;

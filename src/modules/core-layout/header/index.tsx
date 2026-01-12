@@ -14,7 +14,7 @@ const Header = () => {
           <Image
             src="/logo.webp"
             alt="ProBet logo"
-            width={144}
+            width={150}
             height={24}
             priority
             className="size-full object-contain"

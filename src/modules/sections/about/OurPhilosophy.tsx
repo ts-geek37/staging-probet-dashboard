@@ -29,7 +29,6 @@ const OurPhilosophy: React.FC = () => {
 
   return (
     <section className="relative w-full bg-primary-bg py-24 px-4 overflow-hidden">
-      {/* Subtle background glow */}
       <div className="absolute bottom-0 right-0 h-96 w-96 rounded-full bg-primary-green/10 blur-[120px]" />
 
       <div className="relative z-10 mx-auto max-w-7xl">
