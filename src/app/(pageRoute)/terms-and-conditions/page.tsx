@@ -1,4 +1,5 @@
 import React from "react";
+
 import TermsAndConditions from "@/modules/legal/TermsAndConditions";
 import { seo } from "@/utils/seo";
 

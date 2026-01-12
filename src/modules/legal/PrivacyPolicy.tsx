@@ -1,4 +1,5 @@
 import React from "react";
+
 import LegalLayout from "./LegalLayout";
 
 const PrivacyPolicy: React.FC = () => {

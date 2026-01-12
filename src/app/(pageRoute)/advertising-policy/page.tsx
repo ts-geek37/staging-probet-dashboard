@@ -1,4 +1,5 @@
 import React from "react";
+
 import AdvertisingPolicy from "@/modules/legal/AdvertisingPolicy";
 import { seo } from "@/utils/seo";
 

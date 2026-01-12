@@ -1,4 +1,5 @@
 import React from "react";
+
 import PrivacyPolicy from "@/modules/legal/PrivacyPolicy";
 import { seo } from "@/utils/seo";
 

@@ -1,7 +1,8 @@
-import { Card } from "@/components/ui/card";
-import { cn } from "@/lib/utils";
 import { ArrowUpRight } from "lucide-react";
 import React from "react";
+
+import { Card } from "@/components/ui/card";
+import { cn } from "@/lib/utils";
 
 interface ContactCardProps {
   icon: React.ComponentType<{ className?: string }>;

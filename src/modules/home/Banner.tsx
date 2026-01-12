@@ -1,7 +1,8 @@
-import { Banner } from "@/components";
-import { Button } from "@/components/ui/button";
 import { Crown, TrendingUp } from "lucide-react";
 import Link from "next/link";
+
+import { Banner } from "@/components";
+import { Button } from "@/components/ui/button";
 
 const HomeBanner: React.FC = () => {
   return (

@@ -1,12 +1,16 @@
 import {
-  ArrowUpRight,
+  BarChart3,
+  BookOpen,
   Globe,
   Handshake,
-  HelpCircle,
   Info,
   Mail,
   MessageSquare,
   Monitor,
+  ShieldAlert,
+  ShieldCheck,
+  TrendingUp,
+  Users,
   Zap,
 } from "lucide-react";
 
@@ -76,5 +80,51 @@ export const INQUIRY_CATEGORIES = [
     color: "from-orange-500/20 to-orange-600/10",
     iconColor: "group-hover:text-orange-500",
     bgColor: "group-hover:bg-orange-50",
+  },
+];
+export const philosophyItems = [
+  {
+    title: "Football Analysis",
+    description: "Deep dive into match dynamics and team performance trends.",
+    icon: BarChart3,
+  },
+  {
+    title: "Match Understanding",
+    description: "Comprehensive breakdowns of tactics and key match moments.",
+    icon: BookOpen,
+  },
+  {
+    title: "Statistical Comparison",
+    description: "Data-driven head-to-head analysis between teams and players.",
+    icon: Users,
+  },
+  {
+    title: "Educational Purposes",
+    description:
+      "Informational content designed to enhance your football knowledge.",
+    icon: ShieldAlert,
+  },
+];
+
+export const AboutFeatures = [
+  {
+    label: "Live Scores",
+    icon: Zap,
+    description: "Real-time match updates and detailed statistics",
+  },
+  {
+    label: "Match Insights",
+    icon: TrendingUp,
+    description: "Deep analysis of team performance and match dynamics",
+  },
+  {
+    label: "Global Coverage",
+    icon: ShieldCheck,
+    description: "Access to football leagues and competitions worldwide",
+  },
+  {
+    label: "Data Driven",
+    icon: TrendingUp,
+    description: "Structured predictions grounded in rigorous analysis",
   },
 ];
