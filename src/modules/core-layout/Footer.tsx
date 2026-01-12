@@ -14,13 +14,19 @@ const QUICK_LINKS = [
   { href: "/statistics", label: "Statistics" },
 ];
 
+const LEGAL_LINKS = [
+  { href: "/privacy-policy", label: "Privacy Policy" },
+  { href: "/terms-and-conditions", label: "Terms & Conditions" },
+  { href: "/advertising-policy", label: "Advertising Policy" },
+];
+
 const Footer: React.FC = () => {
   const currentYear = new Date().getFullYear();
 
   return (
     <footer className="relative w-full bg-primary-bg border-t-2 border-white/10">
-      <div className="relative z-10 max-w-7xl mx-auto px-4 py-12 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-[2fr_1fr] gap-12 mb-12">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 py-6 md:py-12 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 md:grid-cols-[2fr_1fr] gap-6 md:gap-12 mb-6">
           <div className="flex flex-col gap-4">
             <Link href="/" className="inline-flex items-center gap-3">
               <Image
@@ -28,7 +34,7 @@ const Footer: React.FC = () => {
                 alt="ProBetTips Logo"
                 width={100}
                 height={100}
-                className="h-6 w-32 object-contain"
+                className="h-8 w-42 object-contain"
               />
             </Link>
             <p className="text-sm text-white/60 max-w-2xl leading-relaxed">
@@ -60,8 +66,19 @@ const Footer: React.FC = () => {
           </div>
         </div>
 
-        <div className="border-t pt-4 border-white/10 flex flex-col sm:flex-row items-center justify-center gap-4 text-sm text-white/50">
+        <div className="border-t pt-4 border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-white/50">
           <p>© {currentYear} ProBetTips All rights reserved.</p>
+          <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2">
+            {LEGAL_LINKS.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                className="hover:text-primary-green transition-colors duration-200"
+              >
+                {link.label}
+              </Link>
+            ))}
+          </div>
         </div>
       </div>
     </footer>
