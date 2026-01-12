@@ -1,21 +1,21 @@
 "use client";
 
+import { useSwrFetcher } from "@/lib/swrFetcher";
 import { SWRConfig } from "swr";
-
-import { swrFetcher } from "@/lib/swrFetcher";
 
 interface Props {
   children: React.ReactNode;
 }
 
 const SWRProvider: React.FC<Props> = ({ children }) => {
+  const fetcher = useSwrFetcher();
   return (
     <SWRConfig
       value={{
-        fetcher: swrFetcher,
+        fetcher,
         revalidateOnFocus: false,
         revalidateIfStale: true,
-        dedupingInterval: 30_000,
+        dedupingInterval: 2000,
       }}
     >
       {children}

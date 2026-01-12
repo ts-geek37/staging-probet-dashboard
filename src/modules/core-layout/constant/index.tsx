@@ -45,7 +45,7 @@ export const navlinks: NavLink[] = [
 
 export const vipLink = {
   name: "VIP",
-  href: "/price",
+  href: "/pricing",
   icon: Crown,
 };
 
