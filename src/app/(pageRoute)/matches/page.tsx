@@ -7,7 +7,7 @@ import { seo } from "@/utils/seo";
 export const metadata: Metadata = seo({
   title: "Matches",
   description:
-    "View live, upcoming, and finished football matches with real-time scores, fixtures, and match details across global leagues on ProBets.",
+    "View live, upcoming, and finished football matches with real-time scores, fixtures, and match details across global leagues on ProBetTips.",
 });
 
 const MatchesPage: React.FC = () => {

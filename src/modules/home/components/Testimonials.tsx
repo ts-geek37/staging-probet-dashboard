@@ -25,7 +25,7 @@ const Testimonials: React.FC = () => {
         </h2>
 
         <p className="text-xs sm:text-sm md:text-base text-gray-400 max-w-2xl mx-auto text-center">
-          Real feedback from users who rely on Pro Bet for match statistics,
+          Real feedback from users who rely on ProBetTips for match statistics,
           team insights, and data-driven football analysis.
         </p>
       </div>

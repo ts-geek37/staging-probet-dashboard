@@ -7,12 +7,12 @@ import { LiveMatchCard, VIPBanner } from "@/components";
 import { HomeResponse } from "@/types/home";
 
 import Banner from "./Banner";
+import { Testimonials } from "./components";
 import { useHome } from "./hooks";
 import LatestNews from "./LatestNews";
 import PredictionBanner from "./PredictionBanner";
 import TopEuropeanLeaguesPage from "./TopEuropeanLeagues";
 import UpcomingMatchCards from "./UpcomingMatchesCards";
-import { Testimonials } from "./components";
 
 interface Props {
   initialHome: ApiResponse<HomeResponse>;

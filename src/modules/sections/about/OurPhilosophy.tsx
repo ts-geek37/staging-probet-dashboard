@@ -1,5 +1,7 @@
-import { ShieldAlert, BookOpen, BarChart3, Users } from "lucide-react";
+import { BarChart3, BookOpen, ShieldAlert, Users } from "lucide-react";
 import React from "react";
+
+import { Card } from "@/components/ui/card";
 
 const OurPhilosophy: React.FC = () => {
   const philosophyItems = [
@@ -28,59 +30,56 @@ const OurPhilosophy: React.FC = () => {
   ];
 
   return (
-    <section className="relative w-full bg-primary-bg py-24 px-4 overflow-hidden">
+    <section className="relative w-full bg-primary-bg overflow-hidden px-4">
       <div className="absolute bottom-0 right-0 h-96 w-96 rounded-full bg-primary-green/10 blur-[120px]" />
 
-      <div className="relative z-10 mx-auto max-w-7xl">
-        <div className="mb-16 text-center">
-          <h2 className="text-3xl font-bold text-white sm:text-5xl mb-6">
-            Our Philosophy
-          </h2>
-          <div className="mx-auto h-1 w-20 bg-primary-green rounded-full" />
+      <div className="relative z-10 mx-auto max-w-7xl flex flex-col gap-12 md:gap-20">
+        <div className="rounded-[40px] border border-primary-green/30 bg-primary-bg px-6 py-8 sm:py-12 text-center flex flex-col gap-3 md:gap-6">
+          <h3 className="text-2xl font-bold text-primary-green md:text-4xl">
+            Our Mission
+          </h3>
 
-          <div className="mt-10 inline-block rounded-2xl border border-red-500/20 bg-red-500/10 px-6 py-4 text-red-400">
-            <p className="flex items-center gap-3 font-semibold">
-              <ShieldAlert className="h-5 w-5" />
-              Pro Bet is NOT a betting platform.
-            </p>
-          </div>
-          <p className="mt-6 mx-auto max-w-2xl text-lg text-gray-400">
-            We do not promote, encourage, or support any form of gambling or
-            betting. Our predictions and insights are designed purely for
-            analysis and education.
+          <p className="mx-auto max-w-3xl text-gray-400 leading-relaxed sm:text-lg md:text-xl">
+            Our mission is to make football analysis simple, accessible, and
+            enjoyable for everyone, from casual fans to serious analysts. We
+            believe football fans deserve transparent and reliable data without
+            pressure, hype, or misleading claims.
           </p>
         </div>
 
-        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
-          {philosophyItems.map((item, idx) => (
-            <div
-              key={idx}
-              className="group relative rounded-3xl border border-white/5 bg-white/5 p-8 transition-all hover:bg-white/10 hover:border-primary-green/30"
-            >
-              <div className="mb-6 inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-primary-green/10 text-primary-green ring-1 ring-primary-green/20 group-hover:bg-primary-green group-hover:text-black transition-colors">
-                <item.icon className="h-7 w-7" />
-              </div>
-              <h3 className="mb-3 text-xl font-bold text-white">
-                {item.title}
-              </h3>
-              <p className="text-gray-400 leading-relaxed">
-                {item.description}
-              </p>
-            </div>
-          ))}
-        </div>
+        <div className="flex flex-col gap-5">
+          <div className="text-center flex flex-col gap-3 sm:gap-6">
+            <h2 className="text-3xl font-bold text-primary-green sm:text-5xl">
+              Our Philosophy
+            </h2>
 
-        <div className="mt-20 rounded-[40px] bg-gradient-to-r from-primary-green/20 to-transparent p-1">
-          <div className="rounded-[39px] bg-primary-bg p-10 md:p-16 text-center">
-            <h3 className="text-2xl font-bold text-white md:text-4xl mb-6">
-              Our Mission
-            </h3>
-            <p className="mx-auto max-w-3xl text-lg text-gray-400 leading-relaxed md:text-xl">
-              Our mission is to make football analysis simple, accessible, and
-              enjoyable for everyone — from casual fans to serious analysts. We
-              believe football fans deserve transparent and reliable data
-              without pressure, hype, or misleading claims.
+            <p className="mx-auto max-w-2xl text-lg text-gray-400">
+              <span className="font-semibold text-primary-green/70">
+                ProBetTips is NOT a betting platform.
+              </span>{" "}
+              We do not promote, encourage, or support any form of gambling or
+              betting. All predictions and insights are provided strictly for
+              analysis and educational purposes only.
             </p>
+          </div>
+
+          <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+            {philosophyItems.map((item, idx) => (
+              <Card
+                key={idx}
+                className="group relative rounded-3xl border border-white/5 bg-white/5 p-6 md:p-8 transition-all hover:border-primary-green/30 hover:bg-white/10 gap-3 md:gap-6"
+              >
+                <div className="inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-primary-green/10 text-primary-green ring-1 ring-primary-green/20 transition-colors group-hover:bg-primary-green group-hover:text-black">
+                  <item.icon className="h-7 w-7" />
+                </div>
+
+                <h3 className="text-xl font-bold text-white">{item.title}</h3>
+
+                <p className="leading-relaxed text-gray-400">
+                  {item.description}
+                </p>
+              </Card>
+            ))}
           </div>
         </div>
       </div>
