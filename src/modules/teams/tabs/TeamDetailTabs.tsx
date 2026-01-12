@@ -5,6 +5,7 @@ import TeamMatchesTab from "./TeamMatchesTab";
 import TeamOverviewTab from "./TeamOverviewTab";
 import TeamSquadTab from "./TeamSquadTab";
 import TeamStatsTab from "./TeamStatsTab";
+import TeamTransfersTab from "./TeamTransfers";
 
 interface Props {
   activeTab: TeamDetailView;
@@ -25,6 +26,9 @@ const TeamDetailTabs = ({ activeTab, teamId, initialData }: Props) => {
 
     case TeamDetailView.STATS:
       return <TeamStatsTab teamId={teamId} />;
+
+    case TeamDetailView.TRANSFERS:
+      return <TeamTransfersTab teamId={teamId} />;
 
     default:
       return null;

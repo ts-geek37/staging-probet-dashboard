@@ -17,7 +17,7 @@ const LeagueCard: React.FC<LeagueCardProps> = ({ league, onClick }) => {
   const Icon = COMPETITION_TYPE_ICON[league?.competition_type];
   return (
     <Card
-      className="group bg-slate-900 border-gray-800 rounded-none hover:border-primary-green transition-colors cursor-pointer"
+      className="group rounded-none hover:border-primary-green transition-colors cursor-pointer"
       onClick={onClick}
     >
       <CardContent className="flex flex-col gap-2">
@@ -50,8 +50,8 @@ const LeagueCard: React.FC<LeagueCardProps> = ({ league, onClick }) => {
           </div>
           <ChevronRight className="w-5 h-5 text-gray-400 group-hover:text-primary-green" />
         </div>
-        <div className="flex items-center gap-2 mt-3 pt-3 border-t border-gray-800">
-          <p className="text-gray-500 text-sm font-medium group-hover:text-primary-green transition-colors flex items-center gap-1">
+        <div className="flex items-center gap-2 mt-3 pt-3 border-t border-primary-gray/20">
+          <p className="text-primary-gray text-sm font-medium group-hover:text-primary-green transition-colors flex items-center gap-1">
             <Icon className="size-4" />
             <span className="capitalize">{league?.competition_type}</span>
           </p>

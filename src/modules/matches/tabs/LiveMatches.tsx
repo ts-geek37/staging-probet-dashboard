@@ -22,7 +22,7 @@ const LiveMatches: React.FC<Props> = ({ search }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const limit = 6;
 
-  const { matches, totalPages, isLoading, error } = useMatches({
+  const { matches, isLoading, error } = useMatches({
     tab: "live" as MatchStatus,
     page: currentPage,
     limit,
@@ -52,11 +52,11 @@ const LiveMatches: React.FC<Props> = ({ search }) => {
         ))}
       </div>
       <div className="mt-6 flex justify-center">
-        <Pagination
+        {/* <Pagination
           currentPage={currentPage}
           totalPages={totalPages}
           onPageChange={handlePageChange}
-        />
+        /> */}
       </div>
 
       <div className="pt-15">

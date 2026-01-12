@@ -156,6 +156,7 @@ export enum TeamDetailView {
   MATCHES = "matches",
   SQUAD = "squad",
   STATS = "stats",
+  TRANSFERS = "Transfers",
 }
 
 export type { MatchListItem, MatchStatus };

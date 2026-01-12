@@ -6,6 +6,7 @@ import TabNavigation from "@/components/TabNavigation";
 import { MatchDetailView } from "@/types/matches";
 
 import MatchEventsTab from "./MatchEventsTab";
+import MatchHeadToHeadTab from "./MatchHeadToHeadTab";
 import MatchLineupsTab from "./MatchLineupsTab";
 import MatchOverviewTab from "./MatchOverviewTab";
 import MatchStatsTab from "./MatchStatsTab";
@@ -46,6 +47,9 @@ const MatchDetailTabs: React.FC<Props> = ({
         )}
         {activeTab === MatchDetailView.EVENTS && (
           <MatchEventsTab matchId={matchId} />
+        )}
+        {activeTab === MatchDetailView.HEAD_TO_HEAD && (
+          <MatchHeadToHeadTab matchId={matchId} />
         )}
       </div>
     </div>
