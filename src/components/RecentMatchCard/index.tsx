@@ -7,6 +7,8 @@ import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
 import { useMatchTimer } from "@/modules/leagues/hooks";
 
+import MatchStatus from "./MatchStatus";
+
 interface Team {
   name: string;
   logo: string;
@@ -39,38 +41,13 @@ const RecentMatchCard: React.FC<RecentMatchProps> = ({
     >
       <div className="flex items-center justify-between w-full gap-3">
         <h3 className="text-lg font-semibold text-white">{leagueName}</h3>
-        {BadgeText ? (
-          <Badge className="bg-primary-neon/20 px-3 py-2 text-sm text-primary-neon hover:bg-primary-neon/20">
-            {BadgeText}
-          </Badge>
-        ) : matchState === "WITHIN_12_HOURS" ? (
-          <div className="flex items-center gap-3">
-            {timeUnits.map(({ label, value }, index) => (
-              <React.Fragment key={label}>
-                <div className="flex flex-col items-center">
-                  <span className="text-lg sm:text-xl lg:text-2xl font-bold text-white">
-                    {value}
-                  </span>
-                  <span className="text-xs text-gray-500">{label}</span>
-                </div>
-
-                {index < timeUnits.length - 1 && (
-                  <span className="text-lg sm:text-xl lg:text-2xl font-bold text-white">
-                    :
-                  </span>
-                )}
-              </React.Fragment>
-            ))}
-          </div>
-        ) : matchState === "UPCOMING" ? (
-          <Badge className="bg-primary-neon/20 px-3 py-2 text-sm text-primary-neon hover:bg-primary-neon/20">
-            Upcoming
-          </Badge>
-        ) : (
-          <span className="text-white font-semibold">
-            {teamA.score + " - " + teamB.score}
-          </span>
-        )}
+        <MatchStatus
+          BadgeText={BadgeText}
+          teamAScore={teamA.score}
+          teamBScore={teamB.score}
+          matchState={matchState}
+          timeUnits={timeUnits}
+        />
       </div>
 
       <div className="grid w-full grid-cols-[1fr_auto_1fr] items-center gap-4">
@@ -82,7 +59,9 @@ const RecentMatchCard: React.FC<RecentMatchProps> = ({
             height={1000}
             className="size-10 object-cover rounded-full"
           />
-          <span className="text-sm text-muted-foreground">{teamA.name}</span>
+          <span className="text-sm text-muted-foreground line-clamp-2 sm:line-clamp-1 text-left">
+            {teamA.name}
+          </span>
         </div>
 
         {matchState === "WITHIN_12_HOURS" ? (
@@ -98,7 +77,7 @@ const RecentMatchCard: React.FC<RecentMatchProps> = ({
           </div>
         )}
         <div className="flex flex-wrap-reverse items-center justify-end gap-2">
-          <span className="text-sm max-sm:line-clamp-1 text-muted-foreground">
+          <span className="text-sm line-clamp-2 sm:line-clamp-1 text-muted-foreground text-right">
             {teamB.name}
           </span>
           <Image

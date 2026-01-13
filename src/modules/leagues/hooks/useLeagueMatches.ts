@@ -13,7 +13,7 @@ const useLeagueMatches = (leagueId: number) => {
   const matches = response.data?.data?.matches ?? [];
 
   const recentMatches = matches
-    .filter((m) => m.status === "FT")
+    .filter((m) => m.status === "FINISHED")
     .map((match) => ({
       ...match,
       leagueName,

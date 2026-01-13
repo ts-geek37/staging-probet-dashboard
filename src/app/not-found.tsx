@@ -61,11 +61,7 @@ const NotFound: React.FC = () => {
           className="mt-10"
         >
           <Link href="/">
-            <Button
-              size="lg"
-              variant="neon"
-              className="group font-bold"
-            >
+            <Button size="lg" variant="neon" className="group font-bold">
               <Home className="mr-2 h-5 w-5 transition-transform group-hover:scale-110" />
               Back to Home
             </Button>

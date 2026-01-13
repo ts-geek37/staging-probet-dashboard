@@ -23,7 +23,7 @@ const TabList: React.FC<Props> = ({ id }) => {
           <TabsTrigger
             key={value}
             value={value}
-            className="w-24 rounded-xl px-4 py-2 text-sm sm:text-base font-medium text-white bg-gray-900 border border-primary-green data-[state=active]:bg-primary-green shrink-0"
+            className="min-w-24 w-fit rounded-xl px-6 py-2 text-sm sm:text-base font-medium text-white bg-gray-900 border border-primary-green data-[state=active]:bg-primary-green shrink-0"
           >
             {label}
           </TabsTrigger>
