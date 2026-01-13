@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Trophy, Calendar, Clock, UserCheck, CalendarDays } from "lucide-react";
+import { Calendar, CalendarDays, Clock, Trophy, UserCheck } from "lucide-react";
 import React from "react";
 
 import { Card, CardContent } from "@/components/ui/card";
@@ -22,8 +22,21 @@ const MatchInfoCard: React.FC<MatchInfoCardProps> = ({
   kickoff_time,
 }) => {
   const kickoffDate = kickoff_time
-    ? new Date(kickoff_time).toLocaleString()
+    ? new Date(kickoff_time).toLocaleString("en-US", {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+        hour: "numeric",
+        minute: "numeric",
+        hour12: false,
+      })
     : null;
+
+  const formatStatus = (value: string) =>
+    value
+      .toLowerCase()
+      .replace(/_/g, " ")
+      .replace(/\b\w/g, (c) => c.toUpperCase());
 
   return (
     <motion.div
@@ -59,7 +72,7 @@ const MatchInfoCard: React.FC<MatchInfoCardProps> = ({
                 <span className="flex items-center gap-2 text-primary-gray">
                   <Clock size={16} /> Status
                 </span>
-                <span>{status}</span>
+                <span>{formatStatus(status)}</span>
               </div>
             )}
 
