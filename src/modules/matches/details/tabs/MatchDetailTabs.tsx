@@ -3,29 +3,37 @@
 import React from "react";
 
 import TabNavigation from "@/components/TabNavigation";
-import { MatchDetailView } from "@/types/matches";
+import { MatchDetailView, MatchListItem } from "@/types/matches";
 
+import MatchCommentsTab from "./MatchCommentsTab";
 import MatchEventsTab from "./MatchEventsTab";
 import MatchHeadToHeadTab from "./MatchHeadToHeadTab";
 import MatchLineupsTab from "./MatchLineupsTab";
 import MatchOverviewTab from "./MatchOverviewTab";
+import MatchSeasonStatsTab from "./MatchSeasonStatsTab";
 import MatchStatsTab from "./MatchStatsTab";
 
 interface Props {
-  matchId: number;
+  match: MatchListItem;
   activeTab: MatchDetailView;
   onTabChange: (tab: MatchDetailView) => void;
 }
 
 const MatchDetailTabs: React.FC<Props> = ({
-  matchId,
+  match,
   activeTab,
   onTabChange,
 }) => {
-  const tabs = Object.values(MatchDetailView).map((tab) => ({
-    label: tab.toLowerCase(),
-    value: tab,
-  }));
+  const matchId = match.id;
+  const tabs = Object.values(MatchDetailView).map((tab) => {
+    let label = tab.replace(/-/g, " ");
+    if (tab === MatchDetailView.STATS) label = "Match Stats";
+    if (tab === MatchDetailView.SEASON_STATS) label = "Season Stats";
+    return {
+      label: label.charAt(0).toUpperCase() + label.slice(1),
+      value: tab,
+    };
+  });
 
   return (
     <div className="w-full">
@@ -49,7 +57,13 @@ const MatchDetailTabs: React.FC<Props> = ({
           <MatchEventsTab matchId={matchId} />
         )}
         {activeTab === MatchDetailView.HEAD_TO_HEAD && (
-          <MatchHeadToHeadTab matchId={matchId} />
+          <MatchHeadToHeadTab match={match} />
+        )}
+        {activeTab === MatchDetailView.COMMENTS && (
+          <MatchCommentsTab matchId={matchId} />
+        )}
+        {activeTab === MatchDetailView.SEASON_STATS && (
+          <MatchSeasonStatsTab match={match} />
         )}
       </div>
     </div>

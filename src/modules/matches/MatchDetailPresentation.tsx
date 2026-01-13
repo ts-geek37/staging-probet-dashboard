@@ -21,7 +21,7 @@ const MatchDetailPresentation: React.FC<Props> = ({ initialData }) => {
       <MatchHeader match={initialData} />
 
       <MatchDetailTabs
-        matchId={initialData.id}
+        match={initialData}
         activeTab={activeTab}
         onTabChange={setActiveTab}
       />

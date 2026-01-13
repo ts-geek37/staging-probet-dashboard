@@ -4,9 +4,9 @@ import React from "react";
 
 import { NoData, SkeletonCardLoader, MatchCard } from "@/components";
 import Pagination from "@/components/Pagination";
-import { MatchListItem } from "@/types/teams";
 
 import { usePlayerMatches } from "../hooks";
+import { MatchListItem } from "@/types/players";
 
 interface Props {
   playerId: number;

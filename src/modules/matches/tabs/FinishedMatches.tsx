@@ -10,7 +10,7 @@ import {
   SkeletonCardLoader,
 } from "@/components";
 import MatchCard from "@/components/MatchesCard";
-import { MatchStatus } from "@/types/matches";
+import { MatchListStatus } from "@/types/matches";
 
 import useMatches from "../hooks/useMatches";
 
@@ -20,8 +20,8 @@ interface Props {
 
 const FinishedMatches: React.FC<Props> = ({ search }) => {
   const [currentPage, setCurrentPage] = useState(1);
-  const { matches, isLoading, error, hasNext } = useMatches({
-    tab: "finished" as MatchStatus,
+  const { matches, isLoading, error, total_pages } = useMatches({
+    tab: MatchListStatus.FINISHED,
     page: currentPage,
     limit: 4,
     q: search,
@@ -53,9 +53,9 @@ const FinishedMatches: React.FC<Props> = ({ search }) => {
           </div>
           <div className="mt-5 flex justify-center">
             <Pagination
-              mode="hasNext"
+              mode="total"
               currentPage={currentPage}
-              hasNext={hasNext}
+              totalPages={total_pages}
               onPageChange={handlePageChange}
             />
           </div>
