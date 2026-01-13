@@ -13,12 +13,12 @@ export interface MatchListFilters {
   q?: string;
 }
 
-export type MatchStatus = "UPCOMING" | "LIVE" | "FT" | "LATEST";
+export type MatchStatus = "UPCOMING" | "LIVE" | "FINISHED" | "PROBLEM";
 
 export interface MatchTeam {
   id: number;
   name: string;
-  logo?: string | null;
+  logo: string | null;
 }
 
 export interface MatchTeams {
@@ -38,7 +38,7 @@ export interface MatchListItem {
   league: {
     id: number;
     name: string;
-    logo?: string | null;
+    logo: string | null;
   };
   season?: {
     id: number;
@@ -80,6 +80,7 @@ export enum MatchDetailView {
   LINEUPS = "lineups",
   EVENTS = "events",
   HEAD_TO_HEAD = "head-to-head",
+  COMMENTS = "comments",
 }
 
 export interface MatchLineupsResponse {
@@ -144,25 +145,22 @@ export interface MatchEventsResponse {
   events: MatchEventItem[];
 }
 
-export interface HeadToHeadMatch {
-  season: string;
-  competition: string;
-  home: string;
-  homeLogo?: string | null;
-  away: string;
-  awayLogo?: string | null;
-  score: string;
-  date: string;
-  venue?: string | null;
-  status: "Finished" | "LIVE" | "Upcoming" | string;
+export interface SportMonksFixtureComment {
+  id: number;
+  fixture_id: number;
+  comment: string;
+  minute: number;
+  extra_minute: number | null;
+  is_goal: boolean;
+  is_important: boolean;
+  order: number;
 }
-
-export type HeadToHeadMatches = HeadToHeadMatch[];
 
 export interface MatchDetailViewResponseMap {
   [MatchDetailView.OVERVIEW]: MatchListItem;
   [MatchDetailView.STATS]: MatchStatsResponse;
   [MatchDetailView.LINEUPS]: MatchLineupsResponse;
   [MatchDetailView.EVENTS]: MatchEventsResponse;
-  [MatchDetailView.HEAD_TO_HEAD]: MatchEventsResponse;
+  [MatchDetailView.HEAD_TO_HEAD]: { matches: MatchListItem[] };
+  [MatchDetailView.COMMENTS]: SportMonksFixtureComment[];
 }

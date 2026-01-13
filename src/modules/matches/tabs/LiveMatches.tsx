@@ -4,13 +4,13 @@ import React, { useState } from "react";
 
 import {
   DataError,
-  NoData,
-  SkeletonCardLoader,
   MatchCard,
+  NoData,
   Pagination,
+  SkeletonCardLoader,
 } from "@/components";
 import LeagueBanner from "@/modules/leagues/LeagueBanner";
-import { MatchStatus } from "@/types/matches";
+import { MatchListStatus } from "@/types/matches";
 
 import useMatches from "../hooks/useMatches";
 
@@ -22,8 +22,8 @@ const LiveMatches: React.FC<Props> = ({ search }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const limit = 6;
 
-  const { matches, isLoading, error, hasNext } = useMatches({
-    tab: "live" as MatchStatus,
+  const { matches, isLoading, error, total_pages } = useMatches({
+    tab: MatchListStatus.LIVE,
     page: currentPage,
     limit,
     q: search,
@@ -53,9 +53,9 @@ const LiveMatches: React.FC<Props> = ({ search }) => {
       </div>
       <div className="mt-6 flex justify-center">
         <Pagination
-          mode="hasNext"
+          mode="total"
           currentPage={currentPage}
-          hasNext={hasNext}
+          totalPages={total_pages}
           onPageChange={handlePageChange}
         />
       </div>

@@ -120,9 +120,8 @@ export interface LeaguesListResponse {
 export interface PaginationMeta {
   page: number;
   limit: number;
-  total_item: number;
+  count: number;
   total_pages: number;
-  has_next: boolean;
 }
 
 export interface Country {

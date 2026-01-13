@@ -3,8 +3,9 @@
 import React from "react";
 
 import TabNavigation from "@/components/TabNavigation";
-import { MatchDetailView } from "@/types/matches";
+import { MatchDetailView, MatchListItem } from "@/types/matches";
 
+import MatchCommentsTab from "./MatchCommentsTab";
 import MatchEventsTab from "./MatchEventsTab";
 import MatchHeadToHeadTab from "./MatchHeadToHeadTab";
 import MatchLineupsTab from "./MatchLineupsTab";
@@ -12,16 +13,17 @@ import MatchOverviewTab from "./MatchOverviewTab";
 import MatchStatsTab from "./MatchStatsTab";
 
 interface Props {
-  matchId: number;
+  match: MatchListItem;
   activeTab: MatchDetailView;
   onTabChange: (tab: MatchDetailView) => void;
 }
 
 const MatchDetailTabs: React.FC<Props> = ({
-  matchId,
+  match,
   activeTab,
   onTabChange,
 }) => {
+  const matchId = match.id;
   const tabs = Object.values(MatchDetailView).map((tab) => ({
     label: tab.toLowerCase(),
     value: tab,
@@ -49,7 +51,10 @@ const MatchDetailTabs: React.FC<Props> = ({
           <MatchEventsTab matchId={matchId} />
         )}
         {activeTab === MatchDetailView.HEAD_TO_HEAD && (
-          <MatchHeadToHeadTab matchId={matchId} />
+          <MatchHeadToHeadTab match={match} />
+        )}
+        {activeTab === MatchDetailView.COMMENTS && (
+          <MatchCommentsTab matchId={matchId} />
         )}
       </div>
     </div>

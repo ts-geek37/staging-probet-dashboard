@@ -40,7 +40,7 @@ export const useLeagues = ({
     leagues: data?.data?.data ?? [],
     pagination: data?.data?.pagination
       ? {
-          total: data.data.pagination.total_item,
+          total: data.data.pagination.count,
           totalPages: data.data.pagination.total_pages,
         }
       : null,
