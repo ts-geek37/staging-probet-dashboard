@@ -160,3 +160,38 @@ export enum TeamDetailView {
 }
 
 export type { MatchListItem, MatchStatus };
+
+export interface TeamTransferRow {
+  id: number;
+  date: string;
+  amount: number | null;
+  completed: boolean;
+  type?: {
+    id: number;
+    code: string;
+    label: string;
+  };
+
+  player: {
+    id: number;
+    name: string;
+    image: string | null;
+  };
+
+  from_team: {
+    id: number;
+    name: string;
+    logo: string | null;
+  } | null;
+
+  to_team: {
+    id: number;
+    name: string;
+    logo: string | null;
+  } | null;
+}
+
+export interface TeamTransferResponse {
+  transfers: TeamTransferRow[];
+  pagination: PaginationMeta;
+}

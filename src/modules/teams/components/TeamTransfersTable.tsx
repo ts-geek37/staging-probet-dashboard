@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import React, { useMemo, useState } from "react";
+import React from "react";
 
 import { NoData } from "@/components";
 import Pagination from "@/components/Pagination";
@@ -13,54 +13,33 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { TeamTransferRow } from "@/types/teams";
 
-interface Transfer {
-  id: number;
-  date: string;
-  amount: string | null;
-  completed: boolean;
-  type: {
-    id: number;
-    code: string;
-    label: string;
-  };
-  player: {
-    id: number;
-    name: string;
-    image?: string;
-  };
-  from_team: {
-    id: number;
-    name: string;
-    logo?: string;
-  };
-  to_team: {
-    id: number;
-    name: string;
-    logo?: string;
-  };
+interface PaginationMeta {
+  page: number;
+  limit: number;
+  count?: number;
+  total_pages: number;
 }
 
 interface Props {
-  transfers: Transfer[];
+  transfers: TeamTransferRow[];
+  pagination: PaginationMeta | null;
+  page: number;
+  setPage: (page: number) => void;
 }
 
-const ITEMS_PER_PAGE = 2;
-
-const TeamTransfersTable: React.FC<Props> = ({ transfers }) => {
-  const [currentPage, setCurrentPage] = useState(1);
-
-  const totalPages = Math.ceil(transfers.length / ITEMS_PER_PAGE);
-
-  const paginatedTransfers = useMemo(() => {
-    const start = (currentPage - 1) * ITEMS_PER_PAGE;
-    const end = start + ITEMS_PER_PAGE;
-    return transfers.slice(start, end);
-  }, [currentPage, transfers]);
-
+const TeamTransfersTable: React.FC<Props> = ({
+  transfers,
+  pagination,
+  page,
+  setPage,
+}) => {
   if (!transfers.length) {
     return <NoData message="No transfer records available" />;
   }
+
+  const totalPages = pagination?.total_pages ?? 1;
 
   return (
     <div className="space-y-4">
@@ -79,7 +58,7 @@ const TeamTransfersTable: React.FC<Props> = ({ transfers }) => {
           </TableHeader>
 
           <TableBody>
-            {paginatedTransfers.map((transfer) => (
+            {transfers.map((transfer) => (
               <TableRow
                 key={transfer.id}
                 className="border-b border-primary-gray/20"
@@ -100,17 +79,22 @@ const TeamTransfersTable: React.FC<Props> = ({ transfers }) => {
                         {transfer.player.name}
                       </span>
                       <span className="text-xs">ID: {transfer.player.id}</span>
+                      {transfer.amount !== null && (
+                        <span className="text-xs">
+                          Amount: {transfer.amount}
+                        </span>
+                      )}
                     </div>
                   </div>
                 </TableCell>
 
                 <TableCell className="text-primary-gray">
-                  {transfer.type.label}
+                  {transfer.type?.label ?? "-"}
                 </TableCell>
 
                 <TableCell className="text-primary-gray">
                   <div className="flex items-center gap-2">
-                    {transfer.from_team.logo && (
+                    {transfer.from_team?.logo && (
                       <Image
                         src={transfer.from_team.logo}
                         alt={transfer.from_team.name}
@@ -118,13 +102,13 @@ const TeamTransfersTable: React.FC<Props> = ({ transfers }) => {
                         height={20}
                       />
                     )}
-                    <span>{transfer.from_team.name}</span>
+                    <span>{transfer.from_team?.name ?? "-"}</span>
                   </div>
                 </TableCell>
 
                 <TableCell className="text-primary-gray">
                   <div className="flex items-center gap-2">
-                    {transfer.to_team.logo && (
+                    {transfer.to_team?.logo && (
                       <Image
                         src={transfer.to_team.logo}
                         alt={transfer.to_team.name}
@@ -132,7 +116,7 @@ const TeamTransfersTable: React.FC<Props> = ({ transfers }) => {
                         height={20}
                       />
                     )}
-                    <span>{transfer.to_team.name}</span>
+                    <span>{transfer.to_team?.name ?? "-"}</span>
                   </div>
                 </TableCell>
 
@@ -145,14 +129,14 @@ const TeamTransfersTable: React.FC<Props> = ({ transfers }) => {
         </Table>
       </div>
 
-      <div className="flex mt-5">
+      {pagination && totalPages > 1 && (
         <Pagination
           mode="total"
-          currentPage={currentPage}
+          currentPage={page}
           totalPages={totalPages}
-          onPageChange={setCurrentPage}
+          onPageChange={setPage}
         />
-      </div>
+      )}
     </div>
   );
 };
