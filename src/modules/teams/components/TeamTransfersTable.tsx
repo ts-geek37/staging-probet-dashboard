@@ -147,6 +147,7 @@ const TeamTransfersTable: React.FC<Props> = ({ transfers }) => {
 
       <div className="flex mt-5">
         <Pagination
+          mode="total"
           currentPage={currentPage}
           totalPages={totalPages}
           onPageChange={setCurrentPage}

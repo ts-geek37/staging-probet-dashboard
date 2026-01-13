@@ -13,21 +13,37 @@ import {
 } from "@/components/ui/pagination";
 import { cn } from "@/lib/utils";
 
-interface Props {
+interface BaseProps {
   currentPage: number;
-  totalPages: number;
   onPageChange: (page: number) => void;
 }
 
-const Pagination: FC<Props> = ({ currentPage, totalPages, onPageChange }) => {
+interface TotalPagesProps extends BaseProps {
+  mode: "total";
+  totalPages: number;
+}
+
+interface HasNextProps extends BaseProps {
+  mode: "hasNext";
+  hasNext: boolean;
+}
+
+type Props = TotalPagesProps | HasNextProps;
+
+const Pagination: FC<Props> = (props) => {
+  const { currentPage, onPageChange } = props;
+
   const pages = useMemo(() => {
+    if (props.mode !== "total") return [];
+
+    const { totalPages } = props;
+
     if (totalPages <= 5) {
       return Array.from({ length: totalPages }, (_, i) => i + 1);
     }
 
-    const pageNumbers: number[] = [];
+    const pageNumbers: number[] = [1];
 
-    pageNumbers.push(1);
     if (currentPage <= 3) {
       pageNumbers.push(2, 3);
     } else if (currentPage >= totalPages - 2) {
@@ -35,34 +51,75 @@ const Pagination: FC<Props> = ({ currentPage, totalPages, onPageChange }) => {
     } else {
       pageNumbers.push(currentPage - 1, currentPage, currentPage + 1);
     }
+
     pageNumbers.push(totalPages);
 
     return Array.from(new Set(pageNumbers)).sort((a, b) => a - b);
-  }, [currentPage, totalPages]);
+  }, [props, currentPage]);
+
+  if (props.mode === "hasNext") {
+    const { hasNext } = props;
+
+    return (
+      <PaginationRoot>
+        <PaginationContent>
+          <PaginationItem>
+            <PaginationPrevious
+              className={cn(
+                "text-white bg-primary-green hover:bg-primary-green/80 hover:text-white transition-colors",
+                currentPage === 1 && "opacity-50 cursor-not-allowed",
+              )}
+              onClick={() => currentPage > 1 && onPageChange(currentPage - 1)}
+            />
+          </PaginationItem>
+
+          <PaginationItem>
+            <PaginationNext
+              className={cn(
+                "text-white bg-primary-green hover:bg-primary-green/80 hover:text-white transition-colors",
+                !hasNext && "opacity-50 cursor-not-allowed",
+              )}
+              onClick={() => hasNext && onPageChange(currentPage + 1)}
+            />
+          </PaginationItem>
+        </PaginationContent>
+      </PaginationRoot>
+    );
+  }
+
+  const { totalPages } = props;
+
   if (totalPages <= 1) return null;
+
+  const isFirstPage = currentPage === 1;
+  const isLastPage = currentPage === totalPages;
 
   return (
     <PaginationRoot>
       <PaginationContent>
         <PaginationItem>
           <PaginationPrevious
-            className="text-white bg-primary-green hover:bg-primary-green/80 hover:text-white transition-colors cursor-pointer"
-            onClick={() => currentPage > 1 && onPageChange(currentPage - 1)}
+            className={cn(
+              "text-white bg-primary-green hover:bg-primary-green/80 hover:text-white transition-colors",
+              isFirstPage && "opacity-50 cursor-not-allowed",
+            )}
+            onClick={() => !isFirstPage && onPageChange(currentPage - 1)}
           />
         </PaginationItem>
 
         {pages.map((page, index) => (
-          <div key={index} className="flex items-center">
+          <div key={page} className="flex items-center">
             {index > 0 && page - pages[index - 1] > 1 && (
               <PaginationEllipsis className="text-white" />
             )}
-            <PaginationItem key={page}>
+
+            <PaginationItem>
               <PaginationLink
                 className={cn(
-                  "text-white bg-primary-green/50 border-none hover:bg-primary-green/80 hover:text-white transition-colors cursor-pointer",
+                  "text-white bg-primary-green/50 border-none hover:bg-primary-green/80 hover:text-white transition-colors",
                   currentPage === page && "bg-primary-green cursor-default",
                 )}
-                onClick={() => onPageChange(page)}
+                onClick={() => currentPage !== page && onPageChange(page)}
               >
                 {page}
               </PaginationLink>
@@ -72,10 +129,11 @@ const Pagination: FC<Props> = ({ currentPage, totalPages, onPageChange }) => {
 
         <PaginationItem>
           <PaginationNext
-            className="text-white bg-primary-green hover:bg-primary-green/80 hover:text-white transition-colors cursor-pointer"
-            onClick={() =>
-              currentPage < totalPages && onPageChange(currentPage + 1)
-            }
+            className={cn(
+              "text-white bg-primary-green hover:bg-primary-green/80 hover:text-white transition-colors",
+              isLastPage && "opacity-50 cursor-not-allowed",
+            )}
+            onClick={() => !isLastPage && onPageChange(currentPage + 1)}
           />
         </PaginationItem>
       </PaginationContent>

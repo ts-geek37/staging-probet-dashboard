@@ -63,6 +63,7 @@ export interface PaginationMeta {
   limit: number;
   total_item: number;
   total_pages: number;
+  has_next: boolean;
 }
 
 export interface Season {

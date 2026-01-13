@@ -151,7 +151,7 @@ export interface HeadToHeadMatch {
   homeLogo?: string | null;
   away: string;
   awayLogo?: string | null;
-  score: string; 
+  score: string;
   date: string;
   venue?: string | null;
   status: "Finished" | "LIVE" | "Upcoming" | string;

@@ -1,6 +1,5 @@
 import React from "react";
 
-import { StandingCard } from "./StandingCard";
 import StandingsTable from "./StandingsTable";
 import useLeagueStandings from "../../hooks/useLeagueStandings";
 import LeagueBanner from "../../LeagueBanner";
@@ -14,7 +13,6 @@ const Standings: React.FC<Props> = ({ id }) => {
 
   return (
     <div className="flex-1 text-white flex flex-col gap-12">
-      {/* <StandingCard standings={standings || []} isLoading={isLoading} /> */}
       <StandingsTable standings={standings || []} />
       <LeagueBanner banner="champions" />
     </div>

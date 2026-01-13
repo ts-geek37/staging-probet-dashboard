@@ -20,7 +20,7 @@ interface Props {
 
 const UpcomingMatches: React.FC<Props> = ({ search }) => {
   const [currentPage, setCurrentPage] = useState(1);
-  const { matches, isLoading, error, totalPages } = useMatches({
+  const { matches, isLoading, error, hasNext } = useMatches({
     tab: "upcoming" as MatchStatus,
     page: currentPage,
     limit: 4,
@@ -54,8 +54,9 @@ const UpcomingMatches: React.FC<Props> = ({ search }) => {
 
           <div className="mt-5 flex justify-center">
             <Pagination
+              mode="hasNext"
               currentPage={currentPage}
-              totalPages={totalPages}
+              hasNext={hasNext}
               onPageChange={handlePageChange}
             />
           </div>

@@ -73,6 +73,7 @@ const LeagueListing: React.FC<Props> = ({ initialLeagues }) => {
       )}
 
       <Pagination
+        mode="total"
         currentPage={page}
         totalPages={pagination?.totalPages ?? 0}
         onPageChange={setPage}

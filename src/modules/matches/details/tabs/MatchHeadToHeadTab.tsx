@@ -3,9 +3,6 @@
 import { Trophy } from "lucide-react";
 import React from "react";
 
-import { NoData, SkeletonCardLoader } from "@/components";
-import { MatchEventsResponse, MatchDetailView } from "@/types/matches";
-
 import MatchHeadToHead from "../../components/MatchHeadtoHead";
 
 interface Props {
