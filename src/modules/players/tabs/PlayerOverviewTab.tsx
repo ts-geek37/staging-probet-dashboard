@@ -1,33 +1,26 @@
 "use client";
 
 import {
-  MapPin,
-  Calendar,
-  Footprints,
-  Trophy,
-  History,
-  Shield,
-  TrendingUp,
-  User,
-  Ruler,
-  Scale,
-  Shirt,
   Briefcase,
   Globe,
+  History,
   Info,
+  LucideIcon,
+  MapPin,
+  Shield,
+  Trophy,
+  User,
 } from "lucide-react";
 import Image from "next/image";
-import React from "react";
+import React, { ElementType } from "react";
 
 import { ApiResponse } from "@/api/types";
-import { Badge } from "@/components/ui/badge"; // Ensure this is installed
+import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { PlayerProfileResponse } from "@/types/players";
 
 import { usePlayerOverview } from "../hooks";
-
-// Shadcn Components
 
 interface Props {
   initialData: ApiResponse<PlayerProfileResponse>;
@@ -54,13 +47,12 @@ const PlayerOverviewTab: React.FC<Props> = ({ initialData }) => {
 
   return (
     <div className="flex flex-col gap-8 max-w-7xl mx-auto">
-      {/* 1. HERO SECTION */}
       <div className="relative overflow-hidden rounded-3xl border border-primary-gray/20 p-6 bg-[#12151C]">
         <div className="flex flex-col md:flex-row gap-8 items-center relative z-10">
           <div className="relative h-48 w-48 shrink-0 overflow bg-primary-gray rounded-xl shadow-inner">
             <Image
-              src={player.photo || "/no-image.png"}
-              alt={player.name}
+              src={player?.photo || "/no-image.png"}
+              alt={player?.name || ""}
               fill
               className="object-cover"
               priority
@@ -94,7 +86,6 @@ const PlayerOverviewTab: React.FC<Props> = ({ initialData }) => {
               </div>
             </div>
 
-            {/* LIVE MARKET VALUE BADGE */}
             {player.market_value && (
               <Badge
                 variant="green"
@@ -133,9 +124,7 @@ const PlayerOverviewTab: React.FC<Props> = ({ initialData }) => {
         </div>
       </div>
 
-      {/* 2. THREE-COLUMN DATA GRID */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 px-2">
-        {/* COLUMN 1: BIO & PHYSICAL */}
         <Card className="shadow-none">
           <CardHeader className="pb-4 ">
             <CardTitle className="text-base font-bold uppercase text-primary-green flex items-center gap-2">
@@ -180,7 +169,6 @@ const PlayerOverviewTab: React.FC<Props> = ({ initialData }) => {
           </CardContent>
         </Card>
 
-        {/* COLUMN 2: CAREER & TEAMS */}
         <Card className="shadow-none">
           <CardHeader className="pb-4 ">
             <CardTitle className="text-base font-bold uppercase text-primary-green flex items-center gap-2">
@@ -221,7 +209,6 @@ const PlayerOverviewTab: React.FC<Props> = ({ initialData }) => {
           </CardContent>
         </Card>
 
-        {/* COLUMN 3: STATUS & ACHIEVEMENTS */}
         <Card className="shadow-none">
           <CardHeader className="pb-4 ">
             <CardTitle className="text-base font-bold uppercase text-primary-green flex items-center gap-2">
@@ -292,23 +279,21 @@ const PlayerOverviewTab: React.FC<Props> = ({ initialData }) => {
   );
 };
 
-/* --- REUSABLE MINI COMPONENTS --- */
-
 const DetailRow = ({
   label,
   value,
   icon: Icon,
 }: {
   label: string;
-  value: any;
-  icon?: any;
+  value: string | number | React.ReactNode | boolean | null;
+  icon?: ElementType;
 }) => (
-  <div className="flex justify-between items-center py-2.5 border-b border-white/[0.03] last:border-0 group">
+  <div className="flex justify-between items-center py-2.5 border-b border-white/5 last:border-0 group">
     <span className="text-sm text-primary-gray flex items-center gap-3 group-hover:text-white transition-colors">
       {Icon && <Icon size={16} className="opacity-40" />}
       {label}
     </span>
-    <div className="text-sm font-bold text-white/90">{value || "—"}</div>
+    <div className="text-sm font-bold text-white/90">{value ?? "—"}</div>
   </div>
 );
 

@@ -83,7 +83,7 @@ const StatSection: React.FC<{
   icon: React.ReactNode;
   children: React.ReactNode;
 }> = ({ title, icon, children }) => (
-  <Card className="bg-primary-gray/5 border-primary-gray/20 overflow-hidden">
+  <Card className="bg-primary-gray/5 border-primary-gray/20 overflow-hidden p-0">
     <CardContent className="p-0">
       <div className="flex items-center gap-2 px-4 py-3 bg-white/5 border-b border-white/10">
         {icon}
@@ -164,7 +164,7 @@ const MatchSeasonStatsTab: React.FC<Props> = ({ match }) => {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 px-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-8 px-4">
         <StatSection
           title="General"
           icon={<BarChart3 className="w-4 h-4 text-blue-500" />}

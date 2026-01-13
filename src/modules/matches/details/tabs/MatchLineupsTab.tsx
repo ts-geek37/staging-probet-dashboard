@@ -8,8 +8,8 @@ import { NoData, SkeletonCardLoader } from "@/components";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { MatchDetailView, MatchLineupsResponse } from "@/types/matches";
 
-import { useMatchDetail } from "../../hooks";
 import { PlayerListCard } from "../../components";
+import { useMatchDetail } from "../../hooks";
 
 interface Props {
   matchId: number;
@@ -27,7 +27,7 @@ const MatchLineupsTab: React.FC<Props> = ({ matchId }) => {
     return <NoData message="Lineups not available" />;
   }
 
-return (
+  return (
     <div className="grid grid-cols-1 gap-4 sm:gap-6 lg:grid-cols-2">
       {teams.slice(0, 2).map((team, teamIndex) => {
         const isHome = teamIndex === 0;
@@ -73,9 +73,7 @@ return (
                   : "from-primary-red/10 to-primary-red/5"
               }`}
               itemClassName={`group flex cursor-pointer items-center gap-4 px-5 py-3 transition-all ${
-                isHome
-                  ? "hover:bg-primary-green/10"
-                  : "hover:bg-primary-red/10"
+                isHome ? "hover:bg-primary-green/10" : "hover:bg-primary-red/10"
               }`}
               numberClassName={`flex h-9 w-9 items-center justify-center rounded-lg font-bold ${
                 isHome

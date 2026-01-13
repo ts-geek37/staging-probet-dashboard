@@ -48,11 +48,11 @@ const MatchCommentsTab: React.FC<Props> = ({ matchId }) => {
               comment.is_goal
                 ? "border-l-4 border-l-primary-green bg-primary-green/5"
                 : comment.is_important
-                ? "border-l-4 border-l-primary-yellow bg-primary-yellow/5"
-                : ""
+                  ? "border-l-4 border-l-primary-yellow bg-primary-yellow/5"
+                  : ""
             }`}
           >
-            <CardContent className="p-4 sm:p-5 flex gap-4 items-center">
+            <CardContent className="p-2 px-3 flex gap-4 items-center">
               <div className="flex flex-col items-center gap-2 shrink-0 pt-1">
                 <div className="flex flex-col items-center justify-center h-10 w-15 ">
                   <span className="font-bold text-white sm:text-lg">
