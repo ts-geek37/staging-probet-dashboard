@@ -31,7 +31,6 @@ export interface PlayerProfileResponse {
 
   date_of_birth: string | null;
   age: number | null;
-
   height: number | null;
   weight: number | null;
   preferred_foot: string | null;
@@ -45,15 +44,47 @@ export interface PlayerProfileResponse {
   position: {
     id: number | null;
     name: string | null;
+    detailed: string | null;
   };
 
-  teams:
-    | {
-        id: number;
-        name: string;
-        logo: string | null;
-      }[]
-    | null;
+  current_team: {
+    id: number;
+    name: string;
+    logo: string | null;
+  } | null;
+
+  teams: {
+    id: number;
+    name: string;
+    logo: string | null;
+  }[];
+
+  birthplace: {
+    country: string | null;
+    city: string | null;
+  };
+  trophies?: {
+    id: number;
+    name: string;
+    position: number;
+    team: {
+      id: number;
+      name: string;
+      logo: string | null;
+    };
+  }[];
+
+  shirt_number: number | null;
+
+  is_active: boolean;
+
+  market_value: number | null;
+
+  contract: {
+    until: string | null;
+  };
+
+  is_captain: boolean;
 }
 
 export interface PlayerSeasonStatsResponse {
