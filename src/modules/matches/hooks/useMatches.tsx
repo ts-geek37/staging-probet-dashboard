@@ -27,13 +27,13 @@ const useMatches = ({ tab, page = 1, limit = 10, q }: UseMatchesParams) => {
   const matches = data?.data?.data ?? [];
   const pagination = data?.data?.pagination;
 
-  const totalPages = pagination?.total_pages ?? 0;
-
   return {
     matches,
     tab: data?.data?.tab,
-    pagination,
-    totalPages,
+    page: pagination?.page ?? page,
+    limit: pagination?.limit ?? limit,
+    hasNext: pagination?.has_next ?? false,
+
     isLoading,
     error,
   };

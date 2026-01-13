@@ -5,7 +5,7 @@ interface TimeRemaining {
   minutes: string;
   seconds: string;
 }
-type MatchTimeState = "PAST" | "WITHIN_12_HOURS" | "UPCOMING";
+export type MatchTimeState = "PAST" | "WITHIN_12_HOURS" | "UPCOMING";
 const TWELVE_HOURS_MS = 12 * 60 * 60 * 1000;
 
 const useMatchTimer = (date: string) => {

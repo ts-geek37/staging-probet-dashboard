@@ -21,35 +21,6 @@ export interface TeamCard {
   };
 }
 
-export interface TeamOverviewResponse {
-  id: number;
-  name: string;
-  short_code: string | null;
-  logo: string | null;
-  founded: number | null;
-
-  country: {
-    name: string;
-    code: string | null;
-    flag: string | null;
-  };
-
-  stadium: {
-    name: string | null;
-    capacity: number | null;
-  };
-
-  current_season: {
-    id: number;
-    name: string;
-  } | null;
-}
-
-export interface TeamListResponse {
-  data: TeamOverviewResponse[];
-  pagination: PaginationMeta;
-}
-
 export interface TeamHeaderApi {
   id: number;
   name: string;
@@ -102,6 +73,67 @@ export interface TeamMatchesResponse {
   upcoming: MatchListItem[];
 }
 
+export enum TeamDetailView {
+  OVERVIEW = "overview",
+  MATCHES = "matches",
+  SQUAD = "squad",
+  STATS = "stats",
+  TRANSFERS = "Transfers",
+}
+
+export type { MatchListItem, MatchStatus };
+
+export interface SocialDTO {
+  id: number;
+  channel: {
+    id: number;
+    name: string;
+    color: string;
+  };
+  handle: string;
+  url: string;
+}
+
+export interface TeamOverviewResponse {
+  id: number;
+  name: string;
+  short_code: string | null;
+  logo: string | null;
+  founded: number | null;
+
+  country: {
+    name: string;
+    code: string | null;
+    flag: string | null;
+  };
+
+  stadium: {
+    name: string | null;
+    capacity: number | null;
+    image: string | null;
+  };
+  socials: SocialDTO[] | null;
+  rivals:
+    | {
+        id: number;
+        name: string;
+        logo: string | null;
+        type: string | null;
+      }[]
+    | null;
+  current_seasons: TeamSeason[] | null;
+
+  rankings:
+    | {
+        id: number;
+        name: string;
+        rank: number | null;
+        points: number | null;
+      }[]
+    | null;
+}
+
+
 export interface TeamSeasonStatsItem {
   season: {
     id: number;
@@ -151,11 +183,117 @@ export interface TeamSeasonStatsResponse {
   seasons: TeamSeasonStatsItem[];
 }
 
-export enum TeamDetailView {
-  OVERVIEW = "overview",
-  MATCHES = "matches",
-  SQUAD = "squad",
-  STATS = "stats",
+export interface TeamSeason {
+  id: number;
+  name: string;
+  is_current?: boolean;
+  starting_at: string | null;
+  ending_at: string | null;
+  league: {
+    id: number;
+    name: string;
+    logo: string | null;
+  };
 }
 
-export type { MatchListItem, MatchStatus };
+export interface TeamStatistics {
+  games_played?: number;
+  minutes_played?: number;
+
+  wins?: number;
+  draws?: number;
+  losses?: number;
+  points_per_game?: number;
+
+  goals_for?: number;
+  goals_against?: number;
+  expected_goals?: number;
+  clean_sheets?: number;
+  failed_to_score?: number;
+
+  shots?: number;
+  corners?: number;
+  attacks?: number;
+  dangerous_attacks?: number;
+  possession?: number;
+  penalties?: number;
+  offsides?: number;
+  assists?: number;
+
+  tackles?: number;
+  fouls?: number;
+
+  yellow_cards?: number;
+  red_cards?: number;
+  yellow_red_cards?: number;
+  fouls_per_card?: number;
+
+  rating?: number;
+  highest_rated_player?: number | null;
+
+  average_player_height?: number | null;
+  average_player_age?: number;
+  foreign_players?: number;
+  appearing_players?: number;
+  national_team_players?: number;
+
+  penalty_conversion_rate?: number;
+  shot_conversion_rate?: number;
+  shot_on_target_percentage?: number;
+  scoring_frequency?: number;
+
+  scoring_minutes?: unknown;
+  conceded_scoring_minutes?: unknown;
+  most_scored_half?: unknown;
+  most_frequent_scoring_minute?: unknown;
+  half_results?: unknown;
+  goal_results?: unknown;
+  interception_stats?: unknown;
+  pass_stats?: unknown;
+  assist_stats?: unknown;
+  players_footing?: unknown;
+  most_substituted_players?: unknown;
+  most_injured_players?: unknown;
+  team_of_the_week?: unknown;
+  injury_time_goals?: unknown;
+}
+
+export interface TeamListResponse {
+  data: TeamOverviewResponse[];
+  pagination: PaginationMeta;
+}
+
+export interface TeamTransferRow {
+  id: number;
+  date: string;
+  amount: number | null;
+  completed: boolean;
+  type?: {
+    id: number;
+    code: string;
+    label: string;
+  };
+
+  player: {
+    id: number;
+    name: string;
+    image: string | null;
+  };
+
+  from_team: {
+    id: number;
+    name: string;
+    logo: string | null;
+  } | null;
+
+  to_team: {
+    id: number;
+    name: string;
+    logo: string | null;
+  } | null;
+}
+
+export interface TeamTransferResponse {
+  transfers: TeamTransferRow[];
+  pagination: PaginationMeta;
+}

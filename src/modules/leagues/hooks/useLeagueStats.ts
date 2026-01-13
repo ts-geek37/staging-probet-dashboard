@@ -2,11 +2,7 @@ import { useMemo, useState } from "react";
 import useSWR from "swr";
 
 import { ApiResponse } from "@/api/types";
-import {
-  LeagueSeasonStatistics,
-  LeagueStatisticsResponse,
-  LeagueView,
-} from "@/types/leagues";
+import { LeagueStatisticsResponse, LeagueView } from "@/types/leagues";
 
 import { disciplineStatMap, scoringStatMap, statsConfigMap } from "../constant";
 

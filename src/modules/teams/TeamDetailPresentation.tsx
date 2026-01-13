@@ -23,6 +23,7 @@ const tabs = [
   { label: "Squad", value: TeamDetailView.SQUAD },
   { label: "Matches", value: TeamDetailView.MATCHES },
   { label: "Stats", value: TeamDetailView.STATS },
+  { label: "Transfers", value: TeamDetailView.TRANSFERS },
 ];
 
 const TeamDetailPresentation = ({ teamId, initialData }: Props) => {

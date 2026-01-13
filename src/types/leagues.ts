@@ -28,11 +28,70 @@ export interface LeagueTeams {
   }>;
 }
 
+export interface TopScorerTableSchema {
+  typeId: number;
+  code: string;
+  label: string;
+  entity: TopScorerEntity;
+  metric: TopScorerMetric;
+  unit: string | null;
+  sortable: boolean;
+  defaultSort: "position";
+}
+
+export type TopScorerEntity = "player";
+export type TopScorerMetric = "count";
+
+export interface TopScorerRow {
+  position: number;
+  total: number;
+  player: {
+    id: number;
+    name: string;
+    image: string | null;
+  };
+  team: {
+    id: number;
+    name: string;
+    logo: string | null;
+  };
+}
+
+export interface TopScorerTable {
+  typeId: number;
+  code: string;
+  label: string;
+  rows: TopScorerRow[];
+}
+
+export interface TopScorersResponse {
+  league: {
+    id: number;
+    name: string;
+  };
+  season: CurrentSeason;
+
+  schema: {
+    tables: Record<string, TopScorerTableSchema>;
+    order: string[];
+  };
+
+  tables: Record<string, TopScorerTable>;
+}
+
 export enum LeagueView {
   OVERVIEW = "profile",
   STANDINGS = "standings",
   STATISTICS = "stats",
   MATCHES = "matches",
+  TOP_SCORERS = "top-scorers",
+}
+export interface LeagueViewResponseMap {
+  [LeagueView.OVERVIEW]: LeagueProfileResponse;
+  [LeagueView.STANDINGS]: LeagueStandingsResponse;
+  [LeagueView.STATISTICS]: LeagueStatisticsResponse;
+  [LeagueView.MATCHES]: LeagueMatchesResponse;
+  [LeagueView.TOP_SCORERS]: TopScorersResponse;
 }
 export enum MatchListStatus {
   LIVE = "live",
@@ -63,41 +122,37 @@ export interface PaginationMeta {
   limit: number;
   count: number;
   total_pages: number;
+  has_next: boolean;
 }
 
-export interface Season {
-  id: number;
-  name: string;
-  starting_at: string | null;
-  ending_at: string | null;
-}
 export interface Country {
   name: string;
   code: string | null;
   flag: string | null;
 }
 
-export interface MatchTeam {
+export interface StageInfo {
   id: number;
   name: string;
-  logo: string | null;
-  score: {
-    goals: number;
-  };
+  starting_at: string | null;
+  ending_at: string | null;
 }
-export interface LeagueViewResponseMap {
-  [LeagueView.OVERVIEW]: LeagueProfileResponse;
-  [LeagueView.STANDINGS]: LeagueStandingsResponse;
-  [LeagueView.STATISTICS]: LeagueStatisticsResponse;
-  [LeagueView.MATCHES]: LeagueMatchesResponse;
+export interface LeagueSeasonInfo {
+  id: number;
+  name: string;
+  starting_at: string | null;
+  ending_at: string | null;
+  stages?: StageInfo[];
+  stage: StageInfo | null;
 }
+
 export interface LeagueProfileResponse {
   id: number;
   name: string;
   logo: string | null;
   competition_type: "league" | "cup";
   country: Country;
-  current_season: Season | null;
+  current_season: LeagueSeasonInfo | null;
 }
 export interface LeagueStanding {
   position: number;
@@ -114,17 +169,21 @@ export interface LeagueStandingsResponse {
     name: string;
     country: string;
   };
-  season: {
-    id: number;
-    name: string;
-  };
-  table: LeagueStanding[];
+  season: LeagueSeasonInfo;
+  table: {
+    position: number;
+    team: {
+      id: number;
+      name: string;
+      logo: string | null;
+    };
+    points: number;
+  }[];
 }
+export type CurrentSeason = LeagueSeasonInfo;
+
 export interface LeagueSeasonStatistics {
-  season: {
-    id: number;
-    name: string;
-  };
+  season: CurrentSeason;
   overview: {
     matches_played: number | null;
     total_goals: number | null;
@@ -166,17 +225,7 @@ export interface MatchTeams {
   home: MatchTeam;
   away: MatchTeam;
 }
-export type MatchStatus = "UPCOMING" | "LIVE" | "FT";
-
-export interface Venue {
-  id: number;
-  name: string;
-  capacity: number;
-  city: string;
-  country: string;
-  surface: string;
-  image: string;
-}
+export type MatchStatus = "UPCOMING" | "LIVE" | "FINISHED";
 
 export interface MatchListItem {
   id: number;
@@ -191,7 +240,15 @@ export interface MatchListItem {
     id: number;
     name: string;
   };
-  venue?: Venue;
+  venue?: {
+    id?: number;
+    name?: string;
+    capacity?: number;
+    city?: string;
+    country?: string;
+    surface?: string;
+    image?: string;
+  };
   teams: MatchTeams;
   score?: MatchScore;
   referee?: string;
@@ -202,9 +259,6 @@ export interface LeagueMatchesResponse {
     id: number;
     name: string;
   };
-  season: {
-    id: number;
-    name: string;
-  };
+  season: CurrentSeason;
   matches: MatchListItem[];
 }

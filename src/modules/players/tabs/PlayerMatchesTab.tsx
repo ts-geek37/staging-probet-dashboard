@@ -43,6 +43,7 @@ const PlayerMatchesTab: React.FC<Props> = ({ playerId }) => {
 
       {pagination && pagination.total_pages > 1 && (
         <Pagination
+          mode="total"
           currentPage={page}
           onPageChange={setPage}
           totalPages={pagination.total_pages}

@@ -19,6 +19,14 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "images.unsplash.com",
       },
+      {
+        protocol: "https",
+        hostname: "cdn.sportmonks.com",
+      },
+      {
+        protocol: "https",
+        hostname: "media.api-sports.io",
+      },
     ],
   },
   reactCompiler: true,

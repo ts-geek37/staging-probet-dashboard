@@ -39,8 +39,11 @@ const LeagueListing: React.FC<Props> = ({ initialLeagues }) => {
   return (
     <div className="flex flex-col gap-4">
       <div className="text-white flex flex-col gap-2">
-        <h1 className="text-4xl font-bold mb-2">Leagues</h1>
-        <p>Explore leagues from across the world.</p>
+        <h1 className="text-4xl font-bold mb-2">Global Leagues</h1>
+        <p>
+          Explore standings, matches, and statistics for top Global football
+          leagues.
+        </p>
       </div>
 
       <SearchBar
@@ -70,6 +73,7 @@ const LeagueListing: React.FC<Props> = ({ initialLeagues }) => {
       )}
 
       <Pagination
+        mode="total"
         currentPage={page}
         totalPages={pagination?.totalPages ?? 0}
         onPageChange={setPage}
