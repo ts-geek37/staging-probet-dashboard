@@ -10,6 +10,7 @@ const useMatchDetail = <V extends MatchDetailView>(
   view: V = MatchDetailView.OVERVIEW as V,
   team1?: number,
   team2?: number,
+  seasonId?: number,
 ) => {
   let endpoint =
     view === MatchDetailView.OVERVIEW
@@ -18,6 +19,10 @@ const useMatchDetail = <V extends MatchDetailView>(
 
   if (view === MatchDetailView.HEAD_TO_HEAD && team1 && team2) {
     endpoint = `/api/v2/matches/head-to-head?team1=${team1}&team2=${team2}`;
+  }
+
+  if (view === MatchDetailView.SEASON_STATS && seasonId) {
+    endpoint = `/api/v2/matches/${matchId}/team-stats/${seasonId}`;
   }
 
   const { data, error, isLoading } =
