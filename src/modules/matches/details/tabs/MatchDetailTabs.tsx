@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useCallback } from "react";
 
 import TabNavigation from "@/components/TabNavigation";
 import { MatchDetailView, MatchListItem } from "@/types/matches";
@@ -35,6 +35,34 @@ const MatchDetailTabs: React.FC<Props> = ({
     };
   });
 
+  const renderActiveTab = useCallback(() => {
+    switch (activeTab) {
+      case MatchDetailView.OVERVIEW:
+        return <MatchOverviewTab matchId={matchId} />;
+
+      case MatchDetailView.STATS:
+        return <MatchStatsTab matchId={matchId} />;
+
+      case MatchDetailView.LINEUPS:
+        return <MatchLineupsTab matchId={matchId} />;
+
+      case MatchDetailView.EVENTS:
+        return <MatchEventsTab matchId={matchId} />;
+
+      case MatchDetailView.HEAD_TO_HEAD:
+        return <MatchHeadToHeadTab match={match} />;
+
+      case MatchDetailView.COMMENTS:
+        return <MatchCommentsTab matchId={matchId} />;
+
+      case MatchDetailView.SEASON_STATS:
+        return <MatchSeasonStatsTab match={match} />;
+
+      default:
+        return null;
+    }
+  }, [activeTab, matchId, match]);
+
   return (
     <div className="w-full">
       <TabNavigation
@@ -43,29 +71,7 @@ const MatchDetailTabs: React.FC<Props> = ({
         onTabChange={onTabChange}
       />
 
-      <div className="mt-6">
-        {activeTab === MatchDetailView.OVERVIEW && (
-          <MatchOverviewTab matchId={matchId} />
-        )}
-        {activeTab === MatchDetailView.STATS && (
-          <MatchStatsTab matchId={matchId} />
-        )}
-        {activeTab === MatchDetailView.LINEUPS && (
-          <MatchLineupsTab matchId={matchId} />
-        )}
-        {activeTab === MatchDetailView.EVENTS && (
-          <MatchEventsTab matchId={matchId} />
-        )}
-        {activeTab === MatchDetailView.HEAD_TO_HEAD && (
-          <MatchHeadToHeadTab match={match} />
-        )}
-        {activeTab === MatchDetailView.COMMENTS && (
-          <MatchCommentsTab matchId={matchId} />
-        )}
-        {activeTab === MatchDetailView.SEASON_STATS && (
-          <MatchSeasonStatsTab match={match} />
-        )}
-      </div>
+      <div className="mt-6 min-h-[50vh]">{renderActiveTab()}</div>
     </div>
   );
 };
