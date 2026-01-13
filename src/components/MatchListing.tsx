@@ -59,7 +59,6 @@ const MatchListing: React.FC<MatchListingProps> = ({
               return (
                 <UpcomingMatchCard
                   key={index}
-                  className="!w-full"
                   onClick={() => onClick(match?.id)}
                   {...(transformedMatch as UpcomingMatchProps)}
                 />

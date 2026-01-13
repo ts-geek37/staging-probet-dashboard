@@ -12,7 +12,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { LeagueStanding } from "@/types/leagues";
+import { LeagueStanding, LeagueStandingsResponse } from "@/types/leagues";
 
 type StandingUI = LeagueStanding & {
   played: number;
@@ -57,21 +57,21 @@ const STATIC_STANDINGS: StandingUI[] = [
 ];
 
 interface Props {
-  standings?: LeagueStanding[];
+  standings?: LeagueStandingsResponse["table"];
 }
 
 const StandingsTable: React.FC<Props> = ({ standings }) => {
   const router = useRouter();
 
   const data: StandingUI[] = standings?.length
-    ? standings.map((s) => ({
+    ? standings.map((s: LeagueStanding) => ({
         ...s,
         played: 15,
         win: 0,
         draw: 0,
         lose: 0,
         goalDiff: 0,
-        form: ["W", "D", "L", "W", "W"],
+        form: ["W", "D", "L", "W", "W"] as ("W" | "D" | "L")[],
       }))
     : STATIC_STANDINGS;
 
@@ -148,7 +148,7 @@ const StandingsTable: React.FC<Props> = ({ standings }) => {
 
                 <TableCell className="flex justify-center">
                   <div className="flex gap-2">
-                    {row.form.map((f, i) => (
+                    {row.form.map((f: "W" | "D" | "L", i: number) => (
                       <span
                         key={i}
                         className={`w-6 h-6 flex items-center justify-center text-xs rounded ${formColor(
