@@ -1,6 +1,6 @@
 "use client";
 
-import { MessageSquare, AlertCircle, Goal, Info } from "lucide-react";
+import { AlertCircle, Goal, MessageSquare } from "lucide-react";
 import React from "react";
 
 import { NoData, SkeletonCardLoader } from "@/components";
@@ -23,7 +23,6 @@ const MatchCommentsTab: React.FC<Props> = ({ matchId }) => {
     return <NoData message="No commentary available for this match" />;
   }
 
-  // Sort by minute descending
   const sortedComments = [...comments].sort((a, b) => {
     if (a.minute !== b.minute) return b.minute - a.minute;
     return (b.extra_minute ?? 0) - (a.extra_minute ?? 0);
@@ -45,50 +44,48 @@ const MatchCommentsTab: React.FC<Props> = ({ matchId }) => {
         {sortedComments.map((comment) => (
           <Card
             key={comment.id}
-            className={`overflow-hidden border-primary-gray/20 bg-primary-gray/5 transition-all hover:bg-primary-gray/10 ${
-              comment.is_important || comment.is_goal
+            className={`overflow-hidden border-primary-gray/20 bg-primary-gray/5 transition-all hover:bg-primary-gray/10 p-0 ${
+              comment.is_goal
                 ? "border-l-4 border-l-primary-green bg-primary-green/5"
+                : comment.is_important
+                ? "border-l-4 border-l-primary-yellow bg-primary-yellow/5"
                 : ""
             }`}
           >
-            <CardContent className="p-4 sm:p-5">
-              <div className="flex gap-4">
-                <div className="flex flex-col items-center gap-2 shrink-0 pt-1">
-                  <div className="flex flex-col items-center justify-center h-10 w-10 rounded-lg bg-[#14181F] border border-primary-gray/20">
-                    <span className="text-sm font-bold text-white">
-                      {comment.minute}
-                    </span>
+            <CardContent className="p-4 sm:p-5 flex gap-4 items-center">
+              <div className="flex flex-col items-center gap-2 shrink-0 pt-1">
+                <div className="flex flex-col items-center justify-center h-10 w-15 ">
+                  <span className="font-bold text-white sm:text-lg">
+                    {comment.minute}
                     {comment.extra_minute && (
-                      <span className="text-[10px] font-medium text-primary-green -mt-1">
+                      <span className="font-medium text-primary-green ml-1">
                         +{comment.extra_minute}
                       </span>
                     )}
-                  </div>
-                  {comment.is_goal && (
-                    <div className="h-6 w-6 rounded-full bg-primary-green/20 flex items-center justify-center">
-                      <Goal className="w-3.5 h-3.5 text-primary-green" />
-                    </div>
-                  )}
-                  {comment.is_important && !comment.is_goal && (
-                    <div className="h-6 w-6 rounded-full bg-yellow-500/20 flex items-center justify-center">
-                      <AlertCircle className="w-3.5 h-3.5 text-yellow-500" />
-                    </div>
-                  )}
+                  </span>
                 </div>
+              </div>
 
-                <div className="flex-1 space-y-2">
-                  <p className="text-sm sm:text-base text-white/90 leading-relaxed font-medium">
-                    {comment.comment}
-                  </p>
-                  {(comment.is_goal || comment.is_important) && (
-                    <div className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded bg-white/5 border border-white/10">
-                      <Info className="w-3 h-3 text-white/50" />
-                      <span className="text-[10px] font-bold text-white/50 uppercase tracking-wider">
-                        {comment.is_goal ? "Goal" : "Highlight"}
-                      </span>
-                    </div>
-                  )}
-                </div>
+              <div className="flex-1 flex gap-1">
+                <p className="sm:text-lg text-white/90 leading-relaxed font-medium">
+                  {comment.comment}
+                </p>
+                {comment.is_goal && (
+                  <div className="px-2 flex gap-1 rounded-full bg-primary-green/20 items-center justify-center">
+                    <Goal className="w-3.5 h-3.5 text-primary-green" />
+                    <span className="text-xs font-bold text-white/50 uppercase tracking-wider">
+                      Goal
+                    </span>
+                  </div>
+                )}
+                {comment.is_important && !comment.is_goal && (
+                  <div className="px-2 flex gap-1 rounded-full bg-primary-yellow/20 items-center justify-center">
+                    <AlertCircle className="w-3.5 h-3.5 text-primary-yellow" />
+                    <span className="text-xs font-bold text-white/50 uppercase tracking-wider">
+                      Highlight
+                    </span>
+                  </div>
+                )}
               </div>
             </CardContent>
           </Card>

@@ -13,7 +13,7 @@ interface Props {
 
 const MatchHeadToHead: React.FC<Props> = ({ matches }) => {
   return (
-    <>
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
       {matches.map((match, idx) => {
         const homeLogo = match.teams.home.logo;
         const awayLogo = match.teams.away.logo;
@@ -102,7 +102,7 @@ const MatchHeadToHead: React.FC<Props> = ({ matches }) => {
           </div>
         );
       })}
-    </>
+    </div>
   );
 };
 

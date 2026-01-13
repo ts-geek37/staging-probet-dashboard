@@ -80,7 +80,6 @@ const MatchEvents: React.FC<Props> = ({ event, index }) => {
       layout
       initial={{ opacity: 0, y: 20, filter: "blur(10px)" }}
       animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-      whileHover={{ x: 5 }}
       transition={{ delay: index * 0.08, duration: 0.4, ease: "easeOut" }}
       className="group relative flex items-start gap-2 sm:gap-4 py-3 px-2 sm:px-4 rounded-2xl hover:bg-white/5 transition-colors overflow-hidden"
     >
