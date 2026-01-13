@@ -24,17 +24,19 @@ export const useTeamOverview = (
     if (!team) return [];
 
     const teamInfo = [
-      { label: "Name", value: team.name ?? "N/A" },
-      { label: "Short Code", value: team.short_code ?? "N/A" },
+      {
+        label: "Name",
+        value: team.name ?? "N/A",
+        image: team.logo,
+      },
+      { type: "badge", label: "Short Code", value: team.short_code ?? "N/A" },
       { label: "Founded", value: team.founded ?? "N/A" },
       {
         label: "Country",
         value: team.country?.name ?? "N/A",
         image: team.country?.flag,
       },
-      { label: "Logo", value: "", image: team.logo },
     ];
-
     const venueInfo = [
       {
         label: "Stadium",
@@ -47,7 +49,7 @@ export const useTeamOverview = (
       {
         label: "Stadium Image",
         value: "",
-        image: team.stadium?.image || "/football-stadium.png", // fallback image
+        image: team.stadium?.image || "/football-stadium.png",
       },
     ];
 
@@ -69,15 +71,14 @@ export const useTeamOverview = (
     const rivalsInfo =
       team.rivals?.map((r) => ({
         label: r.name,
-        value: r.type ?? "Rival",
         image: r.logo,
+        value: r.type ?? "Rival",
       })) ?? [];
 
     const socialsInfo =
       team.socials?.map((s) => ({
         label: s.channel.name,
         value: s.handle,
-        type: "badge",
         extra: s.url,
         color: s.channel.color,
       })) ?? [];
