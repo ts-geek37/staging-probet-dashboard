@@ -7,9 +7,10 @@ import { VIPBanner } from "@/components";
 import { HomeResponse } from "@/types/home";
 
 import Banner from "./Banner";
+import { Testimonials } from "./components";
 import { useHome } from "./hooks";
 import LatestNews from "./LatestNews";
-import LiveMatchCard from "./LiveMatchesCards";
+import LiveMatchCards from "./LiveMatchesCards";
 import PredictionBanner from "./PredictionBanner";
 import TopEuropeanLeaguesPage from "./TopEuropeanLeagues";
 import UpcomingMatchCards from "./UpcomingMatchesCards";
@@ -26,9 +27,9 @@ const Home: React.FC<Props> = ({ initialHome }) => {
   return (
     <>
       <Banner />
-      <div className="max-w-7xl mx-auto px-4">
+      <div className="max-w-7xl w-full mx-auto px-4">
         <VIPBanner />
-        <LiveMatchCard matches={data.sections.live_now} />
+        <LiveMatchCards matches={data.sections.live_now} />
         <VIPBanner />
         <UpcomingMatchCards matches={data.sections.starting_soon} />
         <VIPBanner />
@@ -40,6 +41,7 @@ const Home: React.FC<Props> = ({ initialHome }) => {
         <PredictionBanner />
         <VIPBanner />
         <LatestNews news={data.news ?? []} />
+        <Testimonials />
       </div>
     </>
   );
