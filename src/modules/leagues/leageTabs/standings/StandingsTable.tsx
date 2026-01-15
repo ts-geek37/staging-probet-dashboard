@@ -87,7 +87,7 @@ const StandingsTable: React.FC<Props> = ({ standings }) => {
       <div className="w-full overflow-x-auto">
         <Table className="min-w-225">
           <TableHeader>
-            <TableRow className="grid grid-cols-[40px_1fr_repeat(6,100px)_140px] h-12 border-b border-primary-gray/20 px-5 ">
+            <TableRow className="grid grid-cols-[0.5fr_6fr_repeat(6,1fr)_3fr] h-12 border-b border-primary-gray/20 px-5 ">
               <TableHead className="flex items-center justify-center text-primary-gray">
                 #
               </TableHead>
@@ -123,7 +123,7 @@ const StandingsTable: React.FC<Props> = ({ standings }) => {
               <TableRow
                 key={row.team.id}
                 onClick={() => router.push(`/teams/${row.team.id}`)}
-                className="grid grid-cols-[40px_1fr_repeat(6,100px)_140px] px-5 py-3 text-sm text-primary-gray hover:bg-white/5 cursor-pointer border-b border-primary-gray/20"
+                className="grid grid-cols-[0.5fr_6fr_repeat(6,1fr)_3fr] px-5 py-3 text-sm text-primary-gray hover:bg-white/5 cursor-pointer border-b border-primary-gray/20"
               >
                 <TableCell className="font-semibold text-white">
                   {row.position}

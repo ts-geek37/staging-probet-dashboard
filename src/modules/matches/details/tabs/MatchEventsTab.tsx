@@ -22,7 +22,7 @@ const MatchEventsTab: React.FC<Props> = ({ matchId }) => {
     return <NoData message="No events recorded for this match" />;
 
   return (
-    <div className="max-w-7xl mx-auto py-4">
+    <>
       <div className="flex items-center justify-between mb-6 px-2">
         <h3 className="text-lg font-bold text-white tracking-tight">
           Match Timeline
@@ -39,7 +39,7 @@ const MatchEventsTab: React.FC<Props> = ({ matchId }) => {
           ))}
         </div>
       </Card>
-    </div>
+    </>
   );
 };
 

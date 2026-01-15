@@ -2,22 +2,15 @@
 
 import { useRouter } from "next/navigation";
 
-import {
-  MatchMode,
-  MatchWithOptionalLeague,
-  transformLeagueMatch,
-} from "@/utils/transformLeagueMatch";
+import { MatchListItem } from "@/types/matches";
 
 import MatchCardSkeleton from "./MatchCardSkeleton";
-import RecentMatchCard, { RecentMatchProps } from "./RecentMatchCard";
-import UpcomingMatchCard, { UpcomingMatchProps } from "./UpcomingMatchCard";
+import MatchCard from "./MatchesCard";
 
 interface MatchListingProps {
   title: string;
   description?: string;
-  matches: MatchWithOptionalLeague[];
-  mode: MatchMode;
-  BadgeText?: string;
+  matches: MatchListItem[];
   isLoading?: boolean;
 }
 
@@ -25,14 +18,10 @@ const MatchListing: React.FC<MatchListingProps> = ({
   title,
   description,
   matches,
-  mode,
-  BadgeText,
   isLoading = false,
 }) => {
   const router = useRouter();
-  const onClick = (matchId: number) => {
-    router.push(`/matches/${matchId}`);
-  };
+
   return (
     <div className="w-full">
       <h2 className="text-lg text-white font-semibold mb-4">{title}</h2>
@@ -41,29 +30,15 @@ const MatchListing: React.FC<MatchListingProps> = ({
       <div className="grid grid-cols-1 md:grid-cols-2 items-center lg:grid-cols-3 gap-4">
         {isLoading
           ? Array.from({ length: 10 }).map((_, index) => (
-              <MatchCardSkeleton key={index} mode={mode} />
+              <MatchCardSkeleton key={index} />
             ))
-          : matches.map((match, index) => {
-              const transformedMatch = transformLeagueMatch(match, mode);
-
-              if (mode === "recent") {
-                (transformedMatch as RecentMatchProps).BadgeText = BadgeText;
-                return (
-                  <RecentMatchCard
-                    key={index}
-                    onClick={() => onClick(match?.id)}
-                    {...(transformedMatch as RecentMatchProps)}
-                  />
-                );
-              }
-              return (
-                <UpcomingMatchCard
-                  key={index}
-                  onClick={() => onClick(match?.id)}
-                  {...(transformedMatch as UpcomingMatchProps)}
-                />
-              );
-            })}
+          : matches.map((match) => (
+              <MatchCard
+                key={match.id}
+                match={match}
+                onClick={() => router.push(`/matches/${match.id}`)}
+              />
+            ))}
       </div>
     </div>
   );

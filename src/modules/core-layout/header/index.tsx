@@ -10,7 +10,7 @@ const Header = () => {
       <div className="absolute inset-x-0 bottom-0 h-0.5 bg-gradient-to-r from-gray-800 via-45% via-primary-green to-75% to-gray-800" />
 
       <div className="max-w-7xl mx-auto px-4 md:px-6 grid grid-cols-2 nav:grid-cols-[1fr_3fr_1fr] items-center justify-between h-16">
-        <Link href="/" className="h-8 w-42">
+        <Link href="/" className="h-8 w-42 focus-visible:outline-none">
           <Image
             src="/logo.webp"
             alt="ProBetTips logo"

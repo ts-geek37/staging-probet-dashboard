@@ -63,11 +63,7 @@ const MatchDetailPage = async ({ params }: PageProps) => {
     );
   }
 
-  return (
-    <div className="text-white">
-      <MatchDetailPresentation initialData={response.data} />
-    </div>
-  );
+  return <MatchDetailPresentation initialData={response.data} />;
 };
 
 export default MatchDetailPage;

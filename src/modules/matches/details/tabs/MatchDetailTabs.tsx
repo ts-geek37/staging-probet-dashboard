@@ -25,15 +25,15 @@ const MatchDetailTabs: React.FC<Props> = ({
   onTabChange,
 }) => {
   const matchId = match.id;
-  const tabs = Object.values(MatchDetailView).map((tab) => {
-    let label = tab.replace(/-/g, " ");
-    if (tab === MatchDetailView.STATS) label = "Match Stats";
-    if (tab === MatchDetailView.SEASON_STATS) label = "Season Stats";
-    return {
-      label: label.charAt(0).toUpperCase() + label.slice(1),
-      value: tab,
-    };
-  });
+  const tabs = [
+    { label: "Overview", value: MatchDetailView.OVERVIEW },
+    { label: "Match Stats", value: MatchDetailView.STATS },
+    { label: "Lineups", value: MatchDetailView.LINEUPS },
+    { label: "Events", value: MatchDetailView.EVENTS },
+    { label: "Head to Head", value: MatchDetailView.HEAD_TO_HEAD },
+    { label: "Comments", value: MatchDetailView.COMMENTS },
+    { label: "Season Stats", value: MatchDetailView.SEASON_STATS },
+  ];
 
   const renderActiveTab = useCallback(() => {
     switch (activeTab) {
@@ -64,14 +64,14 @@ const MatchDetailTabs: React.FC<Props> = ({
   }, [activeTab, matchId, match]);
 
   return (
-    <div className="w-full">
+    <div className="w-full grid gap-6 pb-6">
       <TabNavigation
         activeTab={activeTab}
         tabs={tabs}
         onTabChange={onTabChange}
       />
 
-      <div className="mt-6 min-h-[50vh]">{renderActiveTab()}</div>
+      <div className="min-h-[40vh]">{renderActiveTab()}</div>
     </div>
   );
 };

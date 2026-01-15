@@ -17,7 +17,7 @@ const MatchDetailPresentation: React.FC<Props> = ({ initialData }) => {
   );
 
   return (
-    <div className="max-w-7xl mx-auto px-4 md:px-6 pb-4">
+    <div className="max-w-7xl mx-auto w-full px-4 py-6 grid gap-6 text-white">
       <MatchHeader match={initialData} />
 
       <MatchDetailTabs

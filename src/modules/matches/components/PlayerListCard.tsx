@@ -1,6 +1,7 @@
 import { ArrowRight } from "lucide-react";
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { cn } from "@/lib/utils";
 
 interface Player {
   id: number;
@@ -16,7 +17,7 @@ interface PlayerListCardProps {
   headerClassName?: string;
   itemClassName?: string;
   numberClassName?: string;
-  maxHeightClassName: string;
+  maxHeightClassName?: string;
 }
 
 const PlayerListCard: React.FC<PlayerListCardProps> = ({
@@ -27,13 +28,18 @@ const PlayerListCard: React.FC<PlayerListCardProps> = ({
   headerClassName,
   itemClassName,
   numberClassName,
-  maxHeightClassName,
+  maxHeightClassName = "max-h-[280px]",
 }) => {
   if (players.length === 0) return null;
 
   return (
-    <Card className="overflow-hidden border border-primary-gray/20 p-0">
-      <CardHeader className={headerClassName}>
+    <Card className="overflow-hidden border border-primary-gray/20 gap-0 p-0">
+      <CardHeader
+        className={cn(
+          "px-5 py-4 border-b border-primary-gray/20",
+          headerClassName,
+        )}
+      >
         <div className="flex items-center justify-between">
           <CardTitle className="flex items-center gap-2 text-xs sm:text-sm font-bold uppercase tracking-wide text-white">
             <Icon className="h-4 w-4 sm:h-5 sm:w-5" />
@@ -47,22 +53,34 @@ const PlayerListCard: React.FC<PlayerListCardProps> = ({
 
       <CardContent className="p-0">
         <div
-          className={`custom-scrollbar overflow-y-auto ${maxHeightClassName}`}
+          className={cn("custom-scrollbar overflow-y-auto", maxHeightClassName)}
         >
           <div className="divide-y divide-white/5">
             {players.map((player) => (
               <div
                 key={player.id}
                 onClick={() => onPlayerClick(player.id)}
-                className={itemClassName}
+                className={cn(
+                  "group flex cursor-pointer items-center gap-4 px-5 py-3 transition-all",
+                  itemClassName,
+                )}
               >
-                <div className={numberClassName}>{player.number ?? "-"}</div>
+                <div
+                  className={cn(
+                    "flex size-9 items-center justify-center rounded-lg",
+                    numberClassName,
+                  )}
+                >
+                  {player.number ?? "-"}
+                </div>
 
                 <p className="flex-1 truncate text-sm font-medium text-white">
                   {player.name}
                 </p>
 
-                <ArrowRight className="h-4 w-4 text-white/20" />
+                <ArrowRight
+                  className={cn("h-4 w-4 text-white/20", itemClassName)}
+                />
               </div>
             ))}
           </div>

@@ -13,7 +13,7 @@ interface Props {
 
 const MatchHeadToHead: React.FC<Props> = ({ matches }) => {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+    <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-4">
       {matches.map((match, idx) => {
         const homeLogo = match.teams.home.logo;
         const awayLogo = match.teams.away.logo;
@@ -29,7 +29,7 @@ const MatchHeadToHead: React.FC<Props> = ({ matches }) => {
         return (
           <div
             key={match.id || idx}
-            className="bg-[#12151C] text-white border border-primary-gray/20 rounded-xl overflow-hidden mb-4 max-w-5xl mx-auto w-full"
+            className="bg-[#12151C] text-white border border-primary-gray/20 rounded-xl overflow-hidden mb-4 w-full"
           >
             <div className="flex flex-wrap justify-between items-center gap-2 px-3 sm:px-4 py-2 bg-gray-950 text-[10px] sm:text-xs text-primary-gray">
               <span>
