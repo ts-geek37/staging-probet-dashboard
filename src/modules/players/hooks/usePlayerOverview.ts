@@ -1,12 +1,6 @@
 "use client";
 
-import {
-  Calendar,
-  Footprints,
-  Ruler,
-  Scale,
-  Briefcase,
-} from "lucide-react";
+import { Calendar, Footprints, Ruler, Scale, Briefcase } from "lucide-react";
 import useSWR from "swr";
 
 import { ApiResponse } from "@/api/types";

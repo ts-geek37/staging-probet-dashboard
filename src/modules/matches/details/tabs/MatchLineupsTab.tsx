@@ -1,11 +1,10 @@
 "use client";
 
-import { ArrowRight, List, Shuffle, Users } from "lucide-react";
+import { List, Shuffle, Users } from "lucide-react";
 import { useRouter } from "next/navigation";
 import React from "react";
 
 import { NoData, SkeletonCardLoader } from "@/components";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { MatchDetailView, MatchLineupsResponse } from "@/types/matches";
 
 import { PlayerListCard } from "../../components";

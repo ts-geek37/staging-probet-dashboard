@@ -4,8 +4,8 @@ import React from "react";
 
 interface DetailRowProps {
   label: string;
-  value: any;
-  icon?: any;
+  value: string | number | null | React.ReactNode;
+  icon?: React.ElementType;
 }
 
 const DetailRow: React.FC<DetailRowProps> = ({ label, value, icon: Icon }) => (

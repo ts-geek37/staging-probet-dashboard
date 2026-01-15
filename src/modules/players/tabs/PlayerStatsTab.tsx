@@ -2,10 +2,10 @@
 
 import React from "react";
 
-import { NoData } from "@/components";
+import { NoData, StatsGrid } from "@/components";
+
 import { SeasonOverview, PlayerStatsLoading } from "../components";
 import { usePlayerStats } from "../hooks";
-import { StatsGrid } from "@/components";
 
 interface Props {
   playerId: number;

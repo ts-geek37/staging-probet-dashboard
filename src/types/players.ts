@@ -1,10 +1,12 @@
+import { PaginationMeta } from "./leagues";
+import { MatchListItem } from "./matches";
+
 export enum PlayerDetailView {
   Profile = "profile",
   STATS = "stats",
   MATCHES = "matches",
+  TRANSFERS = "transfers",
 }
-
-import { PaginationMeta } from "./leagues";
 
 export interface PlayerListResponse {
   data: PlayerCard[];
@@ -174,55 +176,70 @@ export interface PlayerSeasonStatsResponse {
   };
 }
 
-export interface MatchTeam {
-  id: number;
-  name: string;
-  logo: string | null;
-}
-
-export interface MatchTeams {
-  home: MatchTeam;
-  away: MatchTeam;
-}
-
-export interface MatchScore {
-  home: number | null;
-  away: number | null;
-}
-
 export type MatchStatus = "UPCOMING" | "LIVE" | "FT";
-
-export interface MatchListItem {
-  id: number;
-  kickoff_time: string;
-  status: MatchStatus;
-  league: {
-    id: number;
-    name: string;
-    logo: string | null;
-  };
-  season?: {
-    id: number;
-    name: string;
-  };
-  venue?: {
-    id?: number;
-    name?: string;
-    capacity?: number;
-    city?: string;
-    country?: string;
-    surface?: string;
-    image?: string;
-  };
-  teams: MatchTeams;
-  score?: MatchScore;
-  referee?: string;
-}
 
 export interface PlayerStatItem {
   label: string;
   value: string | number;
   color?: string;
+}
+
+export interface PlayerTransfersResponse {
+  transfers: PlayerTransfer[];
+  pagination: PaginationMeta;
+}
+
+export interface PlayerTransfer {
+  id: number;
+  date: string;
+  type: {
+    code: string;
+    label: string;
+  };
+  fromTeam: TransferTeam | null;
+  toTeam: TransferTeam | null;
+  completed: boolean;
+  amount: number | null;
+}
+
+export interface TransferTeam {
+  id: number;
+  name: string;
+  shortCode: string;
+  image: string;
+}
+
+export interface TransfersMeta {
+  total: number;
+  completed: number;
+  pending: number;
+}
+
+export interface PlayerTransferAPI {
+  id: number;
+  date: string;
+  amount: number | null;
+  completed: boolean;
+  type: { code: string; label: string };
+  from_team?: {
+    id: number;
+    name: string;
+    short_code?: string;
+    logo: string;
+  } | null;
+  to_team?: {
+    id: number;
+    name: string;
+    short_code?: string;
+    logo: string;
+  } | null;
+}
+
+export type { MatchListItem };
+
+export interface UsePlayerTransfersOptions {
+  initialPage?: number;
+  limit?: number;
 }
 
 export interface PlayerMatchesResponse {

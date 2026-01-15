@@ -1,6 +1,5 @@
 "use client";
 
-import { MapPin } from "lucide-react";
 import React from "react";
 
 import { ApiResponse } from "@/api/types";

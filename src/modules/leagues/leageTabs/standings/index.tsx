@@ -9,7 +9,7 @@ interface Props {
 }
 
 const Standings: React.FC<Props> = ({ id }) => {
-  const { standings, isLoading } = useLeagueStandings(id);
+  const { standings } = useLeagueStandings(id);
 
   return (
     <div className="flex-1 text-white flex flex-col gap-12">

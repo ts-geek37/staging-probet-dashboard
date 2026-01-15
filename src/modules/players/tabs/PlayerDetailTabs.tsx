@@ -4,6 +4,7 @@ import { PlayerDetailView, PlayerProfileResponse } from "@/types/players";
 import PlayerMatchesTab from "./PlayerMatchesTab";
 import PlayerOverviewTab from "./PlayerOverviewTab";
 import PlayerStatsTab from "./PlayerStatsTab";
+import PlayerTransferTab from "./PlayerTransferTab";
 
 interface Props {
   activeTab: PlayerDetailView;
@@ -22,6 +23,9 @@ const PlayerDetailTabs: React.FC<Props> = ({
 
     case PlayerDetailView.MATCHES:
       return <PlayerMatchesTab playerId={playerId} />;
+
+    case PlayerDetailView.TRANSFERS:
+      return <PlayerTransferTab playerId={playerId} />;
 
     case PlayerDetailView.Profile:
     default:

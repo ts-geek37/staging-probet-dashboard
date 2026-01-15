@@ -56,10 +56,15 @@ const PlayerHeroSection: React.FC<Props> = ({ player }) => {
 
             {player.market_value && (
               <Badge
-                variant="green"
-                className="hidden md:flex py-2 px-4 border-primary-green/30 bg-primary-green/5 w-fit"
+                variant="live"
+                className="hidden md:flex items-center gap-2 py-2 px-3 text-primary-green border border-primary-green/30 bg-primary-green/5 rounded-xl before:bg-primary-green"
               >
-                €{player.market_value.toLocaleString()}
+                <div className="flex flex-col">
+                  <span className="text-xs font-medium">Market Value:</span>
+                  <span className="font-bold">
+                    €{player.market_value.toLocaleString()}
+                  </span>
+                </div>
               </Badge>
             )}
           </div>
@@ -96,10 +101,15 @@ const PlayerHeroSection: React.FC<Props> = ({ player }) => {
 
           {player.market_value && (
             <Badge
-              variant="green"
-              className="flex py-2 px-2 border-primary-green/30 bg-primary-green/5"
+              variant="live"
+              className="flex items-center gap-2 py-2 px-3 text-primary-green border border-primary-green/30 bg-primary-green/5 rounded-sm before:bg-primary-green"
             >
-              €{player.market_value.toLocaleString()}
+              <div className="flex flex-col">
+                <span className="font-medium">Market Value</span>
+                <span className="font-bold">
+                  €{player.market_value.toLocaleString()}
+                </span>
+              </div>
             </Badge>
           )}
         </div>
