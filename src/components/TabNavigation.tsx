@@ -32,7 +32,7 @@ const TabNavigation = <T extends string | number>({
   onTabChange,
 }: TabNavigationProps<T>) => {
   const [open, setOpen] = React.useState(false);
-  const shouldUseSheet = tabs.length > 4;
+  const shouldUseSheet = tabs.length > 5;
   const activeTabItem = tabs.find((tab) => tab.value === activeTab);
 
   const handleTabChange = (value: T) => {

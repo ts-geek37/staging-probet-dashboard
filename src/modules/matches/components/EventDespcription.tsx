@@ -109,7 +109,7 @@ const EventDescription = ({ event }: { event: MatchEventItem }) => {
     <motion.p
       initial={{ opacity: 0 }}
       animate={{ opacity: 0.7 }}
-      className="text-xs sm:text-sm text-primary-gray mt-1 flex gap-px font-medium line-clamp-2 sm:line-clamp-none"
+      className="text-xs sm:text-sm text-primary-gray mt-1 flex flex-wrap gap-px font-medium line-clamp-2"
     >
       {eventDescription.map((token, i) => (
         <span key={i} className={highlightClassMap[token.type]}>

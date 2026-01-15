@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import React from "react";
 
+import { cn } from "@/lib/utils";
 import { MatchEventItem } from "@/types/matches";
 
 import { EVENT_CONFIG } from "../constants";
@@ -43,15 +44,6 @@ const MatchEvents: React.FC<Props> = ({ event, index }) => {
             <span>&apos;</span>
           </motion.span>
         </div>
-
-        <div
-          className={`relative p-1.5 sm:p-2.5 rounded-lg sm:rounded-xl ${bgColor} border border-white/5 shadow-lg shrink-0`}
-        >
-          <config.icon
-            className={`relative z-10 w-4 h-4 sm:w-6 sm:h-6 ${iconColor}`}
-            strokeWidth={2.5}
-          />
-        </div>
       </div>
 
       <div className="flex-1 pt-0.5 min-w-0">
@@ -81,6 +73,17 @@ const MatchEvents: React.FC<Props> = ({ event, index }) => {
           )}
         </div>
         <EventDescription event={event} />
+      </div>
+      <div
+        className={cn(
+          "relative p-1.5 sm:p-2.5 rounded-lg sm:rounded-xl border border-white/5 shadow-lg shrink-0",
+          bgColor,
+        )}
+      >
+        <config.icon
+          className={`relative z-10 w-4 h-4 sm:w-6 sm:h-6 ${iconColor}`}
+          strokeWidth={2.5}
+        />
       </div>
     </motion.div>
   );

@@ -62,12 +62,16 @@ const PlayerListCard: React.FC<PlayerListCardProps> = ({
                 onClick={() => onPlayerClick(player.id)}
                 className={cn(
                   "group flex cursor-pointer items-center gap-4 px-5 py-3 transition-all",
+                  "hover:bg-white/5",
+                  "active:bg-white/10 active:scale-[0.98]",
                   itemClassName,
                 )}
               >
                 <div
                   className={cn(
-                    "flex size-9 items-center justify-center rounded-lg",
+                    "flex size-9 items-center justify-center rounded-lg transition-colors",
+                    "group-hover:bg-white/10",
+                    "group-active:bg-white/15",
                     numberClassName,
                   )}
                 >
@@ -79,7 +83,11 @@ const PlayerListCard: React.FC<PlayerListCardProps> = ({
                 </p>
 
                 <ArrowRight
-                  className={cn("h-4 w-4 text-white/20", itemClassName)}
+                  className={cn(
+                    "h-4 w-4 transition-transform transition-colors",
+                    "text-white/20 group-hover:text-white/60 group-hover:translate-x-0.5",
+                    "group-active:text-white/80 group-active:translate-x-0.5",
+                  )}
                 />
               </div>
             ))}

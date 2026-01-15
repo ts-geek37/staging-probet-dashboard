@@ -48,7 +48,7 @@ const MatchCommentsTab: React.FC<Props> = ({ matchId }) => {
             <div
               key={comment.id}
               className={cn(
-                "flex items-start gap-4 p-4",
+                "flex items-start gap-4 p-4 min-h-12",
                 index !== sortedComments.length - 1 &&
                   "border-b border-slate-700/50",
                 comment.is_goal && "border-l-2 border-l-primary-green",
@@ -61,7 +61,7 @@ const MatchCommentsTab: React.FC<Props> = ({ matchId }) => {
               )}
             >
               <div className="flex-shrink-0">
-                <div className="flex items-center justify-center h-10 w-14 rounded">
+                <div className="flex items-center justify-center h-full w-14 rounded">
                   <span className="font-bold text-white text-base">
                     {comment.minute}
                     {comment.extra_minute && (
@@ -74,8 +74,8 @@ const MatchCommentsTab: React.FC<Props> = ({ matchId }) => {
                 </div>
               </div>
 
-              <div className="flex-1 min-w-0">
-                <p className="text-sm text-slate-200 leading-relaxed mb-2">
+              <div className="flex-1 h-full flex justify-between items-center min-w-0">
+                <p className="text-sm sm:text-base text-slate-200 leading-relaxed">
                   {comment.comment}
                 </p>
 
