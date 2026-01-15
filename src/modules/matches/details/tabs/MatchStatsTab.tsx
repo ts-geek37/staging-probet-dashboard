@@ -46,7 +46,7 @@ const MatchStatsTab: FC<Props> = ({ matchId }) => {
           </div>
         </div>
 
-        <div className="w-full space-y-4 max-w-3xl">
+        <div className="w-full max-w-3xl">
           {statKeys.map((key) => (
             <StatsRow
               key={key}

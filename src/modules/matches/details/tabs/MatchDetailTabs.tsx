@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useCallback } from "react";
+import React, { useCallback, useMemo } from "react";
 
 import TabNavigation from "@/components/TabNavigation";
 import { MatchDetailView, MatchListItem } from "@/types/matches";
@@ -10,8 +10,9 @@ import MatchEventsTab from "./MatchEventsTab";
 import MatchHeadToHeadTab from "./MatchHeadToHeadTab";
 import MatchLineupsTab from "./MatchLineupsTab";
 import MatchOverviewTab from "./MatchOverviewTab";
-import MatchSeasonStatsTab from "./MatchSeasonStatsTab";
+import MatchSeasonStatsTab from "./matchSeasonStatsTab";
 import MatchStatsTab from "./MatchStatsTab";
+import { TAB_CONFIG } from "../../constants";
 
 interface Props {
   match: MatchListItem;
@@ -25,15 +26,9 @@ const MatchDetailTabs: React.FC<Props> = ({
   onTabChange,
 }) => {
   const matchId = match.id;
-  const tabs = [
-    { label: "Overview", value: MatchDetailView.OVERVIEW },
-    { label: "Match Stats", value: MatchDetailView.STATS },
-    { label: "Lineups", value: MatchDetailView.LINEUPS },
-    { label: "Events", value: MatchDetailView.EVENTS },
-    { label: "Head to Head", value: MatchDetailView.HEAD_TO_HEAD },
-    { label: "Comments", value: MatchDetailView.COMMENTS },
-    { label: "Season Stats", value: MatchDetailView.SEASON_STATS },
-  ];
+  const tabs = useMemo(() => {
+    return TAB_CONFIG.filter((tab) => !tab.hideWhen?.includes(match.status));
+  }, [match.status]);
 
   const renderActiveTab = useCallback(() => {
     switch (activeTab) {

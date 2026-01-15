@@ -3,7 +3,7 @@
 import { UserButton, useUser } from "@clerk/nextjs";
 import { Menu, X } from "lucide-react";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -28,30 +28,15 @@ const MobileNavSheet: React.FC<Props> = ({
   vipLink,
   triggerClassName,
 }) => {
-  const [open, setOpen] = useState<boolean>(() => {
-    if (typeof window === "undefined") return false;
-    return false;
-  });
+  const [open, setOpen] = useState<boolean>(false);
   const { user } = useUser();
 
-  useEffect(() => {
-    const media = window.matchMedia("(min-width: 1100px)");
-
-    const handleChange = (e: MediaQueryListEvent) => {
-      if (e.matches) {
-        setOpen(false);
-      }
-    };
-
-    media.addEventListener("change", handleChange);
-
-    return () => {
-      media.removeEventListener("change", handleChange);
-    };
-  }, []);
-
   return (
-    <Sheet open={open} onOpenChange={setOpen}>
+    <Sheet
+      open={open}
+      onOpenChange={setOpen}
+      closeOnBreakpoint="(min-width: 1100px)"
+    >
       <SheetTrigger asChild>
         <Button
           variant="ghost"

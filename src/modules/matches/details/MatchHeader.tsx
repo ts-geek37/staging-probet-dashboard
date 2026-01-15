@@ -24,7 +24,7 @@ const MatchHeader: React.FC<Props> = ({ match }) => {
   return (
     <Card className="w-full mx-auto border-primary-gray/20 text-white overflow-hidden ">
       <CardContent className="flex flex-col items-center justify-center px-2 sm:px-6">
-        <div className="flex items-center gap-2 mb-6">
+        <div className="flex items-center gap-2 mb-2 sm:mb-6">
           <Image
             src={league.logo || "/no-image.png"}
             alt={league.name}
@@ -52,11 +52,12 @@ const MatchHeader: React.FC<Props> = ({ match }) => {
               {teams.home.name}
             </span>
           </div>
-          <div className="flex flex-col items-center mx-12">
-            <div className="text-2xl min-[350px]:text-4xl md:text-6xl font-bold tracking-tighter mb-2">
+
+          <div className="flex flex-col items-center sm:mx-12">
+            <div className="text-lg sm:text-xl md:text-2xl min-[350px]:text-4xl font-bold tracking-tighter mb-2">
               {score?.home ?? 0} - {score?.away ?? 0}
             </div>
-            <p className="text-sm font-semibold text-gray-400 capitalize">
+            <p className="text-xs sm:text-sm font-semibold text-gray-400 capitalize">
               {getMatchTime()}
             </p>
           </div>

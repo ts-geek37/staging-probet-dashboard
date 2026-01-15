@@ -67,11 +67,15 @@ const TabNavigation = <T extends string | number>({
   return (
     <>
       <div className="md:hidden border-b border-primary-gray/20 text-white">
-        <Sheet open={open} onOpenChange={setOpen}>
+        <Sheet
+          open={open}
+          onOpenChange={setOpen}
+          closeOnBreakpoint="(min-width: 768px)"
+        >
           <SheetTrigger asChild>
             <Button
               variant="ghost"
-              className="w-full justify-between px-4 py-2 text-sm capitalize hover:bg-transparent"
+              className="w-full justify-between px-4 py-2 sm:text-sm capitalize hover:bg-transparent"
             >
               <span className="text-primary-green font-medium">
                 {activeTabItem?.label}

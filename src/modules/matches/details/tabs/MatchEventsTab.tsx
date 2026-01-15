@@ -21,6 +21,12 @@ const MatchEventsTab: React.FC<Props> = ({ matchId }) => {
   if (!eventsData?.events.length)
     return <NoData message="No events recorded for this match" />;
 
+  const sortedEvents = [...eventsData.events].sort((a, b) => {
+    const aTime = (a?.minute ?? 0) + (a?.extra_minute ?? 0);
+    const bTime = (b?.minute ?? 0) + (b?.extra_minute ?? 0);
+    return bTime - aTime;
+  });
+
   return (
     <>
       <div className="flex items-center justify-between mb-6 px-2">
@@ -34,7 +40,7 @@ const MatchEventsTab: React.FC<Props> = ({ matchId }) => {
 
       <Card className="border border-primary-gray/20 py-0">
         <div className="divide-y divide-primary-gray/20">
-          {eventsData.events.map((event, index) => (
+          {sortedEvents.map((event, index) => (
             <MatchEvents key={event.id} event={event} index={index} />
           ))}
         </div>

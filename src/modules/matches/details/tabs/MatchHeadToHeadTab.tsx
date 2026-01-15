@@ -28,8 +28,8 @@ const MatchHeadToHeadTab: React.FC<Props> = ({ match }) => {
   return (
     <div className="max-w-7xl mx-auto py-4">
       <div className="flex items-center justify-between mb-6 border-b border-primary-gray/20 pb-4">
-        <h2 className="text-xl font-bold flex items-center gap-2">
-          <Trophy className="text-yellow-500 w-5 h-5" />
+        <h2 className="sm:text-lg md:text-xl font-bold flex items-center gap-2">
+          <Trophy className="text-yellow-500 size-4 sm:size-5" />
           Head to Head
         </h2>
         <span className="text-xs bg-primary-gray/30 px-3 py-1 rounded-full text-primary-gray">
