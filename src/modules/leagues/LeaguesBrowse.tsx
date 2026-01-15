@@ -1,12 +1,12 @@
 import { ApiResponse } from "@/api/types";
 import Ads from "@/components/Ads";
-import { LeagueListResponse } from "@/types/leagues";
+import { LeaguesListResponse } from "@/types/leagues";
 
 import LeagueBanner from "./LeagueBanner";
 import LeagueListing from "./leagueListing";
 
 interface Props {
-  initialLeagues: ApiResponse<LeagueListResponse>;
+  initialLeagues: ApiResponse<LeaguesListResponse>;
 }
 
 const LeaguesBrowse: React.FC<Props> = ({ initialLeagues }) => {

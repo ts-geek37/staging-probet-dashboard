@@ -2,7 +2,6 @@ import { Metadata } from "next";
 
 import { getTeamDetail } from "@/api/teams";
 import { TeamDetailPresentation } from "@/modules/teams";
-import { TeamDetailView } from "@/types/teams";
 import { seo } from "@/utils/seo";
 
 interface Props {
@@ -16,7 +15,6 @@ export const generateMetadata = async ({
   try {
     const response = await getTeamDetail({
       id,
-      view: TeamDetailView.OVERVIEW,
     });
 
     const team = response?.data;
@@ -25,7 +23,7 @@ export const generateMetadata = async ({
       return seo({
         title: "Team",
         description:
-          "Explore team details, fixtures, standings, and football predictions on ProBets.",
+          "Explore team details, fixtures, standings, and football predictions on ProBetTips.",
       });
     }
 
@@ -40,7 +38,7 @@ export const generateMetadata = async ({
     return seo({
       title: "Team",
       description:
-        "Explore team details, fixtures, standings, and football predictions on ProBets.",
+        "Explore team details, fixtures, standings, and football predictions on ProBetTips.",
     });
   }
 };
@@ -51,7 +49,6 @@ const TeamDetailPage = async ({ params }: Props) => {
 
   const response = await getTeamDetail({
     id: teamId,
-    view: TeamDetailView.OVERVIEW,
   });
 
   return <TeamDetailPresentation teamId={teamId} initialData={response} />;

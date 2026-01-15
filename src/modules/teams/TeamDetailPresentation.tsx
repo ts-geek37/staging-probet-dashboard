@@ -3,10 +3,14 @@
 import { useState } from "react";
 
 import { ApiResponse } from "@/api/types";
-import { TeamDetailView, TeamOverviewResponse } from "@/types/teams";
+import { NoData, TabNavigation } from "@/components";
+import {
+  TeamDetailView,
+  TeamHeaderApi,
+  TeamOverviewResponse,
+} from "@/types/teams";
 
 import { TeamDetailTabs } from "./tabs";
-import TabNavigation from "./tabs/TabNavigation";
 import TeamHeader from "./TeamHeader";
 
 interface Props {
@@ -14,17 +18,31 @@ interface Props {
   initialData: ApiResponse<TeamOverviewResponse> | null;
 }
 
+const tabs = [
+  { label: "Profile", value: TeamDetailView.OVERVIEW },
+  { label: "Squad", value: TeamDetailView.SQUAD },
+  { label: "Matches", value: TeamDetailView.MATCHES },
+  { label: "Stats", value: TeamDetailView.STATS },
+  { label: "Transfers", value: TeamDetailView.TRANSFERS },
+];
+
 const TeamDetailPresentation = ({ teamId, initialData }: Props) => {
   const [activeTab, setActiveTab] = useState<TeamDetailView>(
     TeamDetailView.OVERVIEW,
   );
-  if (!initialData) return null;
+  if (!initialData) return <NoData />;
   return (
     <div className="text-white">
-      <TeamHeader team={initialData.data} />
+      <TeamHeader team={initialData.data as TeamHeaderApi} />
 
-      <div className="w-full max-w-7xl mx-auto flex flex-col gap-6 px-4 xl:px-0 pt-3 lg:pt-6 pb-8 md:pb-12">
-        <TabNavigation activeTab={activeTab} onTabChange={setActiveTab} />
+      <div className="w-full max-w-7xl mx-auto px-4 md:px-6 py-6">
+        <div className="max-w-7xl mx-auto pb-4">
+          <TabNavigation
+            activeTab={activeTab}
+            tabs={tabs}
+            onTabChange={setActiveTab}
+          />
+        </div>
         <TeamDetailTabs
           activeTab={activeTab}
           teamId={teamId}

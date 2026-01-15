@@ -1,17 +1,14 @@
 export enum PlayerDetailView {
-  OVERVIEW = "overview",
+  Profile = "profile",
   STATS = "stats",
   MATCHES = "matches",
 }
 
+import { PaginationMeta } from "./leagues";
+
 export interface PlayerListResponse {
   data: PlayerCard[];
-  pagination: {
-    page: number;
-    limit: number;
-    total: number;
-    has_next: boolean;
-  };
+  pagination: PaginationMeta;
 }
 
 export interface PlayerCard {
@@ -27,67 +24,182 @@ export interface PlayerCard {
   };
 }
 
-export interface PlayerBase {
+export interface PlayerProfileResponse {
   id: number;
-  full_name: string;
-  nationality: string;
-  date_of_birth: string;
-  age: number;
-  height: string | null;
-  weight: string | null;
-  preferred_foot: string | null;
-  position: string | null;
-  shirt_number: number | null;
+  name: string;
   photo: string | null;
+
+  date_of_birth: string | null;
+  age: number | null;
+  height: number | null;
+  weight: number | null;
+  preferred_foot: string | null;
+
+  nationality: {
+    id: number;
+    name: string;
+    flag: string | null;
+  } | null;
+
+  position: {
+    id: number | null;
+    name: string | null;
+    detailed: string | null;
+  };
+
+  current_team: {
+    id: number;
+    name: string;
+    logo: string | null;
+  } | null;
+
+  teams: {
+    id: number;
+    name: string;
+    logo: string | null;
+  }[];
+
+  birthplace: {
+    country: string | null;
+    city: string | null;
+  };
+  trophies?: {
+    id: number;
+    name: string;
+    position: number;
+    team: {
+      id: number;
+      name: string;
+      logo: string | null;
+    };
+  }[];
+
+  shirt_number: number | null;
+
+  is_active: boolean;
+
+  market_value: number | null;
+
+  contract: {
+    until: string | null;
+  };
+
+  is_captain: boolean;
+}
+
+export interface PlayerSeasonStatsResponse {
+  season: {
+    id: number;
+    name: string;
+  };
+
   team: {
     id: number;
     name: string;
-    logo: string;
+    logo: string | null;
+  } | null;
+
+  jersey_number: number | null;
+
+  position: {
+    id: number | null;
+    name: string | null;
   };
-  contract_end_year: number | null;
-  market_value: number | null;
+
+  stats: {
+    appearances?: number | null;
+    goals?: number | null;
+    assists?: number | null;
+    minutes_played?: number | null;
+
+    shots_total?: number | null;
+    shots_on_target?: number | null;
+    shots_off_target?: number | null;
+    shots_blocked?: number | null;
+
+    passes?: number | null;
+    accurate_passes?: number | null;
+    pass_accuracy?: number | null;
+    key_passes?: number | null;
+
+    tackles?: number | null;
+    interceptions?: number | null;
+    clearances?: number | null;
+
+    dribbles_attempted?: number | null;
+    dribbles_successful?: number | null;
+
+    fouls?: number | null;
+    fouls_drawn?: number | null;
+
+    yellow_cards?: number | null;
+    red_cards?: number | null;
+
+    duels_total?: number | null;
+    duels_won?: number | null;
+    aerials_won?: number | null;
+
+    rating?: number | null;
+    expected_goals?: number | null;
+
+    clean_sheets?: number | null;
+    wins?: number | null;
+    draws?: number | null;
+    losses?: number | null;
+  };
 }
 
-export interface PlayerOverviewResponse extends PlayerBase {
-  current_season_summary: {
-    appearances: number;
-    goals: number;
-    assists: number;
-    minutes: number;
-  };
+export interface MatchTeam {
+  id: number;
+  name: string;
+  logo: string | null;
 }
 
-export interface PlayerStatsResponse extends PlayerBase {
-  career_totals: {
-    appearances: number;
-    goals: number;
-    assists: number;
-    yellow_cards: number;
-    red_cards: number;
-  };
-  seasons: {
-    season: string;
-    competition: string;
-    appearances: number;
-    goals: number;
-    assists: number;
-    minutes: number;
-  }[];
+export interface MatchTeams {
+  home: MatchTeam;
+  away: MatchTeam;
 }
 
-export interface PlayerMatchesResponse extends PlayerBase {
-  matches: {
-    match_id: number;
-    kickoff_time: string;
-    competition: string;
-    opponent: string;
-    minutes_played: number | null;
-    goals: number | null;
-    assists: number | null;
-  }[];
+export interface MatchScore {
+  home: number | null;
+  away: number | null;
+}
+
+export type MatchStatus = "UPCOMING" | "LIVE" | "FT";
+
+export interface MatchListItem {
+  id: number;
+  kickoff_time: string;
+  status: MatchStatus;
+  league: {
+    id: number;
+    name: string;
+    logo: string | null;
+  };
+  season?: {
+    id: number;
+    name: string;
+  };
+  venue?: {
+    id?: number;
+    name?: string;
+    capacity?: number;
+    city?: string;
+    country?: string;
+    surface?: string;
+    image?: string;
+  };
+  teams: MatchTeams;
+  score?: MatchScore;
+  referee?: string;
+}
+
+export interface PlayerMatchesResponse {
+  matches: MatchListItem[];
+  pagination: PaginationMeta;
 }
 
 export type PlayerDetailResponse =
-  | PlayerOverviewResponse
-  | PlayerStatsResponse
+  | PlayerProfileResponse
+  | PlayerSeasonStatsResponse
   | PlayerMatchesResponse;

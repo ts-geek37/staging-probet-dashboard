@@ -1,3 +1,5 @@
+"use client";
+
 import { Clock } from "lucide-react";
 import Image from "next/image";
 import React from "react";
@@ -12,6 +14,7 @@ interface Props {
   published_at: string;
   isMain?: boolean;
   isBelow?: boolean;
+  containerClass?: string;
 }
 
 const NewsCard: React.FC<Props> = ({
@@ -22,6 +25,7 @@ const NewsCard: React.FC<Props> = ({
   published_at,
   isMain = false,
   isBelow = false,
+  containerClass = "",
 }) => {
   if (isMain) {
     return (
@@ -36,7 +40,9 @@ const NewsCard: React.FC<Props> = ({
           />
         </div>
 
-        <div className="absolute bottom-0 left-0 max-w-xl space-y-3 p-6">
+        <div
+          className={`absolute bottom-0 left-0 p-4 space-y-3 ${containerClass}`}
+        >
           <p className="text-xs font-semibold uppercase text-white">
             {category}
           </p>

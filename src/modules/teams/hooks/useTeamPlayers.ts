@@ -3,54 +3,47 @@
 import useSWR from "swr";
 
 import { ApiResponse } from "@/api/types";
-import {
-  PlayerPosition,
-  TeamDetailView,
-  TeamPlayerSummary,
-  TeamSquadResponse,
-} from "@/types/teams";
-import { getFlagUrlByName } from "@/utils/countryFlag";
+import { TeamPlayer, TeamPlayersResponse } from "@/types/teams";
 
-type playerWithFlag = TeamPlayerSummary & { flagUrl: string };
-interface SquadSection {
-  key: PlayerPosition;
+type SquadSection = {
+  key: string;
   label: string;
-  players: playerWithFlag[];
-}
+  players: TeamPlayer[];
+};
 
 const useTeamPlayers = (teamId: number) => {
-  const response = useSWR<ApiResponse<TeamSquadResponse>>(
-    `/api/teams/${teamId}?view=${TeamDetailView.SQUAD}`,
+  const { data, error } = useSWR<ApiResponse<TeamPlayersResponse>>(
+    `/api/v2/teams/${teamId}/players`,
   );
-  const squad = response.data?.data?.squad ?? [];
-  const sections: SquadSection[] = squad.reduce((acc, player) => {
-    if (!player?.position) return acc;
 
-    const existingSection = acc.find(
-      (section) => section.key === player.position,
-    );
-    const country = player?.nationality;
-    const flagUrl = getFlagUrlByName(country);
-    const playerWithFlag = { ...player, flagUrl };
+  const isLoading = !data && !error;
 
-    if (existingSection) {
-      existingSection.players.push(playerWithFlag);
-    } else {
-      acc.push({
-        key: player.position,
-        label: player.position,
-        players: [playerWithFlag],
-      });
-    }
+  const players: TeamPlayer[] = data?.data?.players ?? [];
+  const sections: SquadSection[] = players.reduce<SquadSection[]>(
+    (acc, player) => {
+      const positionLabel = player.position?.label ?? "Unknown";
+      const section = acc.find((s) => s.key === positionLabel);
 
-    return acc;
-  }, [] as SquadSection[]);
+      if (section) {
+        section.players.push(player);
+      } else {
+        acc.push({
+          key: positionLabel,
+          label: positionLabel,
+          players: [player],
+        });
+      }
+
+      return acc;
+    },
+    [],
+  );
 
   return {
+    players,
     sections,
-    players: squad,
-    isLoading: !response.data && !response.error,
-    error: response.error,
+    isLoading,
+    error,
   };
 };
 

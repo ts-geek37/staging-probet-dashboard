@@ -20,23 +20,20 @@ const MatchStatusTabs: React.FC<Props> = ({
 }) => {
   const statuses = Object.values(MatchListStatus);
 
-  const formatStatusLabel = (status: string) =>
-    status.toLowerCase().replace(/\b\w/g, (c) => c.toUpperCase());
-
   return (
     <Tabs
       value={activeStatus}
       onValueChange={(value: string) => onChange(value as MatchListStatus)}
       className="w-full"
     >
-      <TabsList className="bg-transparent flex gap-2 overflow-x-auto whitespace-nowrap rounded-none justify-start h-auto p-0 flex-wrap">
+      <TabsList className="bg-transparent flex gap-2 rounded-none justify-start h-auto p-0 flex-wrap">
         {statuses.map((status) => (
           <TabsTrigger
             key={status}
             value={status}
-            className="w-30 rounded-xl px-4 py-2 text-sm sm:text-base font-medium text-white border border-primary-gray/20 shrink-0 data-[state=active]:bg-primary-green"
+            className="w-30 capitalize rounded-xl px-4 py-2 text-sm sm:text-base font-medium text-white border border-primary-gray/20 shrink-0 data-[state=active]:bg-primary-green"
           >
-            {formatStatusLabel(status)}
+            {status}
           </TabsTrigger>
         ))}
       </TabsList>

@@ -4,5 +4,5 @@ export { default as useLeagueOverview } from "./useLeagueOverview";
 export { default as useLeagueStandings } from "./useLeagueStandings";
 export { default as useLeagueMatches } from "./useLeagueMatches";
 export { default as useLeagueStats } from "./useLeagueStats";
-export { default as useLeagueTeams } from "./useLeagueTeams";
 export { default as useMatchTimer } from "./useMatchTimer";
+export { default as useLeagueTopScorers } from "./useLeagueTopScorers";

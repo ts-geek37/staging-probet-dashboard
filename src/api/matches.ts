@@ -1,54 +1,53 @@
 import { serverFetch } from "@/api/http";
 import {
-  MatchDetailResponse,
   MatchDetailView,
   MatchesListResponse,
   MatchEventsResponse,
   MatchLineupsResponse,
-  MatchListStatus,
-  MatchOverviewResponse,
-  MatchPredictionsResponse,
+  MatchListItem,
   MatchStatsResponse,
+  MatchStatus,
 } from "@/types/matches";
 
 import { ApiResponse } from "./types";
 
 type MatchDetailByView<V extends MatchDetailView> =
   V extends MatchDetailView.OVERVIEW
-    ? MatchOverviewResponse
+    ? MatchListItem
     : V extends MatchDetailView.STATS
       ? MatchStatsResponse
       : V extends MatchDetailView.LINEUPS
         ? MatchLineupsResponse
         : V extends MatchDetailView.EVENTS
           ? MatchEventsResponse
-          : V extends MatchDetailView.PREDICTIONS
-            ? MatchPredictionsResponse
-            : never;
+          : never;
 
 export const getMatches = (params: {
-  status: MatchListStatus;
-  page: number;
-  limit: number;
-  leagueId?: number;
-  search?: string;
+  tab: MatchStatus;
+  page?: number;
+  limit?: number;
+  q?: string;
 }): Promise<ApiResponse<MatchesListResponse>> => {
   const query = new URLSearchParams({
-    status: params.status,
-    page: String(params.page),
-    limit: String(params.limit),
-    ...(params.leagueId ? { leagueId: String(params.leagueId) } : {}),
-    ...(params.search ? { search: params.search } : {}),
+    tab: params.tab,
+    ...(params.page ? { page: String(params.page) } : {}),
+    ...(params.limit ? { limit: String(params.limit) } : {}),
+    ...(params.q ? { q: params.q } : {}),
   });
 
-  return serverFetch<MatchesListResponse>(`/api/matches?${query.toString()}`);
+  return serverFetch<MatchesListResponse>(
+    `/api/v2/matches?${query.toString()}`,
+  );
 };
 
 export function getMatchDetail<V extends MatchDetailView>(params: {
   id: number | string;
   view: V;
 }): Promise<ApiResponse<MatchDetailByView<V>>> {
-  return serverFetch<MatchDetailByView<V>>(
-    `/api/matches/${params.id}?view=${params.view}`,
-  );
+  const endpoint =
+    params.view === MatchDetailView.OVERVIEW
+      ? `/api/v2/matches/${params.id}`
+      : `/api/v2/matches/${params.id}/${params.view}`;
+
+  return serverFetch<MatchDetailByView<V>>(endpoint);
 }

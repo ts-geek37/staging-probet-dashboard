@@ -1,72 +1,78 @@
 "use client";
 
-import React from "react";
+import React, { useCallback } from "react";
 
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { MatchDetailView } from "@/types/matches";
+import TabNavigation from "@/components/TabNavigation";
+import { MatchDetailView, MatchListItem } from "@/types/matches";
 
+import MatchCommentsTab from "./MatchCommentsTab";
 import MatchEventsTab from "./MatchEventsTab";
+import MatchHeadToHeadTab from "./MatchHeadToHeadTab";
 import MatchLineupsTab from "./MatchLineupsTab";
 import MatchOverviewTab from "./MatchOverviewTab";
-import MatchPredictionsTab from "./MatchPredictionsTab";
+import MatchSeasonStatsTab from "./MatchSeasonStatsTab";
 import MatchStatsTab from "./MatchStatsTab";
 
 interface Props {
-  matchId: number;
+  match: MatchListItem;
   activeTab: MatchDetailView;
   onTabChange: (tab: MatchDetailView) => void;
 }
 
 const MatchDetailTabs: React.FC<Props> = ({
-  matchId,
+  match,
   activeTab,
   onTabChange,
 }) => {
-  const tabs = Object.values(MatchDetailView);
+  const matchId = match.id;
+  const tabs = Object.values(MatchDetailView).map((tab) => {
+    let label = tab.replace(/-/g, " ");
+    if (tab === MatchDetailView.STATS) label = "Match Stats";
+    if (tab === MatchDetailView.SEASON_STATS) label = "Season Stats";
+    return {
+      label: label.charAt(0).toUpperCase() + label.slice(1),
+      value: tab,
+    };
+  });
 
-  const formatTabLabel = (label: string) =>
-    label.toLowerCase().replace(/\b\w/g, (c) => c.toUpperCase());
+  const renderActiveTab = useCallback(() => {
+    switch (activeTab) {
+      case MatchDetailView.OVERVIEW:
+        return <MatchOverviewTab matchId={matchId} />;
+
+      case MatchDetailView.STATS:
+        return <MatchStatsTab matchId={matchId} />;
+
+      case MatchDetailView.LINEUPS:
+        return <MatchLineupsTab matchId={matchId} />;
+
+      case MatchDetailView.EVENTS:
+        return <MatchEventsTab matchId={matchId} />;
+
+      case MatchDetailView.HEAD_TO_HEAD:
+        return <MatchHeadToHeadTab match={match} />;
+
+      case MatchDetailView.COMMENTS:
+        return <MatchCommentsTab matchId={matchId} />;
+
+      case MatchDetailView.SEASON_STATS:
+        return <MatchSeasonStatsTab match={match} />;
+
+      default:
+        return null;
+    }
+  }, [activeTab, matchId, match]);
 
   return (
-    <Tabs
-      value={activeTab}
-      onValueChange={(value: string) => onTabChange(value as MatchDetailView)}
-      className="w-full"
-    >
-      <TabsList className="bg-transparent flex gap-2 overflow-x-auto whitespace-nowrap rounded-none justify-start h-auto p-0 flex-wrap">
-        {tabs.map((tab) => (
-          <TabsTrigger
-            key={tab}
-            value={tab}
-            className="w-30 rounded-xl px-4 py-2 text-sm sm:text-base font-medium text-white border border-primary-gray/20  data-[state=active]:bg-primary-green"
-          >
-            {formatTabLabel(tab)}
-          </TabsTrigger>
-        ))}
-      </TabsList>
+    <div className="w-full">
+      <TabNavigation
+        activeTab={activeTab}
+        tabs={tabs}
+        onTabChange={onTabChange}
+      />
 
-      <div className="mt-6">
-        <TabsContent value={MatchDetailView.OVERVIEW}>
-          <MatchOverviewTab matchId={matchId} />
-        </TabsContent>
-
-        <TabsContent value={MatchDetailView.STATS}>
-          <MatchStatsTab matchId={matchId} />
-        </TabsContent>
-
-        <TabsContent value={MatchDetailView.LINEUPS}>
-          <MatchLineupsTab matchId={matchId} />
-        </TabsContent>
-
-        <TabsContent value={MatchDetailView.EVENTS}>
-          <MatchEventsTab matchId={matchId} />
-        </TabsContent>
-
-        <TabsContent value={MatchDetailView.PREDICTIONS}>
-          <MatchPredictionsTab matchId={matchId} />
-        </TabsContent>
-      </div>
-    </Tabs>
+      <div className="mt-6 min-h-[50vh]">{renderActiveTab()}</div>
+    </div>
   );
 };
 

@@ -1,25 +1,7 @@
 import { serverFetch } from "@/api/http";
-import {
-  TeamDetailView,
-  TeamListResponse,
-  TeamMatchesResponse,
-  TeamOverviewResponse,
-  TeamSquadResponse,
-  TeamStatsResponse,
-} from "@/types/teams";
+import { TeamListResponse, TeamOverviewResponse } from "@/types/teams";
 
 import { ApiResponse } from "./types";
-
-type TeamDetailByView<V extends TeamDetailView> =
-  V extends TeamDetailView.OVERVIEW
-    ? TeamOverviewResponse
-    : V extends TeamDetailView.MATCHES
-      ? TeamMatchesResponse
-      : V extends TeamDetailView.STATS
-        ? TeamStatsResponse
-        : V extends TeamDetailView.SQUAD
-          ? TeamSquadResponse
-          : never;
 
 export const getTeams = (params: {
   page: number;
@@ -34,13 +16,10 @@ export const getTeams = (params: {
     ...(params.region ? { region: params.region } : {}),
   });
 
-  return serverFetch<TeamListResponse>(`/api/teams?${query.toString()}`);
+  return serverFetch<TeamListResponse>(`/api/v2/teams/?${query.toString()}`);
 };
 
-export const getTeamDetail = <V extends TeamDetailView>(params: {
+export const getTeamDetail = (params: {
   id: number | string;
-  view: V;
-}): Promise<ApiResponse<TeamDetailByView<V>>> =>
-  serverFetch<TeamDetailByView<V>>(
-    `/api/teams/${params.id}?view=${params.view}`,
-  );
+}): Promise<ApiResponse<TeamOverviewResponse>> =>
+  serverFetch<TeamOverviewResponse>(`/api/v2/teams/${params.id}`);

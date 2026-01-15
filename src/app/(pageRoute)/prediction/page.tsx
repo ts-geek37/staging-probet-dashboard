@@ -1,5 +1,7 @@
+import { PredictionRepresent } from "@/modules/predictions";
+
 const PredictionPage = () => {
-  return <div>prediction</div>;
+  return <PredictionRepresent />;
 };
 
 export default PredictionPage;

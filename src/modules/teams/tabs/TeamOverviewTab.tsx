@@ -1,59 +1,41 @@
 "use client";
 
+import { MapPin } from "lucide-react";
+import React from "react";
+
 import { ApiResponse } from "@/api/types";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { cn } from "@/lib/utils";
+import {
+  DataError,
+  NoData,
+  SkeletonCardLoader,
+  OverviewCard,
+} from "@/components";
 import { TeamOverviewResponse } from "@/types/teams";
 
-import { useTeamOverview } from "../hooks";
+import useTeamOverview from "../hooks/useTeamOverview";
 
 interface Props {
   initialData: ApiResponse<TeamOverviewResponse>;
 }
 
 const TeamOverviewTab: React.FC<Props> = ({ initialData }) => {
-  const { team, sections } = useTeamOverview(
+  const { sections, isLoading, error } = useTeamOverview(
     initialData?.data?.id ?? 0,
     initialData,
   );
-  if (!initialData || !team) return null;
+
+  if (isLoading) return <SkeletonCardLoader />;
+  if (error) return <DataError />;
+  if (!sections.length) return <NoData message="Team data not available" />;
 
   return (
     <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
       {sections.map((section) => (
-        <Card
+        <OverviewCard
           key={section.key}
-          className={cn(
-            "text-white max-md:gap-4 border-none ",
-            section.colSpan,
-          )}
-        >
-          <CardHeader>
-            <CardTitle className="lg:text-lg font-semibold text-primary-green">
-              {section.title}
-            </CardTitle>
-          </CardHeader>
-
-          <CardContent className={`grid gap-4 ${section.columns}`}>
-            {section.items.map((item) => (
-              <div key={item.label} className="space-y-1 text-white/80">
-                <p className="text-xs sm:text-sm font-medium tracking-wider text-muted-foreground">
-                  {item.label}
-                </p>
-
-                {item.variant === "stat" ? (
-                  <p className="text-xl sm:text-2xl font-bold tracking-tight">
-                    {item.value}
-                  </p>
-                ) : (
-                  <p className="text-sm sm:text-base font-medium">
-                    {item.value}
-                  </p>
-                )}
-              </div>
-            ))}
-          </CardContent>
-        </Card>
+          title={section.title}
+          items={section.items}
+        />
       ))}
     </div>
   );

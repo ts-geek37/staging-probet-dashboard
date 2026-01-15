@@ -16,6 +16,10 @@ const StatRow: React.FC<Props> = ({ label, home, away }) => {
   return (
     <div className="w-full py-2">
       <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-4">
+        <span className="sm:hidden text-sm text-primary-gray mb-1 capitalize">
+          {label}
+        </span>
+
         <div className="flex items-center flex-1 gap-2">
           <span className="text-xs sm:text-sm font-bold w-6 text-left">
             {home}
@@ -28,7 +32,7 @@ const StatRow: React.FC<Props> = ({ label, home, away }) => {
           </div>
         </div>
 
-        <span className="text-xs sm:text-sm text-primary-gray text-center sm:w-28">
+        <span className="hidden sm:block text-sm text-primary-gray text-center capitalize">
           {label}
         </span>
 

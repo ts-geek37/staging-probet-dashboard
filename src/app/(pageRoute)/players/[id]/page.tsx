@@ -14,35 +14,27 @@ export const generateMetadata = async ({
 }: Props): Promise<Metadata> => {
   const { id } = await params;
 
-  try {
-    const response = await getPlayerDetail({
-      id,
-      view: PlayerDetailView.OVERVIEW,
-    });
+  const response = await getPlayerDetail({
+    id,
+    view: PlayerDetailView.Profile,
+  });
 
-    const player = response?.data;
+  const player = response?.data;
 
-    if (!player) {
-      return seo({
-        title: "Player",
-        description:
-          "Explore player details, fixtures, standings, and football predictions on ProBets.",
-      });
-    }
-
-    return seo({
-      title: `${player?.full_name ?? "Player"} | ProBets`,
-      description: player
-        ? `${player.full_name}, a professional footballer for ${player.team.name}, born on ${player.date_of_birth}. View age, position, nationality, market value, contract details, and latest performance stats on ProBets.`
-        : "Football player profile including biography, club, position, and career statistics.",
-    });
-  } catch {
+  if (!player) {
     return seo({
       title: "Player",
       description:
-        "Explore player details, fixtures, standings, and football predictions on ProBets.",
+        "Explore player details, fixtures, standings, and football predictions on ProBetTips.",
     });
   }
+
+  return seo({
+    title: `${player?.name ?? "Player"}`,
+    description: player
+      ? `${player.name}, a professional footballer for ${player.teams?.[0].name}, born on ${player.date_of_birth}. View age, position, nationality, market value, contract details, and latest performance stats on ProBetTips.`
+      : "Football player profile including biography, club, position, and career statistics.",
+  });
 };
 const PlayerDetailPage = async ({ params }: Props) => {
   const { id } = await params;
@@ -50,7 +42,7 @@ const PlayerDetailPage = async ({ params }: Props) => {
 
   const response = await getPlayerDetail({
     id: playerId,
-    view: PlayerDetailView.OVERVIEW,
+    view: PlayerDetailView.Profile,
   });
 
   return (

@@ -1,68 +1,24 @@
+import { LeagueCard } from "./leagues";
+import { MatchListItem } from "./matches";
+import { TeamCard } from "./teams";
+
 export interface HomeResponse {
-  live_matches: LiveMatch[];
-  upcoming_matches: UpcomingMatch[];
-  top_leagues: LeagueSummary[];
-  league_standings: LeagueStandings | null;
-  latest_news: NewsSummary[];
-}
-
-export interface LiveMatch {
-  id: number;
-  status: "LIVE";
-  minute: number;
-
-  home_team: TeamWithScore;
-  away_team: TeamWithScore;
-
-  league: LeagueRef;
-}
-
-export interface UpcomingMatch {
-  id: number;
-  kickoff_time: string;
-  date: string;
-
-  home_team: TeamRef;
-  away_team: TeamRef;
-
-  league: LeagueRef;
-}
-export interface TeamRef {
-  id: number;
-  name: string;
-  logo: string;
-}
-
-export interface TeamWithScore extends TeamRef {
-  score: number;
-}
-
-export interface LeagueRef {
-  id: number;
-  name: string;
-  logo?: string;
-}
-
-export interface LeagueSummary {
-  id: number;
-  name: string;
-  country: string;
-  logo: string;
-}
-
-export interface LeagueStandings {
-  league: {
-    id: number;
-    name: string;
-    country: string;
+  featured_match: MatchListItem | null;
+  sections: {
+    live_now: MatchListItem[];
+    starting_soon: MatchListItem[];
+    recently_finished: MatchListItem[];
   };
-  season: string;
-  table: Array<{
-    position: number;
-    team: TeamRef;
-    played: number;
-    points: number;
-  }>;
+  top_leagues: LeagueCard[];
+  popular_teams: TeamCard[];
+  news?: NewsSummary[];
+  meta: {
+    updated_at: string;
+    fixtures_window: {
+      from: string;
+      to: string;
+    };
+  };
 }
 
 export interface NewsSummary {
@@ -73,3 +29,5 @@ export interface NewsSummary {
   category: string;
   published_at: string;
 }
+
+export type { LeagueCard, MatchListItem, TeamCard };

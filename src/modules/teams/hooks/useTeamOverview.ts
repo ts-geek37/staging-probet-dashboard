@@ -4,113 +4,130 @@ import { useMemo } from "react";
 import useSWR from "swr";
 
 import { ApiResponse } from "@/api/types";
-import { TeamDetailView, TeamOverviewResponse } from "@/types/teams";
+import { TeamOverviewResponse, OverviewSection } from "@/types/teams";
 
-export interface OverviewSection {
-  key: string;
-  title: string;
-  columns: string;
-  colSpan?: string;
-  items: {
-    label: string;
-    value: string | number;
-    variant: "default" | "stat";
-  }[];
-}
-
-const useTeamOverview = (
+export const useTeamOverview = (
   teamId: number,
   initialData?: ApiResponse<TeamOverviewResponse>,
 ) => {
-  const response = useSWR<ApiResponse<TeamOverviewResponse>>(
-    `/api/teams/${teamId}?view=${TeamDetailView.OVERVIEW}`,
+  const { data, error } = useSWR<ApiResponse<TeamOverviewResponse>>(
+    `/api/v2/teams/${teamId}`,
     {
       fallbackData: initialData,
       revalidateOnMount: false,
     },
   );
-  const team = response.data?.data ?? null;
 
-  const teamInfo = team
-    ? [
-        { label: "Country", value: team?.country ?? "N/A" },
-        { label: "Founded", value: team?.founded ?? "N/A" },
-        { label: "League", value: team?.league?.name ?? "N/A" },
-        { label: "Season", value: team?.league?.season ?? "N/A" },
-      ]
-    : [];
+  const team = data?.data ?? null;
 
-  const venueInfo = team
-    ? [
-        { label: "Stadium", value: team?.stadium?.name ?? "N/A" },
-        {
-          label: "Capacity",
-          value: team?.stadium?.capacity?.toLocaleString() ?? "N/A",
-        },
-      ]
-    : [];
+  const sections: OverviewSection[] = useMemo(() => {
+    if (!team) return [];
 
-  const performanceStats = team
-    ? [
-        { label: "Played", value: team?.season_summary?.played ?? 0 },
-        { label: "Won", value: team?.season_summary?.won ?? 0 },
-        { label: "Drawn", value: team?.season_summary?.drawn ?? 0 },
-        { label: "Lost", value: team?.season_summary?.lost ?? 0 },
-        { label: "Goals Scored", value: team?.key_stats?.goals_scored ?? 0 },
-        {
-          label: "Goals Conceded",
-          value: team?.key_stats?.goals_conceded ?? 0,
-        },
-        { label: "Clean Sheets", value: team?.key_stats?.clean_sheets ?? 0 },
-        {
-          label: "Goal Difference",
-          value: team?.key_stats?.goal_difference ?? 0,
-        },
-      ]
-    : [];
+    const teamInfo = [
+      {
+        label: "Name",
+        value: team.name ?? "N/A",
+        image: team.logo,
+      },
+      { type: "badge", label: "Short Code", value: team.short_code ?? "N/A" },
+      { label: "Founded", value: team.founded ?? "N/A" },
+      {
+        label: "Country",
+        value: team.country?.name ?? "N/A",
+        image: team.country?.flag,
+      },
+    ];
+    const venueInfo = [
+      {
+        label: "Stadium",
+        value: team.stadium?.name ?? "N/A",
+      },
+      {
+        label: "Capacity",
+        value: team.stadium?.capacity?.toLocaleString() ?? "N/A",
+      },
+      {
+        label: "Stadium Image",
+        value: "",
+        image: team.stadium?.image || "/football-stadium.png",
+      },
+    ];
 
-  const sections: OverviewSection[] = useMemo(
-    () => [
+    const seasonsInfo =
+      team.current_seasons?.map((season) => ({
+        label: season.name,
+        value: season.league.name,
+        image: season.league.logo,
+        extra: `${season.starting_at ? `Start: ${season.starting_at}` : ""} ${season.starting_at && season.ending_at ? "|" : ""} ${season.ending_at ? `End: ${season.ending_at}` : ""}`,
+      })) ?? [];
+
+    const rankingsInfo =
+      team.rankings?.map((r) => ({
+        label: r.name,
+        value: r.rank ? `Rank: ${r.rank}` : "Unranked",
+        extra: r.points ? `${r.points} Points` : undefined,
+      })) ?? [];
+
+    const rivalsInfo =
+      team.rivals?.map((r) => ({
+        label: r.name,
+        image: r.logo,
+        value: r.type ?? "Rival",
+      })) ?? [];
+
+    const socialsInfo =
+      team.socials?.map((s) => ({
+        label: s.channel?.name,
+        value: s.handle,
+        extra: s.url,
+        color: s.channel?.color,
+      })) ?? [];
+
+    return [
       {
         key: "team-info",
         title: "Team Information",
         columns: "grid-cols-2",
-        items: teamInfo.map((item) => ({
-          ...item,
-          variant: "default",
-        })),
+        items: teamInfo.map((item) => ({ ...item, variant: "default" })),
       },
       {
         key: "venue-info",
-        title: "Venue & Infrastructure",
+        title: "Venue & Stadium",
         columns: "grid-cols-2",
-        items: venueInfo.map((item) => ({
-          ...item,
-          variant: "default",
-        })),
+        items: venueInfo.map((item) => ({ ...item, variant: "default" })),
       },
       {
-        key: "performance",
-        title: "Performance Summary",
-        columns: "grid-cols-2 sm:grid-cols-4",
-        colSpan: "md:col-span-2",
-        items: performanceStats.map((item) => ({
-          ...item,
-          variant: "stat",
-        })),
+        key: "seasons-info",
+        title: "Current Seasons",
+        columns: "grid-cols-1 sm:grid-cols-2",
+        items: seasonsInfo.map((item) => ({ ...item, variant: "default" })),
       },
-    ],
-    [teamInfo, venueInfo, performanceStats],
-  );
+      {
+        key: "rankings-info",
+        title: "Rankings",
+        columns: "grid-cols-1 sm:grid-cols-2",
+        items: rankingsInfo.map((item) => ({ ...item, variant: "default" })),
+      },
+      {
+        key: "rivals-info",
+        title: "Rivals",
+        columns: "grid-cols-1 sm:grid-cols-2",
+        items: rivalsInfo.map((item) => ({ ...item, variant: "default" })),
+      },
+      {
+        key: "socials-info",
+        title: "Social Links",
+        columns: "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3",
+        items: socialsInfo.map((item) => ({ ...item, variant: "default" })),
+      },
+    ];
+  }, [team]);
 
   return {
     team,
-    teamInfo,
-    venueInfo,
-    performanceStats,
     sections,
-    isLoading: !response.data && !response.error,
-    error: response.error,
+    isLoading: !data && !error,
+    error,
   };
 };
 

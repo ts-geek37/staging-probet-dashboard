@@ -1,5 +1,11 @@
 "use client";
 
+import React from "react";
+
+import { NoData, SkeletonCardLoader, MatchCard } from "@/components";
+import Pagination from "@/components/Pagination";
+import { MatchListItem } from "@/types/players";
+
 import { usePlayerMatches } from "../hooks";
 
 interface Props {
@@ -7,21 +13,42 @@ interface Props {
 }
 
 const PlayerMatchesTab: React.FC<Props> = ({ playerId }) => {
-  const { matches, isLoading } = usePlayerMatches(playerId);
+  const { matches, pagination, page, setPage, isLoading } =
+    usePlayerMatches(playerId);
 
-  if (isLoading) return null;
+  if (isLoading) return <SkeletonCardLoader />;
+
+  const renderMatches = (matches: MatchListItem[], emptyMessage: string) =>
+    !matches.length ? (
+      <NoData message={emptyMessage} />
+    ) : (
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {matches.map((match) => (
+          <MatchCard
+            key={match.id}
+            match={match}
+            href={`/matches/${match.id}`}
+          />
+        ))}
+      </div>
+    );
 
   return (
-    <div>
-      {matches.map((match) => (
-        <div key={match.match_id}>
-          <p>{match.competition}</p>
-          <p>Opponent: {match.opponent}</p>
-          <p>Minutes: {match.minutes_played ?? "N/A"}</p>
-          <p>Goals: {match.goals ?? 0}</p>
-          <p>Assists: {match.assists ?? 0}</p>
-        </div>
-      ))}
+    <div className="space-y-6">
+      <section>
+        <h2 className="text-xl font-semibold mb-4 text-white">Match History</h2>
+
+        {renderMatches(matches ?? [], "No matches history")}
+      </section>
+
+      {pagination && pagination.total_pages > 1 && (
+        <Pagination
+          mode="total"
+          currentPage={page}
+          onPageChange={setPage}
+          totalPages={pagination.total_pages}
+        />
+      )}
     </div>
   );
 };

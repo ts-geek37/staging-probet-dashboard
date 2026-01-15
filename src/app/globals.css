@@ -54,14 +54,15 @@
 }
 
 @theme {
-  --breakpoint-nav: 1150px;
+  --breakpoint-nav: 1100px;
+  --breakpoint-mobile: 450px;
 }
 
 :root {
   --radius: 0.625rem;
   --background: #060911;
   --foreground: oklch(0.145 0 0);
-  --card: #14181f;
+  --card: #12151c;
   --card-foreground: oklch(0.145 0 0);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.145 0 0);
@@ -137,6 +138,9 @@
   * {
     @apply border-border outline-ring/50;
   }
+  ::selection {
+    @apply bg-primary-green text-white;
+  }
   body {
     @apply bg-background text-foreground;
   }
@@ -167,4 +171,22 @@
 
 ::-webkit-scrollbar-thumb:hover {
   background: #636363;
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.3);
 }

@@ -2,22 +2,22 @@ import Link from "next/link";
 import React from "react";
 
 import LeagueStandingsTable from "@/components/LeagueStandingsTable";
-import { LeagueStandings, LeagueSummary } from "@/types/home";
+import { LeagueCard, TeamCard } from "@/types/home";
 
 import TopLeaguesList from "./TopLeaguesList";
 
 interface Props {
-  topLeagues: LeagueSummary[];
-  standings: LeagueStandings | null;
+  topLeagues: LeagueCard[];
+  standings: TeamCard[];
 }
 
 const TopEuropeanLeaguesPage: React.FC<Props> = ({ topLeagues, standings }) => {
   return (
     <section className="py-10 md:py-20 text-white">
       <div>
-        <div className="flex items-center justify-between mb-8 w-full ">
-          <div className="">
-            <h1 className="text-2xl sm:text-5xl font-bold">
+        <div className="flex items-center justify-between mb-8 w-full">
+          <div>
+            <h1 className="text-2xl sm:text-5xl font-bold mb-1">
               Top European Leagues
             </h1>
             <p className="text-xs sm:text-base">
@@ -33,7 +33,9 @@ const TopEuropeanLeaguesPage: React.FC<Props> = ({ topLeagues, standings }) => {
 
         <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
           <div className="md:col-span-7">
-            {standings && <LeagueStandingsTable standings={standings} />}
+            {standings && standings.length > 0 && (
+              <LeagueStandingsTable standings={standings} />
+            )}
           </div>
 
           <div className="md:col-span-5">
@@ -45,7 +47,6 @@ const TopEuropeanLeaguesPage: React.FC<Props> = ({ topLeagues, standings }) => {
                 </span>
               </Link>
             </div>
-
             <TopLeaguesList leagues={topLeagues} />
           </div>
         </div>

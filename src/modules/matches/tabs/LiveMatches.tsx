@@ -1,10 +1,14 @@
 "use client";
 
-import Link from "next/link";
-import React from "react";
+import React, { useState } from "react";
 
-import { NoData, SkeletonCardLoader } from "@/components";
-import LiveMatchCard from "@/components/LiveMatchCard";
+import {
+  DataError,
+  MatchCard,
+  NoData,
+  Pagination,
+  SkeletonCardLoader,
+} from "@/components";
 import LeagueBanner from "@/modules/leagues/LeagueBanner";
 import { MatchListStatus } from "@/types/matches";
 
@@ -15,34 +19,45 @@ interface Props {
 }
 
 const LiveMatches: React.FC<Props> = ({ search }) => {
-  const { matches, isLoading } = useMatches({
-    status: MatchListStatus.LIVE,
-    page: 1,
-    limit: 6,
-    search,
+  const [currentPage, setCurrentPage] = useState(1);
+  const limit = 6;
+
+  const { matches, isLoading, error, total_pages } = useMatches({
+    tab: MatchListStatus.LIVE,
+    page: currentPage,
+    limit,
+    q: search,
   });
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
 
   if (isLoading) return <SkeletonCardLoader />;
 
-  if (!matches?.length) {
-    return <NoData message="No matches found" />;
-  }
+  if (!matches.length) return <NoData message="No matches found" />;
+
+  if (error) return <DataError />;
+
   return (
     <>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {matches.map((match) => (
-          <Link key={match.id} href={`/matches/${match.id}`} className="block">
-            <LiveMatchCard
-              teamA={match.home_team.name}
-              teamB={match.away_team.name}
-              scoreA={match.home_team.score ?? 0}
-              scoreB={match.away_team.score ?? 0}
-              teamALogo={match.home_team.logo}
-              teamBLogo={match.away_team.logo}
-              leagueName={match.league.name}
-            />
-          </Link>
+          <MatchCard
+            key={match.id}
+            match={match}
+            href={`/matches/${match.id}`}
+          />
         ))}
+      </div>
+      <div className="mt-6 flex justify-center">
+        <Pagination
+          mode="total"
+          currentPage={currentPage}
+          totalPages={total_pages}
+          onPageChange={handlePageChange}
+        />
       </div>
 
       <div className="pt-15">

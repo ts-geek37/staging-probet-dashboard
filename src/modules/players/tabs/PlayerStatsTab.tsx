@@ -1,38 +1,75 @@
 "use client";
 
+import React from "react";
+
+import { NoData } from "@/components";
+import { Card, CardContent } from "@/components/ui/card";
+
+import {
+  PlayerStatsCard,
+  SeasonOverview,
+  PlayerStatsLoading,
+} from "../components";
 import { usePlayerStats } from "../hooks";
 
 interface Props {
   playerId: number;
 }
 
-const PlayerStatsTab = ({ playerId }: Props) => {
-  const { stats, isLoading } = usePlayerStats(playerId);
+const PlayerStatsTab: React.FC<Props> = ({ playerId }) => {
+  const {
+    stats,
+    seasonOptions,
+    SetSeasonId,
+    currentSeasonStats,
+    attackingStats,
+    defensiveStats,
 
-  if (isLoading || !stats) return null;
+    disciplineStats,
+    currentSeason,
+    isLoading,
+  } = usePlayerStats(playerId);
+
+  if (isLoading) return <PlayerStatsLoading />;
+  if (!stats) return <NoData message="No stats available" />;
 
   return (
-    <div>
-      <div>
-        <p>Apps: {stats.career_totals.appearances}</p>
-        <p>Goals: {stats.career_totals.goals}</p>
-        <p>Assists: {stats.career_totals.assists}</p>
-        <p>Yellow cards: {stats.career_totals.yellow_cards}</p>
-        <p>Red cards: {stats.career_totals.red_cards}</p>
-      </div>
+    <div className="space-y-6">
+      {!!currentSeason && (
+        <SeasonOverview
+          {...currentSeason}
+          rating={currentSeason?.stats?.rating ?? 0}
+          OnSeasonChange={SetSeasonId}
+          seasonOptions={seasonOptions}
+          selectedSeasonId={currentSeason?.season?.id}
+        />
+      )}
+      <Card className="border-none shadow-2xl py-0">
+        <CardContent className="space-y-4 sm:space-y-8 py-6 sm:p-6">
+          <PlayerStatsCard title="Season Overview" stats={currentSeasonStats} />
 
-      <div>
-        {stats.seasons.map((season) => (
-          <div key={`${season.season}-${season.competition}`}>
-            <p>{season.season}</p>
-            <p>{season.competition}</p>
-            <p>Apps: {season.appearances}</p>
-            <p>Goals: {season.goals}</p>
-            <p>Assists: {season.assists}</p>
-            <p>Minutes: {season.minutes}</p>
-          </div>
-        ))}
-      </div>
+          {attackingStats.length > 0 && (
+            <PlayerStatsCard
+              title="Attacking & Passing"
+              stats={attackingStats}
+            />
+          )}
+
+          {defensiveStats.length > 0 && (
+            <PlayerStatsCard
+              title="Defensive & Physical"
+              stats={defensiveStats}
+            />
+          )}
+
+          {disciplineStats.length > 0 && (
+            <PlayerStatsCard
+              title="Discipline & Team Record"
+              stats={disciplineStats}
+            />
+          )}
+        </CardContent>
+      </Card>
     </div>
   );
 };

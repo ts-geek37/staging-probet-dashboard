@@ -1,82 +1,53 @@
 "use client";
 
-import { useRouter } from "next/navigation";
+import React from "react";
 
-import { Card } from "@/components/ui/card";
+import { DataError, NoData, SkeletonCardLoader, MatchCard } from "@/components";
+import { MatchListItem } from "@/types/teams";
 
 import { useTeamMatches } from "../hooks";
 
-const TeamMatchesTab = ({ teamId }: { teamId: number }) => {
-  const { sections } = useTeamMatches(teamId);
-  const router = useRouter();
-  if (!sections) return null;
+interface Props {
+  teamId: number;
+}
+
+const TeamMatchesTab: React.FC<Props> = ({ teamId }) => {
+  const { latest, upcoming, isLoading, error } = useTeamMatches(teamId);
+
+  if (isLoading) return <SkeletonCardLoader />;
+  if (error) return <DataError />;
+  if (!latest || !upcoming) return <NoData message="Team data not available" />;
+
+  const renderMatches = (matches: MatchListItem[], emptyMessage: string) =>
+    !matches.length ? (
+      <NoData message={emptyMessage} />
+    ) : (
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {matches.map((match) => (
+          <MatchCard
+            key={match.id}
+            match={match}
+            href={`/matches/${match.id}`}
+          />
+        ))}
+      </div>
+    );
 
   return (
-    <div className="space-y-10">
-      {sections.map((section, index) => (
-        <div key={index} className="space-y-4">
-          <h3 className="text-sm font-semibold">{section?.title}</h3>
+    <div className="space-y-12">
+      <section>
+        <h2 className="text-xl font-semibold mb-4 text-white">
+          Recent Matches
+        </h2>
+        {renderMatches(latest, "No latest matches")}
+      </section>
 
-          <div className="space-y-3">
-            {section?.matches.map((match) => (
-              <Card
-                key={match.match_id}
-                onClick={() => router.push(`/matches/${match.match_id}`)}
-                className="group flex-row items-center justify-between px-4 py-3 border border-transparent transition-colors hover:border-primary-green cursor-pointer"
-              >
-                <div className="flex items-center gap-4">
-                  <div className="flex h-9 w-9 items-center justify-center rounded-full bg-primary-green/5 text-xs text-primary-green/80 transition-colors group-hover:text-primary-green group-hover:bg-primary-green/20 font-semibold">
-                    {match?.opponent.charAt(0).toUpperCase()}
-                  </div>
-
-                  <div className="flex flex-col">
-                    <p className="text-sm text-white transition-colors group-hover:text-primary-green font-medium">
-                      <span className="text-white">
-                        {match.home_away === "home" ? "vs" : "@"}
-                      </span>{" "}
-                      {match.opponent}
-                    </p>
-                    {section.key === "upcoming" ? (
-                      <p className="text-xs text-muted-foreground">
-                        {match.competition}
-                      </p>
-                    ) : (
-                      <p className="text-xs text-muted-foreground">
-                        {new Date(match.kickoff_time).toLocaleDateString([], {
-                          month: "short",
-                          day: "2-digit",
-                        })}
-                      </p>
-                    )}
-                  </div>
-                </div>
-
-                <div className="text-right text-white/70 text-sm font-semibold">
-                  {match.score ? (
-                    <p className="transition-colors group-hover:text-primary-green">
-                      {match.score}
-                    </p>
-                  ) : (
-                    <p className="flex flex-col gap-1 text-primary-green">
-                      {new Date(match.kickoff_time).toLocaleTimeString([], {
-                        hour: "numeric",
-                        minute: "numeric",
-                        hour12: false,
-                      })}
-                      <span className="text-xs text-muted-foreground">
-                        {new Date(match.kickoff_time).toLocaleDateString([], {
-                          month: "short",
-                          day: "2-digit",
-                        })}
-                      </span>
-                    </p>
-                  )}
-                </div>
-              </Card>
-            ))}
-          </div>
-        </div>
-      ))}
+      <section>
+        <h2 className="text-xl font-semibold mb-4 text-white">
+          Upcoming Fixtures
+        </h2>
+        {renderMatches(upcoming, "No upcoming fixtures")}
+      </section>
     </div>
   );
 };

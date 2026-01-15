@@ -1,43 +1,56 @@
 "use client";
 
-import { useState } from "react";
+import React, { useState } from "react";
 
 import { ApiResponse } from "@/api/types";
-import { PlayerDetailView, PlayerOverviewResponse } from "@/types/players";
+import { NoData } from "@/components";
+import TabNavigation from "@/components/TabNavigation";
+import { PlayerDetailView, PlayerProfileResponse } from "@/types/players";
 
 import PlayerHeader from "./PlayerHeader";
 import { PlayerDetailTabs } from "./tabs";
 
+export const playerTabs = [
+  { label: "Profile", value: PlayerDetailView.Profile },
+  { label: "Stats", value: PlayerDetailView.STATS },
+  { label: "Matches", value: PlayerDetailView.MATCHES },
+];
+
 interface Props {
   playerId: number;
-  initialData: ApiResponse<PlayerOverviewResponse>;
+  initialData: ApiResponse<PlayerProfileResponse>;
 }
 
-const PlayerDetailPresentation = ({ playerId, initialData }: Props) => {
+const PlayerDetailPresentation: React.FC<Props> = ({
+  playerId,
+  initialData,
+}) => {
   const [activeTab, setActiveTab] = useState<PlayerDetailView>(
-    PlayerDetailView.OVERVIEW,
+    PlayerDetailView.Profile,
   );
+  if (!initialData.data) {
+    return <NoData message="No data available for this player" />;
+  }
 
   return (
-    <div>
+    <div className="text-white">
       <PlayerHeader player={initialData.data} />
-      <div>
-        <button onClick={() => setActiveTab(PlayerDetailView.OVERVIEW)}>
-          Overview
-        </button>
-        <button onClick={() => setActiveTab(PlayerDetailView.STATS)}>
-          Statistics
-        </button>
-        <button onClick={() => setActiveTab(PlayerDetailView.MATCHES)}>
-          Matches
-        </button>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3">
+        <TabNavigation
+          activeTab={activeTab}
+          tabs={playerTabs}
+          onTabChange={setActiveTab}
+        />
       </div>
 
-      <PlayerDetailTabs
-        activeTab={activeTab}
-        playerId={playerId}
-        initialData={initialData}
-      />
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 pt-3 py-8 h-full">
+        <PlayerDetailTabs
+          activeTab={activeTab}
+          playerId={playerId}
+          initialData={initialData}
+        />
+      </div>
     </div>
   );
 };

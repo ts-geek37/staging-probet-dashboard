@@ -1,5 +1,5 @@
 import { ApiResponse } from "@/api/types";
-import { PlayerDetailView, PlayerOverviewResponse } from "@/types/players";
+import { PlayerDetailView, PlayerProfileResponse } from "@/types/players";
 
 import PlayerMatchesTab from "./PlayerMatchesTab";
 import PlayerOverviewTab from "./PlayerOverviewTab";
@@ -8,7 +8,7 @@ import PlayerStatsTab from "./PlayerStatsTab";
 interface Props {
   activeTab: PlayerDetailView;
   playerId: number;
-  initialData: ApiResponse<PlayerOverviewResponse>;
+  initialData: ApiResponse<PlayerProfileResponse>;
 }
 
 const PlayerDetailTabs: React.FC<Props> = ({
@@ -23,7 +23,7 @@ const PlayerDetailTabs: React.FC<Props> = ({
     case PlayerDetailView.MATCHES:
       return <PlayerMatchesTab playerId={playerId} />;
 
-    case PlayerDetailView.OVERVIEW:
+    case PlayerDetailView.Profile:
     default:
       return <PlayerOverviewTab initialData={initialData} />;
   }

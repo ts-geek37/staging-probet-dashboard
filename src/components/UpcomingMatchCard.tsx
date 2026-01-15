@@ -12,6 +12,7 @@ export interface UpcomingMatchProps {
   teamALogo?: string;
   teamBLogo?: string;
   className?: string;
+  onClick?: () => void;
 }
 
 const UpcomingMatchCard: React.FC<UpcomingMatchProps> = ({
@@ -22,6 +23,7 @@ const UpcomingMatchCard: React.FC<UpcomingMatchProps> = ({
   teamALogo,
   teamBLogo,
   className,
+  onClick,
 }) => {
   const formattedDate = new Date(date).toLocaleDateString("en-US", {
     month: "short",
@@ -29,11 +31,18 @@ const UpcomingMatchCard: React.FC<UpcomingMatchProps> = ({
     year: "numeric",
   });
   return (
-    <Card className="bg-[#12151C] border border-primary-green rounded-none w-full">
+    <Card
+      onClick={onClick}
+      className={cn(
+        "border border-primary-green/60 rounded-none w-full",
+        className,
+        onClick && "group cursor-pointer hover:border-primary-green/80",
+      )}
+    >
       <CardContent className="px-5 space-y-6">
-        <div className="flex justify-between items-center text-xs font-semibold text-white">
-          <span className="text-white text-lg">{formattedDate}</span>
-          <span className="text-white text-lg">{time}</span>
+        <div className="flex justify-between items-center text-xs font-semibold text-white group-hover:text-primary-green">
+          <span className="text-lg">{formattedDate}</span>
+          <span className="text-lg">{time}</span>
         </div>
 
         <div className="space-y-4">

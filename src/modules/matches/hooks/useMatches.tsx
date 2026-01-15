@@ -5,28 +5,36 @@ import useSWR from "swr";
 import { ApiResponse } from "@/api/types";
 import { MatchesListResponse, MatchListStatus } from "@/types/matches";
 
-const useMatches = (params: {
-  status: MatchListStatus;
-  page: number;
-  limit: number;
-  leagueId?: number;
-  search?: string;
-}) => {
+interface UseMatchesParams {
+  tab: MatchListStatus;
+  page?: number;
+  limit?: number;
+  q?: string;
+}
+
+const useMatches = ({ tab, page = 1, limit = 10, q }: UseMatchesParams) => {
   const query = new URLSearchParams({
-    status: params.status,
-    page: String(params.page),
-    limit: String(params.limit),
-    ...(params.leagueId ? { leagueId: String(params.leagueId) } : {}),
-    ...(params.search ? { search: params.search } : {}),
+    tab,
+    page: String(page),
+    limit: String(limit),
+    ...(q ? { q } : {}),
   });
 
   const { data, error, isLoading } = useSWR<ApiResponse<MatchesListResponse>>(
-    `/api/matches?${query.toString()}`,
+    `/api/v2/matches?${query.toString()}`,
   );
 
+  const matches = data?.data?.data ?? [];
+  const pagination = data?.data?.pagination;
+
   return {
-    matches: data?.data?.data ?? [],
-    pagination: data?.data?.pagination,
+    matches,
+    tab: data?.data?.tab,
+    page: pagination?.page ?? page,
+    limit: pagination?.limit ?? limit,
+    count: pagination?.count ?? 0,
+    total_pages: pagination?.total_pages ?? 0,
+
     isLoading,
     error,
   };

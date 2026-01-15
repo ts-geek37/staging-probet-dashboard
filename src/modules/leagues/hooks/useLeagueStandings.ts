@@ -1,17 +1,18 @@
 "use client";
-
 import useSWR from "swr";
 
 import { ApiResponse } from "@/api/types";
-import { LeagueResponse, LeagueView } from "@/types/leagues";
+import { LeagueStandingsResponse, LeagueView } from "@/types/leagues";
 
 const useLeagueStandings = (leagueId: number) => {
-  const response = useSWR<ApiResponse<LeagueResponse>>(
-    `/api/leagues/${leagueId}?view=${LeagueView.STANDINGS}`,
+  const response = useSWR<ApiResponse<LeagueStandingsResponse>>(
+    `/api/v2/leagues/${leagueId}/${LeagueView.STANDINGS}`,
   );
 
   return {
-    standings: response.data?.data?.standings ?? null,
+    standings: response.data?.data?.table,
+    league: response.data?.data?.league,
+    season: response.data?.data?.season,
     isLoading: !response.data && !response.error,
     error: response.error,
   };

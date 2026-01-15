@@ -2,13 +2,13 @@
 
 import React, { useState } from "react";
 
-import { MatchDetailView, MatchOverviewResponse } from "@/types/matches";
+import { MatchDetailView, MatchListItem } from "@/types/matches";
 
 import { MatchHeader } from "./details";
 import { MatchDetailTabs } from "./details/tabs";
 
 interface Props {
-  initialData: MatchOverviewResponse;
+  initialData: MatchListItem;
 }
 
 const MatchDetailPresentation: React.FC<Props> = ({ initialData }) => {
@@ -21,7 +21,7 @@ const MatchDetailPresentation: React.FC<Props> = ({ initialData }) => {
       <MatchHeader match={initialData} />
 
       <MatchDetailTabs
-        matchId={initialData.id}
+        match={initialData}
         activeTab={activeTab}
         onTabChange={setActiveTab}
       />

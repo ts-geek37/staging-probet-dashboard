@@ -6,9 +6,7 @@ import { MatchDetailView } from "@/types/matches";
 import { seo } from "@/utils/seo";
 
 interface PageProps {
-  params: Promise<{
-    id: string;
-  }>;
+  params: Promise<{ id: string }>;
 }
 
 export const generateMetadata = async ({
@@ -28,29 +26,32 @@ export const generateMetadata = async ({
       return seo({
         title: "League",
         description:
-          "Explore league details, fixtures, standings, and football predictions on ProBets.",
+          "Explore league details, fixtures, standings, and football predictions on ProBetTips.",
       });
     }
 
+    const home = match.teams.home.name;
+    const away = match.teams.away.name;
+    const league = match.league.name;
+
     return seo({
-      title:
-        match?.home_team?.name + " vs " + match?.away_team?.name || "League",
-      description: match?.away_team?.name + " vs " + match?.home_team?.name,
+      title: `${home} vs ${away} | ${league}`,
+      description: `Live match details, score, stats, and lineups for ${home} vs ${away} in the ${league}.`,
     });
   } catch {
     return seo({
       title: "League",
       description:
-        "Explore league details, fixtures, standings, and football predictions on ProBets.",
+        "Explore league details, fixtures, standings, and football predictions on ProBetTips.",
     });
   }
 };
 
 const MatchDetailPage = async ({ params }: PageProps) => {
-  const resolvedParams = await params;
+  const { id } = await params;
 
   const response = await getMatchDetail({
-    id: resolvedParams.id,
+    id,
     view: MatchDetailView.OVERVIEW,
   });
 
