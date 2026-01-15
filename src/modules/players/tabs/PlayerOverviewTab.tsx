@@ -19,6 +19,7 @@ import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { PlayerProfileResponse } from "@/types/players";
+import { NoData, SkeletonCardLoader } from "@/components";
 
 import { usePlayerOverview } from "../hooks";
 
@@ -38,12 +39,8 @@ const PlayerOverviewTab: React.FC<Props> = ({ initialData }) => {
     isLoading,
   } = usePlayerOverview(initialData.data?.id ?? 0, initialData);
 
-  if (isLoading || !player)
-    return (
-      <div className="p-8 text-center text-primary-gray animate-pulse font-medium">
-        Loading player analytics...
-      </div>
-    );
+  if (isLoading) return <SkeletonCardLoader />;
+  if (!player) return <NoData message="Player data not available" />;
 
   return (
     <div className="flex flex-col gap-8 max-w-7xl mx-auto">
@@ -126,82 +123,54 @@ const PlayerOverviewTab: React.FC<Props> = ({ initialData }) => {
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 px-2">
         <Card className="shadow-none">
-          <CardHeader className="pb-4 ">
+          <CardHeader>
             <CardTitle className="text-base font-bold uppercase text-primary-green flex items-center gap-2">
               <User size={18} /> Biometrics & Origins
             </CardTitle>
           </CardHeader>
-          <CardContent className="space-y-4 ">
+          <CardContent className="space-y-4">
             {personalInfoRows.map((row) => (
-              <DetailRow
-                key={row.label}
-                label={row.label}
-                value={row.value}
-                icon={row.icon}
-              />
+              <DetailRow key={row.label} {...row} />
             ))}
             {physicalRows.map((row) => (
-              <DetailRow
-                key={row.label}
-                label={row.label}
-                value={row.value}
-                icon={row.icon}
-              />
+              <DetailRow key={row.label} {...row} />
             ))}
-            <DetailRow
-              label="Nationality"
-              value={
-                <div className="flex items-center gap-2">
-                  <span className="text-white font-semibold">
-                    {player.nationality?.name}
-                  </span>
-                  {player.nationality?.flag && (
-                    <img
-                      src={player.nationality.flag}
-                      className="w-5 h-3.5 rounded-sm object-cover"
-                      alt="flag"
-                    />
-                  )}
-                </div>
-              }
-              icon={Globe}
-            />
           </CardContent>
         </Card>
 
         <Card className="shadow-none">
-          <CardHeader className="pb-4 ">
+          <CardHeader>
             <CardTitle className="text-base font-bold uppercase text-primary-green flex items-center gap-2">
               <History size={18} /> Professional Profile
             </CardTitle>
           </CardHeader>
-          <CardContent className="space-y-4 ">
+          <CardContent className="space-y-4">
             {careerRows.map((row) => (
-              <DetailRow
-                key={row.label}
-                label={row.label}
-                value={row.value}
-                icon={row.icon}
-              />
+              <DetailRow key={row.label} {...row} />
             ))}
+
             <div className="pt-4">
-              <p className="text-[10px] font-black text-primary-gray uppercase tracking-widest mb-4 opacity-70">
-                Club History
+              <p className="text-sm font-semibold text-primary-gray mb-4">
+                Team History
               </p>
-              <div className="flex flex-wrap gap-3">
+
+              <div className="flex flex-col">
                 {teams.map((team) => (
                   <div
                     key={team.id}
                     title={team.name}
-                    className="flex items-center justify-center p-2 rounded-xl bg-white/5 hover:bg-white/10 transition-all"
+                    className="flex gap-3 p-2 rounded-lg hover:bg-primary-gray/10 transition-colors"
                   >
                     <Image
-                      src={team.logo || "/football.png"}
+                      src={team.logo || "/no-image.png"}
                       alt={team.name}
-                      width={32}
-                      height={32}
-                      className="object-contain"
+                      width={100}
+                      height={100}
+                      className="object-contain w-10 h-10"
                     />
+                    <span className="text-white text-sm font-medium truncate">
+                      {team.name}
+                    </span>
                   </div>
                 ))}
               </div>
@@ -210,58 +179,55 @@ const PlayerOverviewTab: React.FC<Props> = ({ initialData }) => {
         </Card>
 
         <Card className="shadow-none">
-          <CardHeader className="pb-4 ">
+          <CardHeader>
             <CardTitle className="text-base font-bold uppercase text-primary-green flex items-center gap-2">
               <Trophy size={18} /> Status & Honours
             </CardTitle>
           </CardHeader>
-          <CardContent className="space-y-6 ">
-            <div className="space-y-4">
-              {statusRows.map((row) => (
-                <DetailRow
-                  key={row.label}
-                  label={row.label}
-                  value={
-                    <span
-                      className={`px-2 py-0.5 rounded text-[10px] font-bold uppercase ${row.value === "Yes" ? "bg-emerald-500/10 text-emerald-500" : "bg-red-500/10 text-red-500"}`}
-                    >
-                      {row.value === "Yes" ? "Active" : "Inactive"}
-                    </span>
-                  }
-                  icon={Info}
-                />
-              ))}
+          <CardContent className="space-y-6 border-none">
+            {statusRows.map((row) => (
               <DetailRow
-                label="Contract Ends"
-                value={player.contract.until || "Rolling"}
-                icon={Briefcase}
+                key={row.label}
+                label={row.label}
+                icon={Info}
+                value={
+                  <span
+                    className={`px-2 py-0.5 rounded text-[10px] font-bold uppercase ${
+                      row.value === "Yes"
+                        ? "bg-primary-green/10 text-primary-green"
+                        : "bg-primary-red/10 text-primary-red"
+                    }`}
+                  >
+                    {row.value === "Yes" ? "Active" : "Inactive"}
+                  </span>
+                }
               />
-            </div>
-
-            <Separator className="bg-white/5" />
+            ))}
 
             <div className="space-y-3">
-              <p className="text-[10px] font-black text-primary-gray uppercase tracking-widest mb-1 opacity-70">
+              <p className="text-sm font-semibold text-primary-gray mb-2">
                 Trophy Cabinet
               </p>
+
               {trophies.length > 0 ? (
                 <div className="grid grid-cols-1 gap-2">
                   {trophies.map((trophy) => (
                     <div
                       key={trophy.id}
-                      className="flex items-center justify-between p-3 rounded-xl bg-white/5 group"
+                      className="flex items-center justify-between p-3 rounded-xl bg-primary-gray/10 group"
                     >
                       <div className="flex flex-col">
                         <span className="text-white text-sm font-bold leading-tight group-hover:text-primary-green transition-colors">
                           {trophy.name}
                         </span>
                         <span className="text-xs text-primary-gray font-medium">
-                          {trophy.team.name}
+                          {trophy.team?.name}
                         </span>
                       </div>
+
                       <Trophy
                         size={18}
-                        className="text-amber-500/30 group-hover:text-amber-500/60 transition-colors"
+                        className="text-primary-yellow/40 group-hover:text-primary-yellow/60 transition-colors"
                       />
                     </div>
                   ))}
