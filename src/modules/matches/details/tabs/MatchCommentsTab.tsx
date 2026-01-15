@@ -74,7 +74,7 @@ const MatchCommentsTab: React.FC<Props> = ({ matchId }) => {
                 </div>
               </div>
 
-              <div className="flex-1 h-full flex justify-between items-center min-w-0">
+              <div className="flex-1 h-full flex flex-wrap justify-between gap-1 items-center min-w-0">
                 <p className="text-sm sm:text-base text-slate-200 leading-relaxed">
                   {comment.comment}
                 </p>
