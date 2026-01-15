@@ -128,7 +128,7 @@ const StandingsTable: React.FC<Props> = ({ standings }) => {
             </TableRow>
           </TableHeader>
 
-          <TableBody className="max-h-100 overflow-y-auto custom-scrollbar-style">
+          <TableBody className="max-h-100 overflow-y-auto custom-scrollbar-style block">
             {data.map((row) => (
               <TableRow
                 key={row.team.id}
