@@ -25,14 +25,14 @@ export const generateMetadata = async ({
     return seo({
       title: "Player",
       description:
-        "Explore player details, fixtures, standings, and football predictions on ProBets.",
+        "Explore player details, fixtures, standings, and football predictions on ProBetTips.",
     });
   }
 
   return seo({
     title: `${player?.name ?? "Player"}`,
     description: player
-      ? `${player.name}, a professional footballer for ${player.teams?.[0].name}, born on ${player.date_of_birth}. View age, position, nationality, market value, contract details, and latest performance stats on ProBets.`
+      ? `${player.name}, a professional footballer for ${player.teams?.[0].name}, born on ${player.date_of_birth}. View age, position, nationality, market value, contract details, and latest performance stats on ProBetTips.`
       : "Football player profile including biography, club, position, and career statistics.",
   });
 };

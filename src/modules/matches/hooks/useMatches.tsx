@@ -3,10 +3,10 @@
 import useSWR from "swr";
 
 import { ApiResponse } from "@/api/types";
-import { MatchesListResponse, MatchStatus } from "@/types/matches";
+import { MatchesListResponse, MatchListStatus } from "@/types/matches";
 
 interface UseMatchesParams {
-  tab: MatchStatus;
+  tab: MatchListStatus;
   page?: number;
   limit?: number;
   q?: string;
@@ -32,7 +32,8 @@ const useMatches = ({ tab, page = 1, limit = 10, q }: UseMatchesParams) => {
     tab: data?.data?.tab,
     page: pagination?.page ?? page,
     limit: pagination?.limit ?? limit,
-    hasNext: pagination?.has_next ?? false,
+    count: pagination?.count ?? 0,
+    total_pages: pagination?.total_pages ?? 0,
 
     isLoading,
     error,

@@ -1,31 +1,67 @@
 "use client";
 
-import React from "react";
+import React, { useCallback } from "react";
 
 import TabNavigation from "@/components/TabNavigation";
-import { MatchDetailView } from "@/types/matches";
+import { MatchDetailView, MatchListItem } from "@/types/matches";
 
+import MatchCommentsTab from "./MatchCommentsTab";
 import MatchEventsTab from "./MatchEventsTab";
 import MatchHeadToHeadTab from "./MatchHeadToHeadTab";
 import MatchLineupsTab from "./MatchLineupsTab";
 import MatchOverviewTab from "./MatchOverviewTab";
+import MatchSeasonStatsTab from "./MatchSeasonStatsTab";
 import MatchStatsTab from "./MatchStatsTab";
 
 interface Props {
-  matchId: number;
+  match: MatchListItem;
   activeTab: MatchDetailView;
   onTabChange: (tab: MatchDetailView) => void;
 }
 
 const MatchDetailTabs: React.FC<Props> = ({
-  matchId,
+  match,
   activeTab,
   onTabChange,
 }) => {
-  const tabs = Object.values(MatchDetailView).map((tab) => ({
-    label: tab.toLowerCase(),
-    value: tab,
-  }));
+  const matchId = match.id;
+  const tabs = Object.values(MatchDetailView).map((tab) => {
+    let label = tab.replace(/-/g, " ");
+    if (tab === MatchDetailView.STATS) label = "Match Stats";
+    if (tab === MatchDetailView.SEASON_STATS) label = "Season Stats";
+    return {
+      label: label.charAt(0).toUpperCase() + label.slice(1),
+      value: tab,
+    };
+  });
+
+  const renderActiveTab = useCallback(() => {
+    switch (activeTab) {
+      case MatchDetailView.OVERVIEW:
+        return <MatchOverviewTab matchId={matchId} />;
+
+      case MatchDetailView.STATS:
+        return <MatchStatsTab matchId={matchId} />;
+
+      case MatchDetailView.LINEUPS:
+        return <MatchLineupsTab matchId={matchId} />;
+
+      case MatchDetailView.EVENTS:
+        return <MatchEventsTab matchId={matchId} />;
+
+      case MatchDetailView.HEAD_TO_HEAD:
+        return <MatchHeadToHeadTab match={match} />;
+
+      case MatchDetailView.COMMENTS:
+        return <MatchCommentsTab matchId={matchId} />;
+
+      case MatchDetailView.SEASON_STATS:
+        return <MatchSeasonStatsTab match={match} />;
+
+      default:
+        return null;
+    }
+  }, [activeTab, matchId, match]);
 
   return (
     <div className="w-full">
@@ -35,23 +71,7 @@ const MatchDetailTabs: React.FC<Props> = ({
         onTabChange={onTabChange}
       />
 
-      <div className="mt-6">
-        {activeTab === MatchDetailView.OVERVIEW && (
-          <MatchOverviewTab matchId={matchId} />
-        )}
-        {activeTab === MatchDetailView.STATS && (
-          <MatchStatsTab matchId={matchId} />
-        )}
-        {activeTab === MatchDetailView.LINEUPS && (
-          <MatchLineupsTab matchId={matchId} />
-        )}
-        {activeTab === MatchDetailView.EVENTS && (
-          <MatchEventsTab matchId={matchId} />
-        )}
-        {activeTab === MatchDetailView.HEAD_TO_HEAD && (
-          <MatchHeadToHeadTab matchId={matchId} />
-        )}
-      </div>
+      <div className="mt-6 min-h-[50vh]">{renderActiveTab()}</div>
     </div>
   );
 };

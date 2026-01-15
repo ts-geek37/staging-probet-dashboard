@@ -13,12 +13,12 @@ export interface MatchListFilters {
   q?: string;
 }
 
-export type MatchStatus = "UPCOMING" | "LIVE" | "FT" | "LATEST";
+export type MatchStatus = "UPCOMING" | "LIVE" | "FINISHED" | "PROBLEM";
 
 export interface MatchTeam {
   id: number;
   name: string;
-  logo?: string | null;
+  logo: string | null;
 }
 
 export interface MatchTeams {
@@ -38,7 +38,7 @@ export interface MatchListItem {
   league: {
     id: number;
     name: string;
-    logo?: string | null;
+    logo: string | null;
   };
   season?: {
     id: number;
@@ -80,6 +80,8 @@ export enum MatchDetailView {
   LINEUPS = "lineups",
   EVENTS = "events",
   HEAD_TO_HEAD = "head-to-head",
+  COMMENTS = "comments",
+  SEASON_STATS = "season-stats",
 }
 
 export interface MatchLineupsResponse {
@@ -144,25 +146,157 @@ export interface MatchEventsResponse {
   events: MatchEventItem[];
 }
 
-export interface HeadToHeadMatch {
-  season: string;
-  competition: string;
-  home: string;
-  homeLogo?: string | null;
-  away: string;
-  awayLogo?: string | null;
-  score: string;
-  date: string;
-  venue?: string | null;
-  status: "Finished" | "LIVE" | "Upcoming" | string;
+export interface SportMonksFixtureComment {
+  id: number;
+  fixture_id: number;
+  comment: string;
+  minute: number;
+  extra_minute: number | null;
+  is_goal: boolean;
+  is_important: boolean;
+  order: number;
 }
 
-export type HeadToHeadMatches = HeadToHeadMatch[];
+export interface MinuteDistribution {
+  "0-15"?: number;
+  "15-30"?: number;
+  "30-45"?: number;
+  "45-60"?: number;
+  "60-75"?: number;
+  "75-90"?: number;
+}
+
+export interface MostScoredHalfStats {
+  first_half: number;
+  second_half: number;
+}
+
+export interface TeamStatistics {
+  games_played?: number;
+  minutes_played?: number;
+
+  wins?: number;
+  draws?: number;
+  losses?: number;
+  points_per_game?: number;
+
+  goals_for?: number;
+  goals_against?: number;
+  expected_goals?: number;
+  clean_sheets?: number;
+  failed_to_score?: number;
+
+  shots?: number;
+  corners?: number;
+  attacks?: number;
+  dangerous_attacks?: number;
+  possession?: number;
+  penalties?: number;
+  offsides?: number;
+  assists?: number;
+
+  tackles?: number;
+  fouls?: number;
+
+  yellow_cards?: number;
+  red_cards?: number;
+  yellow_red_cards?: number;
+  fouls_per_card?: number;
+
+  rating?: number;
+  highest_rated_player?: number | null;
+
+  average_player_height?: number | null;
+  average_player_age?: number;
+  foreign_players?: number;
+  appearing_players?: number;
+  national_team_players?: number;
+
+  penalty_conversion_rate?: number;
+  shot_conversion_rate?: number;
+  shot_on_target_percentage?: number;
+  scoring_frequency?: number;
+
+  scoring_minutes?: MinuteDistribution;
+  conceded_scoring_minutes?: MinuteDistribution;
+  most_scored_half?: MostScoredHalfStats;
+  most_frequent_scoring_minute?: {
+    minute: number;
+    goals: number;
+  };
+  half_results?: {
+    won_both_halves: number;
+    scored_both_halves: number;
+    comebacks: number;
+  };
+  goal_results?: {
+    scored_first: number;
+    conceded_first: number;
+    wins_when_scoring_first: number;
+  };
+  interception_stats?: {
+    total: number;
+    per_match: number;
+  };
+  pass_stats?: {
+    total: number;
+    accurate: number;
+    accuracy_percentage: number;
+  };
+  assist_stats?: {
+    total: number;
+    per_match: number;
+  };
+  players_footing?: {
+    left: number;
+    right: number;
+    both: number;
+  };
+  most_substituted_players?: {
+    player_id: number;
+    name: string;
+    substitutions: number;
+  }[];
+  most_injured_players?: {
+    player_id: number;
+    name: string;
+    injuries: number;
+  }[];
+  team_of_the_week?: {
+    appearances: number;
+    players: {
+      id: number;
+      name: string;
+      position: string | null;
+    }[];
+  };
+  injury_time_goals?: {
+    total: number;
+    average: number;
+  };
+}
+
+export interface MatchesTeamStats {
+  away: {
+    id: number;
+    name: string;
+    logo: string | null;
+    stats: TeamStatistics;
+  };
+  home: {
+    id: number;
+    name: string;
+    logo: string | null;
+    stats: TeamStatistics;
+  };
+}
 
 export interface MatchDetailViewResponseMap {
   [MatchDetailView.OVERVIEW]: MatchListItem;
   [MatchDetailView.STATS]: MatchStatsResponse;
   [MatchDetailView.LINEUPS]: MatchLineupsResponse;
   [MatchDetailView.EVENTS]: MatchEventsResponse;
-  [MatchDetailView.HEAD_TO_HEAD]: MatchEventsResponse;
+  [MatchDetailView.HEAD_TO_HEAD]: { matches: MatchListItem[] };
+  [MatchDetailView.COMMENTS]: SportMonksFixtureComment[];
+  [MatchDetailView.SEASON_STATS]: MatchesTeamStats;
 }

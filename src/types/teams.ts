@@ -133,7 +133,6 @@ export interface TeamOverviewResponse {
     | null;
 }
 
-
 export interface TeamSeasonStatsItem {
   season: {
     id: number;

@@ -8,27 +8,35 @@ import React from "react";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { MatchListItem, MatchListStatus, MatchStatus } from "@/types/matches";
+import {
+  MatchListItem as PlayerMatch,
+  MatchStatus as PlayerStatus,
+} from "@/types/players";
 import { formatDate, formatUtcTime } from "@/utils";
 
 interface MatchCardProps {
-  match: MatchListItem;
+  match: MatchListItem | PlayerMatch;
   href?: string;
   onClick?: () => void;
 }
 
-const StatusBadge: React.FC<{ status: MatchStatus }> = ({ status }) => {
-  const variantMap: Record<MatchStatus, MatchListStatus> = {
+const StatusBadge: React.FC<{ status: MatchStatus | PlayerStatus }> = ({
+  status,
+}) => {
+  const variantMap: Record<MatchStatus | PlayerStatus, MatchListStatus> = {
     LIVE: MatchListStatus.LIVE,
     UPCOMING: MatchListStatus.UPCOMING,
+    FINISHED: MatchListStatus.FINISHED,
+    PROBLEM: MatchListStatus.UPCOMING,
     FT: MatchListStatus.FINISHED,
-    LATEST: MatchListStatus.FINISHED,
   };
 
-  const labelMap: Record<MatchStatus, string> = {
+  const labelMap: Record<MatchStatus | PlayerStatus, string> = {
     LIVE: "LIVE",
     UPCOMING: "UPCOMING",
-    FT: "FINISHED",
-    LATEST: "FINISHED",
+    FINISHED: "FINISHED",
+    PROBLEM: "Problem",
+    FT: "FT",
   };
 
   return <Badge variant={variantMap[status]}>{labelMap[status]}</Badge>;

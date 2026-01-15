@@ -21,7 +21,6 @@ const useTeamStats = (teamId: number) => {
 
   const team = response.data?.data?.team ?? null;
 
-
   const seasons = useMemo(
     () => response.data?.data?.seasons ?? [],
     [response.data],

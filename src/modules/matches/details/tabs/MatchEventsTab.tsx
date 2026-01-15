@@ -32,7 +32,7 @@ const MatchEventsTab: React.FC<Props> = ({ matchId }) => {
         </span>
       </div>
 
-      <Card className="border border-primary-gray/20 py-3">
+      <Card className="border border-primary-gray/20 py-0">
         <div className="divide-y divide-primary-gray/20">
           {eventsData.events.map((event, index) => (
             <MatchEvents key={event.id} event={event} index={index} />

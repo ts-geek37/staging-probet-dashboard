@@ -4,7 +4,7 @@ import React from "react";
 
 import { NoData, SkeletonCardLoader, MatchCard } from "@/components";
 import Pagination from "@/components/Pagination";
-import { MatchListItem } from "@/types/teams";
+import { MatchListItem } from "@/types/players";
 
 import { usePlayerMatches } from "../hooks";
 
