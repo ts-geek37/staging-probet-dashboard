@@ -77,10 +77,10 @@ export const useTeamOverview = (
 
     const socialsInfo =
       team.socials?.map((s) => ({
-        label: s.channel.name,
+        label: s.channel?.name,
         value: s.handle,
         extra: s.url,
-        color: s.channel.color,
+        color: s.channel?.color,
       })) ?? [];
 
     return [
