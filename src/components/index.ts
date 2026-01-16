@@ -1,7 +1,6 @@
 export { default as Ads } from "./Ads";
 export { default as Banner } from "./Banner";
 export { default as DataError } from "./DataError";
-export { default as LeagueStandingsTable } from "./LeagueStandingsTable";
 export { default as LiveMatchCard } from "./LiveMatchCard";
 export type { MatchProps } from "./LiveMatchCard";
 export { default as MatchCard } from "./MatchesCard";

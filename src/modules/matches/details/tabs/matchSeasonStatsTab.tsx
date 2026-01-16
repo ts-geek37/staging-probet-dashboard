@@ -78,7 +78,11 @@ const MatchSeasonStatsTab: React.FC<Props> = ({ match }) => {
       </div>
 
       <div className="grid grid-cols-1 gap-x-6 gap-y-8 md:grid-cols-2">
-        <Accordion type="multiple" className="contents" defaultValue={statSections.map((section) => section.title)}>
+        <Accordion
+          type="multiple"
+          className="contents"
+          defaultValue={statSections.map((section) => section.title)}
+        >
           {statSections.map((section) => (
             <StatSection
               key={section.title}

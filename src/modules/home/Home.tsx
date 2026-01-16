@@ -12,7 +12,7 @@ import { useHome } from "./hooks";
 import LatestNews from "./LatestNews";
 import LiveMatchCards from "./LiveMatchesCards";
 import PredictionBanner from "./PredictionBanner";
-import TopEuropeanLeaguesPage from "./TopEuropeanLeagues";
+import TopLeagues from "./TopLeagues";
 import UpcomingMatchCards from "./UpcomingMatchesCards";
 
 interface Props {
@@ -33,7 +33,7 @@ const Home: React.FC<Props> = ({ initialHome }) => {
         <VIPBanner />
         <UpcomingMatchCards matches={data.sections.starting_soon} />
         <VIPBanner />
-        <TopEuropeanLeaguesPage
+        <TopLeagues
           topLeagues={data.top_leagues}
           standings={data.popular_teams}
         />
