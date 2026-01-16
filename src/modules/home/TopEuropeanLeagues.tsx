@@ -18,10 +18,10 @@ const TopEuropeanLeaguesPage: React.FC<Props> = ({ topLeagues, standings }) => {
         <div className="flex items-center justify-between mb-8 w-full">
           <div>
             <h1 className="text-2xl sm:text-5xl font-bold mb-1">
-              Top European Leagues
+              Top Global Leagues
             </h1>
             <p className="text-xs sm:text-base">
-              Browse European football competitions
+              Browse Global football competitions
             </p>
           </div>
           <Link href="/leagues">
@@ -40,7 +40,7 @@ const TopEuropeanLeaguesPage: React.FC<Props> = ({ topLeagues, standings }) => {
 
           <div className="md:col-span-5">
             <div className="flex justify-between items-center mb-4">
-              <h3 className="text-white font-bold">Top European Leagues</h3>
+              <h3 className="text-white font-bold">Top Global Leagues</h3>
               <Link href="/leagues">
                 <span className="text-primary-gray text-sm sm:text-base cursor-pointer hover:text-white">
                   All Leagues &gt;

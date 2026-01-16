@@ -5,7 +5,7 @@ export { default as LeagueStandingsTable } from "./LeagueStandingsTable";
 export { default as MatchCard } from "./MatchesCard";
 export { default as NewsCard } from "./NewsCard";
 export { default as NoData } from "./NoData";
-export { default as OverviewCard } from "./OverviewCard";
+export { default as OverviewCard } from "../modules/teams/components/TeamProfileOverview";
 export { default as Pagination } from "./Pagination";
 export { default as SearchBar } from "./SearchBar";
 export { default as SkeletonCardLoader } from "./SkeletonCardLoader";

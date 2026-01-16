@@ -60,7 +60,8 @@ const PlayerCard: React.FC<Props> = ({ player, className }) => {
           <div className="flex flex-wrap items-center gap-2 mt-1 min-w-0">
             <Badge
               variant="secondary"
-              className="bg-primary-gray/20 text-primary-gray border-none flex gap-1 items-center py-0 px-2 h-6 text-[11px] uppercase truncate"
+              className="bg-primary-gray/20 text-primary-gray border-none flex gap-1 items-center py-0 px-2 h-6 text-[11px] uppercase truncate
+             hover:bg-primary-gray/20 hover:text-primary-gray hover:shadow-none hover:scale-100 transition-none"
             >
               <User className="w-3 h-3" />
               <span className="truncate">{player.position.label}</span>
