@@ -1,10 +1,10 @@
+import { Crown, Trophy } from "lucide-react";
 import Image from "next/image";
 import React from "react";
 
 import { Card } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import { LeagueCard as ILeagueCard } from "@/types/leagues";
-import { Crown, Trophy } from "lucide-react";
 
 interface LeagueCardProps {
   league: ILeagueCard;

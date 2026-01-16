@@ -1,11 +1,11 @@
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 
 import { ListCard } from "@/modules/home/components";
 import { TeamCard } from "@/types/home";
 
 import NoData from "../../../components/NoData";
-import Link from "next/link";
 
 interface Props {
   standings?: TeamCard[];

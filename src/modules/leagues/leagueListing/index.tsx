@@ -1,20 +1,20 @@
 "use client";
 
+import { Globe2, Sun, Trees, Mountain, Globe, Snowflake } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 import { ApiResponse } from "@/api/types";
 import { SearchBar, SelectField } from "@/components";
 import Pagination from "@/components/Pagination";
+import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 import { Continent, LeaguesListResponse } from "@/types/leagues";
 
 import { useLeagues } from "../hooks";
 import EmptyLeagues from "./EmptyLeagues";
 import LeagueCard from "./LeagueCard";
 import LeagueCardSkeleton from "./LeagueCardSkeleton";
-import { Globe2, Sun, Trees, Mountain, Globe, Snowflake } from "lucide-react";
-import { cn } from "@/lib/utils";
-import { Button } from "@/components/ui/button";
 
 interface Props {
   initialLeagues: ApiResponse<LeaguesListResponse>;
@@ -103,9 +103,7 @@ const LeagueListing: React.FC<Props> = ({ initialLeagues }) => {
               onClick={() => handleContinentChange(option.value)}
               className={cn(
                 "flex items-center gap-2.5 rounded-full transition-all duration-300 border-none text-sm font-semibold whitespace-nowrap",
-                isActive
-                  ? "text-white"
-                  : "text-gray-200",
+                isActive ? "text-white" : "text-gray-200",
               )}
             >
               <Icon

@@ -12,7 +12,10 @@ const VipBanner: React.FC = () => {
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_right,rgba(234,179,8,0.2),transparent_45%)]" />
 
         <div className="relative z-10 flex max-w-xl flex-col gap-3">
-          <Badge variant="upcoming" className="hidden sm:block w-fit bg-primary-neon px-3 py-1 text-sm font-semibold text-black">
+          <Badge
+            variant="upcoming"
+            className="hidden sm:block w-fit bg-primary-neon px-3 py-1 text-sm font-semibold text-black"
+          >
             VIP Membership
           </Badge>
 
