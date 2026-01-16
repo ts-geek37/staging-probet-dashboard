@@ -3,12 +3,13 @@
 import useSWR from "swr";
 
 import { ApiResponse } from "@/api/types";
-import { LeaguesListResponse } from "@/types/leagues";
+import { Continent, LeaguesListResponse } from "@/types/leagues";
 
 interface UseLeaguesParams {
   page: number;
   limit: number;
   search?: string;
+  continent?: Continent;
   initialData?: ApiResponse<LeaguesListResponse>;
 }
 
@@ -16,6 +17,7 @@ export const useLeagues = ({
   page,
   limit,
   search,
+  continent,
   initialData,
 }: UseLeaguesParams) => {
   const params = new URLSearchParams({
@@ -24,6 +26,9 @@ export const useLeagues = ({
   });
   if (search?.trim()) {
     params.set("search", search.trim());
+  }
+  if (continent) {
+    params.set("continent", continent);
   }
   const key = `/api/v2/leagues?${params.toString()}`;
 

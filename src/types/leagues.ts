@@ -100,6 +100,16 @@ export enum MatchListStatus {
   FINISHED = "finished",
 }
 
+export enum Continent {
+  EUROPE = "Europe",
+  ASIA = "Asia",
+  AFRICA = "Africa",
+  NORTH_AMERICA = "North America",
+  SOUTH_AMERICA = "South America",
+  OCEANIA = "Oceania",
+  ANTARCTICA = "Antarctica",
+}
+
 export interface LeagueCard {
   id: number;
   name: string;
@@ -109,6 +119,7 @@ export interface LeagueCard {
     name: string;
     code: string | null;
     flag: string | null;
+    continent: Continent | null;
   };
 }
 
