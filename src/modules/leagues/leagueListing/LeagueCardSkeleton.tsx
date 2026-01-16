@@ -1,28 +1,19 @@
-import { Card, CardContent } from "@/components/ui/card";
+import { Card } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
+import React from "react";
 
 const LeagueCardSkeleton: React.FC = () => {
   return (
-    <Card className="group bg-slate-900 border-gray-200 transition-colors">
-      <CardContent className="flex flex-col gap-2">
-        <div className="flex items-start justify-between">
-          <div className="flex items-center gap-3">
-            <Skeleton className="w-10 h-10 rounded-full" />
+    <Card className="relative h-[140px] w-full overflow-hidden border-none bg-[#0a0e17] rounded-xl p-4 flex flex-col justify-between">
+      <Skeleton className="size-8 rounded-full bg-slate-800/50" />
 
-            <div className="space-y-1.5">
-              <Skeleton className="h-4 w-36" />
-              <div className="flex items-center gap-1.5">
-                <Skeleton className="h-3 w-4 rounded-sm" />
-                <Skeleton className="h-3 w-20" />
-              </div>
-            </div>
-          </div>
-
-          <Skeleton className="w-5 h-5 rounded" />
+      <div className="space-y-2">
+        <Skeleton className="h-6 w-3/4 bg-slate-800/50" />
+        <div className="flex items-center gap-2">
+          <Skeleton className="h-3 w-5 rounded-[2px] bg-slate-800/50" />
+          <Skeleton className="h-3 w-20 bg-slate-800/50" />
         </div>
-
-        <Skeleton className="h-3 w-24 self-end" />
-      </CardContent>
+      </div>
     </Card>
   );
 };

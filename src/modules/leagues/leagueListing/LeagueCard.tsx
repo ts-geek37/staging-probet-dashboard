@@ -1,65 +1,78 @@
-import { ChevronRight, Crown, Trophy } from "lucide-react";
 import Image from "next/image";
+import React from "react";
 
-import { Card, CardContent } from "@/components/ui/card";
+import { Card } from "@/components/ui/card";
+import { cn } from "@/lib/utils";
 import { LeagueCard as ILeagueCard } from "@/types/leagues";
+import { Crown, Trophy } from "lucide-react";
 
-const COMPETITION_TYPE_ICON = {
-  league: Crown,
-  cup: Trophy,
-};
 interface LeagueCardProps {
   league: ILeagueCard;
   onClick: () => void;
+  className?: string;
 }
 
-const LeagueCard: React.FC<LeagueCardProps> = ({ league, onClick }) => {
-  const Icon = COMPETITION_TYPE_ICON[league?.competition_type];
+const COMPETITION_ICON: Record<
+  "league" | "cup",
+  React.FC<{ className?: string }>
+> = {
+  league: Crown,
+  cup: Trophy,
+};
+
+const LeagueCard: React.FC<LeagueCardProps> = ({
+  league,
+  onClick,
+  className,
+}) => {
+  const CompetitionIcon = COMPETITION_ICON[league.competition_type];
+
   return (
     <Card
-      className="group rounded-none gap-0 hover:border-primary-green active:border-primary-green transition-colors cursor-pointer"
+      className={cn(
+        "group relative h-[140px] w-full overflow-hidden border-none transition-all hover:ring-1 hover:ring-primary-green/30 active:scale-[0.98] cursor-pointer rounded-xl p-0",
+        className,
+      )}
       onClick={onClick}
     >
-      <CardContent className="flex-1 flex flex-col justify-between gap-2">
-        <div className="flex items-start justify-between">
-          <div className="flex items-center gap-3">
-            <div className="size-12 rounded-sm bg-white flex items-center justify-center">
+      <div className="absolute inset-0 z-0 flex items-center justify-end overflow-hidden opacity-20 transition-transform duration-500 group-hover:scale-110 group-hover:opacity-30">
+        <div className="relative h-full w-3/5 translate-x-10">
+          <Image
+            src={league?.logo || "/no-image.png"}
+            alt=""
+            fill
+            className="object-contain brightness-100"
+          />
+        </div>
+      </div>
+
+      <div className="absolute inset-0 z-10 bg-gradient-to-r from-[#0a0e17] via-[#0a0e17]/80 to-transparent" />
+
+      <div className="relative z-20 h-full w-full p-4 flex flex-col justify-between">
+        <div className="flex flex-col gap-2">
+          <h3 className="line-clamp-1 text-lg font-bold text-white transition-colors group-hover:text-primary-green sm:text-xl">
+            {league?.name}
+          </h3>
+          <div className="flex items-center gap-2">
+            <div className="relative h-4 w-6 overflow-hidden ring-white/10">
               <Image
-                src={league?.logo || "/no-image.png"}
-                alt={league?.name || ""}
-                width={1000}
-                height={1000}
-                className="size-10 object-contain"
+                src={league?.country?.flag || "/no-image.png"}
+                alt={league?.country?.name || ""}
+                fill
+                className="object-cover"
               />
             </div>
-            <div>
-              <h3 className="text-white group-hover:text-primary-green group-active:text-primary-green font-semibold text-base">
-                {league?.name}
-              </h3>
-              <div className="flex items-center gap-1.5 mt-1">
-                <Image
-                  src={league?.country.flag || "/no-image.png"}
-                  alt={league?.country?.name || ""}
-                  width={1000}
-                  height={1000}
-                  className="h-4 w-6 object-cover"
-                />
-                <span className="text-gray-400 text-sm">
-                  {league?.country?.name}
-                </span>
-              </div>
-            </div>
+            <span className="text-xs font-medium text-gray-400 sm:text-sm">
+              {league?.country?.name}
+            </span>
           </div>
-          <ChevronRight className="size-5 text-gray-400 group-hover:text-primary-green group-active:text-primary-green" />
         </div>
-        <div className="flex items-center gap-2 mt-3 pt-3 border-t border-primary-gray/20">
-          <p className="text-primary-gray text-sm font-medium group-hover:text-primary-green group-active:text-primary-green transition-colors flex items-center gap-1">
-            <Icon className="size-4" />
-            <span className="capitalize">{league?.competition_type}</span>
-          </p>
+        <div className="flex size-8 items-center justify-center">
+          <CompetitionIcon className="size-4 text-primary-yellow fill-primary-yellow" />
         </div>
-      </CardContent>
+      </div>
     </Card>
   );
 };
+
 export default LeagueCard;

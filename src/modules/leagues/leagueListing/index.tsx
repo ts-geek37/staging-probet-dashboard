@@ -12,12 +12,27 @@ import { useLeagues } from "../hooks";
 import EmptyLeagues from "./EmptyLeagues";
 import LeagueCard from "./LeagueCard";
 import LeagueCardSkeleton from "./LeagueCardSkeleton";
+import { Globe2, Sun, Trees, Mountain, Globe, Snowflake } from "lucide-react";
+import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
 
 interface Props {
   initialLeagues: ApiResponse<LeaguesListResponse>;
 }
 
 const PAGE_SIZE = 12;
+export const CONTINENT_ICON_MAP: Record<
+  Continent,
+  React.ComponentType<{ className?: string }>
+> = {
+  [Continent.EUROPE]: Globe2,
+  [Continent.ASIA]: Sun,
+  [Continent.AFRICA]: Trees,
+  [Continent.NORTH_AMERICA]: Mountain,
+  [Continent.SOUTH_AMERICA]: Mountain,
+  [Continent.OCEANIA]: Globe,
+  [Continent.ANTARCTICA]: Snowflake,
+};
 
 const LeagueListing: React.FC<Props> = ({ initialLeagues }) => {
   const [search, setSearch] = useState<string>("");
@@ -33,10 +48,15 @@ const LeagueListing: React.FC<Props> = ({ initialLeagues }) => {
     initialData: initialLeagues,
   });
   const options = [
-    { value: "All", label: "All Continents" },
-    ...Object.values(Continent).map((c) => ({
-      value: c,
-      label: c,
+    {
+      value: "All",
+      label: "All Continents",
+      icon: Globe,
+    },
+    ...Object.values(Continent).map((continent) => ({
+      value: continent,
+      label: continent,
+      icon: CONTINENT_ICON_MAP[continent],
     })),
   ];
 
@@ -62,20 +82,42 @@ const LeagueListing: React.FC<Props> = ({ initialLeagues }) => {
         </p>
       </div>
 
-      <div className="flex max-sm:flex-row-reverse gap-4 sm:items-center">
-        <div className="sm:flex-1 sm:w-full">
+      <div className="flex flex-col gap-6 sm:flex-row sm:items-center">
+        <div className="flex-1 w-full">
           <SearchBar
             value={search}
             onSearchChange={handleSearchChange}
             placeholder="Search leagues or countries"
-            isMobileAbsolute
           />
         </div>
-        <SelectField
-          options={options}
-          onChange={(value) => handleContinentChange(value as string)}
-          value={continent ?? "All"}
-        />
+      </div>
+
+      <div className="flex flex-wrap gap-3">
+        {options.map((option) => {
+          const Icon = option.icon;
+          const isActive = continent === option.value;
+          return (
+            <Button
+              key={option.value}
+              variant={isActive ? "green" : "default"}
+              onClick={() => handleContinentChange(option.value)}
+              className={cn(
+                "flex items-center gap-2.5 rounded-full transition-all duration-300 border-none text-sm font-semibold whitespace-nowrap",
+                isActive
+                  ? "text-white"
+                  : "text-gray-200",
+              )}
+            >
+              <Icon
+                className={cn(
+                  "size-4.5",
+                  !isActive ? "text-primary-green" : "text-white",
+                )}
+              />
+              {option.label}
+            </Button>
+          );
+        })}
       </div>
 
       {isLoading ? (
