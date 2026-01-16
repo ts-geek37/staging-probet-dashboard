@@ -1,21 +1,19 @@
 "use client";
-
+import React from "react";
+import Image from "next/image";
 import {
-  Trophy,
   MapPin,
-  Users,
+  Trophy,
   Twitter,
-  Globe,
-  Shield,
   Instagram,
   Facebook,
-  Link as LinkIcon,
+  Globe,
+  Calendar,
+  TrendingUp,
+  Shield,
 } from "lucide-react";
-import Image from "next/image";
-import React from "react";
-
 import { Badge } from "@/components/ui/badge";
-import { Card } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 interface Item {
   label: string;
@@ -41,9 +39,9 @@ const TeamProfileOverview: React.FC<Props> = ({
   rivals,
   socials,
 }) => {
-  const getSocialIcon = (platform = "", className = "") => {
+  const getSocialIcon = (platform = "") => {
     const name = platform.toLowerCase();
-    const props = { size: 14, className };
+    const props = { size: 18 };
     if (name.includes("twitter") || name.includes("x.com"))
       return <Twitter {...props} />;
     if (name.includes("instagram")) return <Instagram {...props} />;
@@ -51,197 +49,243 @@ const TeamProfileOverview: React.FC<Props> = ({
     return <Globe {...props} />;
   };
 
+  const teamLogo = teamInfo?.[0]?.image;
+
   return (
-    <section className="grid grid-cols-1 md:grid-cols-4 gap-4 w-full">
-      {teamInfo && (
-        <Card className="col-span-1 md:col-span-2 md:row-span-2 p-6 relative overflow-hidden">
-          {teamInfo[0]?.image && (
-            <Image
-              src={teamInfo[0].image}
-              alt="Team Logo"
-              fill
-              className="absolute right-[-5%] bottom-[-5%] object-contain opacity-[0.05]"
-            />
+    <div className="py-4 space-y-7">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div className="lg:col-span-2 space-y-8">
+          <Card className="shadow-none border-primary-gray/20">
+            <CardContent>
+              <div className="flex flex-col gap-6">
+                <div className="flex flex-row items-center sm:items-start gap-4 sm:gap-8">
+                  <div className="w-20 h-20 sm:w-32 sm:h-32 bg-gray-950 rounded-2xl flex items-center justify-center p-3 sm:p-4 border border-primary-gray/20 shrink-0">
+                    {teamLogo ? (
+                      <Image
+                        src={teamLogo}
+                        alt="Logo"
+                        width={80}
+                        height={80}
+                        className="object-contain"
+                      />
+                    ) : (
+                      <Trophy className="text-primary-green w-8 h-8 sm:w-12 sm:h-12" />
+                    )}
+                  </div>
+
+                  <div className="flex-1">
+                    <h2 className="text-2xl sm:text-4xl font-black text-white mb-0 sm:mb-6 tracking-tight">
+                      {teamInfo?.[0]?.value || "Team Name"}
+                    </h2>
+                    <div className="hidden sm:grid grid-cols-2 gap-4">
+                      {[
+                        {
+                          icon: <Calendar size={18} />,
+                          label: "Founded",
+                          value: teamInfo?.[3]?.value,
+                        },
+                        {
+                          icon: <Globe size={18} />,
+                          label: "Country",
+                          value: teamInfo?.[2]?.value,
+                        },
+                      ].map((item, i) => (
+                        <div
+                          key={i}
+                          className="flex items-center gap-3 p-3 rounded-xl bg-white/5 border border-primary-gray/20"
+                        >
+                          <div className="text-primary-green">{item.icon}</div>
+                          <div>
+                            <p className="text-[10px] uppercase tracking-widest text-primary-gray font-bold">
+                              {item.label}
+                            </p>
+                            <p className="text-sm font-semibold text-slate-200">
+                              {item.value || "N/A"}
+                            </p>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+                <div className="grid grid-cols-1 gap-3 sm:hidden">
+                  {[
+                    {
+                      icon: <Calendar size={18} />,
+                      label: "Founded",
+                      value: teamInfo?.[3]?.value,
+                    },
+                    {
+                      icon: <Globe size={18} />,
+                      label: "Country",
+                      value: teamInfo?.[2]?.value,
+                    },
+                  ].map((item, i) => (
+                    <div
+                      key={i}
+                      className="flex items-center gap-3 p-3 rounded-xl bg-white/5 border border-primary-gray/20"
+                    >
+                      <div className="text-primary-green">{item.icon}</div>
+                      <div>
+                        <p className="text-[10px] uppercase tracking-widest text-primary-gray font-bold">
+                          {item.label}
+                        </p>
+                        <p className="text-sm font-semibold text-slate-200">
+                          {item.value || "N/A"}
+                        </p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          {venue && (
+            <Card className="shadow-none border-primary-gray/20">
+              <CardContent className="flex flex-col gap-5 md:flex-row md:justify-between md:items-center">
+                <div className="flex items-center gap-4 w-full md:w-auto">
+                  <div className="p-3 bg-primary-green/10 rounded-xl shrink-0">
+                    <MapPin className="text-primary-green" size={24} />
+                  </div>
+
+                  <div className="flex flex-col">
+                    <h4 className="text-lg font-bold text-white leading-tight">
+                      {venue[0]?.value}
+                    </h4>
+                    <p className="text-primary-gray text-sm">Home Ground</p>
+                  </div>
+                </div>
+
+                <div className="w-full md:w-auto flex justify-between items-center md:block md:text-right pt-2 md:pt-0 border-t border-primary-gray/20 md:border-0">
+                  <p className="text-[10px] uppercase text-primary-gray font-bold">
+                    Capacity
+                  </p>
+                  <p className="text-xl font-mono font-bold text-white">
+                    {venue[2]?.value || "—"}
+                  </p>
+                </div>
+              </CardContent>
+            </Card>
           )}
+        </div>
 
-          <div className="relative z-10 flex flex-col justify-between h-full gap-6">
-            <div>
-              {teamInfo[1]?.value && (
-                <Badge className="bg-primary-green/20 text-primary-green">
-                  {teamInfo[1].value}
-                </Badge>
-              )}
-
-              <h1 className="text-2xl md:text-5xl font-bold text-white">
-                {teamInfo[0]?.value}
-              </h1>
-
-              <div className="flex items-center gap-2 text-white">
-                {teamInfo[2]?.image && (
+        <div className="lg:col-span-1">
+          <Card className="shadow-none border-primary-gray/20 h-full">
+            <CardContent>
+              <div className="flex items-center justify-between mb-8">
+                <h3 className="text-xl font-bold text-primary-green flex items-center gap-2">
+                  <Trophy className="text-primary-green" size={20} /> Rankings
+                </h3>
+                <TrendingUp className="text-primary-green/50" size={20} />
+              </div>
+              <div className="space-y-4">
+                {rankings?.map((rank, idx) => (
+                  <div
+                    key={idx}
+                    className="bg-white/5 border border-primary-gray/20 rounded-2xl p-3"
+                  >
+                    <div className="flex justify-between items-start mb-1">
+                      <span className="text-[11px] font-bold uppercase text-primary-gray">
+                        {rank.label}
+                      </span>
+                      {rank.extra && (
+                        <Badge className="bg-primary-green/10 text-primary-green border-primary-green/20 text-[10px]">
+                          {rank.extra}
+                        </Badge>
+                      )}
+                    </div>
+                    <span className="text-2xl font-black text-white">
+                      {rank.value}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+      </div>
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <Card className="shadow-none border-primary-gray/20">
+          <CardHeader>
+            <CardTitle className="text-sm sm:text-xl font-semibold text-primary-green flex items-center gap-2">
+              <Shield className="w-4 h-4 text-primary-green" /> Key Rivals
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-3">
+            {rivals?.map((rival) => (
+              <div
+                key={rival.label}
+                className="flex items-center gap-3 rounded-xl bg-white/5 border border-primary-gray/20 p-3"
+              >
+                {rival.image && (
                   <Image
-                    src={teamInfo[2].image}
-                    alt="Country"
-                    width={24}
-                    height={24}
+                    src={rival.image}
+                    alt={rival.label}
+                    width={36}
+                    height={36}
+                    className="rounded-full"
                   />
                 )}
-                {teamInfo[2]?.value}
+                <p className="text-sm text-white font-medium">{rival.label}</p>
               </div>
-            </div>
-
-            <div className="grid grid-cols-2 gap-3">
-              <div className="bg-black/20 backdrop-blur-sm border border-white/10 p-4 rounded-xl">
-                <p className="text-[10px] uppercase text-primary-gray">
-                  Founded
-                </p>
-                <p className="text-white font-bold">
-                  {teamInfo[3]?.value ?? "N/A"}
-                </p>
-              </div>
-
-              <div className="bg-black/20 backdrop-blur-sm border border-white/10 p-4 rounded-xl">
-                <p className="text-[10px] uppercase text-primary-gray">
-                  Stadium
-                </p>
-                <p className="text-white font-bold truncate">
-                  {venue?.[0]?.value ?? "N/A"}
-                </p>
-              </div>
-            </div>
-          </div>
-        </Card>
-      )}
-
-      {venue && (
-        <Card className="md:row-span-2 relative overflow-hidden">
-          {venue[1]?.image && (
-            <Image
-              src={venue[1].image}
-              alt="Stadium"
-              fill
-              className="object-cover"
-            />
-          )}
-
-          <div className="absolute inset-0 bg-black/60" />
-
-          <div className="relative z-10 p-5 flex flex-col justify-between h-full">
-            <div className="flex items-center gap-2 text-primary-green">
-              <MapPin size={16} />
-              <span className="uppercase tracking-widest text-sm">Venue</span>
-            </div>
-
-            <div className="bg-black/40 p-4 rounded-xl backdrop-blur-sm">
-              <h3 className="text-white font-semibold">{venue[0]?.value}</h3>
-              <p className="text-primary-green text-3xl font-black">
-                {venue[2]?.value}
-              </p>
-              <p className="text-[10px] uppercase text-primary-gray">
-                Capacity
-              </p>
-            </div>
-          </div>
-        </Card>
-      )}
-
-      {rankings?.[0] && (
-        <Card className="p-6 bg-primary-green/5 border-primary-green/30 relative overflow-hidden">
-          <div className="flex items-center gap-2 text-primary-green mb-2">
-            <Trophy size={16} />
-            <span className="uppercase tracking-widest text-sm">Ranking</span>
-          </div>
-
-          <p className="text-white font-medium">
-            {rankings[0].label} {rankings[0].value}
-          </p>
-          <p className="text-xs text-primary-gray">
-            {rankings[0].extra ?? "Top Tier Team"}
-          </p>
-
-          <Trophy
-            size={100}
-            className="absolute -right-5 -bottom-5 text-primary-green/10 -rotate-12 pointer-events-none"
-          />
-        </Card>
-      )}
-
-      {rivals && (
-        <Card className="p-6">
-          <div className="flex items-center gap-2 text-primary-green mb-4">
-            <Shield size={16} />
-            <span className="uppercase tracking-widest text-sm">
-              Key Rivals
-            </span>
-          </div>
-
-          <ul className="space-y-3">
-            {rivals.map((r, i) => (
-              <li key={i} className="flex items-center gap-3 text-white">
-                {r.image && (
-                  <Image src={r.image} alt={r.label} width={22} height={22} />
-                )}
-                <span className="truncate">{r.label}</span>
-              </li>
             ))}
-          </ul>
+          </CardContent>
         </Card>
-      )}
 
-      {seasons && (
-        <Card className="md:col-span-2 p-6">
-          <div className="flex items-center gap-2 text-primary-green mb-4">
-            <Users size={16} />
-            <span className="uppercase tracking-widest text-sm">
-              Current Seasons
-            </span>
-          </div>
-
-          <div className="grid sm:grid-cols-2 gap-3">
-            {seasons.map((s, i) => (
-              <div
-                key={i}
-                className="bg-white/5 border border-white/5 rounded-xl p-4"
-              >
-                <div className="flex justify-between">
-                  <p className="text-white font-semibold">{s.label}</p>
-                  {s.value && (
-                    <Badge className="bg-primary-green/20 text-primary-green text-[10px]">
-                      {s.value}
-                    </Badge>
+        <Card className="shadow-none border-primary-gray/20">
+          <CardHeader>
+            <CardTitle className="text-sm sm:text-xl font-semibold text-primary-green flex items-center gap-2">
+              <Trophy className="w-4 h-4 text-primary-green" /> Recent Seasons
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="ml-2 border-l border-primary-gray/20 pl-6 space-y-8">
+              {seasons?.map((season) => (
+                <div key={season.label} className="relative">
+                  <div className="absolute -left-7.75 top-1.5 w-3 h-3 rounded-full bg-primary-green" />
+                  <h4 className="text-sm sm:text-xl font-bold text-white">
+                    {season.label}
+                  </h4>
+                  {season.extra && (
+                    <p className="text-xs sm:text-sm text-primary-gray">
+                      {season.extra}
+                    </p>
                   )}
                 </div>
-                <p className="text-xs text-primary-gray mt-2">
-                  {s.extra ?? "—"}
-                </p>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          </CardContent>
         </Card>
-      )}
+      </div>
 
       {socials && (
-        <Card className="p-6">
-          <div className="flex items-center gap-2 text-primary-green mb-4">
-            <LinkIcon size={16} />
-            <span className="uppercase tracking-widest text-sm">Connect</span>
+        <footer className="pt-8 border-t border-primary-gray/20 flex flex-col md:flex-row items-center justify-between gap-6">
+          <div className="flex items-center gap-4">
+            <div className="w-10 h-10 rounded-full bg-primary-green flex items-center justify-center text-black">
+              <Globe size={20} />
+            </div>
+            <div>
+              <p className="text-white font-bold text-sm">
+                Our Social Media Handles
+              </p>
+              <p className="text-primary-gray text-xs">Follow the journey</p>
+            </div>
           </div>
-
-          <div className="grid grid-cols-2 md:grid-cols-1 gap-2">
+          <div className="flex gap-3">
             {socials.map((s, i) => (
               <a
                 key={i}
-                href={s.extra ?? "#"}
-                target="_blank"
-                className="flex items-center gap-2 p-2 bg-white/5 rounded-lg hover:bg-primary-green/10"
+                href="#"
+                className="w-11 h-11 flex items-center justify-center rounded-xl bg-white/5 border border-primary-gray/20 text-primary-gray hover:text-primary-green hover:border-primary-green/40 transition-all"
               >
-                {getSocialIcon(s.label, "text-white")}
-                <span className="text-xs text-white truncate">{s.label}</span>
+                {getSocialIcon(s.label)}
               </a>
             ))}
           </div>
-        </Card>
+        </footer>
       )}
-    </section>
+    </div>
   );
 };
 

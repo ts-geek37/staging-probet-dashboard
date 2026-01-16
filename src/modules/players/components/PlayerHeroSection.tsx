@@ -13,7 +13,7 @@ interface Props {
 
 const PlayerHeroSection: React.FC<Props> = ({ player }) => {
   return (
-    <div className="relative overflow-hidden rounded-3xl border border-primary-gray/20 p-4 bg-[#12151C]">
+    <div className="relative overflow-hidden rounded-sm border border-primary-gray/20 p-4 bg-[#12151C]">
       <div className="flex flex-col gap-6 relative z-10">
         <div className="flex flex-row items-center gap-4 md:gap-8">
           <div className="relative h-24 w-24 md:w-40 md:h-40 overflow-hidden bg-primary-gray rounded-xl shadow-inner border border-primary-gray/20">
