@@ -20,23 +20,23 @@ const ListCard = <T,>({
   if (!items.length) return emptyState ?? null;
 
   return (
-    <div className="rounded-xl border border-primary-gray/20 overflow-hidden">
-      <div className="flex items-center justify-between p-4 border-b border-primary-gray/20 bg-slate-900 ">
-        <h3 className="font-semibold text-sm sm:text-base md:text-lg text-primary-green">
+    <div className="rounded-xl border border-primary-gray/20 overflow-hidden backdrop-blur-sm">
+      <div className="flex items-center justify-between px-5 py-4 border-b border-primary-gray/10 bg-[#1e293b]/30">
+        <h3 className="font-medium text-base md:text-lg tracking-tight">
           {title}
         </h3>
 
         {href && (
           <Link
             href={href}
-            className="text-xs sm:text-sm text-primary-gray hover:text-white"
+            className="text-xs sm:text-sm text-primary-gray hover:text-primary-green transition-colors"
           >
             {linkLabel}
           </Link>
         )}
       </div>
 
-      <div className="flex flex-col divide-y divide-primary-gray/20">
+      <div className="flex flex-col divide-y divide-primary-gray/10">
         {items.map(renderItem)}
       </div>
     </div>
