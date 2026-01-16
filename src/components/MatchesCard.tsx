@@ -3,11 +3,17 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import React from "react";
 
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import { MatchListItem, MatchListStatus, MatchStatus } from "@/types/matches";
+import {
+  MatchListItem,
+  MatchListStatus,
+  MatchStatus,
+  MatchTeam,
+} from "@/types/matches";
 import {
   MatchListItem as PlayerMatch,
   MatchStatus as PlayerStatus,
@@ -17,7 +23,6 @@ import { formatDate, formatUtcTime } from "@/utils";
 interface MatchCardProps {
   match: MatchListItem | PlayerMatch;
   href?: string;
-  onClick?: () => void;
 }
 
 const StatusBadge: React.FC<{ status: MatchStatus | PlayerStatus }> = ({
@@ -58,21 +63,27 @@ const TeamLogo: React.FC<{ src: string | null; alt: string }> = ({
 );
 
 const TeamRow: React.FC<{
-  team: { name: string; logo?: string | null };
+  team: MatchTeam;
   value: string | number;
 }> = ({ team, value }) => (
   <div className="flex items-center justify-between gap-3">
-    <div className="flex items-center gap-3 min-w-0 flex-1">
+    <Link
+      href={`/teams/${team.id}`}
+      onClick={(e) => e.stopPropagation()}
+      className="flex items-center gap-3 min-w-0 flex-1 hover:underline"
+    >
       <TeamLogo src={team.logo ?? null} alt={team.name} />
       <span className="truncate text-sm font-medium text-white">
         {team.name}
       </span>
-    </div>
+    </Link>
+
     <span className="text-base text-primary-gray">{value}</span>
   </div>
 );
 
-const MatchCard: React.FC<MatchCardProps> = ({ match, href, onClick }) => {
+const MatchCard: React.FC<MatchCardProps> = ({ match, href }) => {
+  const router = useRouter();
   const { kickoff_time, league, score, season, status, teams } = match;
 
   const kickoffTimeValue =
@@ -91,16 +102,25 @@ const MatchCard: React.FC<MatchCardProps> = ({ match, href, onClick }) => {
   const getValue = (isHome: boolean) =>
     isUpcoming ? formattedTime : isHome ? homeScore : awayScore;
 
-  const content = (
+  return (
     <motion.div
       whileHover={{ scale: 1.02 }}
       whileTap={{ scale: 0.98 }}
+      onClick={() => href && router.push(href)}
       transition={{ type: "spring", stiffness: 400, damping: 25 }}
     >
       <Card className="cursor-pointer h-full border border-primary-gray/20 py-3 gap-2 transition-all duration-300">
         <CardHeader className="pb-2 pt-3 px-4">
           <div className="flex items-center justify-between gap-2">
-            <div className="flex items-center gap-2.5 flex-1">
+            <div
+              onClick={(e) => {
+                e.stopPropagation();
+                router.push(`/leagues/${league.id}`);
+              }}
+              role="button"
+              tabIndex={0}
+              className="flex items-center gap-2.5 flex-1 cursor-pointer hover:opacity-80 active:opacity-70"
+            >
               <Image
                 src={league.logo || "/no-image.png"}
                 alt={league.name}
@@ -134,20 +154,6 @@ const MatchCard: React.FC<MatchCardProps> = ({ match, href, onClick }) => {
       </Card>
     </motion.div>
   );
-
-  if (href) {
-    return (
-      <Link
-        href={href}
-        onClick={onClick}
-        className="block rounded-lg focus-visible:ring-2 focus-visible:ring-ring"
-      >
-        {content}
-      </Link>
-    );
-  }
-
-  return content;
 };
 
 export default MatchCard;

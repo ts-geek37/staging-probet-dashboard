@@ -4,8 +4,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 import { ApiResponse } from "@/api/types";
-import { SearchBar } from "@/components";
-import Select from "@/components/form/select";
+import { SearchBar, SelectField } from "@/components";
 import Pagination from "@/components/Pagination";
 import { Continent, LeaguesListResponse } from "@/types/leagues";
 
@@ -72,10 +71,10 @@ const LeagueListing: React.FC<Props> = ({ initialLeagues }) => {
             isMobileAbsolute
           />
         </div>
-        <Select
+        <SelectField
           options={options}
           onChange={(value) => handleContinentChange(value as string)}
-          value={continent}
+          value={continent ?? "All"}
         />
       </div>
 

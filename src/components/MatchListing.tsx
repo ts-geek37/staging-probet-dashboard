@@ -1,7 +1,5 @@
 "use client";
 
-import { useRouter } from "next/navigation";
-
 import { MatchListItem } from "@/types/matches";
 
 import MatchCardSkeleton from "./MatchCardSkeleton";
@@ -20,8 +18,6 @@ const MatchListing: React.FC<MatchListingProps> = ({
   matches,
   isLoading = false,
 }) => {
-  const router = useRouter();
-
   return (
     <div className="w-full">
       <h2 className="text-lg text-white font-semibold mb-4">{title}</h2>
@@ -36,7 +32,7 @@ const MatchListing: React.FC<MatchListingProps> = ({
               <MatchCard
                 key={match.id}
                 match={match}
-                onClick={() => router.push(`/matches/${match.id}`)}
+                href={`/matches/${match.id}`}
               />
             ))}
       </div>

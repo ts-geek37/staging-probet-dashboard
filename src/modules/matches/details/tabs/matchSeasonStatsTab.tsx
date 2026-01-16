@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import React from "react";
 
 import { NoData, SkeletonCardLoader } from "@/components";
@@ -16,6 +17,7 @@ interface Props {
 }
 
 const MatchSeasonStatsTab: React.FC<Props> = ({ match }) => {
+  const router = useRouter();
   const seasonId = match.season?.id;
 
   const { stats, statSections, isLoading, quickStatCards } = useMatchSeasonStat(
@@ -33,7 +35,15 @@ const MatchSeasonStatsTab: React.FC<Props> = ({ match }) => {
   return (
     <div className="max-w-7xl mx-auto space-y-8">
       <div className="flex items-center justify-between px-0">
-        <div className="flex flex-col items-center gap-3 flex-1">
+        <div
+          onClick={(e) => {
+            e.stopPropagation();
+            router.push(`/teams/${home.id}`);
+          }}
+          role="button"
+          tabIndex={0}
+          className="flex flex-col items-center gap-3 flex-1 cursor-pointer"
+        >
           <div className="size-16 sm:size-20 bg-white/5 rounded-2xl p-3 border border-white/10 shadow-xl">
             {home.logo && (
               <Image
@@ -59,7 +69,15 @@ const MatchSeasonStatsTab: React.FC<Props> = ({ match }) => {
           </span>
         </div>
 
-        <div className="flex flex-col items-center gap-3 flex-1">
+        <div
+          onClick={(e) => {
+            e.stopPropagation();
+            router.push(`/teams/${away.id}`);
+          }}
+          role="button"
+          tabIndex={0}
+          className="flex flex-col items-center gap-3 flex-1 cursor-pointer"
+        >
           <div className="w-16 h-16 sm:w-20 sm:h-20 bg-white/5 rounded-2xl p-3 border border-white/10 shadow-xl">
             {away.logo && (
               <Image

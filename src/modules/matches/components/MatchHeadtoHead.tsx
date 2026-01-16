@@ -39,7 +39,15 @@ const MatchHeadToHead: React.FC<Props> = ({ matches }) => {
             className="text-white border p-0 gap-0 border-primary-gray/20 rounded-xl overflow-hidden w-full"
           >
             <div className="flex flex-wrap justify-between items-center gap-2 px-3 sm:px-4 py-2 bg-gray-950 text-[10px] sm:text-xs text-primary-gray">
-              <span>
+              <span
+                onClick={(e) => {
+                  e.stopPropagation();
+                  router.push(`/leagues/${match.league.id}`);
+                }}
+                role="button"
+                tabIndex={0}
+                className="cursor-pointer"
+              >
                 {match.league.name}{" "}
                 {match.season?.name ? `• ${match.season.name}` : ""}
               </span>
@@ -65,7 +73,15 @@ const MatchHeadToHead: React.FC<Props> = ({ matches }) => {
                     </span>
                   )}
                 </div>
-                <span className="text-xs sm:text-sm md:text-base font-semibold">
+                <span
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    router.push(`/teams/${match.teams.home.id}`);
+                  }}
+                  className="cursor-pointer"
+                  role="button"
+                  tabIndex={0}
+                >
                   {match.teams.home.name}
                 </span>
               </div>
@@ -97,7 +113,15 @@ const MatchHeadToHead: React.FC<Props> = ({ matches }) => {
                     </span>
                   )}
                 </div>
-                <span className="text-xs sm:text-sm md:text-base font-semibold">
+                <span
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    router.push(`/teams/${match.teams.away.id}`);
+                  }}
+                  role="button"
+                  tabIndex={0}
+                  className="cursor-pointer"
+                >
                   {match.teams.away.name}
                 </span>
               </div>

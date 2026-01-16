@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 
 import { NoData } from "@/components";
@@ -93,7 +94,11 @@ const TopScorers: React.FC<Props> = ({ id }) => {
                           {row.position}
                         </TableCell>
                         <TableCell>
-                          <div className="flex items-center gap-3">
+                          <Link
+                            href={`/players/${row.player.id}`}
+                            onClick={(e) => e.stopPropagation()}
+                            className="flex items-center gap-3 min-w-0 flex-1"
+                          >
                             <Image
                               src={row?.player?.image || "/no-image.png"}
                               alt={row?.player?.name || ""}
@@ -101,13 +106,17 @@ const TopScorers: React.FC<Props> = ({ id }) => {
                               height={1000}
                               className="size-7 shrink-0 rounded-full overflow-hidden bg-white/10"
                             />
-                            <span className="font-medium text-white transition-colors group-hover:text-primary-green">
+                            <span className="font-medium text-white transition-colors group-hover:text-primary-green group-active:text-primary-green">
                               {row.player.name}
                             </span>
-                          </div>
+                          </Link>
                         </TableCell>
                         <TableCell>
-                          <div className="flex items-center gap-2">
+                          <Link
+                            href={`/teams/${row.team.id}`}
+                            onClick={(e) => e.stopPropagation()}
+                            className="flex items-center gap-2"
+                          >
                             <Image
                               src={row.team.logo || "/no-image.png"}
                               alt={row.team.name}
@@ -115,12 +124,12 @@ const TopScorers: React.FC<Props> = ({ id }) => {
                               height={1000}
                               className="size-7 shrink-0 rounded-full overflow-hidden bg-white/10"
                             />
-                            <span className="font-medium transition-colors group-hover:text-primary-green">
+                            <span className="font-medium transition-colors group-hover:text-primary-green group-active:text-primary-green">
                               {row.team.name}
                             </span>
-                          </div>
+                          </Link>
                         </TableCell>
-                        <TableCell className="font-bold group-hover:text-primary-green text-center">
+                        <TableCell className="font-bold group-hover:text-primary-green group-active:text-primary-green text-center">
                           {row.total}
                         </TableCell>
                       </TableRow>

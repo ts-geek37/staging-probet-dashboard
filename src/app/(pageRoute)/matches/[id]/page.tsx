@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 
 import { getMatchDetail } from "@/api/matches";
+import { NoData } from "@/components";
 import { MatchDetailPresentation } from "@/modules/matches";
 import { MatchDetailView } from "@/types/matches";
 import { seo } from "@/utils/seo";
@@ -56,11 +57,7 @@ const MatchDetailPage = async ({ params }: PageProps) => {
   });
 
   if (!response.success || !response.data) {
-    return (
-      <div className="text-white min-h-screen flex items-center justify-center">
-        <h1 className="text-2xl">Match not found</h1>
-      </div>
-    );
+    return <NoData isCenter message="Match not found" />;
   }
 
   return <MatchDetailPresentation initialData={response.data} />;
