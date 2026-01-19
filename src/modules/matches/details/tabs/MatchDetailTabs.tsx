@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useCallback } from "react";
+import React, { useCallback, useMemo } from "react";
 
 import TabNavigation from "@/components/TabNavigation";
 import { MatchDetailView, MatchListItem } from "@/types/matches";
@@ -10,8 +10,9 @@ import MatchEventsTab from "./MatchEventsTab";
 import MatchHeadToHeadTab from "./MatchHeadToHeadTab";
 import MatchLineupsTab from "./MatchLineupsTab";
 import MatchOverviewTab from "./MatchOverviewTab";
-import MatchSeasonStatsTab from "./MatchSeasonStatsTab";
+import MatchSeasonStatsTab from "./matchSeasonStatsTab";
 import MatchStatsTab from "./MatchStatsTab";
+import { TAB_CONFIG } from "../../constants";
 
 interface Props {
   match: MatchListItem;
@@ -25,15 +26,9 @@ const MatchDetailTabs: React.FC<Props> = ({
   onTabChange,
 }) => {
   const matchId = match.id;
-  const tabs = Object.values(MatchDetailView).map((tab) => {
-    let label = tab.replace(/-/g, " ");
-    if (tab === MatchDetailView.STATS) label = "Match Stats";
-    if (tab === MatchDetailView.SEASON_STATS) label = "Season Stats";
-    return {
-      label: label.charAt(0).toUpperCase() + label.slice(1),
-      value: tab,
-    };
-  });
+  const tabs = useMemo(() => {
+    return TAB_CONFIG.filter((tab) => !tab.hideWhen?.includes(match.status));
+  }, [match.status]);
 
   const renderActiveTab = useCallback(() => {
     switch (activeTab) {
@@ -64,14 +59,14 @@ const MatchDetailTabs: React.FC<Props> = ({
   }, [activeTab, matchId, match]);
 
   return (
-    <div className="w-full">
+    <div className="w-full grid gap-6 pb-6">
       <TabNavigation
         activeTab={activeTab}
         tabs={tabs}
         onTabChange={onTabChange}
       />
 
-      <div className="mt-6 min-h-[50vh]">{renderActiveTab()}</div>
+      <div className="min-h-[40vh]">{renderActiveTab()}</div>
     </div>
   );
 };

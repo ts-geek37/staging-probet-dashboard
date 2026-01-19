@@ -1,7 +1,6 @@
 export { default as Ads } from "./Ads";
 export { default as Banner } from "./Banner";
 export { default as DataError } from "./DataError";
-export { default as LeagueStandingsTable } from "./LeagueStandingsTable";
 export { default as MatchCard } from "./MatchesCard";
 export { default as NewsCard } from "./NewsCard";
 export { default as NoData } from "./NoData";
@@ -14,3 +13,4 @@ export { default as TabNavigation } from "./TabNavigation";
 export { default as UpcomingMatchCard } from "./UpcomingMatchCard";
 export { default as VIPBanner } from "./VIPBanner";
 export { default as StatsGrid } from "./StatsGrid";
+export * from "./form";

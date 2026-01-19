@@ -37,7 +37,7 @@ const MatchStatsTab: FC<Props> = ({ matchId }) => {
           Match Statistics
         </h3>
 
-        <div className="flex justify-between w-full max-w-3xl mb-4">
+        <div className="flex justify-between w-full max-w-3xl sm:mb-4">
           <div className="text-left text-sm sm:text-base text-primary-green">
             {homeTeam.team.name}
           </div>
@@ -46,7 +46,7 @@ const MatchStatsTab: FC<Props> = ({ matchId }) => {
           </div>
         </div>
 
-        <div className="w-full space-y-4 max-w-3xl">
+        <div className="w-full max-w-3xl">
           {statKeys.map((key) => (
             <StatsRow
               key={key}

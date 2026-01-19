@@ -12,7 +12,7 @@ import { useHome } from "./hooks";
 import LatestNews from "./LatestNews";
 import LiveMatchCards from "./LiveMatchesCards";
 import PredictionBanner from "./PredictionBanner";
-import TopEuropeanLeaguesPage from "./TopEuropeanLeagues";
+import TopLeagues from "./TopLeagues";
 import UpcomingMatchCards from "./UpcomingMatchesCards";
 
 interface Props {
@@ -29,11 +29,19 @@ const Home: React.FC<Props> = ({ initialHome }) => {
       <Banner />
       <div className="max-w-7xl w-full mx-auto px-4">
         <VIPBanner />
-        <LiveMatchCards matches={data.sections.live_now} />
-        <VIPBanner />
-        <UpcomingMatchCards matches={data.sections.starting_soon} />
-        <VIPBanner />
-        <TopEuropeanLeaguesPage
+        {data.sections.live_now.length > 0 && (
+          <>
+            <LiveMatchCards matches={data.sections.live_now} />
+            <VIPBanner />
+          </>
+        )}
+        {data.sections.starting_soon.length > 0 && (
+          <>
+            <UpcomingMatchCards matches={data.sections.starting_soon} />
+            <VIPBanner />
+          </>
+        )}
+        <TopLeagues
           topLeagues={data.top_leagues}
           standings={data.popular_teams}
         />

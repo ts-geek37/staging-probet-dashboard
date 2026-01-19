@@ -1,4 +1,5 @@
 import { getLeagues } from "@/api/leagues";
+import { NoData } from "@/components";
 import { LeaguesBrowse } from "@/modules/leagues";
 import { seo } from "@/utils/seo";
 
@@ -15,7 +16,7 @@ const LeaguesPage = async () => {
   });
   const initialLeagues = response.data;
 
-  if (!initialLeagues) return null;
+  if (!initialLeagues) return <NoData isCenter message="No Leagues Found" />;
 
   return <LeaguesBrowse initialLeagues={response} />;
 };

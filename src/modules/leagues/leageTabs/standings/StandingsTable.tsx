@@ -12,6 +12,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { cn } from "@/lib/utils";
 import { LeagueStanding, LeagueStandingsResponse } from "@/types/leagues";
 
 type StandingUI = LeagueStanding & {
@@ -21,6 +22,11 @@ type StandingUI = LeagueStanding & {
   lose: number;
   goalDiff: number;
   form: ("W" | "D" | "L")[];
+};
+type Column = {
+  key: string;
+  label: string;
+  align: "left" | "center";
 };
 
 const STATIC_STANDINGS: StandingUI[] = [
@@ -60,6 +66,21 @@ interface Props {
   standings?: LeagueStandingsResponse["table"];
 }
 
+const COLUMNS: Column[] = [
+  { key: "rank", label: "#", align: "center" },
+  { key: "team", label: "Team", align: "left" },
+  { key: "played", label: "P", align: "center" },
+  { key: "wins", label: "W", align: "center" },
+  { key: "draws", label: "D", align: "center" },
+  { key: "losses", label: "L", align: "center" },
+  { key: "goalDiff", label: "GD", align: "center" },
+  { key: "points", label: "PTS", align: "center" },
+  { key: "form", label: "Form", align: "center" },
+];
+
+const TABLE_GRID =
+  "grid grid-cols-[0.5fr_6fr_repeat(6,1fr)_minmax(150px,2fr)] items-center px-5";
+
 const StandingsTable: React.FC<Props> = ({ standings }) => {
   const router = useRouter();
 
@@ -87,34 +108,23 @@ const StandingsTable: React.FC<Props> = ({ standings }) => {
       <div className="w-full overflow-x-auto">
         <Table className="min-w-225">
           <TableHeader>
-            <TableRow className="grid grid-cols-[40px_1fr_repeat(6,100px)_140px] h-12 border-b border-primary-gray/20 px-5 ">
-              <TableHead className="flex items-center justify-center text-primary-gray">
-                #
-              </TableHead>
-              <TableHead className="flex items-center text-primary-gray">
-                Team
-              </TableHead>
-              <TableHead className="flex items-center justify-center text-primary-gray">
-                P
-              </TableHead>
-              <TableHead className="flex items-center justify-center text-primary-gray">
-                W
-              </TableHead>
-              <TableHead className="flex items-center justify-center text-primary-gray">
-                D
-              </TableHead>
-              <TableHead className="flex items-center justify-center text-primary-gray">
-                L
-              </TableHead>
-              <TableHead className="flex items-center justify-center text-primary-gray">
-                GD
-              </TableHead>
-              <TableHead className="flex items-center justify-center text-primary-gray">
-                PTS
-              </TableHead>
-              <TableHead className="flex items-center justify-center text-primary-gray">
-                Form
-              </TableHead>
+            <TableRow
+              className={cn(
+                TABLE_GRID,
+                "text-sm border-b border-primary-gray/20",
+              )}
+            >
+              {COLUMNS.map(({ key, label, align }) => (
+                <TableHead
+                  key={key}
+                  className={cn(
+                    "flex items-center text-primary-gray",
+                    align === "center" ? "justify-center" : "justify-start",
+                  )}
+                >
+                  {label}
+                </TableHead>
+              ))}
             </TableRow>
           </TableHeader>
 
@@ -122,14 +132,20 @@ const StandingsTable: React.FC<Props> = ({ standings }) => {
             {data.map((row) => (
               <TableRow
                 key={row.team.id}
-                onClick={() => router.push(`/teams/${row.team.id}`)}
-                className="grid grid-cols-[40px_1fr_repeat(6,100px)_140px] px-5 py-3 text-sm text-primary-gray hover:bg-white/5 cursor-pointer border-b border-primary-gray/20"
+                className={cn(
+                  TABLE_GRID,
+                  "text-primary-gray text-sm hover:bg-white/5 border-b border-primary-gray/20",
+                  "group group-hover:text-primary-green active:bg-white/10 active:text-primary-green",
+                )}
               >
-                <TableCell className="font-semibold text-white">
+                <TableCell className="font-semibold text-left group-hover:text-primary-green active:text-primary-green">
                   {row.position}
                 </TableCell>
 
-                <TableCell className="flex items-center gap-3">
+                <TableCell
+                  className="flex items-center gap-3 cursor-pointer group-hover:text-primary-green active:text-primary-green"
+                  onClick={() => router.push(`/teams/${row.team.id}`)}
+                >
                   <Image
                     src={row.team.logo || "/no-image.png"}
                     alt={row.team.name}
@@ -139,25 +155,39 @@ const StandingsTable: React.FC<Props> = ({ standings }) => {
                   <span>{row.team.name}</span>
                 </TableCell>
 
-                <TableCell className="text-center">{row.played}</TableCell>
-                <TableCell className="text-center">{row.win}</TableCell>
-                <TableCell className="text-center">{row.draw}</TableCell>
-                <TableCell className="text-center">{row.lose}</TableCell>
-                <TableCell className="text-center">{row.goalDiff}</TableCell>
-                <TableCell className="text-center">{row.points}</TableCell>
+                <TableCell className="text-center group-hover:text-primary-green active:text-primary-green">
+                  {row.played}
+                </TableCell>
+                <TableCell className="text-center group-hover:text-primary-green active:text-primary-green">
+                  {row.win}
+                </TableCell>
+                <TableCell className="text-center group-hover:text-primary-green active:text-primary-green">
+                  {row.draw}
+                </TableCell>
+                <TableCell className="text-center group-hover:text-primary-green active:text-primary-green">
+                  {row.lose}
+                </TableCell>
+                <TableCell className="text-center group-hover:text-primary-green active:text-primary-green">
+                  {row.goalDiff}
+                </TableCell>
+                <TableCell className="text-center group-hover:text-primary-green active:text-primary-green">
+                  {row.points}
+                </TableCell>
 
                 <TableCell className="flex justify-center">
                   <div className="flex gap-2">
-                    {row.form.map((f: "W" | "D" | "L", i: number) => (
-                      <span
-                        key={i}
-                        className={`w-6 h-6 flex items-center justify-center text-xs rounded ${formColor(
-                          f,
-                        )} text-white`}
-                      >
-                        {f}
-                      </span>
-                    ))}
+                    {row.form
+                      .slice(0, 5)
+                      .map((f: "W" | "D" | "L", i: number) => (
+                        <span
+                          key={i}
+                          className={`w-6 h-6 flex items-center justify-center text-xs rounded ${formColor(
+                            f,
+                          )} text-white`}
+                        >
+                          {f}
+                        </span>
+                      ))}
                   </div>
                 </TableCell>
               </TableRow>

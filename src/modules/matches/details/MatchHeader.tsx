@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import React from "react";
 
 import { Card, CardContent } from "@/components/ui/card";
@@ -12,6 +13,7 @@ interface Props {
 
 const MatchHeader: React.FC<Props> = ({ match }) => {
   const { league, teams, score, kickoff_time, status } = match;
+  const router = useRouter();
 
   const getMatchTime = () => {
     if (status === "LIVE" && kickoff_time) {
@@ -20,11 +22,20 @@ const MatchHeader: React.FC<Props> = ({ match }) => {
     }
     return status;
   };
+  const handleClick = (e: React.MouseEvent, path: string) => {
+    e.stopPropagation();
+    router.push(path);
+  };
 
   return (
-    <Card className="w-full mx-auto my-6 border-primary-gray/20 text-white overflow-hidden ">
+    <Card className="w-full mx-auto border-primary-gray/20 text-white overflow-hidden ">
       <CardContent className="flex flex-col items-center justify-center px-2 sm:px-6">
-        <div className="flex items-center gap-2 mb-6">
+        <div
+          role="button"
+          tabIndex={0}
+          onClick={(e) => handleClick(e, `/leagues/${league.id}`)}
+          className="flex items-center gap-2 mb-2 sm:mb-6 cursor-pointer"
+        >
           <Image
             src={league.logo || "/no-image.png"}
             alt={league.name}
@@ -38,7 +49,12 @@ const MatchHeader: React.FC<Props> = ({ match }) => {
         </div>
 
         <div className="flex items-center justify-center w-full max-w-2xl px-0 sm:px-4">
-          <div className="flex flex-col items-center flex-1">
+          <div
+            role="button"
+            tabIndex={0}
+            onClick={(e) => handleClick(e, `/teams/${teams.home.id}`)}
+            className="flex flex-col items-center flex-1 cursor-pointer"
+          >
             <div className=" p-3 rounded-full mb-3">
               <Image
                 src={teams.home.logo || "/no-image.png"}
@@ -52,16 +68,22 @@ const MatchHeader: React.FC<Props> = ({ match }) => {
               {teams.home.name}
             </span>
           </div>
-          <div className="flex flex-col items-center mx-12">
-            <div className="text-2xl min-[350px]:text-4xl md:text-6xl font-bold tracking-tighter mb-2">
+
+          <div className="flex flex-col items-center sm:mx-12">
+            <div className="text-lg sm:text-xl md:text-2xl min-[350px]:text-4xl font-bold tracking-tighter mb-2">
               {score?.home ?? 0} - {score?.away ?? 0}
             </div>
-            <p className="text-sm font-semibold text-gray-400 capitalize">
+            <p className="text-xs sm:text-sm font-semibold text-gray-400 capitalize">
               {getMatchTime()}
             </p>
           </div>
 
-          <div className="flex flex-col items-center flex-1">
+          <div
+            role="button"
+            tabIndex={0}
+            onClick={(e) => handleClick(e, `/teams/${teams.away.id}`)}
+            className="flex cursor-pointer flex-col items-center flex-1"
+          >
             <div className="p-3 rounded-full mb-3">
               <Image
                 src={teams.away.logo || "/no-image.png"}

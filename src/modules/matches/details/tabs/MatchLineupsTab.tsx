@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import React from "react";
 
 import { NoData, SkeletonCardLoader } from "@/components";
+import { cn } from "@/lib/utils";
 import { MatchDetailView, MatchLineupsResponse } from "@/types/matches";
 
 import { PlayerListCard } from "../../components";
@@ -49,11 +50,10 @@ const MatchLineupsTab: React.FC<Props> = ({ matchId }) => {
                 </div>
 
                 <div
-                  className={`flex h-10 w-10 items-center justify-center rounded-full font-bold ${
-                    isHome
-                      ? "bg-primary-green text-black"
-                      : "bg-primary-red text-white"
-                  }`}
+                  className={cn(
+                    "flex h-10 w-10 items-center justify-center rounded-full text-white font-bold",
+                    isHome ? "bg-primary-green" : "bg-primary-red",
+                  )}
                 >
                   {team.starting_xi.length}
                 </div>
@@ -66,19 +66,21 @@ const MatchLineupsTab: React.FC<Props> = ({ matchId }) => {
               players={team.starting_xi}
               onPlayerClick={(id) => router.push(`/players/${id}`)}
               maxHeightClassName="max-h-[320px]"
-              headerClassName={`bg-gradient-to-r px-5 py-4 ${
+              headerClassName={cn(
+                "bg-gradient-to-r",
                 isHome
                   ? "from-primary-green/10 to-primary-green/5"
-                  : "from-primary-red/10 to-primary-red/5"
-              }`}
-              itemClassName={`group flex cursor-pointer items-center gap-4 px-5 py-3 transition-all ${
-                isHome ? "hover:bg-primary-green/10" : "hover:bg-primary-red/10"
-              }`}
-              numberClassName={`flex h-9 w-9 items-center justify-center rounded-lg font-bold ${
+                  : "from-primary-red/10 to-primary-red/5",
+              )}
+              itemClassName={cn(
                 isHome
-                  ? "bg-primary-green text-black"
-                  : "bg-primary-red text-white"
-              }`}
+                  ? "hover:bg-primary-green/10"
+                  : "hover:bg-primary-red/10",
+              )}
+              numberClassName={cn(
+                "text-white font-bold",
+                isHome ? "bg-primary-green" : "bg-primary-red",
+              )}
             />
 
             <PlayerListCard
@@ -86,10 +88,9 @@ const MatchLineupsTab: React.FC<Props> = ({ matchId }) => {
               icon={Shuffle}
               players={team.substitutes}
               onPlayerClick={(id) => router.push(`/players/${id}`)}
-              maxHeightClassName="max-h-[280px]"
               headerClassName="bg-gradient-to-r from-white/5 to-white/[0.02] px-5 py-4"
-              itemClassName="group flex cursor-pointer items-center gap-4 px-5 py-2 hover:bg-white/5"
-              numberClassName="flex h-8 w-8 items-center justify-center rounded-lg bg-white/10 text-white/80"
+              itemClassName="py-2 hover:bg-white/5"
+              numberClassName="bg-white/10 text-white/80"
             />
           </div>
         );

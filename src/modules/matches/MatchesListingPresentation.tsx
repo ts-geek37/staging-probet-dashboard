@@ -43,7 +43,7 @@ const MatchesListingPresentation: React.FC = () => {
         className="w-full h-20 object-cover"
         priority
       />
-      <div className="max-w-7xl mx-auto px-4 space-y-10">
+      <div className="max-w-7xl mx-auto px-4 flex flex-col gap-4">
         <div className="flex flex-col sm:flex-row items-start sm:items-end justify-between gap-6">
           <div className="space-y-2">
             <h1 className="text-2xl sm:text-5xl font-bold">Match Center</h1>
