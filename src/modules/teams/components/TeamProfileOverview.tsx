@@ -1,7 +1,4 @@
 "use client";
-import React from "react";
-import Image from "next/image";
-import Link from "next/link";
 import {
   MapPin,
   Trophy,
@@ -13,6 +10,10 @@ import {
   TrendingUp,
   Shield,
 } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
+import React from "react";
+
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 

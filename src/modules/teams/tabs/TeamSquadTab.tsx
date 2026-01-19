@@ -1,13 +1,15 @@
 "use client";
 
 import React from "react";
+
+import { DataError, NoData, SkeletonCardLoader } from "@/components";
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { DataError, NoData, SkeletonCardLoader } from "@/components";
+
 import PlayerRow from "../components/PlayerCard";
 import { useTeamPlayers } from "../hooks";
 

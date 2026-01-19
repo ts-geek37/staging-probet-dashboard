@@ -4,6 +4,7 @@ import { ChevronRight } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React from "react";
+
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 import type { TeamPlayer } from "@/types/teams";
