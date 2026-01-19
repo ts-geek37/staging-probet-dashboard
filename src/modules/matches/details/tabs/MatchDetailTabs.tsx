@@ -5,7 +5,6 @@ import React, { useCallback, useMemo } from "react";
 import TabNavigation from "@/components/TabNavigation";
 import { MatchDetailView, MatchListItem } from "@/types/matches";
 
-import { TAB_CONFIG } from "../../constants";
 import MatchCommentsTab from "./MatchCommentsTab";
 import MatchEventsTab from "./MatchEventsTab";
 import MatchHeadToHeadTab from "./MatchHeadToHeadTab";
@@ -13,6 +12,7 @@ import MatchLineupsTab from "./MatchLineupsTab";
 import MatchOverviewTab from "./MatchOverviewTab";
 import MatchSeasonStatsTab from "./matchSeasonStatsTab";
 import MatchStatsTab from "./MatchStatsTab";
+import { TAB_CONFIG } from "../../constants";
 
 interface Props {
   match: MatchListItem;

@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { Socket } from "socket.io-client";
+
 import { getSocket } from "../socketManager";
 
 const DEBUG = process.env.NEXT_PUBLIC_WS_DEBUG === "true";

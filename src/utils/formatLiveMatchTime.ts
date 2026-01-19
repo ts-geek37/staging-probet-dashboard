@@ -12,6 +12,6 @@ export const formatLiveMatchTime = (
   if (typeof period.timeAdded === "number") {
     return `${period.minutes}+${period.timeAdded}'`;
   }
-  
+
   return `${period.minutes}'`;
 };

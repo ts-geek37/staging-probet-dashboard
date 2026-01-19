@@ -1,7 +1,9 @@
 "use client";
 
-import { MatchEventItem } from "@/types/matches";
 import { useEffect, useRef, useState } from "react";
+
+import { MatchEventItem } from "@/types/matches";
+
 import useSocket from "./useSocket";
 
 const DEBUG = process.env.NEXT_PUBLIC_WS_DEBUG === "true";

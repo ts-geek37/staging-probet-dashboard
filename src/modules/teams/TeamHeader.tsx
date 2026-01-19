@@ -22,8 +22,8 @@ const TeamHeader: React.FC<Props> = ({ team }) => {
             <Image
               src={headerData.logo || "/no-image.png"}
               alt={headerData.name}
-              width={48}
-              height={48}
+              width={500}
+              height={100}
               className="h-15 w-15 object-contain sm:h-20 md:w-20"
             />
           </div>

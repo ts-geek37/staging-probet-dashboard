@@ -11,12 +11,27 @@ import UpcomingMatches from "./UpcomingMatches";
 interface Props {
   status: MatchListStatus;
   search?: string;
+
+  initialMatches?: any;
+  scopeInfo?: any;
 }
 
-const MatchTabs: React.FC<Props> = ({ status, search }) => {
+const MatchTabs: React.FC<Props> = ({
+  status,
+  search,
+  initialMatches,
+  scopeInfo,
+}) => {
   switch (status) {
     case MatchListStatus.LIVE:
-      return <LiveMatches search={search} />;
+      return (
+        <LiveMatches
+          search={search}
+          initialMatches={initialMatches}
+          scopeInfo={scopeInfo}
+        />
+      );
+
     case MatchListStatus.UPCOMING:
       return <UpcomingMatches search={search} />;
     case MatchListStatus.FINISHED:

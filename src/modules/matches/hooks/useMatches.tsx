@@ -34,7 +34,6 @@ const useMatches = ({ tab, page = 1, limit = 10, q }: UseMatchesParams) => {
     limit: pagination?.limit ?? limit,
     count: pagination?.count ?? 0,
     total_pages: pagination?.total_pages ?? 0,
-
     isLoading,
     error,
   };

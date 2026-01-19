@@ -1,7 +1,9 @@
 "use client";
 
-import { MatchListItem } from "@/types/leagues";
 import { useEffect, useRef, useState } from "react";
+
+import { MatchListItem } from "@/types/matches";
+
 import useSocket from "./useSocket";
 import { LiveMatchesScopeProps, LiveScopeEnum } from "../types";
 

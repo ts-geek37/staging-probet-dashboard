@@ -4,9 +4,9 @@ import React from "react";
 
 import { NoData, SkeletonCardLoader } from "@/components";
 import { Card } from "@/components/ui/card";
+import { useLiveMatchEvents } from "@/modules/ws/hooks";
 import { MatchDetailView, MatchEventsResponse } from "@/types/matches";
 
-import { useLiveMatchEvents } from "@/modules/ws/hooks";
 import { MatchEvents } from "../../components";
 import useMatchDetail from "../../hooks/useMatchDetail";
 

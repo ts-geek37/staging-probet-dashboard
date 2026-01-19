@@ -7,8 +7,6 @@ import { SelectField } from "@/components/form";
 import { Card, CardContent } from "@/components/ui/card";
 
 interface SeasonOverviewProps {
-  rating: number;
-
   team: {
     id: number;
     name: string;
@@ -27,7 +25,6 @@ interface SeasonOverviewProps {
 }
 
 const SeasonOverview: React.FC<SeasonOverviewProps> = ({
-  rating,
   team,
   jersey_number,
   position,
@@ -64,24 +61,10 @@ const SeasonOverview: React.FC<SeasonOverviewProps> = ({
             {position?.name && (
               <p className="text-sm text-primary-gray">{position.name}</p>
             )}
-
-            <div className="flex items-center gap-2 sm:hidden ">
-              <span className="text-xs text-primary-gray">Rating</span>
-              <span className="text-sm font-semibold text-white">
-                {rating.toFixed(1)}
-              </span>
-            </div>
           </div>
         </div>
 
         <div className="flex items-center gap-4">
-          <div className="hidden sm:flex flex-col items-center justify-center rounded-lg bg-[#181d25] px-4 py-2">
-            <span className="text-xs text-primary-gray">Rating</span>
-            <span className="text-xl font-semibold text-white">
-              {rating.toFixed(1)}
-            </span>
-          </div>
-
           <SelectField
             options={seasonOptions}
             value={selectedSeasonId}

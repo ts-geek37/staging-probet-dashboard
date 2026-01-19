@@ -1,4 +1,5 @@
-import { LeagueCard, MatchListItem } from "./leagues";
+import { LeagueCard } from "./leagues";
+import { MatchListItem } from "./matches";
 import { TeamCard } from "./teams";
 
 export interface HomeResponse {

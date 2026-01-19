@@ -6,7 +6,6 @@ import { ApiResponse } from "@/api/types";
 import { VIPBanner } from "@/components";
 import { HomeResponse } from "@/types/home";
 
-import { LiveScopeEnum } from "../ws/types";
 import Banner from "./Banner";
 import { Testimonials } from "./components";
 import FinishedMatchesCards from "./FinishedMatchesCards";
@@ -16,6 +15,7 @@ import LiveMatchCards from "./LiveMatchesCards";
 import PredictionBanner from "./PredictionBanner";
 import TopLeagues from "./TopLeagues";
 import UpcomingMatchCards from "./UpcomingMatchesCards";
+import { LiveScopeEnum } from "../ws/types";
 
 interface Props {
   initialHome: ApiResponse<HomeResponse>;

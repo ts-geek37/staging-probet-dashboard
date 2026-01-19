@@ -40,7 +40,6 @@ const PlayerStatsTab: React.FC<Props> = ({ playerId }) => {
       {!!currentSeason && (
         <SeasonOverview
           {...currentSeason}
-          rating={currentSeason?.stats?.rating ?? 0}
           OnSeasonChange={setSeasonId}
           seasonOptions={seasonOptions}
           selectedSeasonId={currentSeason?.season?.id}

@@ -21,9 +21,6 @@ const PlayerDetailTabs: React.FC<Props> = ({
     case PlayerDetailView.STATS:
       return <PlayerStatsTab playerId={playerId} />;
 
-    case PlayerDetailView.MATCHES:
-      return <PlayerMatchesTab playerId={playerId} />;
-
     case PlayerDetailView.TRANSFERS:
       return <PlayerTransferTab playerId={playerId} />;
 

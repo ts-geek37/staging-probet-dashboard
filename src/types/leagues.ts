@@ -1,4 +1,4 @@
-import { LivePeriod } from "./matches";
+import { LivePeriod, MatchListItem } from "./matches";
 
 export interface LeagueMatch {
   id: number;
@@ -157,7 +157,6 @@ export interface LeagueSeasonInfo {
   stages?: StageInfo[];
   stage: StageInfo | null;
 }
-
 export interface LeagueProfileResponse {
   id: number;
   name: string;
@@ -239,33 +238,33 @@ export interface MatchTeams {
 }
 export type MatchStatus = "UPCOMING" | "LIVE" | "FINISHED";
 
-export interface MatchListItem {
-  id: number;
-  kickoff_time: string;
-  status: MatchStatus;
-  league: {
-    id: number;
-    name: string;
-    logo: string | null;
-  };
-  season?: {
-    id: number;
-    name: string;
-  };
-  venue?: {
-    id?: number;
-    name?: string;
-    capacity?: number;
-    city?: string;
-    country?: string;
-    surface?: string;
-    image?: string;
-  };
-  teams: MatchTeams;
-  score?: MatchScore;
-  referee?: string;
-  live_period?: LivePeriod | null;
-}
+// export interface MatchListItem {
+//   id: number;
+//   kickoff_time: string;
+//   status: MatchStatus;
+//   league: {
+//     id: number;
+//     name: string;
+//     logo: string | null;
+//   };
+//   season?: {
+//     id: number;
+//     name: string;
+//   };
+//   venue?: {
+//     id?: number;
+//     name?: string;
+//     capacity?: number;
+//     city?: string;
+//     country?: string;
+//     surface?: string;
+//     image?: string;
+//   };
+//   teams: MatchTeams;
+//   score?: MatchScore;
+//   referee?: string;
+//   live_period?: LivePeriod | null;
+// }
 
 export interface LeagueMatchesResponse {
   league: {

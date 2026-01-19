@@ -1,8 +1,10 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+
+import { MatchListItem } from "@/types/matches";
+
 import useSocket from "./useSocket";
-import { MatchListItem } from "@/types/leagues";
 
 const DEBUG = process.env.NEXT_PUBLIC_WS_DEBUG === "true";
 

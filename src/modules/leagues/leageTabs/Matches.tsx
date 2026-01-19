@@ -2,11 +2,11 @@ import React from "react";
 
 import { Ads } from "@/components";
 import MatchListing from "@/components/MatchListing";
+import LiveMatchCards from "@/modules/home/LiveMatchesCards";
+import { LiveScopeEnum } from "@/modules/ws/types";
 
 import { useLeagueMatches } from "../hooks";
 import LeagueBanner from "../LeagueBanner";
-import LiveMatchCards from "@/modules/home/LiveMatchesCards";
-import { LiveScopeEnum } from "@/modules/ws/types";
 
 interface Props {
   id: number;

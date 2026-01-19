@@ -3,15 +3,47 @@
 import useSWR from "swr";
 
 import { ApiResponse } from "@/api/types";
-import { MatchDetailView, MatchDetailViewResponseMap } from "@/types/matches";
+import {
+  MatchDetailView,
+  MatchDetailViewResponseMap,
+  MatchListStatus,
+  MatchStatus,
+} from "@/types/matches";
+
+import { useLiveMatchEvents, useLiveMatchDetail } from "../../ws/hooks";
 
 const useMatchDetail = <V extends MatchDetailView>(
   matchId: number,
   view: V = MatchDetailView.OVERVIEW as V,
+  status?: MatchListStatus | MatchStatus | number,
   team1?: number,
   team2?: number,
   seasonId?: number,
 ) => {
+  const isLiveEventsView =
+    view === MatchDetailView.EVENTS && status === MatchListStatus.LIVE;
+
+  const isLiveOverviewView =
+    view === MatchDetailView.OVERVIEW && status === MatchListStatus.LIVE;
+
+  const {
+    events: liveEvents,
+    loading: socketLoading,
+    connected: eventsConnected,
+  } = useLiveMatchEvents({
+    matchId,
+    enabled: isLiveEventsView,
+  });
+
+  const {
+    data: liveOverviewData,
+    loading: liveOverviewLoading,
+    connected: overviewConnected,
+  } = useLiveMatchDetail({
+    matchId,
+    enabled: isLiveOverviewView,
+  });
+
   let endpoint =
     view === MatchDetailView.OVERVIEW
       ? `/api/v2/matches/${matchId}`
@@ -25,12 +57,42 @@ const useMatchDetail = <V extends MatchDetailView>(
     endpoint = `/api/v2/matches/${matchId}/team-stats/${seasonId}`;
   }
 
-  const { data, error, isLoading } =
-    useSWR<ApiResponse<MatchDetailViewResponseMap[V]>>(endpoint);
+  const shouldFetch = !isLiveEventsView && !isLiveOverviewView;
+
+  const {
+    data,
+    error,
+    isLoading: swrLoading,
+  } = useSWR<ApiResponse<MatchDetailViewResponseMap[V]>>(
+    shouldFetch ? endpoint : null,
+  );
+
+  let returnData: MatchDetailViewResponseMap[V] | undefined;
+
+  if (isLiveEventsView) {
+    returnData = liveEvents as unknown as MatchDetailViewResponseMap[V];
+  } else if (isLiveOverviewView) {
+    returnData = (liveOverviewData ?? undefined) as
+      | MatchDetailViewResponseMap[V]
+      | undefined;
+  } else {
+    returnData = data?.data ?? undefined;
+  }
+
+  const isLoading = isLiveEventsView
+    ? socketLoading
+    : isLiveOverviewView
+      ? liveOverviewLoading
+      : swrLoading;
+
+  const isLive =
+    (isLiveEventsView && eventsConnected) ||
+    (isLiveOverviewView && overviewConnected);
 
   return {
-    data: data?.data,
+    data: returnData,
     isLoading,
+    isLive,
     error,
   };
 };

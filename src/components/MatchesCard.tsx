@@ -18,7 +18,8 @@ import {
   MatchListItem as PlayerMatch,
   MatchStatus as PlayerStatus,
 } from "@/types/players";
-import { formatDate, formatLiveMatchTime, formatUtcTime } from "@/utils";
+import { formatDate, formatUtcTime } from "@/utils";
+import formatLocalTime from "@/utils/formatLocalTime";
 
 interface MatchCardProps {
   match: MatchListItem | PlayerMatch;
@@ -77,33 +78,25 @@ const TeamRow: React.FC<{
         {team.name}
       </span>
     </Link>
-
-    <span className="text-base text-primary-gray">{value}</span>
+    <span className="text-base font-medium text-primary-gray">{value}</span>
   </div>
 );
 
 const MatchCard: React.FC<MatchCardProps> = ({ match, href }) => {
-  const { kickoff_time, league, score, season, status, teams, live_period } =
-    match;
-  const livePeriod = formatLiveMatchTime(live_period);
-  const kickoffTimeValue =
-    kickoff_time && kickoff_time !== "LATEST" ? kickoff_time : null;
+  const { kickoff_time, league, score, status, teams, live_period } = match;
   const router = useRouter();
-  const kickoffDate = kickoffTimeValue ? new Date(kickoffTimeValue) : null;
 
-  const formattedDate = kickoffDate ? formatDate(kickoffDate) : "--";
-  const formattedTime = kickoffDate ? formatUtcTime(kickoffTimeValue!) : "--";
-
-  const timeFormatted = livePeriod
-    ? livePeriod
-    : ` ${formattedDate} • ${formattedTime}`;
+  const isLive = status === "LIVE";
   const isUpcoming = status === "UPCOMING";
+
+  // Convert kickoff time to local time
+  const localKickoffTime = formatLocalTime(kickoff_time);
 
   const homeScore = score?.home ?? 0;
   const awayScore = score?.away ?? 0;
 
   const getValue = (isHome: boolean) =>
-    isUpcoming ? formattedTime : isHome ? homeScore : awayScore;
+    isUpcoming ? "-" : isHome ? homeScore : awayScore;
 
   return (
     <motion.div
@@ -121,7 +114,6 @@ const MatchCard: React.FC<MatchCardProps> = ({ match, href }) => {
                 router.push(`/leagues/${league.id}`);
               }}
               role="button"
-              tabIndex={0}
               className="flex items-center gap-2.5 flex-1 cursor-pointer hover:opacity-80 active:opacity-70"
             >
               <Image
@@ -143,12 +135,41 @@ const MatchCard: React.FC<MatchCardProps> = ({ match, href }) => {
           <TeamRow team={teams.home} value={getValue(true)} />
           <TeamRow team={teams.away} value={getValue(false)} />
 
-          <div className="mt-3 pt-3 border-t border-primary-gray/20 flex justify-between">
-            <span className="text-xs text-white">{timeFormatted}</span>
-            {season?.name && (
-              <span className="text-xs text-white truncate ml-2">
-                {season.name}
-              </span>
+          <div className="mt-3 pt-3 border-t border-primary-gray/20 flex justify-between items-center">
+            {isLive ? (
+              live_period ? (
+                <>
+                  <span className="text-base text-primary-green font-medium">
+                    {live_period.description} {live_period.minutes}'
+                    {live_period.timeAdded ? `+${live_period.timeAdded}'` : ""}
+                  </span>
+                  <div className="flex items-center gap-2">
+                    <span className="text-xs text-primary-gray">
+                      {localKickoffTime}
+                    </span>
+                  </div>
+                </>
+              ) : (
+                <>
+                  <span className="text-base text-primary-green font-medium">
+                    HALF TIME
+                  </span>
+                  <div className="flex items-center gap-2">
+                    <span className="text-xs text-primary-gray">
+                      {localKickoffTime}
+                    </span>
+                  </div>
+                </>
+              )
+            ) : (
+              <>
+                <span className="text-sm text-primary-gray font-medium">
+                  {formatDate(kickoff_time)}
+                </span>
+                <span className="text-sm text-primary-gray font-medium">
+                  {formatLocalTime(kickoff_time)}
+                </span>
+              </>
             )}
           </div>
         </CardContent>
