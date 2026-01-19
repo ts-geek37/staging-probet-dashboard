@@ -1,3 +1,5 @@
+import { LivePeriod } from "./matches";
+
 export interface LeagueMatch {
   id: number;
   kickoff_time: string;
@@ -262,6 +264,7 @@ export interface MatchListItem {
   teams: MatchTeams;
   score?: MatchScore;
   referee?: string;
+  live_period?: LivePeriod | null;
 }
 
 export interface LeagueMatchesResponse {

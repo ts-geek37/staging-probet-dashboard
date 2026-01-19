@@ -18,7 +18,7 @@ import {
   MatchListItem as PlayerMatch,
   MatchStatus as PlayerStatus,
 } from "@/types/players";
-import { formatDate, formatUtcTime } from "@/utils";
+import { formatDate, formatLiveMatchTime, formatUtcTime } from "@/utils";
 
 interface MatchCardProps {
   match: MatchListItem | PlayerMatch;
@@ -83,17 +83,20 @@ const TeamRow: React.FC<{
 );
 
 const MatchCard: React.FC<MatchCardProps> = ({ match, href }) => {
-  const router = useRouter();
-  const { kickoff_time, league, score, season, status, teams } = match;
-
+  const { kickoff_time, league, score, season, status, teams, live_period } =
+    match;
+  const livePeriod = formatLiveMatchTime(live_period);
   const kickoffTimeValue =
     kickoff_time && kickoff_time !== "LATEST" ? kickoff_time : null;
-
+  const router = useRouter();
   const kickoffDate = kickoffTimeValue ? new Date(kickoffTimeValue) : null;
 
   const formattedDate = kickoffDate ? formatDate(kickoffDate) : "--";
   const formattedTime = kickoffDate ? formatUtcTime(kickoffTimeValue!) : "--";
 
+  const timeFormatted = livePeriod
+    ? livePeriod
+    : ` ${formattedDate} • ${formattedTime}`;
   const isUpcoming = status === "UPCOMING";
 
   const homeScore = score?.home ?? 0;
@@ -141,9 +144,7 @@ const MatchCard: React.FC<MatchCardProps> = ({ match, href }) => {
           <TeamRow team={teams.away} value={getValue(false)} />
 
           <div className="mt-3 pt-3 border-t border-primary-gray/20 flex justify-between">
-            <span className="text-xs text-white">
-              {formattedDate} • {formattedTime}
-            </span>
+            <span className="text-xs text-white">{timeFormatted}</span>
             {season?.name && (
               <span className="text-xs text-white truncate ml-2">
                 {season.name}

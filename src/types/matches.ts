@@ -31,6 +31,20 @@ export interface MatchScore {
   away: number | null;
 }
 
+export interface LivePeriod {
+  id: number;
+  typeId: number;
+  description: string | null;
+
+  ticking: boolean;
+
+  minutes: number | null;
+  seconds: number | null;
+
+  timeAdded: number | null;
+  hasTimer: boolean;
+}
+
 export interface MatchListItem {
   id: number;
   kickoff_time: string;
@@ -40,6 +54,7 @@ export interface MatchListItem {
     name: string;
     logo: string | null;
   };
+  live_period?: LivePeriod | null;
   season?: {
     id: number;
     name: string;

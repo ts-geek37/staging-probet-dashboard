@@ -5,6 +5,8 @@ import MatchListing from "@/components/MatchListing";
 
 import { useLeagueMatches } from "../hooks";
 import LeagueBanner from "../LeagueBanner";
+import LiveMatchCards from "@/modules/home/LiveMatchesCards";
+import { LiveScopeEnum } from "@/modules/ws/types";
 
 interface Props {
   id: number;
@@ -16,6 +18,10 @@ const Matches: React.FC<Props> = ({ id }) => {
 
   return (
     <div className="flex-1 text-white flex flex-col gap-4 sm:gap-8 md:gap-12">
+      <LiveMatchCards
+        initialMatches={liveMatches}
+        scopeInfo={{ scope: LiveScopeEnum.LEAGUE, id }}
+      />
       {isLoading ? (
         <MatchListing title="Live Matches" matches={[]} isLoading />
       ) : (

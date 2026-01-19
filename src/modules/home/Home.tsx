@@ -6,8 +6,10 @@ import { ApiResponse } from "@/api/types";
 import { VIPBanner } from "@/components";
 import { HomeResponse } from "@/types/home";
 
+import { LiveScopeEnum } from "../ws/types";
 import Banner from "./Banner";
 import { Testimonials } from "./components";
+import FinishedMatchesCards from "./FinishedMatchesCards";
 import { useHome } from "./hooks";
 import LatestNews from "./LatestNews";
 import LiveMatchCards from "./LiveMatchesCards";
@@ -31,13 +33,22 @@ const Home: React.FC<Props> = ({ initialHome }) => {
         <VIPBanner />
         {data.sections.live_now.length > 0 && (
           <>
-            <LiveMatchCards matches={data.sections.live_now} />
+            <LiveMatchCards
+              initialMatches={data.sections.live_now}
+              scopeInfo={{ scope: LiveScopeEnum.GENERAL }}
+            />
             <VIPBanner />
           </>
         )}
         {data.sections.starting_soon.length > 0 && (
           <>
             <UpcomingMatchCards matches={data.sections.starting_soon} />
+            <VIPBanner />
+          </>
+        )}
+        {data.sections.recently_finished.length > 0 && (
+          <>
+            <FinishedMatchesCards matches={data.sections.recently_finished} />
             <VIPBanner />
           </>
         )}
