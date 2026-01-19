@@ -1,11 +1,20 @@
 "use client";
 
-import { Globe2, Sun, Trees, Mountain, Globe, Snowflake } from "lucide-react";
+import {
+  Globe,
+  Globe2,
+  Landmark,
+  Mountain,
+  Snowflake,
+  Sun,
+  Trees,
+  Waves,
+} from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 import { ApiResponse } from "@/api/types";
-import { SearchBar, SelectField } from "@/components";
+import { SearchBar } from "@/components";
 import Pagination from "@/components/Pagination";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -25,12 +34,12 @@ export const CONTINENT_ICON_MAP: Record<
   Continent,
   React.ComponentType<{ className?: string }>
 > = {
-  [Continent.EUROPE]: Globe2,
+  [Continent.EUROPE]: Landmark,
   [Continent.ASIA]: Sun,
   [Continent.AFRICA]: Trees,
   [Continent.NORTH_AMERICA]: Mountain,
-  [Continent.SOUTH_AMERICA]: Mountain,
-  [Continent.OCEANIA]: Globe,
+  [Continent.SOUTH_AMERICA]: Waves,
+  [Continent.OCEANIA]: Globe2,
   [Continent.ANTARCTICA]: Snowflake,
 };
 
@@ -109,7 +118,7 @@ const LeagueListing: React.FC<Props> = ({ initialLeagues }) => {
               <Icon
                 className={cn(
                   "size-4.5",
-                  !isActive ? "text-primary-green" : "text-white",
+                  isActive ? "text-primary-green" : "text-primary-green/80",
                 )}
               />
               {option.label}

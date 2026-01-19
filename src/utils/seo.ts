@@ -18,7 +18,7 @@ export const seo = ({ title, description }: SeoInput = {}): Metadata => {
   return {
     ...BASE_METADATA,
 
-    title: title ? title + " | ProBetTips" : BASE_METADATA.title,
+    title: title ? title : BASE_METADATA.title,
 
     description: description ?? BASE_METADATA.description,
   };
