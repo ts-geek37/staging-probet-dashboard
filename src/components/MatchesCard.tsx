@@ -18,7 +18,7 @@ import {
   MatchListItem as PlayerMatch,
   MatchStatus as PlayerStatus,
 } from "@/types/players";
-import { formatDate, formatUtcTime } from "@/utils";
+import { formatDate } from "@/utils";
 import formatLocalTime from "@/utils/formatLocalTime";
 
 interface MatchCardProps {
@@ -88,8 +88,6 @@ const MatchCard: React.FC<MatchCardProps> = ({ match, href }) => {
 
   const isLive = status === "LIVE";
   const isUpcoming = status === "UPCOMING";
-
-  // Convert kickoff time to local time
   const localKickoffTime = formatLocalTime(kickoff_time);
 
   const homeScore = score?.home ?? 0;

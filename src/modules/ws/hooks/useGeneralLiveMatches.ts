@@ -1,9 +1,8 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 
 import { MatchListItem } from "@/types/matches";
-
 import useSocket from "./useSocket";
 import { LiveMatchesScopeProps, LiveScopeEnum } from "../types";
 
@@ -18,10 +17,11 @@ const useGeneralLiveMatches = (
   scopeInfo: LiveMatchesScopeProps = {
     scope: LiveScopeEnum.GENERAL,
   },
+  search: string = ""
 ) => {
   const { socket, connected, error: socketError } = useSocket();
 
-  const [data, setData] = useState<MatchListItem[]>(initialData);
+  const [rawData, setRawData] = useState<MatchListItem[]>(initialData);
   const [loading, setLoading] = useState(!initialData.length);
   const [error, setError] = useState<string | null>(null);
 
@@ -44,7 +44,7 @@ const useGeneralLiveMatches = (
 
     const onUpdate = (items: MatchListItem[]) => {
       log("matches update", items);
-      setData(items);
+      setRawData(items);
       setLoading(false);
       setError(null);
     };
@@ -62,7 +62,7 @@ const useGeneralLiveMatches = (
       socket.off("matches:list:update", onUpdate);
       socket.off("matches:list:error", onError);
     };
-  }, [socket, connected]);
+  }, [socket, connected, scopeInfo]);
 
   useEffect(() => {
     return () => {
@@ -80,6 +80,19 @@ const useGeneralLiveMatches = (
       setLoading(false);
     }
   }, [socketError]);
+
+ 
+  const data = useMemo(() => {
+    if (!search.trim()) return rawData;
+
+    const q = search.toLowerCase();
+
+    return rawData.filter((match) =>
+      match.league?.name?.toLowerCase().includes(q) ||
+      match.teams?.home?.name?.toLowerCase().includes(q) ||
+      match.teams?.away?.name?.toLowerCase().includes(q)
+    );
+  }, [rawData, search]);
 
   return {
     data,

@@ -1,7 +1,8 @@
 const formatLocalTime = (utcTime?: string) => {
   if (!utcTime || utcTime === "LATEST") return "--";
 
-  const date = new Date(utcTime);
+  const isoUtc = utcTime.replace(" ", "T") + "Z";
+  const date = new Date(isoUtc);
 
   return date.toLocaleTimeString(undefined, {
     hour: "2-digit",

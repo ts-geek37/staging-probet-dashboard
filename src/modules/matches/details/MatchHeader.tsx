@@ -39,8 +39,8 @@ const MatchHeader: React.FC<Props> = ({ match }) => {
           <Image
             src={league.logo || "/no-image.png"}
             alt={league.name}
-            width={32}
-            height={32}
+            width={100}
+            height={100}
             className="object-contain w-6 h-6 sm:w-10 sm:h-10"
           />
           <p className="text-xs sm:text-sm font-medium text-white uppercase">
@@ -59,8 +59,8 @@ const MatchHeader: React.FC<Props> = ({ match }) => {
               <Image
                 src={teams.home.logo || "/no-image.png"}
                 alt={teams.home.name}
-                width={64}
-                height={64}
+                width={500}
+                height={500}
                 className="object-contain w-12 h-12 sm:w-20 sm:h-20"
               />
             </div>
