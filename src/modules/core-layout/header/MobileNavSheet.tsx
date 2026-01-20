@@ -63,9 +63,9 @@ const MobileNavSheet: React.FC<Props> = ({
           </Button>
         </SheetClose>
 
-        <nav className="flex flex-col gap-4">
+        <nav className="flex flex-col gap-4 ">
           {user && (
-            <div className="size-8">
+            <div className="size-8 sm:hidden">
               <UserButton />
             </div>
           )}

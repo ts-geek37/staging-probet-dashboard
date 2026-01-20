@@ -32,8 +32,8 @@ const useMatches = ({ tab, page = 1, limit = 10, q }: UseMatchesParams) => {
     tab: data?.data?.tab,
     page: pagination?.page ?? page,
     limit: pagination?.limit ?? limit,
+    has_more: pagination?.has_more ?? false,
     count: pagination?.count ?? 0,
-    total_pages: pagination?.total_pages ?? 0,
     isLoading,
     error,
   };

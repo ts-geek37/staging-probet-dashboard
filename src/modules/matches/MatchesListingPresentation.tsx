@@ -26,7 +26,7 @@ const MatchesListingPresentation: React.FC = () => {
 
   const statusOptions: { label: string; value: MatchListStatus }[] = [
     { label: "Live", value: MatchListStatus.LIVE },
-    { label: "Scheduled", value: MatchListStatus.UPCOMING },
+    { label: "Upcoming", value: MatchListStatus.UPCOMING },
     { label: "Finished", value: MatchListStatus.FINISHED },
   ];
 

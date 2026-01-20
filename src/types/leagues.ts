@@ -135,6 +135,7 @@ export interface PaginationMeta {
   limit: number;
   count: number;
   total_pages: number;
+  has_more?: boolean;
 }
 
 export interface Country {
