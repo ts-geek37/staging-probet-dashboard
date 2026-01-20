@@ -19,8 +19,8 @@ import {
   MatchStatus as PlayerStatus,
 } from "@/types/players";
 import { formatDate } from "@/utils";
-import formatLocalTime from "@/utils/formatLocalTime";
 import { getCountdownData } from "@/utils/formatCountdown";
+import formatLocalTime from "@/utils/formatLocalTime";
 
 interface MatchCardProps {
   match: MatchListItem | PlayerMatch;

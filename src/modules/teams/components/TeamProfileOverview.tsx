@@ -1,17 +1,16 @@
 "use client";
 import {
-  MapPin,
-  Trophy,
-  Twitter,
-  Instagram,
+  Calendar,
   Facebook,
   Globe,
-  Calendar,
-  TrendingUp,
+  Instagram,
+  MapPin,
   Shield,
+  TrendingUp,
+  Trophy,
+  Twitter,
 } from "lucide-react";
 import Image from "next/image";
-import Link from "next/link";
 import React from "react";
 
 import { Badge } from "@/components/ui/badge";
@@ -194,8 +193,11 @@ const TeamProfileOverview: React.FC<Props> = ({
             </CardHeader>
 
             <CardContent className="space-y-3">
-              {rivals.map((rival) => (
-                <div className="flex items-center gap-3 rounded-xl bg-white/5 border border-primary-gray/20 p-3 hover:border-primary-green/40 hover:bg-white/10 transition-all">
+              {rivals.map((rival, index) => (
+                <div
+                  key={index}
+                  className="flex items-center gap-3 rounded-xl bg-white/5 border border-primary-gray/20 p-3 hover:border-primary-green/40 hover:bg-white/10 transition-all"
+                >
                   {rival.image && (
                     <Image
                       src={rival.image}
