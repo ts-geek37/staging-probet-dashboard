@@ -109,7 +109,7 @@ const MatchCard: React.FC<MatchCardProps> = ({ match, href }) => {
   const awayScore = score?.away ?? 0;
 
   const getValue = (isHome: boolean) =>
-    isUpcoming ? "-" : isHome ? homeScore : awayScore;
+    isUpcoming ? "" : isHome ? homeScore : awayScore;
 
   useEffect(() => {
     if (!isUpcoming) return;

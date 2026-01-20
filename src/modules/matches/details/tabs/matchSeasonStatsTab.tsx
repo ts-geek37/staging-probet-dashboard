@@ -95,50 +95,58 @@ const MatchSeasonStatsTab: React.FC<Props> = ({ match }) => {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 gap-x-6 gap-y-8 md:grid-cols-2">
-        <Accordion
-          type="multiple"
-          className="contents"
-          defaultValue={statSections.map((section) => section.title)}
-        >
-          {statSections.map((section) => (
-            <StatSection
-              key={section.title}
-              title={section.title}
-              icon={section.icon}
-              rows={section.rows}
-              className={section.className}
-            />
-          ))}
-        </Accordion>
-      </div>
-
-      <div className="grid grid-cols-1 gap-6 px-4 sm:grid-cols-3">
-        {quickStatCards.map((card) => (
-          <Card
-            key={card.label}
-            className="flex flex-col items-center gap-2 border-primary-gray/20 bg-primary-gray/5 p-4"
+      {statSections.length > 0 ? (
+        <div className="grid grid-cols-1 gap-x-6 gap-y-8">
+          <Accordion
+            type="single"
+            className="contents"
+            defaultValue={statSections[0].title}
           >
-            {card.icon}
+            {statSections.map((section) => (
+              <StatSection
+                key={section.title}
+                title={section.title}
+                icon={section.icon}
+                rows={section.rows}
+                className={section.className}
+              />
+            ))}
+          </Accordion>
+        </div>
+      ) : (
+        <NoData message="Season statistics not available" />
+      )}
 
-            <span className="text-[10px] font-bold uppercase text-primary-gray">
-              {card.label}
-            </span>
+      {quickStatCards.length > 0 ? (
+        <div className="grid grid-cols-1 gap-6 px-4 sm:grid-cols-3">
+          {quickStatCards.map((card) => (
+            <Card
+              key={card.label}
+              className="flex flex-col items-center gap-2 border-primary-gray/20 bg-primary-gray/5 p-4"
+            >
+              {card.icon}
 
-            <div className="mt-2 flex w-full items-baseline justify-between">
-              <span className="text-xl font-black text-white">
-                {card.homeValue}
+              <span className="text-[10px] font-bold uppercase text-primary-gray">
+                {card.label}
               </span>
 
-              <span className="text-xs font-bold text-primary-gray">vs</span>
+              <div className="mt-2 flex w-full items-baseline justify-between">
+                <span className="text-xl font-black text-white">
+                  {card.homeValue}
+                </span>
 
-              <span className="text-xl font-black text-white">
-                {card.awayValue}
-              </span>
-            </div>
-          </Card>
-        ))}
-      </div>
+                <span className="text-xs font-bold text-primary-gray">vs</span>
+
+                <span className="text-xl font-black text-white">
+                  {card.awayValue}
+                </span>
+              </div>
+            </Card>
+          ))}
+        </div>
+      ) : (
+        <NoData message="Quick statistics not available" />
+      )}
     </div>
   );
 };

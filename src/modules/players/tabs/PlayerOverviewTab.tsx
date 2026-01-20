@@ -1,14 +1,14 @@
 "use client";
 
 import {
-  Trophy,
   Activity,
-  ShieldCheck,
-  Ruler,
-  Weight,
-  Footprints,
   ArrowRightLeft,
+  Footprints,
+  Ruler,
+  ShieldCheck,
   Star,
+  Trophy,
+  Weight,
 } from "lucide-react";
 import Image from "next/image";
 import React from "react";
@@ -20,6 +20,7 @@ import { PlayerProfileResponse } from "@/types/players";
 
 import { PlayerHeroSection } from "../components";
 import { usePlayerOverview } from "../hooks";
+import { cn } from "@/lib/utils";
 
 interface Props {
   initialData: ApiResponse<PlayerProfileResponse>;
@@ -112,7 +113,14 @@ const PlayerOverviewTab: React.FC<Props> = ({ initialData }) => {
             </Card>
           )}
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div
+            className={cn(
+              "grid gap-6",
+              trophies.length > 0
+                ? "grid-cols-1 md:grid-cols-2"
+                : "grid-cols-1",
+            )}
+          >
             {trophies.length > 0 && (
               <Card className={cardStyles}>
                 <CardHeader>
