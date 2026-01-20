@@ -16,11 +16,11 @@ import React from "react";
 import { ApiResponse } from "@/api/types";
 import { NoData, SkeletonCardLoader } from "@/components";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { cn } from "@/lib/utils";
 import { PlayerProfileResponse } from "@/types/players";
 
 import { PlayerHeroSection } from "../components";
 import { usePlayerOverview } from "../hooks";
-import { cn } from "@/lib/utils";
 
 interface Props {
   initialData: ApiResponse<PlayerProfileResponse>;

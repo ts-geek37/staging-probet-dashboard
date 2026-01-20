@@ -69,7 +69,10 @@ const StatSection: React.FC<StatSectionConfig> = ({
   rows,
   className,
 }) => (
-  <AccordionItem value={title} className={cn("border-none w-4/5 mx-auto", className)}>
+  <AccordionItem
+    value={title}
+    className={cn("border-none w-4/5 mx-auto", className)}
+  >
     <Card className="bg-primary-gray/5 border-primary-gray/20 overflow-hidden p-0 gap-0">
       <AccordionTrigger className="px-4 py-3 bg-white/5 border-b border-white/10 hover:no-underline">
         <div className="flex items-center gap-2">
