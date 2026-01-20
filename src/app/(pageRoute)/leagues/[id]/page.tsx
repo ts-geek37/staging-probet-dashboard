@@ -52,7 +52,7 @@ const LeaguePage: React.FC<Props> = async ({ params }) => {
 
   const initialLeagues = response.data;
 
-  if (!initialLeagues) return <NoData isCenter />;
+  if (!initialLeagues) return <NoData isCenter message="League Not Found" />;
 
   return <LeaguesDetails initialLeagues={response} />;
 };

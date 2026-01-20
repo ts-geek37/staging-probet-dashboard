@@ -13,30 +13,26 @@ interface Props {
 }
 
 const Matches: React.FC<Props> = ({ id }) => {
-  const { recentMatches, upcomingMatches, liveMatches, isLoading } =
+  const { recentMatches, upcomingMatches, liveMatches, isLoading, leagueName } =
     useLeagueMatches(id);
 
   return (
     <div className="flex-1 text-white flex flex-col gap-4 sm:gap-8 md:gap-12">
       <LiveMatchCards
         initialMatches={liveMatches}
+        title="live matches"
+        description={`Live matches from this league ${leagueName ?? ""}`}
         scopeInfo={{ scope: LiveScopeEnum.LEAGUE, id }}
       />
-      {isLoading ? (
-        <MatchListing title="Live Matches" matches={[]} isLoading />
-      ) : (
-        liveMatches.length > 0 && (
-          <MatchListing title="Live Matches" matches={liveMatches} />
-        )
-      )}
-
-      <Ads />
 
       {isLoading ? (
         <MatchListing title="Upcoming Matches" matches={[]} isLoading />
       ) : (
         upcomingMatches.length > 0 && (
-          <MatchListing title="Upcoming Matches" matches={upcomingMatches} />
+          <>
+            <Ads />
+            <MatchListing title="Upcoming Matches" matches={upcomingMatches} />
+          </>
         )
       )}
 

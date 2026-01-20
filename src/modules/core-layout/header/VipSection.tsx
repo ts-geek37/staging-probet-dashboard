@@ -1,4 +1,4 @@
-import { useUser } from "@clerk/nextjs";
+import { UserButton, useUser } from "@clerk/nextjs";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
@@ -12,7 +12,7 @@ type VipSectionProps = {
 
 const VipSection: React.FC<VipSectionProps> = ({ onNavigate }) => {
   const Icon = vipLink.icon;
-  const { isSignedIn } = useUser();
+  const { isSignedIn, user } = useUser();
   const router = useRouter();
 
   const handleLogin = () => {
@@ -35,6 +35,11 @@ const VipSection: React.FC<VipSectionProps> = ({ onNavigate }) => {
         <Icon className="w-5 h-5" />
         <span className="text-base font-semibold">{vipLink.name}</span>
       </Link>
+      {user && (
+        <div className="hidden nav:block size-8">
+          <UserButton />
+        </div>
+      )}
       {!isSignedIn && (
         <>
           <Button

@@ -2,10 +2,10 @@ import Image from "next/image";
 import React from "react";
 
 import { ApiResponse } from "@/api/types";
+import { SkeletonCardLoader } from "@/components";
 import { LeagueProfileResponse } from "@/types/leagues";
 
 import { useLeagueOverview } from "../hooks";
-import { SkeletonCardLoader } from "@/components";
 
 interface Props {
   initialLeagues: ApiResponse<LeagueProfileResponse>;
@@ -17,9 +17,7 @@ const LeagueOverView: React.FC<Props> = ({ initialLeagues }) => {
   );
 
   if (isLoading) {
-    return (
-     <SkeletonCardLoader />
-    );
+    return <SkeletonCardLoader />;
   }
   return (
     <div className="flex items-center gap-4">

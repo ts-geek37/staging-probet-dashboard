@@ -79,7 +79,7 @@ const COLUMNS: Column[] = [
 ];
 
 const TABLE_GRID =
-  "grid grid-cols-[0.5fr_6fr_repeat(6,1fr)_minmax(150px,2fr)] items-center px-5";
+  "grid grid-cols-[0.5fr_3fr_repeat(6,1fr)_minmax(150px,2fr)] sm:grid-cols-[0.5fr_6fr_repeat(6,1fr)_minmax(150px,2fr)] items-center px-5";
 
 const StandingsTable: React.FC<Props> = ({ standings }) => {
   const router = useRouter();

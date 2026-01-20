@@ -1,5 +1,8 @@
+import { notFound } from "next/navigation";
+
 const PricePage = () => {
-  return <div>price</div>;
+  return notFound();
+  // return <div>price</div>;
 };
 
 export default PricePage;

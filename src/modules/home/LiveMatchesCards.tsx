@@ -3,6 +3,7 @@
 import Link from "next/link";
 
 import { MatchCard, NoData } from "@/components";
+import { cn } from "@/lib/utils";
 import { MatchListItem } from "@/types/home";
 
 import { useGeneralLiveMatches } from "../ws/hooks";
@@ -11,34 +12,48 @@ import { LiveMatchesScopeProps } from "../ws/types";
 interface Props {
   initialMatches: MatchListItem[];
   scopeInfo: LiveMatchesScopeProps;
+  className?: string;
+  title?: string;
+  description?: string;
+  href?: string;
 }
 
-const LiveMatchCards: React.FC<Props> = ({ initialMatches, scopeInfo }) => {
+const LiveMatchCards: React.FC<Props> = ({
+  initialMatches,
+  scopeInfo,
+  title = "Today's Matches",
+  description = "Live and upcoming fixtures",
+  className,
+  href,
+}) => {
   const { data, loading, error, connected } = useGeneralLiveMatches(
     initialMatches,
     scopeInfo,
   );
 
   return (
-    <section className="py-10 md:py-20 text-white">
+    <section className={cn("text-white", className)}>
       <div className="space-y-10">
         <div className="flex items-end justify-between gap-6">
           <div className="space-y-2">
-            <h1 className="text-xl sm:text-5xl font-bold">
-              Today&apos;s Matches
-            </h1>
+            {title && (
+              <h1 className="text-xl sm:text-5xl font-bold capitalize">
+                {title}
+              </h1>
+            )}
 
             <div className="flex items-center gap-2 text-xs sm:text-base">
-              <span>Live and upcoming fixtures</span>
+              {description && <span>{description}</span>}
               {!connected && (
                 <span className="text-yellow-400 text-xs">Reconnecting…</span>
               )}
             </div>
           </div>
-
-          <Link href="/matches" className="text-primary-gray hover:text-white">
-            View all
-          </Link>
+          {href && (
+            <Link href={href} className="text-primary-gray hover:text-white">
+              View all
+            </Link>
+          )}
         </div>
 
         {error && (

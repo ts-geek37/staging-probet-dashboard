@@ -19,24 +19,25 @@ const useTeamPlayers = (teamId: number) => {
   const isLoading = !data && !error;
 
   const players: TeamPlayer[] = data?.data?.players ?? [];
-  const sections: SquadSection[] = players.reduce<SquadSection[]>(
-    (acc, player) => {
-      const positionLabel = player.position?.label ?? "Unknown";
-      const section = acc.find((s) => s.key === positionLabel);
+  const sections: SquadSection[] = Object.values(
+    players
+      .reduce<SquadSection[]>((acc, player) => {
+        const positionLabel = player.position?.label ?? "Unknown";
+        const section = acc.find((s) => s.key === positionLabel);
 
-      if (section) {
-        section.players.push(player);
-      } else {
-        acc.push({
-          key: positionLabel,
-          label: positionLabel,
-          players: [player],
-        });
-      }
+        if (section) {
+          section.players.push(player);
+        } else {
+          acc.push({
+            key: positionLabel,
+            label: positionLabel,
+            players: [player],
+          });
+        }
 
-      return acc;
-    },
-    [],
+        return acc;
+      }, [])
+      .sort((a, b) => b.players.length - a.players.length),
   );
 
   return {

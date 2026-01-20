@@ -36,6 +36,7 @@ const useLeagueMatches = (leagueId: number) => {
   return {
     upcomingMatches,
     recentMatches,
+    leagueName,
     liveMatches,
     isLoading: !response.data && !response.error,
     error: response.error,

@@ -17,8 +17,9 @@ const MatchHeadToHeadTab: React.FC<Props> = ({ match }) => {
   const { data, isLoading } = useMatchDetail(
     match.id,
     MatchDetailView.HEAD_TO_HEAD,
-    match.teams.home.id,
-    match.teams.away.id,
+    undefined,
+    match?.teams?.home?.id ?? 0,
+    match?.teams?.away?.id ?? 0,
   );
 
   if (isLoading) return <SkeletonCardLoader />;

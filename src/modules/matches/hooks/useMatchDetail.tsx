@@ -10,7 +10,7 @@ import {
   MatchStatus,
 } from "@/types/matches";
 
-import { useLiveMatchEvents, useLiveMatchDetail } from "../../ws/hooks";
+import { useLiveMatchDetail, useLiveMatchEvents } from "../../ws/hooks";
 
 const useMatchDetail = <V extends MatchDetailView>(
   matchId: number,
@@ -44,18 +44,26 @@ const useMatchDetail = <V extends MatchDetailView>(
     enabled: isLiveOverviewView,
   });
 
-  let endpoint =
-    view === MatchDetailView.OVERVIEW
-      ? `/api/v2/matches/${matchId}`
-      : `/api/v2/matches/${matchId}/${view}`;
+  let endpoint: string;
 
-  if (view === MatchDetailView.HEAD_TO_HEAD && team1 && team2) {
-    endpoint = `/api/v2/matches/head-to-head?team1=${team1}&team2=${team2}`;
+  switch (view) {
+    case MatchDetailView.OVERVIEW:
+      endpoint = `/api/v2/matches/${matchId}`;
+      break;
+
+    case MatchDetailView.HEAD_TO_HEAD:
+      endpoint = `/api/v2/matches/head-to-head?team1=${team1}&team2=${team2}`;
+      break;
+
+    case MatchDetailView.SEASON_STATS:
+      endpoint = `/api/v2/matches/${matchId}/team-stats/${seasonId}`;
+      break;
+
+    default:
+      endpoint = `/api/v2/matches/${matchId}/${view}`;
   }
 
-  if (view === MatchDetailView.SEASON_STATS && seasonId) {
-    endpoint = `/api/v2/matches/${matchId}/team-stats/${seasonId}`;
-  }
+  console.log("Point: ", endpoint);
 
   const shouldFetch = !isLiveEventsView && !isLiveOverviewView;
 
