@@ -50,7 +50,7 @@ export const StandingCard: React.FC<StandingCardProps> = ({ row }) => {
             <span className="text-xl font-bold text-primary-green">
               {row?.points}
             </span>
-            <span className="text-xs font-medium uppercase tracking-wider text-gray-400">
+            <span className="text-xs font-medium uppercase tracking-wider text-primary-gray">
               pts
             </span>
           </div>

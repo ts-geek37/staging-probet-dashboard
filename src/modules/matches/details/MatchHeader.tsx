@@ -73,7 +73,7 @@ const MatchHeader: React.FC<Props> = ({ match }) => {
             <div className="text-lg sm:text-xl md:text-2xl min-[350px]:text-4xl font-bold tracking-tighter mb-2">
               {score?.home ?? 0} - {score?.away ?? 0}
             </div>
-            <p className="text-xs sm:text-sm font-semibold text-gray-400 capitalize">
+            <p className="text-xs sm:text-sm font-semibold text-primary-gray capitalize">
               {getMatchTime()}
             </p>
           </div>
