@@ -61,7 +61,7 @@ const MatchSeasonStatsTab: React.FC<Props> = ({ match }) => {
         </div>
 
         <div className="flex flex-col items-center gap-1 px-4">
-          <span className="text-lg sm:text-xl md:text-2xl font-black text-white/20 italic">
+          <span className="text-lg sm:text-xl md:text-2xl font-black text-primary-gray italic">
             VS
           </span>
           <span className="text-xs md:text-sm font-bold text-white/40 uppercase text-center max-w-[100px]">
@@ -78,7 +78,7 @@ const MatchSeasonStatsTab: React.FC<Props> = ({ match }) => {
           tabIndex={0}
           className="flex flex-col items-center gap-3 flex-1 cursor-pointer"
         >
-          <div className="w-16 h-16 sm:w-20 sm:h-20 bg-white/5 rounded-2xl p-3 border border-white/10 shadow-xl">
+          <div className="w-16 h-16 sm:w-20 sm:h-20 bg-white/5 rounded-2xl p-3 border border-primary-gray/20 shadow-xl">
             {away.logo && (
               <Image
                 src={away.logo}
@@ -120,7 +120,7 @@ const MatchSeasonStatsTab: React.FC<Props> = ({ match }) => {
           >
             {card.icon}
 
-            <span className="text-[10px] font-bold uppercase text-white/40">
+            <span className="text-[10px] font-bold uppercase text-primary-gray">
               {card.label}
             </span>
 
@@ -129,7 +129,7 @@ const MatchSeasonStatsTab: React.FC<Props> = ({ match }) => {
                 {card.homeValue}
               </span>
 
-              <span className="text-xs font-bold text-white/20">vs</span>
+              <span className="text-xs font-bold text-primary-gray">vs</span>
 
               <span className="text-xl font-black text-white">
                 {card.awayValue}

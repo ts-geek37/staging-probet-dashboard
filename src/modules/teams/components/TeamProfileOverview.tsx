@@ -195,26 +195,20 @@ const TeamProfileOverview: React.FC<Props> = ({
 
             <CardContent className="space-y-3">
               {rivals.map((rival) => (
-                <Link
-                  key={rival.id ?? rival.label}
-                  href={`/teams/${rival.id}`}
-                  className="block"
-                >
-                  <div className="flex items-center gap-3 rounded-xl bg-white/5 border border-primary-gray/20 p-3 hover:border-primary-green/40 hover:bg-white/10 transition-all">
-                    {rival.image && (
-                      <Image
-                        src={rival.image}
-                        alt={rival.label}
-                        width={36}
-                        height={36}
-                        className="rounded-full"
-                      />
-                    )}
-                    <p className="text-sm font-medium text-white">
-                      {rival.label}
-                    </p>
-                  </div>
-                </Link>
+                <div className="flex items-center gap-3 rounded-xl bg-white/5 border border-primary-gray/20 p-3 hover:border-primary-green/40 hover:bg-white/10 transition-all">
+                  {rival.image && (
+                    <Image
+                      src={rival.image}
+                      alt={rival.label}
+                      width={36}
+                      height={36}
+                      className="rounded-full"
+                    />
+                  )}
+                  <p className="text-sm font-medium text-white">
+                    {rival.label}
+                  </p>
+                </div>
               ))}
             </CardContent>
           </Card>

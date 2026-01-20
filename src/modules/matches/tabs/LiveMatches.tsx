@@ -2,7 +2,7 @@
 
 import React from "react";
 
-import { DataError, MatchCard, NoData } from "@/components";
+import { DataError, MatchCard, NoData, SkeletonCardLoader } from "@/components";
 import LeagueBanner from "@/modules/leagues/LeagueBanner";
 import { MatchListItem } from "@/types/home";
 import { useGeneralLiveMatches } from "../../ws/hooks";
@@ -22,26 +22,15 @@ const LiveMatches: React.FC<Props> = ({
   const { data, loading, error } = useGeneralLiveMatches(
     initialMatches,
     scopeInfo,
-    search
+    search,
   );
 
   return (
     <section className=" text-white">
       <div className="">
-        {error && (
-         <DataError />
-        )}
+        {error && <DataError />}
 
-        {loading && data.length === 0 && (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {[0, 1, 2].map((i) => (
-              <div
-                key={i}
-                className="h-32 rounded-xl bg-[#111] animate-pulse"
-              />
-            ))}
-          </div>
-        )}
+        {loading && <SkeletonCardLoader />}
 
         {!loading && data.length === 0 ? (
           <NoData message="No live matches found" />

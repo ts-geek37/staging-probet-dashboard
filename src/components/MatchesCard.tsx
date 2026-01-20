@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import React from "react";
+import React, { useState, useEffect } from "react";
 
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
@@ -20,15 +20,29 @@ import {
 } from "@/types/players";
 import { formatDate } from "@/utils";
 import formatLocalTime from "@/utils/formatLocalTime";
+import { getCountdownData } from "@/utils/formatCountdown";
 
 interface MatchCardProps {
   match: MatchListItem | PlayerMatch;
   href?: string;
 }
 
-const StatusBadge: React.FC<{ status: MatchStatus | PlayerStatus }> = ({
-  status,
-}) => {
+const StatusBadge: React.FC<{
+  status: MatchStatus | PlayerStatus;
+  countdown: string | null;
+}> = ({ status, countdown }) => {
+  if ((status === "UPCOMING" || status === "PROBLEM") && countdown) {
+    return (
+      <Badge
+        variant="outline"
+        className="bg-primary-yellow/10 border-primary-yellow/20 text-primary-yellow font-bold animate-pulse px-2 py-0.5 text-sm font-mono shadow-[0_0_10px_rgba(var(--primary-yellow),0.1)]"
+      >
+        <span className="mr-1.5 flex h-1.5 w-1.5 rounded-full bg-primary-yellow" />
+        {countdown}
+      </Badge>
+    );
+  }
+
   const variantMap: Record<MatchStatus | PlayerStatus, MatchListStatus> = {
     LIVE: MatchListStatus.LIVE,
     UPCOMING: MatchListStatus.UPCOMING,
@@ -63,10 +77,10 @@ const TeamLogo: React.FC<{ src: string | null; alt: string }> = ({
   </div>
 );
 
-const TeamRow: React.FC<{
-  team: MatchTeam;
-  value: string | number;
-}> = ({ team, value }) => (
+const TeamRow: React.FC<{ team: MatchTeam; value: string | number }> = ({
+  team,
+  value,
+}) => (
   <div className="flex items-center justify-between gap-3">
     <Link
       href={`/teams/${team.id}`}
@@ -85,9 +99,10 @@ const TeamRow: React.FC<{
 const MatchCard: React.FC<MatchCardProps> = ({ match, href }) => {
   const { kickoff_time, league, score, status, teams, live_period } = match;
   const router = useRouter();
+  const [countdown, setCountdown] = useState<string | null>(null);
 
   const isLive = status === "LIVE";
-  const isUpcoming = status === "UPCOMING";
+  const isUpcoming = status === "UPCOMING" || status === "PROBLEM";
   const localKickoffTime = formatLocalTime(kickoff_time);
 
   const homeScore = score?.home ?? 0;
@@ -95,6 +110,30 @@ const MatchCard: React.FC<MatchCardProps> = ({ match, href }) => {
 
   const getValue = (isHome: boolean) =>
     isUpcoming ? "-" : isHome ? homeScore : awayScore;
+
+  useEffect(() => {
+    if (!isUpcoming) return;
+
+    const updateTimer = () => {
+      const timeData = getCountdownData(kickoff_time);
+
+      if (!timeData) {
+        setCountdown(null);
+        return;
+      }
+      if (timeData.isStartingSoon) {
+        setCountdown("STARTING SOON");
+      } else if (timeData.totalMs < 900000) {
+        setCountdown(timeData.formatted);
+      } else {
+        setCountdown(null);
+      }
+    };
+
+    updateTimer();
+    const interval = setInterval(updateTimer, 1000);
+    return () => clearInterval(interval);
+  }, [kickoff_time, isUpcoming]);
 
   return (
     <motion.div
@@ -121,11 +160,11 @@ const MatchCard: React.FC<MatchCardProps> = ({ match, href }) => {
                 height={25}
                 className="object-contain w-6 h-6"
               />
-              <span className="text-sm sm:text-base font-medium truncate text-white">
+              <span className="text-sm sm:text-base font-medium text-white line-clamp-1">
                 {league.name}
               </span>
             </div>
-            <StatusBadge status={status} />
+            <StatusBadge status={status} countdown={countdown} />
           </div>
         </CardHeader>
 
@@ -165,7 +204,7 @@ const MatchCard: React.FC<MatchCardProps> = ({ match, href }) => {
                   {formatDate(kickoff_time)}
                 </span>
                 <span className="text-sm text-primary-gray font-medium">
-                  {formatLocalTime(kickoff_time)}
+                  {localKickoffTime}
                 </span>
               </>
             )}
