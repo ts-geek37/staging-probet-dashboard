@@ -7,7 +7,7 @@ import { getSocket } from "../socketManager";
 
 const DEBUG = process.env.NEXT_PUBLIC_WS_DEBUG === "true";
 
-const log = (...args: any[]) => {
+const log = <T extends unknown[]>(...args: T) => {
   if (DEBUG) console.log("[useSocket]", ...args);
 };
 
@@ -24,6 +24,7 @@ const useSocket = (): UseSocketResult => {
 
   useEffect(() => {
     const s = getSocket();
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setSocket(s);
     setConnected(s.connected);
 

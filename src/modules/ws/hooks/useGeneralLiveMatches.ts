@@ -1,15 +1,16 @@
+/* eslint-disable react-hooks/set-state-in-effect */
 "use client";
 
 import { useEffect, useRef, useState } from "react";
 
 import { MatchListItem } from "@/types/matches";
 
-import useSocket from "./useSocket";
 import { LiveMatchesScopeProps, LiveScopeEnum } from "../types";
+import useSocket from "./useSocket";
 
 const DEBUG = process.env.NEXT_PUBLIC_WS_DEBUG === "true";
 
-const log = (...args: any[]) => {
+const log = <T extends unknown[]>(...args: T) => {
   if (DEBUG) console.log("[useGeneralLiveMatches]", ...args);
 };
 

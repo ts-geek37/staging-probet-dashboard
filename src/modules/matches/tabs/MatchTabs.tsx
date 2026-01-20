@@ -2,18 +2,20 @@
 
 import React from "react";
 
+import { MatchListItem } from "@/types/home";
 import { MatchListStatus } from "@/types/matches";
 
 import FinishedMatches from "./FinishedMatches";
 import LiveMatches from "./LiveMatches";
 import UpcomingMatches from "./UpcomingMatches";
+import { LiveMatchesScopeProps, LiveScopeEnum } from "../../ws/types";
 
 interface Props {
   status: MatchListStatus;
   search?: string;
 
-  initialMatches?: any;
-  scopeInfo?: any;
+  initialMatches?: MatchListItem[];
+  scopeInfo?: LiveMatchesScopeProps;
 }
 
 const MatchTabs: React.FC<Props> = ({
@@ -27,8 +29,8 @@ const MatchTabs: React.FC<Props> = ({
       return (
         <LiveMatches
           search={search}
-          initialMatches={initialMatches}
-          scopeInfo={scopeInfo}
+          initialMatches={initialMatches ?? []}
+          scopeInfo={scopeInfo ?? { scope: LiveScopeEnum.GENERAL }}
         />
       );
 

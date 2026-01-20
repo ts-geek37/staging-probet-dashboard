@@ -18,7 +18,7 @@ import {
   MatchListItem as PlayerMatch,
   MatchStatus as PlayerStatus,
 } from "@/types/players";
-import { formatDate, formatUtcTime } from "@/utils";
+import { formatDate } from "@/utils";
 import formatLocalTime from "@/utils/formatLocalTime";
 
 interface MatchCardProps {
@@ -140,9 +140,11 @@ const MatchCard: React.FC<MatchCardProps> = ({ match, href }) => {
               live_period ? (
                 <>
                   <span className="text-base text-primary-green font-medium">
-                    {live_period.description} {live_period.minutes}'
+                    {live_period.description} {live_period.minutes}
+                    {"'"}
                     {live_period.timeAdded ? `+${live_period.timeAdded}'` : ""}
                   </span>
+
                   <div className="flex items-center gap-2">
                     <span className="text-xs text-primary-gray">
                       {localKickoffTime}
