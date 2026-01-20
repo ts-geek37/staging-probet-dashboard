@@ -2,10 +2,10 @@ import Image from "next/image";
 import React from "react";
 
 import { ApiResponse } from "@/api/types";
-import { Skeleton } from "@/components/ui/skeleton";
 import { LeagueProfileResponse } from "@/types/leagues";
 
 import { useLeagueOverview } from "../hooks";
+import { SkeletonCardLoader } from "@/components";
 
 interface Props {
   initialLeagues: ApiResponse<LeagueProfileResponse>;
@@ -18,17 +18,7 @@ const LeagueOverView: React.FC<Props> = ({ initialLeagues }) => {
 
   if (isLoading) {
     return (
-      <div className="flex items-center gap-4">
-        <Skeleton className="w-16 h-16 rounded-lg" />
-        <div className="space-y-2">
-          <Skeleton className="h-9 w-48" />
-          <div className="flex items-center gap-2">
-            <Skeleton className="w-5 h-4 rounded" />
-            <Skeleton className="h-4 w-24" />
-            <Skeleton className="h-4 w-32" />
-          </div>
-        </div>
-      </div>
+     <SkeletonCardLoader />
     );
   }
   return (
@@ -53,16 +43,16 @@ const LeagueOverView: React.FC<Props> = ({ initialLeagues }) => {
               height={15}
               className="rounded"
             />
-            <span className="text-gray-400">{league?.country?.name}</span>
-            <span className="text-gray-400">
+            <span className="text-primary-gray">{league?.country?.name}</span>
+            <span className="text-primary-gray">
               • {league?.current_season?.name}
             </span>
           </div>
           <div className="flex gap-2">
             {league?.current_season?.stage && (
               <>
-                <span className="text-gray-400 sm:block hidden">•</span>
-                <span className="text-gray-400">
+                <span className="text-primary-gray sm:block hidden">•</span>
+                <span className="text-primary-gray">
                   {league.current_season.stage.name}
                 </span>
               </>

@@ -19,7 +19,7 @@ const VipBanner: React.FC = () => {
             VIP Membership
           </Badge>
 
-          <h2 className="text-sm sm:text-2xl font-bold leading-tight text-white md:text-4xl">
+          <h2 className="text-base sm:text-2xl font-bold leading-tight text-white md:text-4xl">
             Unlock Premium Predictions
           </h2>
 
@@ -29,11 +29,11 @@ const VipBanner: React.FC = () => {
           </p>
         </div>
 
-        <div className="relative z-10 max-sm:w-full">
+        <div className="relative z-10 my-2 max-sm:w-full">
           <Link href="/price" className="w-full">
             <Button
               variant="secondary"
-              className="rounded-full max-sm:w-full px-6 py-5 text-sm font-semibold md:text-base"
+              className="rounded-xl sm:rounded-full max-sm:w-full px-6 py-5 text-sm font-semibold md:text-base"
             >
               View Plans
             </Button>

@@ -9,7 +9,7 @@ const ContactEntry: React.FC = () => {
         <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-primary-green">
           How can we help you?
         </h2>
-        <p className="text-gray-400 text-sm sm:text-base md:text-lg">
+        <p className="text-primary-gray text-sm sm:text-base md:text-lg">
           Choose the category that best matches your inquiry
         </p>
       </div>
@@ -18,7 +18,7 @@ const ContactEntry: React.FC = () => {
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-primary-green">
             How can we help you?
           </h2>
-          <p className="text-gray-400 text-sm sm:text-base md:text-lg">
+          <p className="text-primary-gray text-sm sm:text-base md:text-lg">
             Choose the category that best matches your inquiry
           </p>
         </div>

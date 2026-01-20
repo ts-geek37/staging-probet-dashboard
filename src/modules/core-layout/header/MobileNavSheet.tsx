@@ -42,17 +42,22 @@ const MobileNavSheet: React.FC<Props> = ({
           variant="ghost"
           size="icon"
           aria-label="Open menu"
-          className={cn("text-gray-300", triggerClassName)}
+          className={cn("text-primary-gray", triggerClassName)}
         >
           <Menu className="h-6 w-6" />
         </Button>
       </SheetTrigger>
 
       <SheetContent
+        key={
+          typeof window !== "undefined"
+            ? String(window.innerWidth < 640)
+            : "default"
+        }
         side="right"
-        className="border-gray-800 w-[300px] sm:w-[350px] p-4"
+        className="border-primary-gray/20 w-75 sm:w-87.5 p-4"
       >
-        <SheetClose asChild className="absolute top-0 right-5">
+        <SheetClose asChild className="absolute top-2 right-5">
           <Button variant="ghost" size="icon" aria-label="Close">
             <X className="w-5 h-5 text-white" />
           </Button>
@@ -60,7 +65,7 @@ const MobileNavSheet: React.FC<Props> = ({
 
         <nav className="flex flex-col gap-4">
           {user && (
-            <div className="sm:hidden size-10">
+            <div className="size-8">
               <UserButton />
             </div>
           )}
@@ -73,7 +78,7 @@ const MobileNavSheet: React.FC<Props> = ({
                 href={link.href}
                 onClick={() => setOpen(false)}
                 className={cn(
-                  "flex items-center gap-3 px-4 py-3 rounded-lg transition-colors",
+                  "flex items-center gap-3 py-2 rounded-lg transition-colors",
                   "text-gray-300 hover:text-white hover:bg-gray-800",
                   link.isActive && "bg-gray-800 text-white",
                 )}
@@ -84,7 +89,11 @@ const MobileNavSheet: React.FC<Props> = ({
             );
           })}
 
-          {!!vipLink && <VipSection onNavigate={() => setOpen(false)} />}
+          {!!vipLink && (
+            <div className="sm:hidden">
+              <VipSection onNavigate={() => setOpen(false)} />
+            </div>
+          )}
         </nav>
       </SheetContent>
     </Sheet>

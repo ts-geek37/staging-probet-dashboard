@@ -58,7 +58,7 @@ const UpcomingMatchCard: React.FC<UpcomingMatchProps> = ({
                   />
                 </div>
               )}
-              <span className="text-gray-400 text-sm">{teamA}</span>
+              <span className="text-primary-gray text-sm">{teamA}</span>
             </div>
           </div>
 
@@ -74,7 +74,7 @@ const UpcomingMatchCard: React.FC<UpcomingMatchProps> = ({
                   />
                 </div>
               )}
-              <span className="text-gray-400 text-sm">{teamB}</span>
+              <span className="text-primary-gray text-sm">{teamB}</span>
             </div>
           </div>
         </div>

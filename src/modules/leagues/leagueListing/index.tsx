@@ -111,7 +111,7 @@ const LeagueListing: React.FC<Props> = ({ initialLeagues }) => {
               variant={isActive ? "green" : "default"}
               onClick={() => handleContinentChange(option.value)}
               className={cn(
-                "flex items-center gap-2.5 rounded-full transition-all duration-300 border-none text-sm font-semibold whitespace-nowrap",
+                "flex items-center gap-2.5 rounded-full transition-all duration-300  border-none text-sm font-semibold whitespace-nowrap",
                 isActive ? "text-white" : "text-gray-200",
               )}
             >

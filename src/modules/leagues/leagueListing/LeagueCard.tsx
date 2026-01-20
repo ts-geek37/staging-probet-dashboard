@@ -45,7 +45,7 @@ const LeagueCard: React.FC<LeagueCardProps> = ({
         />
       </div>
 
-      <div className="absolute inset-0 z-10 bg-gradient-to-r from-slate-950 via-slate-950/80 to-transparent" />
+      <div className="absolute inset-0 z-10 bg-linear-to-r from-slate-950 via-slate-950/80 to-transparent" />
 
       <div className="relative z-20 h-full w-full p-4 flex flex-col justify-between">
         <div className="flex flex-col gap-2">
@@ -61,7 +61,7 @@ const LeagueCard: React.FC<LeagueCardProps> = ({
                 className="object-cover"
               />
             </div>
-            <span className="text-xs font-medium text-gray-400 sm:text-sm">
+            <span className="text-xs font-medium text-primary-gray sm:text-sm">
               {league?.country?.name}
             </span>
           </div>

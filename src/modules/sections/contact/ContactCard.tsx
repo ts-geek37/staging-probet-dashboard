@@ -26,13 +26,13 @@ const ContactCard: React.FC<ContactCardProps> = ({
   if (variant === "method") {
     const content = (
       <>
-        <div className="flex sixe-10 sm:size-14 shrink-0 items-center justify-center rounded-xl bg-white/5 text-gray-400 transition-all duration-300 group-hover:bg-primary-green/10 group-hover:text-primary-green">
+        <div className="flex sixe-10 sm:size-14 shrink-0 items-center justify-center rounded-xl bg-white/5 text-primary-gray transition-all duration-300 group-hover:bg-primary-green/10 group-hover:text-primary-green">
           <Icon className="size-6 sm:size-7" />
         </div>
 
         <div className="flex-1 text-left">
           {!!label && (
-            <span className="block text-xs font-semibold uppercase tracking-wide text-gray-500 transition-colors group-hover:text-gray-400">
+            <span className="block text-xs font-semibold uppercase tracking-wide text-gray-500 transition-colors group-hover:text-primary-gray">
               {label}
             </span>
           )}
@@ -89,7 +89,7 @@ const ContactCard: React.FC<ContactCardProps> = ({
     >
       <div
         className={cn(
-          "flex size-12 items-center justify-center rounded-xl bg-white/5 text-gray-400 transition-all duration-300",
+          "flex size-12 items-center justify-center rounded-xl bg-white/5 text-primary-gray transition-all duration-300",
           "group-hover:bg-primary-green/10 group-hover:text-primary-green",
         )}
       >
@@ -100,7 +100,7 @@ const ContactCard: React.FC<ContactCardProps> = ({
           {value}
         </h3>
         {description && (
-          <p className="text-sm leading-relaxed text-gray-400 transition-colors group-hover:text-gray-300">
+          <p className="text-sm leading-relaxed text-primary-gray transition-colors group-hover:text-gray-300">
             {description}
           </p>
         )}
