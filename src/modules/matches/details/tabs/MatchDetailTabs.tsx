@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useCallback, useMemo } from "react";
+import React, { useMemo } from "react";
 
 import TabNavigation from "@/components/TabNavigation";
 import { MatchDetailView, MatchListItem } from "@/types/matches";
@@ -31,7 +31,7 @@ const MatchDetailTabs: React.FC<Props> = ({
   }, [match.status]);
 
   const isLive = match.status === "LIVE";
-  const renderActiveTab = useCallback(() => {
+  const renderActiveTab = () => {
     switch (activeTab) {
       case MatchDetailView.OVERVIEW:
         return <MatchOverviewTab matchId={matchId} isLive={isLive} />;
@@ -57,7 +57,7 @@ const MatchDetailTabs: React.FC<Props> = ({
       default:
         return null;
     }
-  }, [activeTab, matchId, match]);
+  };
 
   return (
     <div className="w-full grid gap-6 pb-6">

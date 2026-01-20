@@ -5,6 +5,7 @@ import React from "react";
 import { DataError, MatchCard, NoData } from "@/components";
 import LeagueBanner from "@/modules/leagues/LeagueBanner";
 import { MatchListItem } from "@/types/home";
+
 import { useGeneralLiveMatches } from "../../ws/hooks";
 import { LiveMatchesScopeProps } from "../../ws/types";
 
@@ -22,15 +23,13 @@ const LiveMatches: React.FC<Props> = ({
   const { data, loading, error } = useGeneralLiveMatches(
     initialMatches,
     scopeInfo,
-    search
+    search,
   );
 
   return (
     <section className=" text-white">
       <div className="">
-        {error && (
-         <DataError />
-        )}
+        {error && <DataError />}
 
         {loading && data.length === 0 && (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">

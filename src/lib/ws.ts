@@ -6,7 +6,7 @@ const WS_URL = process.env.NEXT_PUBLIC_API_URL!;
 const TOKEN = process.env.NEXT_PUBLIC_API_INTERNAL_TOKEN!;
 const DEBUG = process.env.NEXT_PUBLIC_WS_DEBUG === "true";
 
-const log = (msg: string, data?: any) => {
+const log = <T = unknown>(msg: string, data?: T) => {
   if (DEBUG) {
     console.info(`[WS] ${msg}`, data ?? "");
   }

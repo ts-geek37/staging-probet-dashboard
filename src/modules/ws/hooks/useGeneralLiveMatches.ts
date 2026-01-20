@@ -1,14 +1,16 @@
+/* eslint-disable react-hooks/set-state-in-effect */
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
 
 import { MatchListItem } from "@/types/matches";
-import useSocket from "./useSocket";
+
 import { LiveMatchesScopeProps, LiveScopeEnum } from "../types";
+import useSocket from "./useSocket";
 
 const DEBUG = process.env.NEXT_PUBLIC_WS_DEBUG === "true";
 
-const log = (...args: any[]) => {
+const log = <T extends unknown[]>(...args: T) => {
   if (DEBUG) console.log("[useGeneralLiveMatches]", ...args);
 };
 
@@ -17,7 +19,7 @@ const useGeneralLiveMatches = (
   scopeInfo: LiveMatchesScopeProps = {
     scope: LiveScopeEnum.GENERAL,
   },
-  search: string = ""
+  search: string = "",
 ) => {
   const { socket, connected, error: socketError } = useSocket();
 
@@ -81,16 +83,16 @@ const useGeneralLiveMatches = (
     }
   }, [socketError]);
 
- 
   const data = useMemo(() => {
     if (!search.trim()) return rawData;
 
     const q = search.toLowerCase();
 
-    return rawData.filter((match) =>
-      match.league?.name?.toLowerCase().includes(q) ||
-      match.teams?.home?.name?.toLowerCase().includes(q) ||
-      match.teams?.away?.name?.toLowerCase().includes(q)
+    return rawData.filter(
+      (match) =>
+        match.league?.name?.toLowerCase().includes(q) ||
+        match.teams?.home?.name?.toLowerCase().includes(q) ||
+        match.teams?.away?.name?.toLowerCase().includes(q),
     );
   }, [rawData, search]);
 
