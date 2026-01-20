@@ -4,22 +4,13 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { Card, CardContent } from "@/components/ui/card";
+import { cn } from "@/lib/utils";
+import {
+  StatRow as IStatRow,
+  StatSectionConfig,
+} from "../hooks/useMatchSeasonStat";
 
-export interface StatRowProps {
-  label: string;
-  homeValue?: string | number;
-  awayValue?: string | number;
-  suffix?: string;
-  isHigherBetter?: boolean;
-}
-
-export interface StatSectionProps {
-  title: string;
-  icon: React.ReactNode;
-  rows: StatRowProps[];
-}
-
-const StatRow: React.FC<StatRowProps> = ({
+const StatRow: React.FC<IStatRow> = ({
   label,
   homeValue,
   awayValue,
@@ -71,8 +62,13 @@ const StatRow: React.FC<StatRowProps> = ({
   );
 };
 
-const StatSection: React.FC<StatSectionProps> = ({ title, icon, rows }) => (
-  <AccordionItem value={title} className="border-none">
+const StatSection: React.FC<StatSectionConfig> = ({
+  title,
+  icon,
+  rows,
+  className,
+}) => (
+  <AccordionItem value={title} className={cn("border-none", className)}>
     <Card className="bg-primary-gray/5 border-primary-gray/20 overflow-hidden p-0 gap-0">
       <AccordionTrigger className="px-4 py-3 bg-white/5 border-b border-white/10 hover:no-underline">
         <div className="flex items-center gap-2">

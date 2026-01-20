@@ -64,7 +64,7 @@ const MatchSeasonStatsTab: React.FC<Props> = ({ match }) => {
           <span className="text-lg sm:text-xl md:text-2xl font-black text-white/20 italic">
             VS
           </span>
-          <span className="text-xs md:text-sm font-bold text-white/40 uppercase text-center max-w-[100px]">
+          <span className="text-xs md:text-sm font-bold text-white/40 uppercase text-center max-w-25">
             {match.season?.name}
           </span>
         </div>
@@ -107,6 +107,7 @@ const MatchSeasonStatsTab: React.FC<Props> = ({ match }) => {
               title={section.title}
               icon={section.icon}
               rows={section.rows}
+              className={section.className}
             />
           ))}
         </Accordion>

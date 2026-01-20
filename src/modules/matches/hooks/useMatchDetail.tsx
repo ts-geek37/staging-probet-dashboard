@@ -63,8 +63,6 @@ const useMatchDetail = <V extends MatchDetailView>(
       endpoint = `/api/v2/matches/${matchId}/${view}`;
   }
 
-  console.log("Point: ", endpoint);
-
   const shouldFetch = !isLiveEventsView && !isLiveOverviewView;
 
   const {

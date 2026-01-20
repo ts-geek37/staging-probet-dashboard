@@ -195,6 +195,31 @@ export interface TeamSeason {
   };
 }
 
+export interface MinuteBucket {
+  count: number;
+  percentage: number;
+}
+
+export type MinuteDistribution = Record<
+  "0-15" | "15-30" | "30-45" | "45-60" | "60-75" | "75-90",
+  MinuteBucket
+>;
+
+export interface MostScoredHalfStats {
+  most_scored_half: "1st-half" | "2nd-half";
+  most_scored_half_goals: number;
+  details: {
+    "1st-half": {
+      period: "1st-half";
+      total: number;
+    };
+    "2nd-half": {
+      period: "2nd-half";
+      total: number;
+    };
+  };
+}
+
 export interface TeamStatistics {
   games_played?: number;
   minutes_played?: number;
@@ -241,20 +266,63 @@ export interface TeamStatistics {
   shot_on_target_percentage?: number;
   scoring_frequency?: number;
 
-  scoring_minutes?: unknown;
-  conceded_scoring_minutes?: unknown;
-  most_scored_half?: unknown;
-  most_frequent_scoring_minute?: unknown;
-  half_results?: unknown;
-  goal_results?: unknown;
-  interception_stats?: unknown;
-  pass_stats?: unknown;
-  assist_stats?: unknown;
-  players_footing?: unknown;
-  most_substituted_players?: unknown;
-  most_injured_players?: unknown;
-  team_of_the_week?: unknown;
-  injury_time_goals?: unknown;
+  scoring_minutes?: MinuteDistribution;
+  conceded_scoring_minutes?: MinuteDistribution;
+  most_scored_half?: MostScoredHalfStats;
+  most_frequent_scoring_minute?: {
+    minute: number;
+    goals: number;
+  };
+  half_results?: {
+    won_both_halves: number;
+    scored_both_halves: number;
+    comebacks: number;
+  };
+  goal_results?: {
+    scored_first: number;
+    conceded_first: number;
+    wins_when_scoring_first: number;
+  };
+  interception_stats?: {
+    total: number;
+    per_match: number;
+  };
+  pass_stats?: {
+    total: number;
+    accurate: number;
+    accuracy_percentage: number;
+  };
+  assist_stats?: {
+    total: number;
+    per_match: number;
+  };
+  players_footing?: {
+    left: number;
+    right: number;
+    both: number;
+  };
+  most_substituted_players?: {
+    player_id: number;
+    name: string;
+    substitutions: number;
+  }[];
+  most_injured_players?: {
+    player_id: number;
+    name: string;
+    injuries: number;
+  }[];
+  team_of_the_week?: {
+    appearances: number;
+    players: {
+      id: number;
+      name: string;
+      position: string | null;
+    }[];
+  };
+  injury_time_goals?: {
+    total: number;
+    average: number;
+  };
 }
 
 export interface TeamListResponse {
