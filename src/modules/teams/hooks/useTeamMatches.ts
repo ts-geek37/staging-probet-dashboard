@@ -47,6 +47,7 @@ const useTeamMatches = (teamId: number) => {
   );
 
   const isLoading = !data && !error;
+  const team = data;
 
   return {
     latest: (data?.data?.latest ?? []).map(mapToMatchListItem),

@@ -6,11 +6,12 @@ import { MatchListStatus } from "@/types/matches";
 const useMatchFilters = () => {
   const router = useRouter();
   const pathname = usePathname();
-  const [search, setSearch] = useState("");
   const searchParams = useSearchParams();
 
   const statusParam = searchParams.get("status");
   const leagueIdParam = searchParams.get("leagueId");
+  const searchQueryParam = searchParams.get("search");
+  const [search, setSearch] = useState(searchQueryParam ?? "");
 
   const status = useMemo(() => {
     const values = Object.values(MatchListStatus) as string[];

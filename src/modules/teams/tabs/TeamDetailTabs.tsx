@@ -19,7 +19,12 @@ const TeamDetailTabs = ({ activeTab, teamId, initialData }: Props) => {
       return <TeamOverviewTab initialData={initialData} />;
 
     case TeamDetailView.MATCHES:
-      return <TeamMatchesTab teamId={teamId} />;
+      return (
+        <TeamMatchesTab
+          teamId={teamId}
+          teamName={initialData?.data?.name ?? ""}
+        />
+      );
 
     case TeamDetailView.SQUAD:
       return <TeamSquadTab teamId={teamId} />;

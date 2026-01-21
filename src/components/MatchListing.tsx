@@ -25,8 +25,8 @@ const MatchListing: React.FC<MatchListingProps> = ({
   return (
     <div className="w-full">
       <div className="flex justify-between items-center">
-        <div className="flex gap-4 flex-col">
-          <h2 className="text-lg text-white font-semibold mb-4">{title}</h2>
+        <div className="flex gap-2 mb-4 flex-col">
+          <h2 className="text-lg text-white font-semibold">{title}</h2>
           {description && <p className="text-sm sm:text-base">{description}</p>}
         </div>
         {href && (
