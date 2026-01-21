@@ -40,6 +40,7 @@ const useGeneralLiveMatches = (
 
     if (!subscribedRef.current) {
       log("subscribing to general matches");
+
       socket.emit("subscribe:matches:list", scopeInfo);
       subscribedRef.current = true;
     }
@@ -64,17 +65,17 @@ const useGeneralLiveMatches = (
       socket.off("matches:list:update", onUpdate);
       socket.off("matches:list:error", onError);
     };
-  }, [socket, connected, scopeInfo]);
+  }, [socket, connected, scopeInfo.id, scopeInfo.scope]);
 
   useEffect(() => {
     return () => {
       if (!socket || !subscribedRef.current) return;
 
       log("unsubscribing from general matches");
-      socket.emit("unsubscribe:matches:list", { scope: "general" });
+      socket.emit("unsubscribe:matches:list", scopeInfo);
       subscribedRef.current = false;
     };
-  }, [socket]);
+  }, [socket, scopeInfo.id, scopeInfo.scope]);
 
   useEffect(() => {
     if (socketError) {
@@ -94,7 +95,7 @@ const useGeneralLiveMatches = (
         match.teams?.home?.name?.toLowerCase().includes(q) ||
         match.teams?.away?.name?.toLowerCase().includes(q),
     );
-  }, [rawData, search]);
+  }, [rawData, search, scopeInfo]);
 
   return {
     data,

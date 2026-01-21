@@ -4,7 +4,6 @@ import Image from "next/image";
 import React, { Suspense } from "react";
 
 import { SearchBar, SkeletonCardLoader } from "@/components";
-import { useLeagues } from "@/modules/leagues/hooks/useLeagues";
 
 import { LeagueSelectDropdown } from "./components";
 import { League } from "./components/LeagueSelectDropdown";
@@ -14,19 +13,17 @@ import MatchStatusTabs from "./tabs/MatchStatusTabs";
 const MatchesListingPresentation: React.FC = () => {
   const {
     status,
+    selectedLeague,
     selectedLeagueId,
+    leagues,
+    isLeaguesLoading,
     handleStatusChange,
     handleLeagueChange,
     handleSearchChange,
-    search,
     leagueSearch,
     setLeagueSearch,
+    search,
   } = useMatchFilters();
-
-  const { leagues, isLoading } = useLeagues({
-    search: leagueSearch,
-    fetchAll: true,
-  });
 
   return (
     <section className="pb-10 md:pb-20 text-white space-y-10">
@@ -48,6 +45,7 @@ const MatchesListingPresentation: React.FC = () => {
             </p>
           </div>
         </div>
+
         <div className="flex flex-col md:flex-row items-stretch md:items-center gap-3 w-full">
           <div className="w-full md:flex-1">
             <SearchBar
@@ -56,19 +54,23 @@ const MatchesListingPresentation: React.FC = () => {
               placeholder="Search teams or leagues"
             />
           </div>
+
           <div className="w-full md:w-auto">
             <LeagueSelectDropdown
               leagues={
                 leagues.filter((league) => league.logo !== null) as League[]
               }
-              isLoading={isLoading}
-              selectedLeagueId={selectedLeagueId}
+              isLoading={isLeaguesLoading}
+              selectedLeague={selectedLeague}
               leagueSearch={leagueSearch}
               onLeagueSearchChange={setLeagueSearch}
-              onSelectLeague={handleLeagueChange}
+              onSelectLeague={(league) =>
+                handleLeagueChange(league?.id ?? null)
+              }
             />
           </div>
         </div>
+
         <MatchStatusTabs
           activeStatus={status}
           onChange={handleStatusChange}
@@ -85,4 +87,5 @@ const MatchesPage: React.FC = () => (
     <MatchesListingPresentation />
   </Suspense>
 );
+
 export default MatchesPage;

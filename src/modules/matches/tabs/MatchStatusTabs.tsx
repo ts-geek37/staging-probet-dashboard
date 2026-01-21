@@ -5,6 +5,7 @@ import React from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { MatchListStatus } from "@/types/matches";
 
+import { LiveScopeEnum } from "@/modules/ws/types";
 import MatchTabContent from "./MatchTabs";
 
 interface Props {
@@ -23,7 +24,15 @@ const MatchStatusTabs: React.FC<Props> = ({
   teamId,
 }) => {
   const statuses = Object.values(MatchListStatus);
-
+  const buildScopeInfo = () => {
+    if (leagueId) {
+      return { scope: LiveScopeEnum.LEAGUE, id: leagueId };
+    }
+    if (teamId) {
+      return { scope: LiveScopeEnum.TEAM, id: teamId };
+    }
+    return { scope: LiveScopeEnum.GENERAL };
+  };
   return (
     <Tabs
       value={activeStatus}
@@ -49,6 +58,7 @@ const MatchStatusTabs: React.FC<Props> = ({
             search={search}
             leagueId={leagueId}
             teamId={teamId}
+            scopeInfo={buildScopeInfo()}
           />
         </TabsContent>
       ))}
