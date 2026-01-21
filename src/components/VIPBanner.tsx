@@ -12,11 +12,14 @@ const VipBanner: React.FC = () => {
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_right,rgba(234,179,8,0.2),transparent_45%)]" />
 
         <div className="relative z-10 flex max-w-xl flex-col gap-3">
-          <Badge className="hidden sm:block w-fit bg-primary-neon px-3 py-1 text-sm font-semibold text-black">
+          <Badge
+            variant="upcoming"
+            className="hidden sm:block w-fit bg-primary-neon px-3 py-1 text-sm font-semibold text-black"
+          >
             VIP Membership
           </Badge>
 
-          <h2 className="text-sm sm:text-2xl font-bold leading-tight text-white md:text-4xl">
+          <h2 className="text-base sm:text-2xl font-bold leading-tight text-white md:text-4xl">
             Unlock Premium Predictions
           </h2>
 
@@ -30,7 +33,7 @@ const VipBanner: React.FC = () => {
           <Link href="/pricing" className="w-full">
             <Button
               variant="secondary"
-              className="rounded-full max-sm:w-full px-6 py-5 text-sm font-semibold md:text-base"
+              className="rounded-xl sm:rounded-full max-sm:w-full px-6 py-5 text-sm font-semibold md:text-base"
             >
               View Plans
             </Button>

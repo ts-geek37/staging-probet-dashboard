@@ -48,18 +48,3 @@ export const vipLink = {
   href: "/pricing",
   icon: Crown,
 };
-
-export const socialMedia = [
-  {
-    name: "Twitter",
-    url: "https://twitter.com/probet",
-  },
-  {
-    name: "Discord",
-    url: "https://discord.gg/probet",
-  },
-  {
-    name: "GitHub",
-    url: "https://github.com/probet",
-  },
-];

@@ -1,17 +1,12 @@
 "use client";
 
-import { MapPin } from "lucide-react";
 import React from "react";
 
 import { ApiResponse } from "@/api/types";
-import {
-  DataError,
-  NoData,
-  SkeletonCardLoader,
-  OverviewCard,
-} from "@/components";
+import { DataError, NoData, SkeletonCardLoader } from "@/components";
 import { TeamOverviewResponse } from "@/types/teams";
 
+import TeamProfileOverView from "../components/TeamProfileOverview";
 import useTeamOverview from "../hooks/useTeamOverview";
 
 interface Props {
@@ -19,25 +14,30 @@ interface Props {
 }
 
 const TeamOverviewTab: React.FC<Props> = ({ initialData }) => {
-  const { sections, isLoading, error } = useTeamOverview(
-    initialData?.data?.id ?? 0,
-    initialData,
-  );
+  const {
+    teamInfo,
+    venue,
+    seasons,
+    rankings,
+    rivals,
+    socials,
+    isLoading,
+    error,
+  } = useTeamOverview(initialData?.data?.id ?? 0, initialData);
 
   if (isLoading) return <SkeletonCardLoader />;
   if (error) return <DataError />;
-  if (!sections.length) return <NoData message="Team data not available" />;
+  if (!teamInfo) return <NoData message="Team data not available" />;
 
   return (
-    <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-      {sections.map((section) => (
-        <OverviewCard
-          key={section.key}
-          title={section.title}
-          items={section.items}
-        />
-      ))}
-    </div>
+    <TeamProfileOverView
+      teamInfo={teamInfo}
+      venue={venue}
+      seasons={seasons}
+      rankings={rankings}
+      rivals={rivals}
+      socials={socials}
+    />
   );
 };
 

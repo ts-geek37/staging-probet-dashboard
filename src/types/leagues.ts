@@ -1,3 +1,5 @@
+import { MatchListItem } from "./matches";
+
 export interface LeagueMatch {
   id: number;
   kickoff_time: string;
@@ -100,6 +102,16 @@ export enum MatchListStatus {
   FINISHED = "finished",
 }
 
+export enum Continent {
+  EUROPE = "Europe",
+  ASIA = "Asia",
+  AFRICA = "Africa",
+  NORTH_AMERICA = "North America",
+  SOUTH_AMERICA = "South America",
+  OCEANIA = "Oceania",
+  ANTARCTICA = "Antarctica",
+}
+
 export interface LeagueCard {
   id: number;
   name: string;
@@ -109,6 +121,7 @@ export interface LeagueCard {
     name: string;
     code: string | null;
     flag: string | null;
+    continent: Continent | null;
   };
 }
 
@@ -122,6 +135,7 @@ export interface PaginationMeta {
   limit: number;
   count: number;
   total_pages: number;
+  has_more?: boolean;
 }
 
 export interface Country {
@@ -144,7 +158,6 @@ export interface LeagueSeasonInfo {
   stages?: StageInfo[];
   stage: StageInfo | null;
 }
-
 export interface LeagueProfileResponse {
   id: number;
   name: string;
@@ -162,6 +175,43 @@ export interface LeagueStanding {
   };
   points: number;
 }
+export type FormValue = "W" | "D" | "L";
+export type StandingStats = {
+  played?: number;
+  win?: number;
+  draw?: number;
+  loss?: number;
+  goals_for?: number;
+  goals_against?: number;
+  goal_difference?: number;
+  points?: number;
+};
+export type StandingStatsByScope = {
+  overall: StandingStats;
+  home: StandingStats;
+  away: StandingStats;
+};
+export interface MapStandingsTableRow {
+  position: number;
+
+  team: {
+    id: number;
+    name: string;
+    logo: string | null;
+  };
+
+  points: number;
+
+  form: FormValue[];
+
+  stats: StandingStatsByScope;
+
+  meta: {
+    standingId: number;
+    standingRuleId: number | null;
+    movement: string | null;
+  };
+}
 export interface LeagueStandingsResponse {
   league: {
     id: number;
@@ -169,15 +219,7 @@ export interface LeagueStandingsResponse {
     country: string;
   };
   season: LeagueSeasonInfo;
-  table: {
-    position: number;
-    team: {
-      id: number;
-      name: string;
-      logo: string | null;
-    };
-    points: number;
-  }[];
+  table: MapStandingsTableRow[];
 }
 export type CurrentSeason = LeagueSeasonInfo;
 
@@ -226,32 +268,33 @@ export interface MatchTeams {
 }
 export type MatchStatus = "UPCOMING" | "LIVE" | "FINISHED";
 
-export interface MatchListItem {
-  id: number;
-  kickoff_time: string;
-  status: MatchStatus;
-  league: {
-    id: number;
-    name: string;
-    logo: string | null;
-  };
-  season?: {
-    id: number;
-    name: string;
-  };
-  venue?: {
-    id?: number;
-    name?: string;
-    capacity?: number;
-    city?: string;
-    country?: string;
-    surface?: string;
-    image?: string;
-  };
-  teams: MatchTeams;
-  score?: MatchScore;
-  referee?: string;
-}
+// export interface MatchListItem {
+//   id: number;
+//   kickoff_time: string;
+//   status: MatchStatus;
+//   league: {
+//     id: number;
+//     name: string;
+//     logo: string | null;
+//   };
+//   season?: {
+//     id: number;
+//     name: string;
+//   };
+//   venue?: {
+//     id?: number;
+//     name?: string;
+//     capacity?: number;
+//     city?: string;
+//     country?: string;
+//     surface?: string;
+//     image?: string;
+//   };
+//   teams: MatchTeams;
+//   score?: MatchScore;
+//   referee?: string;
+//   live_period?: LivePeriod | null;
+// }
 
 export interface LeagueMatchesResponse {
   league: {
@@ -259,5 +302,7 @@ export interface LeagueMatchesResponse {
     name: string;
   };
   season: CurrentSeason;
-  matches: MatchListItem[];
+  liveMatches: MatchListItem[];
+  recentMatches: MatchListItem[];
+  upcomingMatches: MatchListItem[];
 }

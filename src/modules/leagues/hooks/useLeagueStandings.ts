@@ -8,7 +8,6 @@ const useLeagueStandings = (leagueId: number) => {
   const response = useSWR<ApiResponse<LeagueStandingsResponse>>(
     `/api/v2/leagues/${leagueId}/${LeagueView.STANDINGS}`,
   );
-
   return {
     standings: response.data?.data?.table,
     league: response.data?.data?.league,

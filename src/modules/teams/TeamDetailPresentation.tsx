@@ -15,6 +15,7 @@ import TeamHeader from "./TeamHeader";
 
 interface Props {
   teamId: number;
+  teamName: string;
   initialData: ApiResponse<TeamOverviewResponse> | null;
 }
 
@@ -26,7 +27,7 @@ const tabs = [
   { label: "Transfers", value: TeamDetailView.TRANSFERS },
 ];
 
-const TeamDetailPresentation = ({ teamId, initialData }: Props) => {
+const TeamDetailPresentation = ({ teamId, teamName, initialData }: Props) => {
   const [activeTab, setActiveTab] = useState<TeamDetailView>(
     TeamDetailView.OVERVIEW,
   );
@@ -46,6 +47,7 @@ const TeamDetailPresentation = ({ teamId, initialData }: Props) => {
         <TeamDetailTabs
           activeTab={activeTab}
           teamId={teamId}
+          teamName={teamName}
           initialData={initialData}
         />
       </div>

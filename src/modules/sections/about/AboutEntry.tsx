@@ -46,7 +46,7 @@ const AboutEntry: React.FC = () => {
           Our Mission
         </h3>
 
-        <p className="text-gray-400 leading-relaxed sm:text-lg md:text-xl">
+        <p className="text-primary-gray leading-relaxed sm:text-lg md:text-xl">
           Our mission is to make football analysis simple, accessible, and
           enjoyable for everyone, from casual fans to serious analysts. We
           believe football fans deserve transparent and reliable data without
@@ -60,7 +60,7 @@ const AboutEntry: React.FC = () => {
             Our Philosophy
           </h2>
 
-          <p className="mx-auto max-w-2xl sm:text-lg text-gray-400">
+          <p className="mx-auto max-w-2xl sm:text-lg text-primary-gray">
             <span className="font-medium text-primary-green">
               ProBetTips is NOT a betting platform.
             </span>{" "}
@@ -82,7 +82,7 @@ const AboutEntry: React.FC = () => {
 
               <h3 className="text-xl font-bold text-white">{item.title}</h3>
 
-              <p className="leading-relaxed text-gray-400">
+              <p className="leading-relaxed text-primary-gray">
                 {item.description}
               </p>
             </Card>

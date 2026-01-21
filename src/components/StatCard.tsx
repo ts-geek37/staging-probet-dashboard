@@ -23,7 +23,7 @@ export const StatCard: React.FC<Props> = ({
         {value}
         {suffix}
       </span>
-      <span className="text-sm text-gray-400">{label}</span>
+      <span className="text-sm text-primary-gray">{label}</span>
     </Card>
   );
 };

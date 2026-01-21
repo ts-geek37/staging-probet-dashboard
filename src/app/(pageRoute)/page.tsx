@@ -1,4 +1,5 @@
 import { getHome } from "@/api/home";
+import { NoData } from "@/components";
 import Home from "@/modules/home/Home";
 import { seo } from "@/utils/seo";
 
@@ -10,7 +11,8 @@ export const metadata = seo({
 
 const HomePage = async () => {
   const response = await getHome();
-  if (!response?.data) return null;
+  if (!response?.data)
+    return <NoData isCenter message="Network Issue, Try Later" />;
 
   return <Home initialHome={response} />;
 };

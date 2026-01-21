@@ -46,12 +46,13 @@ const TeamDetailPage = async ({ params }: Props) => {
   const { id } = await params;
 
   const teamId = Number(id);
+  const teamName = (await getTeamDetail({ id: teamId }))?.data?.name || "Team";
 
   const response = await getTeamDetail({
     id: teamId,
   });
 
-  return <TeamDetailPresentation teamId={teamId} initialData={response} />;
+  return <TeamDetailPresentation teamId={teamId} teamName={teamName} initialData={response} />;
 };
 
 export default TeamDetailPage;

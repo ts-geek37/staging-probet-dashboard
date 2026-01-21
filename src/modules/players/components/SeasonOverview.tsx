@@ -7,8 +7,6 @@ import { SelectField } from "@/components/form";
 import { Card, CardContent } from "@/components/ui/card";
 
 interface SeasonOverviewProps {
-  rating: number;
-
   team: {
     id: number;
     name: string;
@@ -27,7 +25,6 @@ interface SeasonOverviewProps {
 }
 
 const SeasonOverview: React.FC<SeasonOverviewProps> = ({
-  rating,
   team,
   jersey_number,
   position,
@@ -40,7 +37,7 @@ const SeasonOverview: React.FC<SeasonOverviewProps> = ({
       <CardContent className="py-4 flex max-mobile:flex-col gap-4 sm:items-center justify-between">
         <div className="flex items-center gap-4">
           {team?.logo && (
-            <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-lg bg-[#181d25] p-2">
+            <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-lg p-2">
               <Image
                 src={team.logo}
                 alt={team.name}
@@ -62,26 +59,12 @@ const SeasonOverview: React.FC<SeasonOverviewProps> = ({
             )}
 
             {position?.name && (
-              <p className="text-sm text-gray-400">{position.name}</p>
+              <p className="text-sm text-primary-gray">{position.name}</p>
             )}
-
-            <div className="flex items-center gap-2 sm:hidden ">
-              <span className="text-xs text-gray-400">Rating</span>
-              <span className="text-sm font-semibold text-white">
-                {rating.toFixed(1)}
-              </span>
-            </div>
           </div>
         </div>
 
         <div className="flex items-center gap-4">
-          <div className="hidden sm:flex flex-col items-center justify-center rounded-lg bg-[#181d25] px-4 py-2">
-            <span className="text-xs text-gray-400">Rating</span>
-            <span className="text-xl font-semibold text-white">
-              {rating.toFixed(1)}
-            </span>
-          </div>
-
           <SelectField
             options={seasonOptions}
             value={selectedSeasonId}

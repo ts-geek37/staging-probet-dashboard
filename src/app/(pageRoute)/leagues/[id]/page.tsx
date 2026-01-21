@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 
 import { getLeagueDetail } from "@/api/leagues";
+import { NoData } from "@/components";
 import { LeaguesDetails } from "@/modules/leagues";
 import { LeagueView } from "@/types/leagues";
 import { seo } from "@/utils/seo";
@@ -51,7 +52,7 @@ const LeaguePage: React.FC<Props> = async ({ params }) => {
 
   const initialLeagues = response.data;
 
-  if (!initialLeagues) return null;
+  if (!initialLeagues) return <NoData isCenter message="League Not Found" />;
 
   return <LeaguesDetails initialLeagues={response} />;
 };

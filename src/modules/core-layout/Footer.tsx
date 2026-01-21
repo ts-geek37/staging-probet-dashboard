@@ -34,12 +34,12 @@ const Footer: React.FC = () => {
               <Image
                 src="/logo.webp"
                 alt="ProBetTips Logo"
-                width={100}
+                width={500}
                 height={100}
                 className="h-8 w-42 object-contain"
               />
             </Link>
-            <p className="text-sm text-white/60 max-w-2xl leading-relaxed">
+            <p className="text-sm text-primary-gray max-w-2xl leading-relaxed">
               <span className="text-primary-green font-medium">ProBetTips</span>{" "}
               an informational football analytics platform. We do not{" "}
               <span className="text-primary-green font-medium">

@@ -31,6 +31,20 @@ export interface MatchScore {
   away: number | null;
 }
 
+export interface LivePeriod {
+  id: number;
+  typeId: number;
+  description: string | null;
+
+  ticking: boolean;
+
+  minutes: number | null;
+  seconds: number | null;
+
+  timeAdded: number | null;
+  hasTimer: boolean;
+}
+
 export interface MatchListItem {
   id: number;
   kickoff_time: string;
@@ -40,6 +54,7 @@ export interface MatchListItem {
     name: string;
     logo: string | null;
   };
+  live_period?: LivePeriod | null;
   season?: {
     id: number;
     name: string;
@@ -157,18 +172,28 @@ export interface SportMonksFixtureComment {
   order: number;
 }
 
-export interface MinuteDistribution {
-  "0-15"?: number;
-  "15-30"?: number;
-  "30-45"?: number;
-  "45-60"?: number;
-  "60-75"?: number;
-  "75-90"?: number;
+export interface MinuteBucket {
+  count: number;
+  percentage: number;
 }
 
+export type MinuteDistribution = Record<
+  "0-15" | "15-30" | "30-45" | "45-60" | "60-75" | "75-90",
+  MinuteBucket
+>;
 export interface MostScoredHalfStats {
-  first_half: number;
-  second_half: number;
+  most_scored_half: "1st-half" | "2nd-half";
+  most_scored_half_goals: number;
+  details: {
+    "1st-half": {
+      period: "1st-half";
+      total: number;
+    };
+    "2nd-half": {
+      period: "2nd-half";
+      total: number;
+    };
+  };
 }
 
 export interface TeamStatistics {

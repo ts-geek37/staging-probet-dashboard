@@ -1,15 +1,6 @@
 "use client";
 
-import {
-  Calendar,
-  Footprints,
-  Ruler,
-  Scale,
-  User,
-  Shield,
-  Shirt,
-  Briefcase,
-} from "lucide-react";
+import { Calendar, Footprints, Ruler, Scale, Briefcase } from "lucide-react";
 import useSWR from "swr";
 
 import { ApiResponse } from "@/api/types";
@@ -22,7 +13,7 @@ type InfoRow = {
 };
 
 const buildRows = (rows: InfoRow[]): InfoRow[] =>
-  rows.filter((row) => row.value !== null && row.value !== undefined);
+  rows.filter((row) => row.value != null);
 
 const formatDate = (date: string | null) =>
   date
@@ -47,28 +38,17 @@ const usePlayerOverview = (
 
   const player = data?.data ?? null;
 
-  /* -------------------- UI Rows -------------------- */
-
   const personalInfoRows = player
     ? buildRows([
-        { label: "Full Name", value: player.name, icon: User },
-        { label: "Nationality", value: player.nationality?.name || null },
-        { label: "Date of Birth", value: formatDate(player.date_of_birth) },
+        {
+          label: "Date of Birth",
+          value: formatDate(player.date_of_birth),
+          icon: Calendar,
+        },
         {
           label: "Age",
           value: player.age ? `${player.age} years` : null,
           icon: Calendar,
-        },
-        {
-          label: "Birthplace",
-          value:
-            player.birthplace?.city || player.birthplace?.country
-              ? `${player.birthplace.city ?? ""}${
-                  player.birthplace.city && player.birthplace.country
-                    ? ", "
-                    : ""
-                }${player.birthplace.country ?? ""}`
-              : null,
         },
       ])
     : [];
@@ -95,34 +75,13 @@ const usePlayerOverview = (
 
   const careerRows = player
     ? buildRows([
-        { label: "Position", value: player.position?.name },
-        { label: "Detailed Position", value: player.position?.detailed },
         {
-          label: "Current Team",
-          value: player.current_team?.name || null,
-          icon: Shield,
-        },
-        {
-          label: "Shirt Number",
-          value: player.shirt_number,
-          icon: Shirt,
-        },
-        {
-          label: "Captain",
-          value: player.is_captain ? "Yes" : null,
-        },
-        {
-          label: "Market Value",
-          value:
-            player.market_value !== null
-              ? `€${player.market_value.toLocaleString()}`
-              : null,
+          label: "Detailed Position",
+          value: player.position?.detailed ?? null,
         },
         {
           label: "Contract Until",
-          value: player.contract?.until
-            ? new Date(player.contract.until).getFullYear()
-            : null,
+          value: formatDate(player.contract?.until ?? null),
           icon: Briefcase,
         },
       ])
@@ -137,10 +96,7 @@ const usePlayerOverview = (
       ])
     : [];
 
-  /* -------------------- Explicit Raw Fields -------------------- */
-
   return {
-    /* ---------- Raw Player ---------- */
     player,
 
     id: player?.id ?? null,
@@ -160,7 +116,6 @@ const usePlayerOverview = (
     isActive: player?.is_active ?? false,
     isCaptain: player?.is_captain ?? false,
 
-    /* ---------- Structured Objects ---------- */
     nationality: player?.nationality ?? null,
     birthplace: player?.birthplace ?? null,
     position: player?.position ?? null,
@@ -170,13 +125,11 @@ const usePlayerOverview = (
     teams: player?.teams ?? [],
     trophies: player?.trophies ?? [],
 
-    /* ---------- UI-ready Rows ---------- */
     personalInfoRows,
     physicalRows,
     careerRows,
     statusRows,
 
-    /* ---------- SWR State ---------- */
     isLoading: !data && !error,
     error,
   };

@@ -18,13 +18,13 @@ const Testimonials: React.FC = () => {
   );
 
   return (
-    <div className="py-12 w-full">
-      <div className="flex flex-col gap-1 mb-5">
+    <div className="py-10 w-full">
+      <div className="flex flex-col gap-1 mb-8">
         <h2 className="text-lg sm:text-xl md:text-2xl font-bold text-white text-center">
           Trusted by Football Analysts Worldwide
         </h2>
 
-        <p className="text-xs sm:text-sm md:text-base text-gray-400 max-w-2xl mx-auto text-center">
+        <p className="text-xs sm:text-sm md:text-base text-primary-gray max-w-2xl mx-auto text-center">
           Real feedback from users who rely on ProBetTips for match statistics,
           team insights, and data-driven football analysis.
         </p>
@@ -59,13 +59,13 @@ const Testimonials: React.FC = () => {
                       <h4 className="text-white font-semibold group-hover:text-primary-neon">
                         {testimonial.name}
                       </h4>
-                      <p className="text-xs text-gray-400 group-hover:text-primary-neon/80">
+                      <p className="text-xs text-primary-gray group-hover:text-primary-neon/80">
                         {testimonial.country}
                       </p>
                     </div>
                   </div>
 
-                  <p className="text-gray-300 italic leading-relaxed transition-colors duration-300 group-hover:text-gray-200">
+                  <p className="text-primary-gray italic leading-relaxed transition-colors duration-300 group-hover:text-gray-200">
                     &ldquo;{testimonial.feedback}&rdquo;
                   </p>
                 </div>

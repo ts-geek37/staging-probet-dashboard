@@ -13,7 +13,7 @@ const Standings: React.FC<Props> = ({ id }) => {
 
   return (
     <div className="flex-1 text-white flex flex-col gap-12">
-      <StandingsTable standings={standings || []} />
+      <StandingsTable standings={standings || []} isLoading={isLoading} />
       <LeagueBanner banner="champions" />
     </div>
   );

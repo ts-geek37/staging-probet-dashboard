@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 
 import { NoData } from "@/components";
@@ -64,20 +65,23 @@ const TeamTransfersTable: React.FC<Props> = ({
                 className="border-b border-primary-gray/20"
               >
                 <TableCell className="text-primary-gray">
-                  <div className="flex items-center gap-3">
+                  <div className="flex items-center gap-3 w-11 h-11 bg-white rounded-full p-2">
                     {transfer.player.image && (
                       <Image
                         src={transfer.player.image}
                         alt={transfer.player.name}
-                        width={28}
-                        height={28}
-                        className="rounded-full"
+                        width={42}
+                        height={42}
+                        className="object-cover rounded-full w-9 h-9"
                       />
                     )}
                     <div className="flex flex-col">
-                      <span className="font-medium text-white">
+                      <Link
+                        href={`/players/${transfer.player.id}`}
+                        className="font-medium text-white hover:text-primary-green"
+                      >
                         {transfer.player.name}
-                      </span>
+                      </Link>
                       <span className="text-xs">ID: {transfer.player.id}</span>
                       {transfer.amount !== null && (
                         <span className="text-xs">
@@ -93,31 +97,45 @@ const TeamTransfersTable: React.FC<Props> = ({
                 </TableCell>
 
                 <TableCell className="text-primary-gray">
-                  <div className="flex items-center gap-2">
-                    {transfer.from_team?.logo && (
-                      <Image
-                        src={transfer.from_team.logo}
-                        alt={transfer.from_team.name}
-                        width={20}
-                        height={20}
-                      />
-                    )}
-                    <span>{transfer.from_team?.name ?? "-"}</span>
-                  </div>
+                  {transfer.from_team ? (
+                    <Link
+                      href={`/teams/${transfer.from_team.id}`}
+                      className="flex items-center gap-2 hover:text-white transition"
+                    >
+                      {transfer.from_team.logo && (
+                        <Image
+                          src={transfer.from_team.logo}
+                          alt={transfer.from_team.name}
+                          width={20}
+                          height={20}
+                        />
+                      )}
+                      <span>{transfer.from_team.name}</span>
+                    </Link>
+                  ) : (
+                    "-"
+                  )}
                 </TableCell>
 
                 <TableCell className="text-primary-gray">
-                  <div className="flex items-center gap-2">
-                    {transfer.to_team?.logo && (
-                      <Image
-                        src={transfer.to_team.logo}
-                        alt={transfer.to_team.name}
-                        width={20}
-                        height={20}
-                      />
-                    )}
-                    <span>{transfer.to_team?.name ?? "-"}</span>
-                  </div>
+                  {transfer.to_team ? (
+                    <Link
+                      href={`/teams/${transfer.to_team.id}`}
+                      className="flex items-center gap-2 hover:text-white transition"
+                    >
+                      {transfer.to_team.logo && (
+                        <Image
+                          src={transfer.to_team.logo}
+                          alt={transfer.to_team.name}
+                          width={20}
+                          height={20}
+                        />
+                      )}
+                      <span>{transfer.to_team.name}</span>
+                    </Link>
+                  ) : (
+                    "-"
+                  )}
                 </TableCell>
 
                 <TableCell className="text-primary-gray">

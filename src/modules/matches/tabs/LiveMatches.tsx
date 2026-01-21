@@ -1,69 +1,58 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 
-import {
-  DataError,
-  MatchCard,
-  NoData,
-  Pagination,
-  SkeletonCardLoader,
-} from "@/components";
+import { DataError, MatchCard, NoData, SkeletonCardLoader } from "@/components";
 import LeagueBanner from "@/modules/leagues/LeagueBanner";
-import { MatchListStatus } from "@/types/matches";
+import { MatchListItem } from "@/types/home";
 
-import useMatches from "../hooks/useMatches";
+import { useGeneralLiveMatches } from "../../ws/hooks";
+import { LiveMatchesScopeProps } from "../../ws/types";
 
 interface Props {
+  initialMatches: MatchListItem[];
+  scopeInfo: LiveMatchesScopeProps;
   search?: string;
+  leagueId?: number;
 }
 
-const LiveMatches: React.FC<Props> = ({ search }) => {
-  const [currentPage, setCurrentPage] = useState(1);
-  const limit = 6;
-
-  const { matches, isLoading, error, total_pages } = useMatches({
-    tab: MatchListStatus.LIVE,
-    page: currentPage,
-    limit,
-    q: search,
-  });
-
-  const handlePageChange = (page: number) => {
-    setCurrentPage(page);
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  };
-
-  if (isLoading) return <SkeletonCardLoader />;
-
-  if (!matches.length) return <NoData message="No matches found" />;
-
-  if (error) return <DataError />;
+const LiveMatches: React.FC<Props> = ({
+  initialMatches,
+  scopeInfo,
+  search,
+}) => {
+  const { data, loading, error } = useGeneralLiveMatches(
+    initialMatches,
+    scopeInfo,
+    search,
+  );
 
   return (
-    <>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {matches.map((match) => (
-          <MatchCard
-            key={match.id}
-            match={match}
-            href={`/matches/${match.id}`}
-          />
-        ))}
-      </div>
-      <div className="mt-6 flex justify-center">
-        <Pagination
-          mode="total"
-          currentPage={currentPage}
-          totalPages={total_pages}
-          onPageChange={handlePageChange}
-        />
-      </div>
+    <section className=" text-white">
+      <div className="">
+        {error && <DataError />}
 
-      <div className="pt-15">
-        <LeagueBanner banner="champions" />
+        {loading && <SkeletonCardLoader />}
+
+        {!loading && data.length === 0 ? (
+          <NoData message="No live matches found" />
+        ) : (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {data.map((match) => (
+              <MatchCard
+                key={match.id}
+                match={match}
+                href={`/matches/${match.id}`}
+              />
+            ))}
+          </div>
+        )}
+
+        <div className="pt-15">
+          <LeagueBanner banner="champions" />
+        </div>
       </div>
-    </>
+    </section>
   );
 };
 

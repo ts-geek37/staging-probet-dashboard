@@ -15,7 +15,7 @@ const badgeVariants = cva(
         upcoming:
           "bg-primary-neon/20 text-primary-neon px-3 sm:px-4 py-1 sm:py-2 text-xs sm:text-sm",
         finished:
-          "bg-primary-gray/20 text-primary-gray px-3 sm:px-4 py-1 sm:py-2 text-xs sm:text-sm",
+          "bg-primary-green/20 text-primary-green px-3 sm:px-4 py-1 sm:py-2 text-xs sm:text-sm",
         secondary:
           "border-transparent bg-secondary text-secondary-foreground hover:bg-secondary/90",
         destructive:

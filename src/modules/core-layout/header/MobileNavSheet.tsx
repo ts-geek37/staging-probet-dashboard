@@ -3,7 +3,7 @@
 import { UserButton, useUser } from "@clerk/nextjs";
 import { Menu, X } from "lucide-react";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -28,54 +28,44 @@ const MobileNavSheet: React.FC<Props> = ({
   vipLink,
   triggerClassName,
 }) => {
-  const [open, setOpen] = useState<boolean>(() => {
-    if (typeof window === "undefined") return false;
-    return false;
-  });
+  const [open, setOpen] = useState<boolean>(false);
   const { user } = useUser();
 
-  useEffect(() => {
-    const media = window.matchMedia("(min-width: 1100px)");
-
-    const handleChange = (e: MediaQueryListEvent) => {
-      if (e.matches) {
-        setOpen(false);
-      }
-    };
-
-    media.addEventListener("change", handleChange);
-
-    return () => {
-      media.removeEventListener("change", handleChange);
-    };
-  }, []);
-
   return (
-    <Sheet open={open} onOpenChange={setOpen}>
+    <Sheet
+      open={open}
+      onOpenChange={setOpen}
+      closeOnBreakpoint="(min-width: 1100px)"
+    >
       <SheetTrigger asChild>
         <Button
           variant="ghost"
           size="icon"
           aria-label="Open menu"
-          className={cn("text-gray-300", triggerClassName)}
+          className={cn("text-primary-gray", triggerClassName)}
         >
           <Menu className="h-6 w-6" />
         </Button>
       </SheetTrigger>
 
       <SheetContent
+        key={
+          typeof window !== "undefined"
+            ? String(window.innerWidth < 640)
+            : "default"
+        }
         side="right"
-        className="border-gray-800 w-[300px] sm:w-[350px] p-4"
+        className="border-primary-gray/20 w-75 sm:w-87.5 p-4"
       >
-        <SheetClose asChild className="absolute top-0 right-5">
+        <SheetClose asChild className="absolute top-2 right-5">
           <Button variant="ghost" size="icon" aria-label="Close">
             <X className="w-5 h-5 text-white" />
           </Button>
         </SheetClose>
 
-        <nav className="flex flex-col gap-4">
+        <nav className="flex flex-col gap-4 ">
           {user && (
-            <div className="sm:hidden size-10">
+            <div className="size-8 sm:hidden">
               <UserButton />
             </div>
           )}
@@ -88,7 +78,7 @@ const MobileNavSheet: React.FC<Props> = ({
                 href={link.href}
                 onClick={() => setOpen(false)}
                 className={cn(
-                  "flex items-center gap-3 px-4 py-3 rounded-lg transition-colors",
+                  "flex items-center gap-3 py-2 rounded-lg transition-colors",
                   "text-gray-300 hover:text-white hover:bg-gray-800",
                   link.isActive && "bg-gray-800 text-white",
                 )}
@@ -99,7 +89,11 @@ const MobileNavSheet: React.FC<Props> = ({
             );
           })}
 
-          {!!vipLink && <VipSection onNavigate={() => setOpen(false)} />}
+          {!!vipLink && (
+            <div className="sm:hidden">
+              <VipSection onNavigate={() => setOpen(false)} />
+            </div>
+          )}
         </nav>
       </SheetContent>
     </Sheet>

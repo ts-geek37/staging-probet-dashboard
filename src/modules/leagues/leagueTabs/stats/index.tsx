@@ -74,7 +74,7 @@ const Stats: React.FC<Props> = ({ id }) => {
         <div className="flex flex-col gap-4">
           <h3 className="text-lg font-semibold">Scoring Statistics</h3>
           {scoringStats.length === 0 ? (
-            <p className="text-gray-400 text-sm">
+            <p className="text-primary-gray text-sm">
               No scoring statistics available
             </p>
           ) : (
@@ -97,7 +97,7 @@ const Stats: React.FC<Props> = ({ id }) => {
         <div className="flex flex-col gap-4">
           <h3 className="text-lg font-semibold">Discipline</h3>
           {disciplineStats.length === 0 ? (
-            <p className="text-gray-400 text-sm">
+            <p className="text-primary-gray text-sm">
               No discipline statistics available
             </p>
           ) : (

@@ -13,7 +13,7 @@ import { PlayerDetailTabs } from "./tabs";
 export const playerTabs = [
   { label: "Profile", value: PlayerDetailView.Profile },
   { label: "Stats", value: PlayerDetailView.STATS },
-  { label: "Matches", value: PlayerDetailView.MATCHES },
+  { label: "Transfers", value: PlayerDetailView.TRANSFERS },
 ];
 
 interface Props {

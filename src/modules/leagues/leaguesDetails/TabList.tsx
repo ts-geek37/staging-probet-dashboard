@@ -4,7 +4,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { LeagueView } from "@/types/leagues";
 
 import { LeagueTabs } from "../constant";
-import LeagueTab from "../leageTabs";
+import LeagueTab from "../leagueTabs";
 
 interface Props {
   id: number;
@@ -23,7 +23,7 @@ const TabList: React.FC<Props> = ({ id }) => {
           <TabsTrigger
             key={value}
             value={value}
-            className="min-w-24 w-fit rounded-xl px-6 py-2 text-sm sm:text-base font-medium text-white bg-gray-900 border border-primary-green data-[state=active]:bg-primary-green shrink-0"
+            className="min-w-24 w-fit rounded-xl px-6 py-2 text-sm sm:text-base font-medium text-white bg-primary-bg border border-primary-gray/20 data-[state=active]:bg-primary-green shrink-0"
           >
             {label}
           </TabsTrigger>

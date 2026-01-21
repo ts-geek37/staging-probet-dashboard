@@ -28,7 +28,7 @@ const VipSection: React.FC<VipSectionProps> = ({ onNavigate }) => {
       <Link
         href={vipLink.href}
         onClick={onNavigate}
-        className="flex items-center gap-3 px-4 py-3 rounded-lg text-primary-yellow hover:bg-gray-800/50"
+        className="flex items-center gap-3 py-3 rounded-lg text-primary-yellow hover:bg-gray-800/50"
       >
         <Icon className="w-5 h-5" />
         <span className="text-base font-semibold">{vipLink.name}</span>
@@ -40,9 +40,9 @@ const VipSection: React.FC<VipSectionProps> = ({ onNavigate }) => {
         </div>
       ) : (
         <Button
-          variant="ghost"
+          variant="default"
           onClick={handleLogin}
-          className="max-sm:w-full text-gray-300 hover:text-white hover:bg-gray-800/50"
+          className="max-sm:w-full my-2"
         >
           Login
         </Button>

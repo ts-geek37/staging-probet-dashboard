@@ -6,36 +6,19 @@ import { LeagueMatchesResponse, LeagueView } from "@/types/leagues";
 
 const useLeagueMatches = (leagueId: number) => {
   const response = useSWR<ApiResponse<LeagueMatchesResponse>>(
-    `/api/v2/leagues/${leagueId}/${LeagueView.MATCHES}`,
+    `/api/v2/leagues/${leagueId}/${LeagueView.MATCHES}?limit=6`,
   );
 
   const leagueName = response.data?.data?.league?.name;
-  const matches = response.data?.data?.matches ?? [];
-
-  const recentMatches = matches
-    .filter((m) => m.status === "FINISHED")
-    .map((match) => ({
-      ...match,
-      leagueName,
-    }));
-
-  const upcomingMatches = matches
-    .filter((m) => m.status === "UPCOMING")
-    .map((match) => ({
-      ...match,
-      leagueName,
-    }));
-
-  const liveMatches = matches
-    .filter((m) => m.status === "LIVE")
-    .map((match) => ({
-      ...match,
-      leagueName,
-    }));
+  const recentMatches = response.data?.data?.recentMatches.slice(0, 6) ?? [];
+  const upcomingMatches =
+    response.data?.data?.upcomingMatches.slice(0, 6) ?? [];
+  const liveMatches = response.data?.data?.liveMatches.slice(0, 6) ?? [];
 
   return {
     upcomingMatches,
     recentMatches,
+    leagueName,
     liveMatches,
     isLoading: !response.data && !response.error,
     error: response.error,

@@ -5,6 +5,7 @@ import React from "react";
 
 import { NoData, MatchCard } from "@/components";
 import { MatchListItem } from "@/types/home";
+import { MatchListStatus } from "@/types/matches";
 
 interface Props {
   matches: MatchListItem[];
@@ -19,7 +20,7 @@ const UpcomingMatchCards: React.FC<Props> = ({ matches }) => {
             <h1 className="text-xl sm:text-5xl font-bold">Upcoming Matches</h1>
           </div>
           <Link
-            href="/matches"
+            href={`/matches?status=${MatchListStatus.UPCOMING}`}
             className="text-primary-gray hover:text-white transition-colors"
           >
             View all

@@ -10,9 +10,11 @@ import { useMatchDetail } from "../../hooks";
 
 interface Props {
   matchId: number;
+
+  isLive: boolean;
 }
 
-const MatchOverviewTab: React.FC<Props> = ({ matchId }) => {
+const MatchOverviewTab: React.FC<Props> = ({ matchId, isLive }) => {
   const { data, isLoading, error } = useMatchDetail(
     matchId,
     MatchDetailView.OVERVIEW,

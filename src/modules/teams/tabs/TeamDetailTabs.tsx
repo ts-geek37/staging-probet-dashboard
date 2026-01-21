@@ -10,16 +10,17 @@ import TeamTransfersTab from "./TeamTransfers";
 interface Props {
   activeTab: TeamDetailView;
   teamId: number;
+  teamName: string;
   initialData: ApiResponse<TeamOverviewResponse>;
 }
 
-const TeamDetailTabs = ({ activeTab, teamId, initialData }: Props) => {
+const TeamDetailTabs = ({ activeTab, teamId, teamName, initialData }: Props) => {
   switch (activeTab) {
     case TeamDetailView.OVERVIEW:
       return <TeamOverviewTab initialData={initialData} />;
 
     case TeamDetailView.MATCHES:
-      return <TeamMatchesTab teamId={teamId} />;
+      return <TeamMatchesTab teamId={teamId} teamName={teamName} />;
 
     case TeamDetailView.SQUAD:
       return <TeamSquadTab teamId={teamId} />;

@@ -2,14 +2,9 @@
 
 import React from "react";
 
-import { NoData } from "@/components";
-import { Card, CardContent } from "@/components/ui/card";
+import { NoData, StatsGrid } from "@/components";
 
-import {
-  PlayerStatsCard,
-  SeasonOverview,
-  PlayerStatsLoading,
-} from "../components";
+import { SeasonOverview, PlayerStatsLoading } from "../components";
 import { usePlayerStats } from "../hooks";
 
 interface Props {
@@ -20,12 +15,12 @@ const PlayerStatsTab: React.FC<Props> = ({ playerId }) => {
   const {
     stats,
     seasonOptions,
-    SetSeasonId,
+    setSeasonId,
     currentSeasonStats,
     attackingStats,
     defensiveStats,
-
     disciplineStats,
+    goalkeepingStats,
     currentSeason,
     isLoading,
   } = usePlayerStats(playerId);
@@ -33,43 +28,68 @@ const PlayerStatsTab: React.FC<Props> = ({ playerId }) => {
   if (isLoading) return <PlayerStatsLoading />;
   if (!stats) return <NoData message="No stats available" />;
 
+  const mapToStatItems = (statsArray: typeof currentSeasonStats) =>
+    statsArray.map((stat) => ({
+      label: stat.label,
+      value: stat.value,
+      color: stat.color,
+    }));
+
   return (
-    <div className="space-y-6">
+    <div className="flex flex-col gap-6">
       {!!currentSeason && (
         <SeasonOverview
           {...currentSeason}
-          rating={currentSeason?.stats?.rating ?? 0}
-          OnSeasonChange={SetSeasonId}
+          OnSeasonChange={setSeasonId}
           seasonOptions={seasonOptions}
           selectedSeasonId={currentSeason?.season?.id}
         />
       )}
-      <Card className="border-none shadow-2xl py-0">
-        <CardContent className="space-y-4 sm:space-y-8 py-6 sm:p-6">
-          <PlayerStatsCard title="Season Overview" stats={currentSeasonStats} />
 
-          {attackingStats.length > 0 && (
-            <PlayerStatsCard
-              title="Attacking & Passing"
-              stats={attackingStats}
-            />
-          )}
+      {!!currentSeasonStats.length && (
+        <StatsGrid
+          title="Season Overview"
+          stats={mapToStatItems(currentSeasonStats)}
+          columns="grid-cols-2 sm:grid-cols-4"
+          variant="nested"
+        />
+      )}
 
-          {defensiveStats.length > 0 && (
-            <PlayerStatsCard
-              title="Defensive & Physical"
-              stats={defensiveStats}
-            />
-          )}
+      {!!attackingStats.length && (
+        <StatsGrid
+          title="Attacking & Passing"
+          stats={mapToStatItems(attackingStats)}
+          columns="grid-cols-2 sm:grid-cols-3"
+          variant="nested"
+        />
+      )}
 
-          {disciplineStats.length > 0 && (
-            <PlayerStatsCard
-              title="Discipline & Team Record"
-              stats={disciplineStats}
-            />
-          )}
-        </CardContent>
-      </Card>
+      {!!defensiveStats.length && (
+        <StatsGrid
+          title="Defensive & Physical"
+          stats={mapToStatItems(defensiveStats)}
+          columns="grid-cols-2 sm:grid-cols-3"
+          variant="nested"
+        />
+      )}
+
+      {!!disciplineStats.length && (
+        <StatsGrid
+          title="Discipline & Team Record"
+          stats={mapToStatItems(disciplineStats)}
+          columns="grid-cols-2 sm:grid-cols-4"
+          variant="nested"
+        />
+      )}
+
+      {!!goalkeepingStats.length && (
+        <StatsGrid
+          title="Goalkeeping"
+          stats={mapToStatItems(goalkeepingStats)}
+          columns="grid-cols-2 sm:grid-cols-3"
+          variant="nested"
+        />
+      )}
     </div>
   );
 };
