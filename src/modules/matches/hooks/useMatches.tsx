@@ -1,7 +1,6 @@
 "use client";
 
 import useSWR from "swr";
-
 import { ApiResponse } from "@/api/types";
 import { MatchesListResponse, MatchListStatus } from "@/types/matches";
 
@@ -29,7 +28,7 @@ const useMatches = ({
   });
 
   const { data, error, isLoading } = useSWR<ApiResponse<MatchesListResponse>>(
-    `/api/v2/matches?${query.toString()}`,
+    `/api/v2/matches?${query.toString()}`
   );
 
   const matches = data?.data?.data ?? [];
@@ -37,7 +36,7 @@ const useMatches = ({
 
   return {
     matches,
-    tab: data?.data?.tab,
+    tab: data?.data?.tab ?? tab,
     page: pagination?.page ?? page,
     limit: pagination?.limit ?? limit,
     has_more: pagination?.has_more ?? false,

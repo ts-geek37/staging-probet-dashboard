@@ -5,14 +5,15 @@ import React from "react";
 import { DataError, NoData, SkeletonCardLoader } from "@/components";
 import MatchListing from "@/components/MatchListing";
 
-import { useTeamMatches } from "../hooks";
+import {useTeamMatches }from "../hooks";
+import { MatchListItem, MatchListStatus } from "@/types/matches";
 
 interface Props {
   teamId: number;
   teamName: string;
 }
 
-const TeamMatchesTab: React.FC<Props> = ({ teamId, teamName }) => {
+const TeamMatchesTab: React.FC<Props> = ({ teamId ,teamName}) => {
   const { latest, upcoming, isLoading, error } = useTeamMatches(teamId);
 
   if (isLoading) return <SkeletonCardLoader />;
@@ -23,9 +24,9 @@ const TeamMatchesTab: React.FC<Props> = ({ teamId, teamName }) => {
     <div className="space-y-12">
       {latest.length > 0 ? (
         <MatchListing
-          title="Recent Matches"
-          matches={latest}
-          href={`/matches?search=${teamName}&status=finished`}
+          title="Upcoming Fixtures"
+          matches={upcoming as MatchListItem[]}
+          href={`/matches?status=${MatchListStatus.UPCOMING}&q=${encodeURIComponent(teamName  )}`}
         />
       ) : (
         <NoData message="No recent matches found" />
@@ -33,9 +34,9 @@ const TeamMatchesTab: React.FC<Props> = ({ teamId, teamName }) => {
 
       {upcoming.length > 0 ? (
         <MatchListing
-          title="Upcoming Fixtures"
-          matches={upcoming}
-          href={`/matches?search=${teamName}&status=upcoming`}
+          title="Recent Matches"
+          matches={latest as MatchListItem[]}
+          href={`/matches?status=${MatchListStatus.FINISHED}&q=${encodeURIComponent(teamName)}`}
         />
       ) : (
         <NoData message="No upcoming matches found" />
