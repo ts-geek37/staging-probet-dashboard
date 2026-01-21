@@ -19,8 +19,14 @@ interface Props {
   scopeInfo?: LiveMatchesScopeProps;
 }
 
-
-const MatchTabs: React.FC<Props> = ({ status, search, leagueId, initialMatches, scopeInfo, teamId }) => {
+const MatchTabs: React.FC<Props> = ({
+  status,
+  search,
+  leagueId,
+  initialMatches,
+  scopeInfo,
+  teamId,
+}) => {
   switch (status) {
     case MatchListStatus.LIVE:
       return (
@@ -32,9 +38,11 @@ const MatchTabs: React.FC<Props> = ({ status, search, leagueId, initialMatches, 
         />
       );
     case MatchListStatus.UPCOMING:
-      return <UpcomingMatches search={search} leagueId={leagueId} teamId={teamId} />;
+      return (
+        <UpcomingMatches search={search} leagueId={leagueId} teamId={teamId} />
+      );
     case MatchListStatus.FINISHED:
-      return <FinishedMatches search={search} leagueId={leagueId} teamId={teamId} />;
+      return <FinishedMatches search={search} leagueId={leagueId} />;
     default:
       return null;
   }

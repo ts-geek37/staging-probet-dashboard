@@ -11,19 +11,21 @@ interface UseMatchesParams {
   limit?: number;
   q?: string;
   leagueId?: number;
-  teamId?: number;
 }
 
-const useMatches = ({ tab, page = 1, limit = 10, q, leagueId}: UseMatchesParams) => {
-
+const useMatches = ({
+  tab,
+  page = 1,
+  limit = 10,
+  q,
+  leagueId,
+}: UseMatchesParams) => {
   const query = new URLSearchParams({
     tab,
     page: String(page),
     limit: String(limit),
     ...(q ? { q } : {}),
     ...(leagueId ? { leagueId: String(leagueId) } : {}),
-    ...(leagueId ? { leagueId: String(leagueId) } : {}),
-    // ...(teamId ? { teamId: String(teamId) } : {}),
   });
 
   const { data, error, isLoading } = useSWR<ApiResponse<MatchesListResponse>>(

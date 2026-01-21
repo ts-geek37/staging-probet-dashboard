@@ -7,6 +7,7 @@ const useMatchFilters = () => {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
+  const [leagueSearch, setLeagueSearch] = useState("");
 
   const statusParam = searchParams.get("status");
   const leagueIdParam = searchParams.get("leagueId");
@@ -58,6 +59,8 @@ const useMatchFilters = () => {
     handleStatusChange,
     handleLeagueChange,
     handleSearchChange,
+    leagueSearch,
+    setLeagueSearch,
     search,
   };
 };
