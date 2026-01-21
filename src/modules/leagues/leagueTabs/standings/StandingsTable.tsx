@@ -14,60 +14,22 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { cn } from "@/lib/utils";
-import { LeagueStanding, MapStandingsTableRow } from "@/types/leagues";
+import { MapStandingsTableRow } from "@/types/leagues";
 
-type StandingUI = LeagueStanding & {
-  played: number;
-  win: number;
-  draw: number;
-  lose: number;
-  goalDiff: number;
-  form: ("W" | "D" | "L")[];
-};
+import StandingsTableSkeleton from "./StandingsTableSkeleton";
+
 type Column = {
   key: string;
   label: string;
   align: "left" | "center";
 };
 
-const STATIC_STANDINGS: StandingUI[] = [
-  {
-    position: 1,
-    points: 38,
-    played: 15,
-    win: 12,
-    draw: 2,
-    lose: 1,
-    goalDiff: 38,
-    form: ["W", "W", "W", "D", "W"],
-    team: {
-      id: 1,
-      name: "Arsenal",
-      logo: "https://media.api-sports.io/football/teams/42.png",
-    },
-  },
-  {
-    position: 2,
-    points: 28,
-    played: 15,
-    win: 9,
-    draw: 1,
-    lose: 5,
-    goalDiff: 28,
-    form: ["W", "W", "W", "D", "W"],
-    team: {
-      id: 2,
-      name: "Chelsea",
-      logo: "https://media.api-sports.io/football/teams/49.png",
-    },
-  },
-];
-
 interface Props {
   standings?: MapStandingsTableRow[];
+  isLoading?: boolean;
 }
 
-const COLUMNS: Column[] = [
+export const COLUMNS: Column[] = [
   { key: "rank", label: "#", align: "center" },
   { key: "team", label: "Team", align: "left" },
   { key: "played", label: "P", align: "center" },
@@ -79,14 +41,18 @@ const COLUMNS: Column[] = [
   { key: "form", label: "Form", align: "center" },
 ];
 
-const TABLE_GRID =
+export const TABLE_GRID =
   "grid grid-cols-[0.5fr_3fr_repeat(6,1fr)_minmax(150px,2fr)] sm:grid-cols-[0.5fr_6fr_repeat(6,1fr)_minmax(150px,2fr)] items-center px-5";
 
-const StandingsTable: React.FC<Props> = ({ standings }) => {
+const StandingsTable: React.FC<Props> = ({ standings, isLoading }) => {
   const router = useRouter();
 
   const formColor = (v: "W" | "D" | "L") =>
     v === "W" ? "bg-green-500" : v === "D" ? "bg-yellow-400" : "bg-red-600";
+
+  if (isLoading) {
+    return <StandingsTableSkeleton />;
+  }
 
   if (!standings?.length) {
     return <NoData message="No standings available" />;
