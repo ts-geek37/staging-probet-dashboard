@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React from "react";
 
+import { NoData } from "@/components";
 import {
   Table,
   TableBody,
@@ -13,7 +14,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { cn } from "@/lib/utils";
-import { LeagueStanding, LeagueStandingsResponse } from "@/types/leagues";
+import { LeagueStanding, MapStandingsTableRow } from "@/types/leagues";
 
 type StandingUI = LeagueStanding & {
   played: number;
@@ -63,7 +64,7 @@ const STATIC_STANDINGS: StandingUI[] = [
 ];
 
 interface Props {
-  standings?: LeagueStandingsResponse["table"];
+  standings?: MapStandingsTableRow[];
 }
 
 const COLUMNS: Column[] = [
@@ -84,20 +85,24 @@ const TABLE_GRID =
 const StandingsTable: React.FC<Props> = ({ standings }) => {
   const router = useRouter();
 
-  const data: StandingUI[] = standings?.length
-    ? standings.map((s: LeagueStanding) => ({
-        ...s,
-        played: 15,
-        win: 0,
-        draw: 0,
-        lose: 0,
-        goalDiff: 0,
-        form: ["W", "D", "L", "W", "W"] as ("W" | "D" | "L")[],
-      }))
-    : STATIC_STANDINGS;
-
   const formColor = (v: "W" | "D" | "L") =>
     v === "W" ? "bg-green-500" : v === "D" ? "bg-yellow-400" : "bg-red-600";
+
+  if (!standings?.length) {
+    return <NoData message="No standings available" />;
+  }
+  const data = standings.map((row) => {
+    const overall = row.stats.overall;
+
+    return {
+      ...row,
+      played: overall.played ?? 0,
+      win: overall.win ?? 0,
+      draw: overall.draw ?? 0,
+      lose: overall.loss ?? 0,
+      goalDiff: overall.goal_difference ?? 0,
+    };
+  });
 
   return (
     <div className="rounded-2xl border border-primary-gray/20 overflow-hidden flex flex-col">

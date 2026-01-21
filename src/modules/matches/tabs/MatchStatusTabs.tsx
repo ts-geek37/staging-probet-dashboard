@@ -3,6 +3,7 @@
 import React from "react";
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { LiveScopeEnum } from "@/modules/ws/types";
 import { MatchListStatus } from "@/types/matches";
 
 import { LiveScopeEnum } from "@/modules/ws/types";

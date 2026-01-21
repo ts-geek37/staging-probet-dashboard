@@ -7,6 +7,8 @@ import { useLeagues } from "@/modules/leagues/hooks/useLeagues";
 import { MatchListStatus } from "@/types/matches";
 import type { League } from "../components/LeagueSelectDropdown";
 
+import type { League } from "../components/LeagueSelectDropdown";
+
 const useMatchFilters = () => {
   const router = useRouter();
   const pathname = usePathname();

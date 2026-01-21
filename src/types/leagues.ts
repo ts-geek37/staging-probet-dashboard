@@ -175,6 +175,43 @@ export interface LeagueStanding {
   };
   points: number;
 }
+export type FormValue = "W" | "D" | "L";
+export type StandingStats = {
+  played?: number;
+  win?: number;
+  draw?: number;
+  loss?: number;
+  goals_for?: number;
+  goals_against?: number;
+  goal_difference?: number;
+  points?: number;
+};
+export type StandingStatsByScope = {
+  overall: StandingStats;
+  home: StandingStats;
+  away: StandingStats;
+};
+export interface MapStandingsTableRow {
+  position: number;
+
+  team: {
+    id: number;
+    name: string;
+    logo: string | null;
+  };
+
+  points: number;
+
+  form: FormValue[];
+
+  stats: StandingStatsByScope;
+
+  meta: {
+    standingId: number;
+    standingRuleId: number | null;
+    movement: string | null;
+  };
+}
 export interface LeagueStandingsResponse {
   league: {
     id: number;
@@ -182,15 +219,7 @@ export interface LeagueStandingsResponse {
     country: string;
   };
   season: LeagueSeasonInfo;
-  table: {
-    position: number;
-    team: {
-      id: number;
-      name: string;
-      logo: string | null;
-    };
-    points: number;
-  }[];
+  table: MapStandingsTableRow[];
 }
 export type CurrentSeason = LeagueSeasonInfo;
 
@@ -273,7 +302,7 @@ export interface LeagueMatchesResponse {
     name: string;
   };
   season: CurrentSeason;
-  matches: MatchListItem[];
+  liveMatches: MatchListItem[];
   recentMatches: MatchListItem[];
   upcomingMatches: MatchListItem[];
 }

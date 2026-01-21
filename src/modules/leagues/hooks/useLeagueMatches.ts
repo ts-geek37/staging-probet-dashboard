@@ -6,15 +6,14 @@ import { LeagueMatchesResponse, LeagueView } from "@/types/leagues";
 
 const useLeagueMatches = (leagueId: number) => {
   const response = useSWR<ApiResponse<LeagueMatchesResponse>>(
-    `/api/v2/leagues/${leagueId}/${LeagueView.MATCHES}`,
+    `/api/v2/leagues/${leagueId}/${LeagueView.MATCHES}?limit=6`,
   );
 
   const leagueName = response.data?.data?.league?.name;
-  const matches = response.data?.data?.matches ?? [];
   const recentMatches = response.data?.data?.recentMatches.slice(0, 6) ?? [];
   const upcomingMatches =
     response.data?.data?.upcomingMatches.slice(0, 6) ?? [];
-  const liveMatches = matches.filter((m) => m.status === "LIVE");
+  const liveMatches = response.data?.data?.liveMatches.slice(0, 6) ?? [];
 
   return {
     upcomingMatches,
