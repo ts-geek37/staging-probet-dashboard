@@ -76,9 +76,12 @@ const TeamTransfersTable: React.FC<Props> = ({
                       />
                     )}
                     <div className="flex flex-col">
-                      <span className="font-medium text-white">
+                      <Link
+                        href={`/players/${transfer.player.id}`}
+                        className="font-medium text-white hover:text-primary-green"
+                      >
                         {transfer.player.name}
-                      </span>
+                      </Link>
                       <span className="text-xs">ID: {transfer.player.id}</span>
                       {transfer.amount !== null && (
                         <span className="text-xs">

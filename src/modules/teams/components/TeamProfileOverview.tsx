@@ -226,8 +226,8 @@ const TeamProfileOverview: React.FC<Props> = ({
 
             <CardContent>
               <div className="ml-2 border-l border-primary-gray/20 pl-6 space-y-8">
-                {seasons.map((season) => (
-                  <div key={season.label} className="relative">
+                {seasons.map((season, index) => (
+                  <div key={index} className="relative">
                     <div className="absolute -left-[30px] top-2 w-3 h-3 rounded-full bg-primary-green" />
                     <h4 className="text-lg font-bold text-white">
                       {season.label}
