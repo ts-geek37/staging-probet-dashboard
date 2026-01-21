@@ -4,6 +4,7 @@ import { Ads } from "@/components";
 import MatchListing from "@/components/MatchListing";
 import LiveMatchCards from "@/modules/home/LiveMatchesCards";
 import { LiveScopeEnum } from "@/modules/ws/types";
+import { MatchListStatus } from "@/types/matches";
 
 import { useLeagueMatches } from "../hooks";
 import LeagueBanner from "../LeagueBanner";
@@ -31,7 +32,11 @@ const Matches: React.FC<Props> = ({ id }) => {
         upcomingMatches.length > 0 && (
           <>
             <Ads />
-            <MatchListing title="Upcoming Matches" matches={upcomingMatches} />
+            <MatchListing
+              title="Upcoming Matches"
+              matches={upcomingMatches}
+              href={`/matches?status=${MatchListStatus.UPCOMING}&leagueId=${id}`}
+            />
           </>
         )
       )}
@@ -42,7 +47,11 @@ const Matches: React.FC<Props> = ({ id }) => {
         <MatchListing title="Recent Matches" matches={[]} isLoading />
       ) : (
         recentMatches.length > 0 && (
-          <MatchListing title="Recent Matches" matches={recentMatches} />
+          <MatchListing
+            title="Recent Matches"
+            matches={recentMatches}
+            href={`/matches?status=${MatchListStatus.FINISHED}&leagueId=${id}`}
+          />
         )
       )}
     </div>

@@ -1,4 +1,4 @@
-import { LivePeriod, MatchListItem } from "./matches";
+import { MatchListItem } from "./matches";
 
 export interface LeagueMatch {
   id: number;
@@ -274,4 +274,6 @@ export interface LeagueMatchesResponse {
   };
   season: CurrentSeason;
   matches: MatchListItem[];
+  recentMatches: MatchListItem[];
+  upcomingMatches: MatchListItem[];
 }

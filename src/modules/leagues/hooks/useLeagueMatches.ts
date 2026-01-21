@@ -11,27 +11,9 @@ const useLeagueMatches = (leagueId: number) => {
 
   const leagueName = response.data?.data?.league?.name;
   const matches = response.data?.data?.matches ?? [];
-
-  const recentMatches = matches
-    .filter((m) => m.status === "FINISHED")
-    .map((match) => ({
-      ...match,
-      leagueName,
-    }));
-
-  const upcomingMatches = matches
-    .filter((m) => m.status === "UPCOMING")
-    .map((match) => ({
-      ...match,
-      leagueName,
-    }));
-
-  const liveMatches = matches
-    .filter((m) => m.status === "LIVE")
-    .map((match) => ({
-      ...match,
-      leagueName,
-    }));
+  const recentMatches = response.data?.data?.recentMatches.slice(0,6) ?? [];
+  const upcomingMatches = response.data?.data?.upcomingMatches.slice(0,6) ?? [];
+  const liveMatches = matches.filter((m) => m.status === "LIVE");
 
   return {
     upcomingMatches,

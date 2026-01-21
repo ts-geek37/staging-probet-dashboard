@@ -1,5 +1,7 @@
 "use client";
 
+import Link from "next/link";
+
 import { MatchListItem } from "@/types/matches";
 
 import MatchCardSkeleton from "./MatchCardSkeleton";
@@ -10,6 +12,7 @@ interface MatchListingProps {
   description?: string;
   matches: MatchListItem[];
   isLoading?: boolean;
+  href?: string;
 }
 
 const MatchListing: React.FC<MatchListingProps> = ({
@@ -17,11 +20,24 @@ const MatchListing: React.FC<MatchListingProps> = ({
   description,
   matches,
   isLoading = false,
+  href,
 }) => {
   return (
     <div className="w-full">
-      <h2 className="text-lg text-white font-semibold mb-4">{title}</h2>
-      {description && <p className="text-sm sm:text-base">{description}</p>}
+      <div className="flex justify-between items-center">
+        <div className="flex gap-4 flex-col">
+          <h2 className="text-lg text-white font-semibold mb-4">{title}</h2>
+          {description && <p className="text-sm sm:text-base">{description}</p>}
+        </div>
+        {href && (
+          <Link
+            href={href}
+            className="text-primary-gray hover:text-white transition-colors"
+          >
+            View all
+          </Link>
+        )}
+      </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 items-center lg:grid-cols-3 gap-4">
         {isLoading

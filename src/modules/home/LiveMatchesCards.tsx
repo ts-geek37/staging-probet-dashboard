@@ -62,7 +62,7 @@ const LiveMatchCards: React.FC<Props> = ({
           </div>
         )}
 
-        {loading && data.length === 0 && (
+        {loading ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {[0, 1, 2].map((i) => (
               <div
@@ -71,9 +71,7 @@ const LiveMatchCards: React.FC<Props> = ({
               />
             ))}
           </div>
-        )}
-
-        {!loading && data.length === 0 ? (
+        ) : data.length === 0 ? (
           <NoData message="No matches found" />
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
