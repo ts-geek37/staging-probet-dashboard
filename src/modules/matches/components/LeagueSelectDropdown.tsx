@@ -1,6 +1,6 @@
 "use client";
 
-import { Check, ChevronDown, LayoutGrid, Search } from "lucide-react"; // Added LayoutGrid for 'All' icon
+import { Check, ChevronDown, LayoutGrid, Search } from "lucide-react";
 import Image from "next/image";
 import React from "react";
 
@@ -23,30 +23,20 @@ export type League = {
 interface Props {
   leagues: League[];
   isLoading: boolean;
-  selectedLeagueId: number | null;
+  selectedLeague: League | null;
   leagueSearch: string;
   onLeagueSearchChange: (value: string) => void;
-  onSelectLeague: (leagueId: number | null) => void;
+  onSelectLeague: (league: League | null) => void;
 }
-const ALL_LEAGUES_ID = -1;
+
 const LeagueSelectDropdown: React.FC<Props> = ({
   leagues,
   isLoading,
-  selectedLeagueId,
+  selectedLeague,
   leagueSearch,
   onLeagueSearchChange,
   onSelectLeague,
 }) => {
-  const ALL_LEAGUES_OPTION: League = {
-    id: ALL_LEAGUES_ID,
-    name: "All Leagues",
-    logo: "",
-  };
-
-  const selectedLeague = leagues.find(
-    (league) => league.id === selectedLeagueId,
-  );
-
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -59,30 +49,24 @@ const LeagueSelectDropdown: React.FC<Props> = ({
           )}
         >
           <div className="flex items-center gap-2 min-w-0">
-            {selectedLeague ? (
-              <>
-                <div className="relative w-5 h-5 shrink-0">
-                  {selectedLeague.id === ALL_LEAGUES_ID ? (
-                    <LayoutGrid className="w-5 h-5" />
-                  ) : (
-                    <Image
-                      src={selectedLeague.logo}
-                      alt={selectedLeague.name}
-                      fill
-                      className="object-contain rounded-sm"
-                    />
-                  )}
-                </div>
-                <span className="truncate text-sm md:text-base">
-                  {selectedLeague.name}
-                </span>
-              </>
-            ) : (
-              <span className="text-white text-sm md:text-base">
-                Select League
-              </span>
-            )}
+            <div className="relative w-5 h-5 shrink-0">
+              {selectedLeague ? (
+                <Image
+                  src={selectedLeague.logo}
+                  alt={selectedLeague.name}
+                  fill
+                  className="object-contain rounded-sm"
+                />
+              ) : (
+                <LayoutGrid className="w-5 h-5" />
+              )}
+            </div>
+
+            <span className="truncate text-sm md:text-base">
+              {selectedLeague?.name ?? "All Leagues"}
+            </span>
           </div>
+
           <ChevronDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
       </DropdownMenuTrigger>
@@ -105,31 +89,31 @@ const LeagueSelectDropdown: React.FC<Props> = ({
           />
         </div>
 
-        <DropdownMenuSeparator className="bg-zinc-870" />
+        <DropdownMenuSeparator className="bg-zinc-800" />
 
-        <div className="max-h-56 sm:max-h-64 md:max-h-72 overflow-y-auto custom-scrollbar p-1">
+        <div className="max-h-56 md:max-h-72 overflow-y-auto custom-scrollbar p-1">
           {!leagueSearch && !isLoading && (
             <>
               <DropdownMenuItem
-                onClick={() => onSelectLeague(ALL_LEAGUES_OPTION.id)}
+                onClick={() => onSelectLeague(null)}
                 className={cn(
-                  "flex items-center justify-between gap-3",
-                  "px-3 py-2 cursor-pointer rounded-sm outline-none transition-colors",
-                  "focus:bg-primary-green/20 focus:text-white",
-                  "hover:bg-primary-green/20",
-                  selectedLeague?.id === ALL_LEAGUES_ID && "bg-zinc-800",
+                  "flex items-center justify-between gap-3 px-3 py-2 rounded-sm cursor-pointer",
+                  "hover:bg-primary-green/20 focus:bg-primary-green/20",
+                  selectedLeague === null && "bg-zinc-800",
                 )}
               >
-                <div className="flex items-center gap-3 min-w-0">
-                  <div className="flex items-center justify-center w-7 h-7 md:w-8 md:h-8 shrink-0 bg-zinc-800 rounded-md">
+                <div className="flex items-center gap-3">
+                  <div className="flex items-center justify-center w-8 h-8 bg-zinc-800 rounded-md">
                     <LayoutGrid className="w-4 h-4 text-primary-green" />
                   </div>
                   <span className="text-sm font-medium">All Leagues</span>
                 </div>
-                {selectedLeague?.id === ALL_LEAGUES_ID && (
+
+                {selectedLeague === null && (
                   <Check className="w-4 h-4 text-primary-green" />
                 )}
               </DropdownMenuItem>
+
               <DropdownMenuSeparator className="bg-zinc-800/50 my-1" />
             </>
           )}
@@ -142,26 +126,23 @@ const LeagueSelectDropdown: React.FC<Props> = ({
             leagues.map((league) => (
               <DropdownMenuItem
                 key={league.id}
-                onClick={() => onSelectLeague(league?.id)}
+                onClick={() => onSelectLeague(league)}
                 className={cn(
-                  "flex items-center justify-between gap-3",
-                  "px-3 py-2 cursor-pointer rounded-sm outline-none",
-                  "transition-colors",
-                  "focus:bg-primary-green/20 focus:text-white",
-                  "hover:bg-primary-green/20",
+                  "flex items-center justify-between gap-3 px-3 py-2 rounded-sm cursor-pointer",
+                  "hover:bg-primary-green/20 focus:bg-primary-green/20",
                   selectedLeague?.id === league.id && "bg-zinc-800",
                 )}
               >
                 <div className="flex items-center gap-3 min-w-0">
-                  <div className="relative w-7 h-7 md:w-8 md:h-8 shrink-0 p-1">
+                  <div className="relative w-8 h-8 shrink-0">
                     <Image
-                      src={league?.logo ?? "/no-image.png"}
+                      src={league.logo ?? "/no-image.png"}
                       alt={league.name}
                       fill
                       className="object-contain p-1"
                     />
                   </div>
-                  <span className="text-sm font-medium truncate">
+                  <span className="truncate text-sm font-medium">
                     {league.name}
                   </span>
                 </div>
@@ -172,8 +153,8 @@ const LeagueSelectDropdown: React.FC<Props> = ({
               </DropdownMenuItem>
             ))
           ) : (
-            <div className="px-3 py-8 text-center">
-              <p className="text-sm text-primary-gray">No leagues found</p>
+            <div className="px-3 py-8 text-center text-sm text-primary-gray">
+              No leagues found
             </div>
           )}
         </div>
