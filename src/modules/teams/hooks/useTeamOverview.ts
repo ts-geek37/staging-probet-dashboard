@@ -88,11 +88,12 @@ export const useTeamOverview = (
       label: r.name,
       image: r.logo,
     })) ?? [];
-
   const socials =
     team.socials?.map((s) => ({
-      label: s.channel.name,
+      label: s.channel?.name,
+      value: s.handle,
       extra: s.url,
+      color: s.channel?.color,
     })) ?? [];
 
   return {

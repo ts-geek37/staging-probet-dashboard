@@ -1,8 +1,9 @@
 import { Metadata } from "next";
-import React from "react";
+import { Suspense } from "react";
 
 import { MatchesListingPresentation } from "@/modules/matches";
 import { seo } from "@/utils/seo";
+import { SkeletonCardLoader } from "@/components";
 
 export const metadata: Metadata = seo({
   title: "Matches",
@@ -10,8 +11,12 @@ export const metadata: Metadata = seo({
     "View live, upcoming, and finished football matches with real-time scores, fixtures, and match details across global leagues on ProBetTips.",
 });
 
-const MatchesPage: React.FC = () => {
-  return <MatchesListingPresentation />;
+const MatchesPage = () => {
+  return (
+    <Suspense fallback={<SkeletonCardLoader />}>
+      <MatchesListingPresentation />
+    </Suspense>
+  );
 };
 
 export default MatchesPage;

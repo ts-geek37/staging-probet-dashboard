@@ -36,7 +36,7 @@ const PredictionBanner: React.FC = () => {
               </p>
 
               <div className="flex items-center gap-4 justify-center sm:justify-start">
-                <Link href="/price">
+                <Link href="/pricing">
                   <Button
                     variant="outline"
                     className="bg-primary-yellow/20 border-primary-yellow/70 rounded-2xl flex items-center gap-2 text-base px-6 py-3 w-50 h-13"

@@ -29,8 +29,8 @@ const VipBanner: React.FC = () => {
           </p>
         </div>
 
-        <div className="relative z-10 my-2 max-sm:w-full">
-          <Link href="/price" className="w-full">
+        <div className="relative z-10 max-sm:w-full">
+          <Link href="/pricing" className="w-full">
             <Button
               variant="secondary"
               className="rounded-xl sm:rounded-full max-sm:w-full px-6 py-5 text-sm font-semibold md:text-base"
