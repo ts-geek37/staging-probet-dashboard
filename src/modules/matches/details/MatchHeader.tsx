@@ -85,7 +85,7 @@ const MatchHeader: React.FC<Props> = ({ match }) => {
 
           <div className="flex flex-col items-center mx-4 sm:mx-12">
             <div className="text-lg sm:text-2xl md:text-4xl font-bold tracking-tighter mb-1">
-              {score?.home ?? 0} - {score?.away ?? 0}
+              {status === "UPCOMING" ? "VS" : `${score?.home ?? 0} - ${score?.away ?? 0}`}
             </div>
             <p className="text-xs sm:text-sm font-semibold text-primary-gray capitalize">
               {getMatchTime()}
