@@ -3,8 +3,9 @@
 import Link from "next/link";
 import React from "react";
 
-import { NoData, MatchCard } from "@/components";
+import { MatchCard, NoData } from "@/components";
 import { MatchListItem } from "@/types/home";
+import { MatchListStatus } from "@/types/matches";
 
 interface Props {
   matches: MatchListItem[];
@@ -19,7 +20,7 @@ const FinishedMatchesCards: React.FC<Props> = ({ matches }) => {
             <h1 className="text-xl sm:text-5xl font-bold">Recent Matches</h1>
           </div>
           <Link
-            href="/matches"
+            href={`/matches?status=${MatchListStatus.FINISHED}`}
             className="text-primary-gray hover:text-white transition-colors"
           >
             View all

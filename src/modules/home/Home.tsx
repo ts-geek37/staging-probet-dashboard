@@ -5,6 +5,7 @@ import React from "react";
 import { ApiResponse } from "@/api/types";
 import { VIPBanner } from "@/components";
 import { HomeResponse } from "@/types/home";
+import { MatchListStatus } from "@/types/matches";
 
 import Banner from "./Banner";
 import { Testimonials } from "./components";
@@ -35,7 +36,7 @@ const Home: React.FC<Props> = ({ initialHome }) => {
           <>
             <LiveMatchCards
               initialMatches={data.sections.live_now}
-              href="/matches"
+              href={`/matches?status=${MatchListStatus.LIVE}`}
               scopeInfo={{ scope: LiveScopeEnum.GENERAL }}
               className="py-10 md:py-20"
             />

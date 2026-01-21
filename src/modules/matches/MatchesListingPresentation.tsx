@@ -1,42 +1,27 @@
 "use client";
 
-import { ChevronDown } from "lucide-react";
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { Suspense, useState } from "react";
 
 import { SearchBar } from "@/components";
-import { Button } from "@/components/ui/button";
 import { useLeagues } from "@/modules/leagues/hooks/useLeagues";
-import { LeagueCard } from "@/types/leagues";
-import { MatchListStatus } from "@/types/matches";
 
 import { LeagueSelectDropdown } from "./components";
 import { League } from "./components/LeagueSelectDropdown";
+import { useMatchFilters } from "./hooks";
 import MatchStatusTabs from "./tabs/MatchStatusTabs";
 
 const MatchesListingPresentation: React.FC = () => {
-  const [status, setStatus] = useState<MatchListStatus>(MatchListStatus.LIVE);
-  const [search, setSearch] = useState("");
-
   const [leagueSearch, setLeagueSearch] = useState("");
-  const [selectedLeague, setSelectedLeague] = useState<{
-    id: number;
-    name: string;
-    logo: string;
-  } | null>(null);
 
-  const handleSearchChange = (value: string) => {
-    setSearch(value);
-  };
-
-  const statusOptions: { label: string; value: MatchListStatus }[] = [
-    { label: "Live", value: MatchListStatus.LIVE },
-    { label: "Upcoming", value: MatchListStatus.UPCOMING },
-    { label: "Finished", value: MatchListStatus.FINISHED },
-  ];
-
-  const currentLabel =
-    statusOptions.find((s) => s.value === status)?.label ?? "Live";
+  const {
+    status,
+    selectedLeagueId,
+    handleStatusChange,
+    handleLeagueChange,
+    handleSearchChange,
+    search,
+  } = useMatchFilters();
 
   const { leagues, isLoading } = useLeagues({
     search: leagueSearch,
@@ -77,33 +62,27 @@ const MatchesListingPresentation: React.FC = () => {
                 leagues.filter((league) => league.logo !== null) as League[]
               }
               isLoading={isLoading}
-              selectedLeague={selectedLeague}
+              selectedLeagueId={selectedLeagueId}
               leagueSearch={leagueSearch}
               onLeagueSearchChange={setLeagueSearch}
-              onSelectLeague={(league) => {
-                if (league) {
-                  setSelectedLeague({
-                    id:
-                      typeof league.id === "string"
-                        ? parseInt(league.id, 10)
-                        : league.id,
-                    name: league.name,
-                    logo: league.logo,
-                  });
-                }
-              }}
+              onSelectLeague={handleLeagueChange}
             />
           </div>
         </div>
         <MatchStatusTabs
           activeStatus={status}
-          onChange={setStatus}
+          onChange={handleStatusChange}
           search={search}
-          leagueId={selectedLeague?.id}
+          leagueId={selectedLeagueId ?? 0}
         />
       </div>
     </section>
   );
 };
 
-export default MatchesListingPresentation;
+const MatchesPage: React.FC = () => (
+  <Suspense>
+    <MatchesListingPresentation />
+  </Suspense>
+);
+export default MatchesPage;

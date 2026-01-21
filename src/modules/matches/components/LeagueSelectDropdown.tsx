@@ -15,7 +15,7 @@ import {
 import { cn } from "@/lib/utils";
 
 export type League = {
-  id: number | string;
+  id: number;
   name: string;
   logo: string;
 };
@@ -23,25 +23,29 @@ export type League = {
 interface Props {
   leagues: League[];
   isLoading: boolean;
-  selectedLeague: League | null;
+  selectedLeagueId: number | null;
   leagueSearch: string;
   onLeagueSearchChange: (value: string) => void;
-  onSelectLeague: (league: League | null) => void;
+  onSelectLeague: (leagueId: number | null) => void;
 }
-
+const ALL_LEAGUES_ID = -1;
 const LeagueSelectDropdown: React.FC<Props> = ({
   leagues,
   isLoading,
-  selectedLeague,
+  selectedLeagueId,
   leagueSearch,
   onLeagueSearchChange,
   onSelectLeague,
 }) => {
   const ALL_LEAGUES_OPTION: League = {
-    id: "all",
+    id: ALL_LEAGUES_ID,
     name: "All Leagues",
     logo: "",
   };
+
+  const selectedLeague = leagues.find(
+    (league) => league.id === selectedLeagueId,
+  );
 
   return (
     <DropdownMenu>
@@ -58,7 +62,7 @@ const LeagueSelectDropdown: React.FC<Props> = ({
             {selectedLeague ? (
               <>
                 <div className="relative w-5 h-5 shrink-0">
-                  {selectedLeague.id === "all" ? (
+                  {selectedLeague.id === ALL_LEAGUES_ID ? (
                     <LayoutGrid className="w-5 h-5" />
                   ) : (
                     <Image
@@ -107,13 +111,13 @@ const LeagueSelectDropdown: React.FC<Props> = ({
           {!leagueSearch && !isLoading && (
             <>
               <DropdownMenuItem
-                onClick={() => onSelectLeague(ALL_LEAGUES_OPTION)}
+                onClick={() => onSelectLeague(ALL_LEAGUES_OPTION.id)}
                 className={cn(
                   "flex items-center justify-between gap-3",
                   "px-3 py-2 cursor-pointer rounded-sm outline-none transition-colors",
                   "focus:bg-primary-green/20 focus:text-white",
                   "hover:bg-primary-green/20",
-                  selectedLeague?.id === "all" && "bg-zinc-800",
+                  selectedLeague?.id === ALL_LEAGUES_ID && "bg-zinc-800",
                 )}
               >
                 <div className="flex items-center gap-3 min-w-0">
@@ -122,7 +126,7 @@ const LeagueSelectDropdown: React.FC<Props> = ({
                   </div>
                   <span className="text-sm font-medium">All Leagues</span>
                 </div>
-                {selectedLeague?.id === "all" && (
+                {selectedLeague?.id === ALL_LEAGUES_ID && (
                   <Check className="w-4 h-4 text-primary-green" />
                 )}
               </DropdownMenuItem>
@@ -138,7 +142,7 @@ const LeagueSelectDropdown: React.FC<Props> = ({
             leagues.map((league) => (
               <DropdownMenuItem
                 key={league.id}
-                onClick={() => onSelectLeague(league)}
+                onClick={() => onSelectLeague(league?.id)}
                 className={cn(
                   "flex items-center justify-between gap-3",
                   "px-3 py-2 cursor-pointer rounded-sm outline-none",
