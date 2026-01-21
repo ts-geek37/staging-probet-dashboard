@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import React, { Suspense } from "react";
+import React from "react";
 
 import { SearchBar, SkeletonCardLoader } from "@/components";
 
@@ -10,6 +10,7 @@ import { League } from "./components/LeagueSelectDropdown";
 import { useMatchFilters } from "./hooks";
 import MatchStatusTabs from "./tabs/MatchStatusTabs";
 
+
 const MatchesListingPresentation: React.FC = () => {
   const {
     status,
@@ -17,16 +18,18 @@ const MatchesListingPresentation: React.FC = () => {
     selectedLeagueId,
     leagues,
     isLeaguesLoading,
+    search,
+    leagueSearch,
+    setLeagueSearch,
     handleStatusChange,
     handleLeagueChange,
     handleSearchChange,
-    leagueSearch,
-    setLeagueSearch,
-    search,
+    teamId,
   } = useMatchFilters();
 
   return (
     <section className="pb-10 md:pb-20 text-white space-y-10">
+
       <Image
         src="/adsBg.jpg"
         alt="Promotion Banner"
@@ -57,16 +60,12 @@ const MatchesListingPresentation: React.FC = () => {
 
           <div className="w-full md:w-auto">
             <LeagueSelectDropdown
-              leagues={
-                leagues.filter((league) => league.logo !== null) as League[]
-              }
+              leagues={leagues.filter((l) => l.logo !== null) as League[]}
               isLoading={isLeaguesLoading}
               selectedLeague={selectedLeague}
               leagueSearch={leagueSearch}
               onLeagueSearchChange={setLeagueSearch}
-              onSelectLeague={(league) =>
-                handleLeagueChange(league?.id ?? null)
-              }
+              onSelectLeague={handleLeagueChange}
             />
           </div>
         </div>
@@ -75,17 +74,13 @@ const MatchesListingPresentation: React.FC = () => {
           activeStatus={status}
           onChange={handleStatusChange}
           search={search}
-          leagueId={selectedLeagueId ?? 0}
+          leagueId={selectedLeagueId}
+          teamId={teamId}
         />
       </div>
     </section>
   );
 };
 
-const MatchesPage: React.FC = () => (
-  <Suspense fallback={<SkeletonCardLoader />}>
-    <MatchesListingPresentation />
-  </Suspense>
-);
 
-export default MatchesPage;
+export default MatchesListingPresentation;

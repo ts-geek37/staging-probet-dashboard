@@ -1,7 +1,7 @@
 "use client";
 
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { useMemo, useState } from "react";
+import { useMemo, useState, useEffect } from "react";
 
 import { useLeagues } from "@/modules/leagues/hooks/useLeagues";
 import { MatchListStatus } from "@/types/matches";
@@ -14,12 +14,11 @@ const useMatchFilters = () => {
   const searchParams = useSearchParams();
 
   const [leagueSearch, setLeagueSearch] = useState("");
-  const [search, setSearch] = useState(searchParams.get("search") ?? "");
+  const [search, setSearch] = useState(searchParams.get("q") ?? "");
 
   const statusParam = searchParams.get("status");
   const leagueIdParam = searchParams.get("leagueId");
 
-  /** -------- Status -------- */
   const status = useMemo(() => {
     const values = Object.values(MatchListStatus) as string[];
     if (statusParam && values.includes(statusParam)) {
@@ -28,59 +27,62 @@ const useMatchFilters = () => {
     return MatchListStatus.LIVE;
   }, [statusParam]);
 
-  /** -------- League ID (URL) -------- */
   const selectedLeagueId = useMemo(() => {
     const parsed = Number(leagueIdParam);
-    return !isNaN(parsed) && leagueIdParam !== null ? parsed : null;
+    return !isNaN(parsed) ? parsed : undefined;
   }, [leagueIdParam]);
 
-  /** -------- Leagues data -------- */
+  const teamIdParam = searchParams.get("teamId");
+  const teamId = useMemo<number | undefined>(() => {
+    if (!teamIdParam) return undefined;
+    const parsed = Number(teamIdParam);
+    return isNaN(parsed) ? undefined : parsed;
+  }, [teamIdParam]);
+
   const { leagues, isLoading: isLeaguesLoading } = useLeagues({
     search: leagueSearch,
     fetchAll: true,
   });
 
-  /** -------- Selected league (derived) -------- */
   const selectedLeague = useMemo<League | null>(() => {
-    if (!selectedLeagueId) return null;
-
+    if (selectedLeagueId === undefined) return null;
     const league = leagues.find((l) => l.id === selectedLeagueId);
     if (!league) return null;
-
-    return {
-      id: league.id,
-      name: league.name,
-      logo: league.logo || "/no-image.png",
-    };
+    return { id: league.id, name: league.name, logo: league.logo || "/no-image.png" };
   }, [selectedLeagueId, leagues]);
 
-  /** -------- URL updater -------- */
-  const updateParams = (updates: Record<string, string | null>) => {
+  const updateParams = (updates: Record<string, string | undefined>) => {
     const params = new URLSearchParams(searchParams.toString());
-
     Object.entries(updates).forEach(([key, value]) => {
-      if (value === null || value === undefined) {
+      if (value === undefined) {
         params.delete(key);
       } else {
         params.set(key, value);
       }
     });
-
     router.push(`${pathname}?${params.toString()}`);
   };
 
-  /** -------- Handlers -------- */
   const handleStatusChange = (newStatus: MatchListStatus) => {
     updateParams({ status: newStatus });
   };
 
-  const handleLeagueChange = (leagueId: number | null) => {
-    updateParams({ leagueId: leagueId?.toString() || null });
+  const handleLeagueChange = (league: League | null) => {
+    setSearch("");
+    updateParams({
+      leagueId: league ? league.id.toString() : undefined,
+      q: undefined,
+    });
   };
 
   const handleSearchChange = (value: string) => {
     setSearch(value);
   };
+
+  useEffect(() => {
+    const qFromQuery = searchParams.get("q") ?? "";
+    setSearch(qFromQuery);
+  }, [searchParams]);
 
   return {
     status,
@@ -88,14 +90,13 @@ const useMatchFilters = () => {
     selectedLeague,
     leagues,
     isLeaguesLoading,
-
+    search,
+    leagueSearch,
+    setLeagueSearch,
     handleStatusChange,
     handleLeagueChange,
     handleSearchChange,
-
-    leagueSearch,
-    setLeagueSearch,
-    search,
+    teamId,
   };
 };
 
