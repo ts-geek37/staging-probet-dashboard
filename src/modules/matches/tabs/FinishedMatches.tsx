@@ -16,15 +16,17 @@ import useMatches from "../hooks/useMatches";
 
 interface Props {
   search?: string;
+  leagueId?: number;
 }
 
-const FinishedMatches: React.FC<Props> = ({ search }) => {
+const FinishedMatches: React.FC<Props> = ({ search, leagueId }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const { matches, isLoading, error, has_more } = useMatches({
     tab: MatchListStatus.FINISHED,
     page: currentPage,
-    limit: 4,
+    limit: 10,
     q: search,
+    leagueId: leagueId,
   });
 
   const handlePageChange = (page: number) => {
@@ -37,41 +39,47 @@ const FinishedMatches: React.FC<Props> = ({ search }) => {
   if (!matches.length) return <NoData message="No matches found" />;
 
   if (error) return <DataError />;
+
   return (
     <>
-      <div className="grid grid-cols-1 xl:grid-cols-[1fr_400px] gap-6 items-start">
-        <div className="flex flex-col">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {matches.map((match) => (
-              <MatchCard
-                key={match.id}
-                match={match}
-                href={`/matches/${match.id}`}
-              />
-            ))}
-          </div>
-          <div className="mt-5 flex justify-center">
-            <Pagination
-              mode="hasNext"
-              currentPage={currentPage}
-              hasNext={has_more}
-              onPageChange={handlePageChange}
+      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 items-start">
+        {matches.slice(0, 2).map((match) => (
+          <MatchCard
+            key={match.id}
+            match={match}
+            href={`/matches/${match.id}`}
+          />
+        ))}
+
+        <div className="order-last xl:order-0 md:col-span-2 xl:col-span-1 xl:col-start-3 xl:row-start-1 xl:row-span-2">
+          <div className="sticky top-4">
+            <Image
+              src="/adsBg.jpg"
+              alt="Promotion Banner"
+              width={500}
+              height={600}
+              className="w-full h-60 md:h-80 xl:h-120 object-cover rounded-xl"
+              priority
             />
           </div>
         </div>
-        <div className="overflow-hidden">
-          <Image
-            src="/adsBg.jpg"
-            alt="Promotion Banner"
-            width={400}
-            height={650}
-            className="w-full h-110 object-cover"
-            priority
+        {matches.slice(2).map((match) => (
+          <MatchCard
+            key={match.id}
+            match={match}
+            href={`/matches/${match.id}`}
           />
-        </div>
+        ))}
       </div>
 
-      <div className="overflow-hidden"></div>
+      <div className="mt-8 flex justify-center">
+        <Pagination
+          mode="hasNext"
+          currentPage={currentPage}
+          hasNext={has_more}
+          onPageChange={handlePageChange}
+        />
+      </div>
     </>
   );
 };

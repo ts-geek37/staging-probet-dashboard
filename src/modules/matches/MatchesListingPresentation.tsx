@@ -6,19 +6,22 @@ import React, { useState } from "react";
 
 import { SearchBar } from "@/components";
 import { Button } from "@/components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 import { MatchListStatus } from "@/types/matches";
+import { useLeagues } from "@/modules/leagues/hooks/useLeagues";
+import { LeagueSelectDropdown } from "./components";
 
 import MatchStatusTabs from "./tabs/MatchStatusTabs";
 
 const MatchesListingPresentation: React.FC = () => {
   const [status, setStatus] = useState<MatchListStatus>(MatchListStatus.LIVE);
   const [search, setSearch] = useState("");
+
+  const [leagueSearch, setLeagueSearch] = useState("");
+  const [selectedLeague, setSelectedLeague] = useState<{
+    id: number;
+    name: string;
+    logo: string;
+  } | null>(null);
 
   const handleSearchChange = (value: string) => {
     setSearch(value);
@@ -33,6 +36,11 @@ const MatchesListingPresentation: React.FC = () => {
   const currentLabel =
     statusOptions.find((s) => s.value === status)?.label ?? "Live";
 
+  const { leagues, isLoading } = useLeagues({
+    search: leagueSearch,
+    fetchAll: true,
+  });
+
   return (
     <section className="pb-10 md:pb-20 text-white space-y-10">
       <Image
@@ -43,7 +51,8 @@ const MatchesListingPresentation: React.FC = () => {
         className="w-full h-20 object-cover"
         priority
       />
-      <div className="max-w-7xl mx-auto px-4 flex flex-col gap-4">
+
+      <div className="max-w-7xl mx-auto px-4 flex flex-col gap-6">
         <div className="flex flex-col sm:flex-row items-start sm:items-end justify-between gap-6">
           <div className="space-y-2">
             <h1 className="text-2xl sm:text-5xl font-bold">Match Center</h1>
@@ -52,46 +61,43 @@ const MatchesListingPresentation: React.FC = () => {
             </p>
           </div>
         </div>
+        <div className="flex flex-col md:flex-row items-stretch md:items-center gap-3 w-full">
 
-        <div className="flex items-center gap-4 w-full">
-          <div className="flex-1">
+          <div className="w-full md:flex-1">
             <SearchBar
               value={search}
               onSearchChange={handleSearchChange}
               placeholder="Search teams or leagues"
             />
           </div>
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button className="bg-primary-green flex items-center gap-2 text-white">
-                {currentLabel}
-                <ChevronDown className="w-4 h-4" />
-              </Button>
-            </DropdownMenuTrigger>
-
-            <DropdownMenuContent
-              align="end"
-              className="bg-primary-gray/20 text-white w-40"
-            >
-              {statusOptions.map((option) => (
-                <DropdownMenuItem
-                  key={option.value}
-                  onClick={() => setStatus(option.value)}
-                  className="cursor-pointer hover:bg-primary-green border-b border-primary-gray/20"
-                >
-                  {option.label}
-                </DropdownMenuItem>
-              ))}
-            </DropdownMenuContent>
-          </DropdownMenu>
+          <div className="w-full md:w-auto">
+            <LeagueSelectDropdown
+              leagues={leagues.filter((league) => league.logo !== null) as any[]}
+              isLoading={isLoading}
+              selectedLeague={selectedLeague}
+              leagueSearch={leagueSearch}
+              onLeagueSearchChange={setLeagueSearch}
+              onSelectLeague={(league) => {
+                if (league) {
+                  setSelectedLeague({
+                    id: typeof league.id === "string" ? parseInt(league.id, 10) : league.id,
+                    name: league.name,
+                    logo: league.logo,
+                  });
+                }
+              }}
+            />
+          </div>
         </div>
         <MatchStatusTabs
           activeStatus={status}
           onChange={setStatus}
           search={search}
+          leagueId={selectedLeague?.id}
         />
       </div>
     </section>
   );
 };
+
 export default MatchesListingPresentation;
