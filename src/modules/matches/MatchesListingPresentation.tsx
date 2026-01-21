@@ -3,7 +3,7 @@
 import Image from "next/image";
 import React, { Suspense } from "react";
 
-import { SearchBar } from "@/components";
+import { SearchBar, SkeletonCardLoader } from "@/components";
 import { useLeagues } from "@/modules/leagues/hooks/useLeagues";
 
 import { LeagueSelectDropdown } from "./components";
@@ -81,7 +81,7 @@ const MatchesListingPresentation: React.FC = () => {
 };
 
 const MatchesPage: React.FC = () => (
-  <Suspense>
+  <Suspense fallback={<SkeletonCardLoader />}>
     <MatchesListingPresentation />
   </Suspense>
 );
