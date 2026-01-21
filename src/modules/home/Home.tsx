@@ -39,6 +39,7 @@ const Home: React.FC<Props> = ({ initialHome }) => {
               href={`/matches?status=${MatchListStatus.LIVE}`}
               scopeInfo={{ scope: LiveScopeEnum.GENERAL }}
               className="py-10 md:py-20"
+              limit={6}
             />
             <VIPBanner />
           </>

@@ -41,7 +41,6 @@ const LeagueSelectDropdown: React.FC<Props> = ({
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button
-          variant="outline"
           className={cn(
             "w-full md:w-72 justify-between",
             "bg-primary-green/80 border-primary-gray/20 text-white",
@@ -134,12 +133,12 @@ const LeagueSelectDropdown: React.FC<Props> = ({
                 )}
               >
                 <div className="flex items-center gap-3 min-w-0">
-                  <div className="relative w-8 h-8 shrink-0">
+                  <div className="relative size-8 bg-white rounded-md p-1 shrink-0">
                     <Image
                       src={league.logo ?? "/no-image.png"}
                       alt={league.name}
                       fill
-                      className="object-contain p-1"
+                      className="object-contain"
                     />
                   </div>
                   <span className="truncate text-sm font-medium">

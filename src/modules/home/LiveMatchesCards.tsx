@@ -16,6 +16,7 @@ interface Props {
   title?: string;
   description?: string;
   href?: string;
+  limit?: number;
 }
 
 const LiveMatchCards: React.FC<Props> = ({
@@ -25,11 +26,13 @@ const LiveMatchCards: React.FC<Props> = ({
   description = "Live and upcoming fixtures",
   className,
   href,
+  limit
 }) => {
   const { data, loading, error, connected } = useGeneralLiveMatches(
     initialMatches,
     scopeInfo,
   );
+  const matches = limit ? data.slice(0, limit) : data;
 
   return (
     <section className={cn("text-white", className)}>
@@ -75,7 +78,7 @@ const LiveMatchCards: React.FC<Props> = ({
           <NoData message="No matches found" />
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {data.map((match) => (
+            {matches.map((match) => (
               <MatchCard
                 key={match.id}
                 match={match}
