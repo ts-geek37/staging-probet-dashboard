@@ -35,7 +35,7 @@ const StatusBadge: React.FC<{
     return (
       <Badge
         variant="outline"
-        className="bg-primary-yellow/10 border-primary-yellow/20 text-primary-yellow font-bold animate-pulse px-2 py-0.5 text-sm font-mono shadow-[0_0_10px_rgba(var(--primary-yellow),0.1)]"
+        className="bg-primary-yellow/10 border-primary-yellow/20 text-primary-yellow font-bold animate-pulse px-3 py-2 text-sm font-mono shadow-[0_0_10px_rgba(var(--primary-yellow),0.1)]"
       >
         <span className="mr-1.5 flex h-1.5 w-1.5 rounded-full bg-primary-yellow" />
         {countdown}

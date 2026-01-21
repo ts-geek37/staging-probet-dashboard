@@ -2,8 +2,10 @@
 
 import React from "react";
 
-import { DataError, NoData, SkeletonCardLoader, MatchCard } from "@/components";
+import { DataError, NoData, SkeletonCardLoader } from "@/components";
+import MatchListing from "@/components/MatchListing";
 import { MatchListItem } from "@/types/teams";
+import { MatchListStatus } from "@/types/leagues";
 
 import { useTeamMatches } from "../hooks";
 
@@ -18,36 +20,23 @@ const TeamMatchesTab: React.FC<Props> = ({ teamId }) => {
   if (error) return <DataError />;
   if (!latest || !upcoming) return <NoData message="Team data not available" />;
 
-  const renderMatches = (matches: MatchListItem[], emptyMessage: string) =>
-    !matches.length ? (
-      <NoData message={emptyMessage} />
-    ) : (
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {matches.map((match) => (
-          <MatchCard
-            key={match.id}
-            match={match}
-            href={`/matches/${match.id}`}
-          />
-        ))}
-      </div>
-    );
-
   return (
-    <div className="space-y-12">
-      <section>
-        <h2 className="text-xl font-semibold mb-4 text-white">
-          Recent Matches
-        </h2>
-        {renderMatches(latest, "No latest matches")}
-      </section>
+    <div className="flex flex-col gap-8">
+      {upcoming.length > 0 && (
+        <MatchListing
+          title="Upcoming Fixtures"
+          matches={upcoming as MatchListItem[]}
+          href={`/matches?status=${MatchListStatus.UPCOMING}&teamId=${teamId}`}
+        />
+      )}
 
-      <section>
-        <h2 className="text-xl font-semibold mb-4 text-white">
-          Upcoming Fixtures
-        </h2>
-        {renderMatches(upcoming, "No upcoming fixtures")}
-      </section>
+      {latest.length > 0 && (
+        <MatchListing
+          title="Recent Matches"
+          matches={latest as MatchListItem[]}
+          href={`/matches?status=${MatchListStatus.FINISHED}&teamId=${teamId}`}
+        />
+      )}
     </div>
   );
 };

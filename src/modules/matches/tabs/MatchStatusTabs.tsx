@@ -12,6 +12,7 @@ interface Props {
   onChange: (status: MatchListStatus) => void;
   search?: string;
   leagueId?: number;
+  teamId?: number;
 }
 
 const MatchStatusTabs: React.FC<Props> = ({
@@ -19,6 +20,7 @@ const MatchStatusTabs: React.FC<Props> = ({
   onChange,
   search,
   leagueId,
+  teamId,
 }) => {
   const statuses = Object.values(MatchListStatus);
 
@@ -46,6 +48,7 @@ const MatchStatusTabs: React.FC<Props> = ({
             status={status}
             search={search}
             leagueId={leagueId}
+            teamId={teamId}
           />
         </TabsContent>
       ))}

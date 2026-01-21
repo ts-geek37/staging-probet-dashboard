@@ -18,9 +18,10 @@ interface Props {
   search?: string;
 }
 
-const UpcomingMatches: React.FC<Props & { leagueId?: number }> = ({
+const UpcomingMatches: React.FC<Props & { leagueId?: number; teamId?: number }> = ({
   search,
   leagueId,
+  teamId,
 }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const { matches, isLoading, error, has_more } = useMatches({
@@ -29,6 +30,8 @@ const UpcomingMatches: React.FC<Props & { leagueId?: number }> = ({
     limit: 10,
     q: search,
     leagueId,
+    leagueId,
+    teamId,
   });
 
   const handlePageChange = (page: number) => {

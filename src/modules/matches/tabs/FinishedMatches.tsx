@@ -17,9 +17,10 @@ import useMatches from "../hooks/useMatches";
 interface Props {
   search?: string;
   leagueId?: number;
+  teamId?: number;
 }
 
-const FinishedMatches: React.FC<Props> = ({ search, leagueId }) => {
+const FinishedMatches: React.FC<Props> = ({ search, leagueId, teamId }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const { matches, isLoading, error, has_more } = useMatches({
     tab: MatchListStatus.FINISHED,
@@ -27,6 +28,7 @@ const FinishedMatches: React.FC<Props> = ({ search, leagueId }) => {
     limit: 10,
     q: search,
     leagueId: leagueId,
+    teamId: teamId,
   });
 
   const handlePageChange = (page: number) => {
