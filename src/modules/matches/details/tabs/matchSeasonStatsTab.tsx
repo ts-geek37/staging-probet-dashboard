@@ -55,7 +55,7 @@ const MatchSeasonStatsTab: React.FC<Props> = ({ match }) => {
               />
             )}
           </div>
-          <span className="text-sm sm:text-lg font-black text-white text-center line-clamp-1">
+          <span className="text-sm sm:text-lg font-black text-white text-center">
             {home.name}
           </span>
         </div>
@@ -89,7 +89,7 @@ const MatchSeasonStatsTab: React.FC<Props> = ({ match }) => {
               />
             )}
           </div>
-          <span className="text-sm sm:text-lg font-black text-white text-center line-clamp-1">
+          <span className="text-sm sm:text-lg font-black text-white text-center">
             {away.name}
           </span>
         </div>
@@ -100,6 +100,7 @@ const MatchSeasonStatsTab: React.FC<Props> = ({ match }) => {
           <Accordion
             type="single"
             className="contents"
+            collapsible
             defaultValue={statSections[0].title}
           >
             {statSections.map((section) => (
