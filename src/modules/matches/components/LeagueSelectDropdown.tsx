@@ -1,6 +1,6 @@
 "use client";
 
-import { Check, ChevronDown, Search, LayoutGrid } from "lucide-react"; // Added LayoutGrid for 'All' icon
+import { Check, ChevronDown, LayoutGrid, Search } from "lucide-react"; // Added LayoutGrid for 'All' icon
 import Image from "next/image";
 import React from "react";
 
@@ -9,13 +9,13 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuTrigger,
   DropdownMenuSeparator,
+  DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { cn } from "@/lib/utils";
 
-type League = {
-  id: number | string; // Updated to allow string for "all"
+export type League = {
+  id: number | string;
   name: string;
   logo: string;
 };
@@ -26,7 +26,7 @@ interface Props {
   selectedLeague: League | null;
   leagueSearch: string;
   onLeagueSearchChange: (value: string) => void;
-  onSelectLeague: (league: League | null) => void; // Updated to allow null (all)
+  onSelectLeague: (league: League | null) => void;
 }
 
 const LeagueSelectDropdown: React.FC<Props> = ({
@@ -37,12 +37,10 @@ const LeagueSelectDropdown: React.FC<Props> = ({
   onLeagueSearchChange,
   onSelectLeague,
 }) => {
-
-  // Define the "All Leagues" constant
   const ALL_LEAGUES_OPTION: League = {
     id: "all",
     name: "All Leagues",
-    logo: "", // We can use an icon instead of an image
+    logo: "",
   };
 
   return (
@@ -106,7 +104,6 @@ const LeagueSelectDropdown: React.FC<Props> = ({
         <DropdownMenuSeparator className="bg-zinc-870" />
 
         <div className="max-h-56 sm:max-h-64 md:max-h-72 overflow-y-auto custom-scrollbar p-1">
-          {/* --- ALL LEAGUES OPTION --- */}
           {!leagueSearch && !isLoading && (
             <>
               <DropdownMenuItem
@@ -154,7 +151,7 @@ const LeagueSelectDropdown: React.FC<Props> = ({
                 <div className="flex items-center gap-3 min-w-0">
                   <div className="relative w-7 h-7 md:w-8 md:h-8 shrink-0 p-1">
                     <Image
-                      src={league.logo}
+                      src={league?.logo ?? "/no-image.png"}
                       alt={league.name}
                       fill
                       className="object-contain p-1"

@@ -11,8 +11,9 @@ const useLeagueMatches = (leagueId: number) => {
 
   const leagueName = response.data?.data?.league?.name;
   const matches = response.data?.data?.matches ?? [];
-  const recentMatches = response.data?.data?.recentMatches.slice(0,6) ?? [];
-  const upcomingMatches = response.data?.data?.upcomingMatches.slice(0,6) ?? [];
+  const recentMatches = response.data?.data?.recentMatches.slice(0, 6) ?? [];
+  const upcomingMatches =
+    response.data?.data?.upcomingMatches.slice(0, 6) ?? [];
   const liveMatches = matches.filter((m) => m.status === "LIVE");
 
   return {

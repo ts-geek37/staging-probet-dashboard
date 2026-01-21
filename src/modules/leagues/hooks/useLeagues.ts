@@ -1,6 +1,7 @@
 "use client";
 
 import useSWR from "swr";
+
 import { ApiResponse } from "@/api/types";
 import { Continent, LeaguesListResponse } from "@/types/leagues";
 
@@ -21,8 +22,6 @@ export const useLeagues = ({
   initialData,
   fetchAll = false,
 }: UseLeaguesParams) => {
-
-
   const params = new URLSearchParams();
 
   if (fetchAll) {
@@ -43,14 +42,13 @@ export const useLeagues = ({
 
   const key = `/api/v2/leagues?${params.toString()}`;
 
-
   const { data, error, isLoading } = useSWR<ApiResponse<LeaguesListResponse>>(
     key,
     {
       fallbackData: initialData,
       revalidateOnMount: true,
       keepPreviousData: true,
-    }
+    },
   );
 
   return {

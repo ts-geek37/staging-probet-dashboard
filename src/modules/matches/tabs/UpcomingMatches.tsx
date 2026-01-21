@@ -28,7 +28,7 @@ const UpcomingMatches: React.FC<Props & { leagueId?: number }> = ({
     page: currentPage,
     limit: 10,
     q: search,
-    leagueId, 
+    leagueId,
   });
 
   const handlePageChange = (page: number) => {

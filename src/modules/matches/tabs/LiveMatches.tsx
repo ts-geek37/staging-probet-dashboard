@@ -20,7 +20,7 @@ const LiveMatches: React.FC<Props> = ({
   initialMatches,
   scopeInfo,
   search,
-  leagueId
+  leagueId,
 }) => {
   const { data, loading, error } = useGeneralLiveMatches(
     initialMatches,

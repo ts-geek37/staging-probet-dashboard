@@ -18,8 +18,13 @@ interface Props {
   scopeInfo?: LiveMatchesScopeProps;
 }
 
-
-const MatchTabs: React.FC<Props> = ({ status, search, leagueId, initialMatches, scopeInfo }) => {
+const MatchTabs: React.FC<Props> = ({
+  status,
+  search,
+  leagueId,
+  initialMatches,
+  scopeInfo,
+}) => {
   switch (status) {
     case MatchListStatus.LIVE:
       return (

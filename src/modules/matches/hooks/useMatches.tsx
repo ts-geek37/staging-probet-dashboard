@@ -13,14 +13,19 @@ interface UseMatchesParams {
   leagueId?: number;
 }
 
-const useMatches = ({ tab, page = 1, limit = 10, q, leagueId }: UseMatchesParams) => {
-
+const useMatches = ({
+  tab,
+  page = 1,
+  limit = 10,
+  q,
+  leagueId,
+}: UseMatchesParams) => {
   const query = new URLSearchParams({
     tab,
     page: String(page),
     limit: String(limit),
     ...(q ? { q } : {}),
-    ...(leagueId ? { leagueId: String(leagueId) } : {}), 
+    ...(leagueId ? { leagueId: String(leagueId) } : {}),
   });
 
   const { data, error, isLoading } = useSWR<ApiResponse<MatchesListResponse>>(

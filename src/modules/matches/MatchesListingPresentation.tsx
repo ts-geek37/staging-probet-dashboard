@@ -6,10 +6,12 @@ import React, { useState } from "react";
 
 import { SearchBar } from "@/components";
 import { Button } from "@/components/ui/button";
-import { MatchListStatus } from "@/types/matches";
 import { useLeagues } from "@/modules/leagues/hooks/useLeagues";
-import { LeagueSelectDropdown } from "./components";
+import { LeagueCard } from "@/types/leagues";
+import { MatchListStatus } from "@/types/matches";
 
+import { LeagueSelectDropdown } from "./components";
+import { League } from "./components/LeagueSelectDropdown";
 import MatchStatusTabs from "./tabs/MatchStatusTabs";
 
 const MatchesListingPresentation: React.FC = () => {
@@ -62,7 +64,6 @@ const MatchesListingPresentation: React.FC = () => {
           </div>
         </div>
         <div className="flex flex-col md:flex-row items-stretch md:items-center gap-3 w-full">
-
           <div className="w-full md:flex-1">
             <SearchBar
               value={search}
@@ -72,7 +73,9 @@ const MatchesListingPresentation: React.FC = () => {
           </div>
           <div className="w-full md:w-auto">
             <LeagueSelectDropdown
-              leagues={leagues.filter((league) => league.logo !== null) as any[]}
+              leagues={
+                leagues.filter((league) => league.logo !== null) as League[]
+              }
               isLoading={isLoading}
               selectedLeague={selectedLeague}
               leagueSearch={leagueSearch}
@@ -80,7 +83,10 @@ const MatchesListingPresentation: React.FC = () => {
               onSelectLeague={(league) => {
                 if (league) {
                   setSelectedLeague({
-                    id: typeof league.id === "string" ? parseInt(league.id, 10) : league.id,
+                    id:
+                      typeof league.id === "string"
+                        ? parseInt(league.id, 10)
+                        : league.id,
                     name: league.name,
                     logo: league.logo,
                   });
