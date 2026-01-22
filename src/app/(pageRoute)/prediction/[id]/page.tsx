@@ -6,15 +6,16 @@ import { PredictionDetails } from "@/modules/predictions";
 import { seo } from "@/utils/seo";
 
 interface Props {
-  params: {
+  params: Promise<{
     id: string;
-  };
+  }>;
 }
 
 export const generateMetadata = async ({
   params,
 }: Props): Promise<Metadata> => {
-  const fixtureId = Number(params.id);
+  const { id } = await params;
+  const fixtureId = Number(id);
 
   if (Number.isNaN(fixtureId)) {
     return seo({
@@ -43,7 +44,8 @@ export const generateMetadata = async ({
 };
 
 const PredictionPage: React.FC<Props> = async ({ params }) => {
-  const fixtureId = Number(params.id);
+  const { id } = await params;
+  const fixtureId = Number(id);
 
   if (Number.isNaN(fixtureId)) {
     return <NoData isCenter message="Invalid Match" />;

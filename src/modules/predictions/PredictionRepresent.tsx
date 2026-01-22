@@ -1,11 +1,9 @@
 "use client";
 
 import { Ads } from "@/components";
-import { Card } from "@/components/ui/card";
 import LeagueBanner from "@/modules/leagues/LeagueBanner";
 
 import { PredictableMatchesResponse } from "@/types/prediction";
-import { usePrediction } from "./hooks";
 import { PredictionTabs } from "./tabs";
 interface PredictionRepresentProps {
   initialData: PredictableMatchesResponse;
@@ -13,7 +11,6 @@ interface PredictionRepresentProps {
 const PredictionRepresent: React.FC<PredictionRepresentProps> = ({
   initialData,
 }) => {
-  const { stats } = usePrediction();
   return (
     <div className="text-white w-full">
       <Ads />
@@ -23,7 +20,7 @@ const PredictionRepresent: React.FC<PredictionRepresentProps> = ({
             Prediction Performance
           </h3>
 
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          {/* <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {stats.map(({ label, value }) => (
               <Card
                 key={label}
@@ -36,7 +33,7 @@ const PredictionRepresent: React.FC<PredictionRepresentProps> = ({
                 <span className="text-xs text-muted-foreground">{label}</span>
               </Card>
             ))}
-          </div>
+          </div> */}
         </div>
 
         <div className="flex flex-col gap-3 py-4">

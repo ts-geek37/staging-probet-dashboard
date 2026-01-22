@@ -71,6 +71,11 @@ export interface MatchListItem {
   teams: MatchTeams;
   score?: MatchScore;
   referee?: string;
+  prediction?: {
+    home: number;
+    draw: number;
+    away: number;
+  } | null;
 }
 
 export interface MatchesListResponse {
