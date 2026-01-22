@@ -1,6 +1,7 @@
+import React from "react";
+
 import { ApiResponse } from "@/api/types";
 import { FixturePredictionsResponse } from "@/types/prediction";
-import React from "react";
 
 interface Props {
   initialPrediction: ApiResponse<FixturePredictionsResponse>;

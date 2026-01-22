@@ -3,13 +3,12 @@
 import Image from "next/image";
 import React from "react";
 
-import { SearchBar, SkeletonCardLoader } from "@/components";
+import { SearchBar } from "@/components";
 
 import { LeagueSelectDropdown } from "./components";
 import { League } from "./components/LeagueSelectDropdown";
 import { useMatchFilters } from "./hooks";
 import MatchStatusTabs from "./tabs/MatchStatusTabs";
-
 
 const MatchesListingPresentation: React.FC = () => {
   const {
@@ -29,7 +28,6 @@ const MatchesListingPresentation: React.FC = () => {
 
   return (
     <section className="pb-10 md:pb-20 text-white space-y-10">
-
       <Image
         src="/adsBg.jpg"
         alt="Promotion Banner"
@@ -81,6 +79,5 @@ const MatchesListingPresentation: React.FC = () => {
     </section>
   );
 };
-
 
 export default MatchesListingPresentation;

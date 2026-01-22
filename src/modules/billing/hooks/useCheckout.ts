@@ -1,8 +1,9 @@
 "use client";
 
-import { BillingCycle } from "@/types/prices";
 import { useAuth } from "@clerk/nextjs";
 import useSWRMutation from "swr/mutation";
+
+import { BillingCycle } from "@/types/prices";
 
 type CheckoutArgs = {
   billingCycle: BillingCycle;
@@ -53,7 +54,6 @@ const useCheckout = () => {
   const { trigger, isMutating, error } = useSWRMutation(
     `${process.env.NEXT_PUBLIC_API_URL}/api/v2/billing/checkout-session`,
     checkoutFetcher,
-
   );
 
   const checkout = async (billingCycle: BillingCycle) => {

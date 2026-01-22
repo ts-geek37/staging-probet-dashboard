@@ -1,8 +1,9 @@
 "use client";
 
+import useSWR from "swr";
+
 import { ApiResponse } from "@/api/types";
 import { Subscription } from "@/types/subscription";
-import useSWR from "swr";
 
 const useSubscription = () => {
   const { data, error, isLoading, mutate } = useSWR<ApiResponse<Subscription>>(

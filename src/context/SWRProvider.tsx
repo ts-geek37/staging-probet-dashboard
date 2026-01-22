@@ -1,7 +1,8 @@
 "use client";
 
-import { useSwrFetcher } from "@/lib/swrFetcher";
 import { SWRConfig } from "swr";
+
+import { useSwrFetcher } from "@/lib/swrFetcher";
 
 interface Props {
   children: React.ReactNode;

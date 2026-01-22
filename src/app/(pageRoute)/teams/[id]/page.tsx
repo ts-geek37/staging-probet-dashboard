@@ -52,7 +52,13 @@ const TeamDetailPage = async ({ params }: Props) => {
     id: teamId,
   });
 
-  return <TeamDetailPresentation teamId={teamId} teamName={teamName} initialData={response} />;
+  return (
+    <TeamDetailPresentation
+      teamId={teamId}
+      teamName={teamName}
+      initialData={response}
+    />
+  );
 };
 
 export default TeamDetailPage;

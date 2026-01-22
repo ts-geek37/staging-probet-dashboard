@@ -43,6 +43,11 @@ export const TAB_CONFIG: readonly TabConfig[] = [
   },
 
   { label: "Season Stats", value: MatchDetailView.SEASON_STATS },
+  {
+    label: "Prediction",
+    value: MatchDetailView.PREDICTION,
+    hideWhen: ["LIVE", "FINISHED"],
+  },
 ];
 
 export const EVENT_CONFIG: Record<

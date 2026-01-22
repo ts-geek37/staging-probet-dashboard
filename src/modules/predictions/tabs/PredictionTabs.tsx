@@ -1,7 +1,8 @@
+import { useState } from "react";
+
 import { NoData } from "@/components";
 import { PredictionTab } from "@/types/prediction";
 
-import { useState } from "react";
 import { usePrediction } from "../hooks";
 import PredictionCard from "../predictionCard";
 import PredictionCardSkeleton from "../predictionCard/PredictionCardSkeleton";

@@ -4,7 +4,12 @@ import { useUser } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
 import React from "react";
 
-import { formatPrice, getDiscountPercent, getPlanDurationLabel, PlanUIState } from "@/lib/plan-resolver";
+import {
+  formatPrice,
+  getDiscountPercent,
+  getPlanDurationLabel,
+  PlanUIState,
+} from "@/lib/plan-resolver";
 import { UpgradeCTA } from "@/modules/billing";
 import { Plan } from "@/types/prices";
 

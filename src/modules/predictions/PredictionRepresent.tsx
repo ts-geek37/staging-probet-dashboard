@@ -2,9 +2,10 @@
 
 import { Ads } from "@/components";
 import LeagueBanner from "@/modules/leagues/LeagueBanner";
-
 import { PredictableMatchesResponse } from "@/types/prediction";
+
 import { PredictionTabs } from "./tabs";
+
 interface PredictionRepresentProps {
   initialData: PredictableMatchesResponse;
 }

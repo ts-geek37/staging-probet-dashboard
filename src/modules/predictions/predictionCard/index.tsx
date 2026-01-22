@@ -4,9 +4,9 @@ import { useRouter } from "next/navigation";
 import React from "react";
 
 import { Card } from "@/components/ui/card";
+import { MatchListItem } from "@/types/matches";
 import { PredictionCardVariant } from "@/types/prediction";
 
-import { MatchListItem } from "@/types/matches";
 import PredictionBar from "./PredictionBar";
 import TeamsDisplay from "./TeamsDisplay";
 

@@ -10,6 +10,7 @@ import MatchEventsTab from "./MatchEventsTab";
 import MatchHeadToHeadTab from "./MatchHeadToHeadTab";
 import MatchLineupsTab from "./MatchLineupsTab";
 import MatchOverviewTab from "./MatchOverviewTab";
+import MatchPrediction from "./MatchPrediction";
 import MatchSeasonStatsTab from "./matchSeasonStatsTab";
 import MatchStatsTab from "./MatchStatsTab";
 import { TAB_CONFIG } from "../../constants";
@@ -53,6 +54,9 @@ const MatchDetailTabs: React.FC<Props> = ({
 
       case MatchDetailView.SEASON_STATS:
         return <MatchSeasonStatsTab match={match} />;
+
+      case MatchDetailView.PREDICTION:
+        return <MatchPrediction matchId={matchId} />;
 
       default:
         return null;

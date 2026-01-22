@@ -1,9 +1,9 @@
 import { Metadata } from "next";
 import { Suspense } from "react";
 
+import { SkeletonCardLoader } from "@/components";
 import { MatchesListingPresentation } from "@/modules/matches";
 import { seo } from "@/utils/seo";
-import { SkeletonCardLoader } from "@/components";
 
 export const metadata: Metadata = seo({
   title: "Matches",
