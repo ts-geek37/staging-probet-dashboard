@@ -3,7 +3,7 @@
 import Image from "next/image";
 import React from "react";
 
-import { SearchBar, SkeletonCardLoader } from "@/components";
+import { SearchBar } from "@/components";
 
 import { LeagueSelectDropdown } from "./components";
 import { League } from "./components/LeagueSelectDropdown";

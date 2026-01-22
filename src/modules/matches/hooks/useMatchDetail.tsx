@@ -12,7 +12,7 @@ import {
 
 import { useLiveMatchDetail, useLiveMatchEvents } from "../../ws/hooks";
 
-const useMatchDetail = <V extends MatchDetailView>(
+const useMatchDetail = <V extends keyof MatchDetailViewResponseMap>(
   matchId: number,
   view: V = MatchDetailView.OVERVIEW as V,
   status?: MatchListStatus | MatchStatus | number,
