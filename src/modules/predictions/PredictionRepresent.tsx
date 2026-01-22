@@ -4,10 +4,15 @@ import { Ads } from "@/components";
 import { Card } from "@/components/ui/card";
 import LeagueBanner from "@/modules/leagues/LeagueBanner";
 
+import { PredictableMatchesResponse } from "@/types/prediction";
 import { usePrediction } from "./hooks";
 import { PredictionTabs } from "./tabs";
-
-const PredictionRepresent: React.FC = () => {
+interface PredictionRepresentProps {
+  initialData: PredictableMatchesResponse;
+}
+const PredictionRepresent: React.FC<PredictionRepresentProps> = ({
+  initialData,
+}) => {
   const { stats } = usePrediction();
   return (
     <div className="text-white w-full">
