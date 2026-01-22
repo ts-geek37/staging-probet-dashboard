@@ -10,7 +10,8 @@ const TermsAndConditions: React.FC = () => {
           1. Introduction
         </h2>
         <p>
-          Welcome to <span className="text-primary-green">ProBetTips</span>. By
+          Welcome to{" "}
+          <span className="text-primary-green">ProBetPredictions</span>. By
           accessing or using our website and services, you{" "}
           <span className="text-primary-green">
             agree to comply with and be bound by these Terms & Conditions
@@ -18,7 +19,7 @@ const TermsAndConditions: React.FC = () => {
           . If you do not agree, please do not use our platform.
         </p>
         <p className="mt-4">
-          <span className="text-primary-green">ProBetTips</span> is an
+          <span className="text-primary-green">ProBetPredictions</span> is an
           informational football analytics platform providing live scores,
           statistics, insights, and predictions strictly for{" "}
           <span className="text-primary-green">
@@ -33,7 +34,7 @@ const TermsAndConditions: React.FC = () => {
           2. No Betting or Gambling Promotion
         </h2>
         <p>
-          <span className="text-primary-green">ProBetTips</span>{" "}
+          <span className="text-primary-green">ProBetPredictions</span>{" "}
           <span className="text-primary-green">
             does not promote, facilitate, or encourage betting or gambling in
             any form
@@ -53,7 +54,8 @@ const TermsAndConditions: React.FC = () => {
           3. Use of Content
         </h2>
         <p>
-          All content on <span className="text-primary-green">ProBetTips</span>,
+          All content on{" "}
+          <span className="text-primary-green">ProBetPredictions</span>,
           including data, text, graphics, and predictions:
         </p>
         <ul className="list-disc pl-6 mt-4 space-y-2">
@@ -73,7 +75,7 @@ const TermsAndConditions: React.FC = () => {
         </h2>
         <p>
           We strive to provide accurate and up-to-date football data. However,{" "}
-          <span className="text-primary-green">ProBetTips</span>{" "}
+          <span className="text-primary-green">ProBetPredictions</span>{" "}
           <span className="text-primary-green">
             does not guarantee the completeness, accuracy, or timeliness
           </span>{" "}
@@ -92,8 +94,8 @@ const TermsAndConditions: React.FC = () => {
         <p>
           Users are responsible for maintaining the confidentiality of their
           account credentials.{" "}
-          <span className="text-primary-green">ProBetTips</span> is not liable
-          for unauthorized account usage.
+          <span className="text-primary-green">ProBetPredictions</span> is not
+          liable for unauthorized account usage.
         </p>
       </div>
 
@@ -102,7 +104,7 @@ const TermsAndConditions: React.FC = () => {
           6. Limitation of Liability
         </h2>
         <p>
-          <span className="text-primary-green">ProBetTips</span>{" "}
+          <span className="text-primary-green">ProBetPredictions</span>{" "}
           <span className="text-primary-green">
             shall not be held liable for any losses, damages, or decisions made
           </span>{" "}

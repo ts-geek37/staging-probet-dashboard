@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 
-import { MatchCard, NoData } from "@/components";
+import { DataError, MatchCard, NoData, SkeletonCardLoader } from "@/components";
 import { cn } from "@/lib/utils";
 import { MatchListItem } from "@/types/home";
 
@@ -26,7 +26,7 @@ const LiveMatchCards: React.FC<Props> = ({
   description = "Live and upcoming fixtures",
   className,
   href,
-  limit
+  limit,
 }) => {
   const { data, loading, error, connected } = useGeneralLiveMatches(
     initialMatches,
@@ -47,9 +47,7 @@ const LiveMatchCards: React.FC<Props> = ({
 
             <div className="flex items-center gap-2 text-xs sm:text-base">
               {description && <span>{description}</span>}
-              {!connected && (
-                <span className="text-yellow-400 text-xs">Reconnecting…</span>
-              )}
+              {!connected && <SkeletonCardLoader />}
             </div>
           </div>
           {href && (
@@ -59,11 +57,7 @@ const LiveMatchCards: React.FC<Props> = ({
           )}
         </div>
 
-        {error && (
-          <div className="text-red-400 text-sm">
-            Failed to load live updates
-          </div>
-        )}
+        {error && <DataError />}
 
         {loading ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">

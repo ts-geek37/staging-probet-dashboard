@@ -10,7 +10,6 @@ import { League } from "./components/LeagueSelectDropdown";
 import { useMatchFilters } from "./hooks";
 import MatchStatusTabs from "./tabs/MatchStatusTabs";
 
-
 const MatchesListingPresentation: React.FC = () => {
   const {
     status,
@@ -29,7 +28,6 @@ const MatchesListingPresentation: React.FC = () => {
 
   return (
     <section className="pb-10 md:pb-20 text-white space-y-10">
-
       <Image
         src="/adsBg.jpg"
         alt="Promotion Banner"
@@ -54,7 +52,7 @@ const MatchesListingPresentation: React.FC = () => {
             <SearchBar
               value={search}
               onSearchChange={handleSearchChange}
-              placeholder="Search teams or leagues"
+              placeholder="Search by Team Name"
             />
           </div>
 
@@ -81,6 +79,5 @@ const MatchesListingPresentation: React.FC = () => {
     </section>
   );
 };
-
 
 export default MatchesListingPresentation;

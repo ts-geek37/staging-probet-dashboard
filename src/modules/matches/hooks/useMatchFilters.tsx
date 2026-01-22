@@ -48,7 +48,11 @@ const useMatchFilters = () => {
     if (selectedLeagueId === undefined) return null;
     const league = leagues.find((l) => l.id === selectedLeagueId);
     if (!league) return null;
-    return { id: league.id, name: league.name, logo: league.logo || "/no-image.png" };
+    return {
+      id: league.id,
+      name: league.name,
+      logo: league.logo || "/no-image.png",
+    };
   }, [selectedLeagueId, leagues]);
 
   const updateParams = (updates: Record<string, string | undefined>) => {

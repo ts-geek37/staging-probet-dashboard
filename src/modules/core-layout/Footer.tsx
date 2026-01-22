@@ -33,14 +33,16 @@ const Footer: React.FC = () => {
             <Link href="/" className="inline-flex items-center gap-3">
               <Image
                 src="/logo.webp"
-                alt="ProBetTips Logo"
+                alt="ProBetPredictions Logo"
                 width={500}
                 height={100}
-                className="h-8 w-42 object-contain"
+                className="h-9 w-60 object-contain"
               />
             </Link>
             <p className="text-sm text-primary-gray max-w-2xl leading-relaxed">
-              <span className="text-primary-green font-medium">ProBetTips</span>{" "}
+              <span className="text-primary-green font-medium">
+                ProBetPredictions
+              </span>{" "}
               an informational football analytics platform. We do not{" "}
               <span className="text-primary-green font-medium">
                 promote or facilitate betting or gambling
@@ -55,7 +57,7 @@ const Footer: React.FC = () => {
         </div>
 
         <div className="border-t pt-4 border-white/10 flex flex-col sm:flex-row items-center justify-center gap-4 text-sm text-white/50">
-          <p>© {currentYear} ProBetTips All rights reserved.</p>
+          <p>© {currentYear} ProBetPredictions All rights reserved.</p>
         </div>
       </div>
     </footer>

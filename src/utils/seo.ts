@@ -2,11 +2,11 @@ import type { Metadata } from "next";
 
 export const BASE_METADATA: Metadata = {
   title: {
-    default: "ProBetTips",
-    template: "%s | ProBetTips",
+    default: "ProBetPredictions",
+    template: "%s | ProBetPredictions",
   },
   description:
-    "ProBetTips is a football-focused web platform delivering live scores, fixtures, match insights, predictions, and football news across global leagues. The platform includes a VIP subscription model to unlock premium prediction content. The system is built using an API-first approach to ensure faster delivery, lower backend complexity, and scalability.",
+    "ProBetPredictions is a football-focused web platform delivering live scores, fixtures, match insights, predictions, and football news across global leagues. The platform includes a VIP subscription model to unlock premium prediction content. The system is built using an API-first approach to ensure faster delivery, lower backend complexity, and scalability.",
 };
 
 type SeoInput = {
