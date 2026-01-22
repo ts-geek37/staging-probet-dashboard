@@ -16,7 +16,7 @@ interface Props {
 
 const PricingPlans: React.FC<Props> = ({ plans, subscription, isVip }) => {
   const sortedPlans = [...plans].sort((a, b) => a.amount - b.amount);
- 
+
   return (
     <section className="m-auto max-w-6xl px-6 ">
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">

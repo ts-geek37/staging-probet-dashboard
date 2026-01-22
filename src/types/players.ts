@@ -93,11 +93,11 @@ export interface PlayerSeasonStatsResponse {
   season: {
     id: number;
     name: string;
-    league :{
+    league: {
       id: number;
       name: string;
       logo: string | null;
-    }
+    };
   };
 
   team: {

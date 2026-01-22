@@ -4,6 +4,7 @@ import React from "react";
 
 import { ListCard } from "@/modules/home/components";
 import { TeamCard } from "@/types/home";
+
 import NoData from "../../../components/NoData";
 
 interface Props {
@@ -15,7 +16,7 @@ const TopTeamsList: React.FC<Props> = ({ teams }) => {
 
   return (
     <ListCard
-      title="Top Teams" 
+      title="Top Teams"
       items={teams}
       renderItem={(team) => (
         <Link

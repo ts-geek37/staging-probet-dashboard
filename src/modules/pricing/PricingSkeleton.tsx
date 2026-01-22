@@ -1,7 +1,8 @@
 "use client";
 
-import { Skeleton } from "@/components/ui/skeleton";
 import React from "react";
+
+import { Skeleton } from "@/components/ui/skeleton";
 
 const PricingSkeleton: React.FC = () => {
   return (

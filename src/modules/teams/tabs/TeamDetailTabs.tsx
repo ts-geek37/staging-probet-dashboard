@@ -14,7 +14,12 @@ interface Props {
   initialData: ApiResponse<TeamOverviewResponse>;
 }
 
-const TeamDetailTabs = ({ activeTab, teamId, teamName, initialData }: Props) => {
+const TeamDetailTabs = ({
+  activeTab,
+  teamId,
+  teamName,
+  initialData,
+}: Props) => {
   switch (activeTab) {
     case TeamDetailView.OVERVIEW:
       return <TeamOverviewTab initialData={initialData} />;
