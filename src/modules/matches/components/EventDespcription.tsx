@@ -108,12 +108,12 @@ const EventDescription = ({ event }: { event: MatchEventItem }) => {
   return (
     <motion.p
       initial={{ opacity: 0 }}
-      animate={{ opacity: 0.7 }}
-      className="text-xs sm:text-sm text-primary-gray mt-1 flex flex-wrap gap-px font-medium line-clamp-2"
+      animate={{ opacity: 1 }}
+      className="mt-1 text-xs sm:text-sm leading-snug text-primary-gray font-medium"
     >
-      {eventDescription.map((token, i) => (
-        <span key={i} className={highlightClassMap[token.type]}>
-          {token.text}
+      {eventDescription.map((t, i) => (
+        <span key={i} className={highlightClassMap[t.type]}>
+          {t.text}
         </span>
       ))}
     </motion.p>
