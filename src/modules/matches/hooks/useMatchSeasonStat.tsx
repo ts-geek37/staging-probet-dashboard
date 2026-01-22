@@ -120,7 +120,6 @@ const useMatchSeasonStat = (matchId: number, seasonId?: number) => {
       },
       {
         title: "Scoring Patterns",
-        className: "row-span-3!",
         icon: <Target className="h-4 w-4 text-pink-500" />,
         rows: [
           createRow(
