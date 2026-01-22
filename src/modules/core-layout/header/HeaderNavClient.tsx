@@ -14,7 +14,8 @@ const HeaderNavClient = () => {
     <nav className="hidden nav:flex items-center gap-1">
       {navlinks.map((link) => {
         const Icon = link.icon;
-        const isActive = pathname === link.href;
+        const isActive =
+          pathname === link.href || pathname.startsWith(`${link.href}/`);
 
         return (
           <Link
