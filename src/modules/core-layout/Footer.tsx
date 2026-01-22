@@ -36,7 +36,7 @@ const Footer: React.FC = () => {
                 alt="ProBetPredictions Logo"
                 width={500}
                 height={100}
-                className="h-8 w-42 object-contain"
+                className="h-9 w-60 object-contain"
               />
             </Link>
             <p className="text-sm text-primary-gray max-w-2xl leading-relaxed">
