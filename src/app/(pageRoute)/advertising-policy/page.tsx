@@ -6,7 +6,7 @@ import { seo } from "@/utils/seo";
 export const metadata = seo({
   title: "Advertising Policy",
   description:
-    "Read our Advertising Policy to understand how we handle advertisements and partnerships at ProBetTips.",
+    "Read our Advertising Policy to understand how we handle advertisements and partnerships at ProBetPredictions.",
 });
 
 const AdvertisingPolicyPage: React.FC = () => {

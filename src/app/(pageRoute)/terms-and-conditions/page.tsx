@@ -6,7 +6,7 @@ import { seo } from "@/utils/seo";
 export const metadata = seo({
   title: "Terms & Conditions",
   description:
-    "Read our Terms & Conditions to understand the rules and guidelines for using ProBetTips.",
+    "Read our Terms & Conditions to understand the rules and guidelines for using ProBetPredictions.",
 });
 
 const TermsAndConditionsPage: React.FC = () => {

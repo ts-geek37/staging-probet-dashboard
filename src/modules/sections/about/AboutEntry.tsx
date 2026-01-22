@@ -10,15 +10,15 @@ const AboutEntry: React.FC = () => {
       <div className="flex flex-col gap-12">
         <div className="flex flex-col gap-4">
           <h2 className="text-3xl font-bold text-primary-green">
-            What is PROBETTIPS
+            What is ProBetPredictions
           </h2>
 
           <p className="text-muted-foreground text-lg leading-relaxed">
-            PROBETTIPS is a modern football insights and analytics platform
-            designed for casual fans and serious analysts alike. We provide live
-            scores, fixtures, standings, and in-depth team and player insights
-            with a clean, easy-to-use interface offering global football
-            coverage.
+            ProBetPredictions is a modern football insights and analytics
+            platform designed for casual fans and serious analysts alike. We
+            provide live scores, fixtures, standings, and in-depth team and
+            player insights with a clean, easy-to-use interface offering global
+            football coverage.
           </p>
         </div>
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
@@ -62,7 +62,7 @@ const AboutEntry: React.FC = () => {
 
           <p className="mx-auto max-w-2xl sm:text-lg text-primary-gray">
             <span className="font-medium text-primary-green">
-              ProBetTips is NOT a betting platform.
+              ProBetPredictions is NOT a betting platform.
             </span>{" "}
             We do not promote, encourage, or support any form of gambling or
             betting. All predictions and insights are provided strictly for
