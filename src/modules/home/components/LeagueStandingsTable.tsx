@@ -15,8 +15,7 @@ const TopTeamsList: React.FC<Props> = ({ teams }) => {
 
   return (
     <ListCard
-      title="Top Teams"
-      href="/teams"
+      title="Top Teams" 
       items={teams}
       renderItem={(team) => (
         <Link
