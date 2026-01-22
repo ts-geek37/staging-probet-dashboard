@@ -1,6 +1,7 @@
-import { NoData, TabList } from "@/components";
+import { NoData } from "@/components";
 import { PredictionTab } from "@/types/prediction";
 
+import { useState } from "react";
 import { usePrediction } from "../hooks";
 import PredictionCard from "../predictionCard";
 import PredictionCardSkeleton from "../predictionCard/PredictionCardSkeleton";
@@ -10,35 +11,32 @@ export const MatchDayTabs = [
   { value: PredictionTab.TOMORROW, label: "Tomorrow" },
   { value: PredictionTab.NEXT, label: "Next" },
 ];
-
+const PAGE_SIZE = 12;
 const PredictionTabs = () => {
-  const { activeTab, onTabChange, matches, isLoading } = usePrediction();
+  const [page, setPage] = useState(1);
 
+  const { matches, isLoading, error } = usePrediction({
+    page,
+    limit: PAGE_SIZE,
+  });
   return (
-    <TabList
-      tabs={MatchDayTabs}
-      activeTab={activeTab}
-      onTabChange={onTabChange}
-      renderContent={
-        <>
-          {isLoading ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {Array.from({ length: 3 }).map((_, index) => (
-                <PredictionCardSkeleton key={index} />
-              ))}
-            </div>
-          ) : !matches || matches?.length === 0 ? (
-            <NoData message="No predictions found" />
-          ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {matches.map((match, index) => (
-                <PredictionCard key={index} {...match} />
-              ))}
-            </div>
-          )}
-        </>
-      }
-    />
+    <>
+      {isLoading ? (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {Array.from({ length: 3 }).map((_, index) => (
+            <PredictionCardSkeleton key={index} />
+          ))}
+        </div>
+      ) : !matches || matches?.length === 0 ? (
+        <NoData message="No predictions found" />
+      ) : (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {matches.map((match, index) => (
+            <PredictionCard key={index} match={match} variant="prediction" />
+          ))}
+        </div>
+      )}
+    </>
   );
 };
 export default PredictionTabs;

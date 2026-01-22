@@ -4,22 +4,18 @@ import { useRouter } from "next/navigation";
 import React from "react";
 
 import { Card } from "@/components/ui/card";
-import { PredictionCardVariant, PredictionMatchCard } from "@/types/prediction";
+import { PredictionCardVariant } from "@/types/prediction";
 
+import { MatchListItem } from "@/types/matches";
 import PredictionBar from "./PredictionBar";
 import TeamsDisplay from "./TeamsDisplay";
 
 interface PredictionCardProps {
-  match: PredictionMatchCard;
-  prediction: number;
+  match: MatchListItem;
   variant: PredictionCardVariant;
 }
 
-const PredictionCard: React.FC<PredictionCardProps> = ({
-  match,
-  prediction,
-  variant,
-}) => {
+const PredictionCard: React.FC<PredictionCardProps> = ({ match, variant }) => {
   const router = useRouter();
 
   const handleVIPClick = () => {
@@ -45,7 +41,10 @@ const PredictionCard: React.FC<PredictionCardProps> = ({
     : "--:--";
 
   return (
-    <Card className="text-white p-4 border-none gap-3 min-h-[175px] sm:min-h-[200px]">
+    <Card
+      onClick={() => router.push(`/prediction/${match.id}`)}
+      className="text-white p-4 border-none gap-3 min-h-[175px] sm:min-h-[200px]"
+    >
       <div className="flex items-center justify-between text-xs sm:text-sm">
         <span>{formattedDate}</span>
         <span>{formattedTime}</span>
@@ -60,7 +59,7 @@ const PredictionCard: React.FC<PredictionCardProps> = ({
       </div>
 
       <PredictionBar
-        prediction={prediction}
+        prediction={match?.prediction ?? { home: 0, draw: 0, away: 0 }}
         isLocked={variant !== "prediction"}
         onUnlock={handleVIPClick}
       />
