@@ -4,7 +4,7 @@ import React from "react";
 import { Card, CardContent } from "@/components/ui/card";
 
 interface MarketData {
-  [key: string]: number | any[];
+  [key: string]: number | unknown[];
 }
 
 interface MarketProps {

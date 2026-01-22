@@ -67,7 +67,7 @@ const PredictionBar: React.FC<PredictionBarProps> = ({
 
       <div
         className={cn(
-          "border-t border-gray-800 mx-auto size-full flex flex-col justify-center gap-2 flex-1",
+          "border-t border-gray-800 pt-3 mx-auto size-full flex flex-col justify-center gap-2 flex-1",
           isLocked ? "blur-sm" : "",
         )}
       >
@@ -90,16 +90,13 @@ const PredictionBar: React.FC<PredictionBarProps> = ({
             <div
               key={segment.key}
               className={cn(
-                "flex flex-col",
+                "flex gap-1 text-xs",
                 index === 0 && "items-start",
                 index === 1 && "items-center",
                 index === 2 && "items-end",
               )}
             >
-              <span className="text-muted-foreground">{segment.label}</span>
-              <span className={cn("font-medium")}>
-                {segment.value.toFixed(0)}%
-              </span>
+              {segment.label}:<span>{segment.value.toFixed(0)}%</span>
             </div>
           ))}
         </div>
