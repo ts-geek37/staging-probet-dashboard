@@ -18,7 +18,9 @@ const TopLeagues: React.FC<Props> = ({ topLeagues, standings }) => {
     <section className="py-10 md:py-20 grid gap-6 text-white">
       <div className="flex items-center justify-between w-full">
         <div>
-          <h1 className="text-2xl sm:text-5xl font-bold mb-1">Top Leagues and Teams </h1>
+          <h1 className="text-2xl sm:text-5xl font-bold mb-1">
+            Top Leagues and Teams{" "}
+          </h1>
           <p className="text-xs sm:text-base">Browse football competitions</p>
         </div>
         <Link href="/leagues">

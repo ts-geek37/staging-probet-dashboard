@@ -1,8 +1,9 @@
 "use client";
 
+import useSWR from "swr";
+
 import { ApiResponse } from "@/api/types";
 import { Plan } from "@/types/prices";
-import useSWR from "swr";
 
 type PlansResponse = ApiResponse<Plan[]>;
 

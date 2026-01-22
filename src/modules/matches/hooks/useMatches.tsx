@@ -1,8 +1,9 @@
 "use client";
 
+import useSWR from "swr";
+
 import { ApiResponse } from "@/api/types";
 import { MatchesListResponse, MatchListStatus } from "@/types/matches";
-import useSWR from "swr";
 
 interface UseMatchesParams {
   tab: MatchListStatus;

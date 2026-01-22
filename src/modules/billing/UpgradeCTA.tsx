@@ -1,6 +1,7 @@
 "use client";
 
 import { BillingCycle } from "@/types/prices";
+
 import { useCheckout } from "./hooks";
 
 type Props = {
