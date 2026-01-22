@@ -5,7 +5,7 @@ const AboutBanner: React.FC = () => {
     <Banner
       title={
         <>
-          About <span className="text-primary-green">PROBETTIPS</span>
+          About <span className="text-primary-green">ProBetPredictions</span>
         </>
       }
       description="Modern football insights and analytics platform built for fans who love data, statistics, and informed match analysis."

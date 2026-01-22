@@ -27,7 +27,7 @@ export const generateMetadata = async ({
       return seo({
         title: "League",
         description:
-          "Explore league details, fixtures, standings, and football predictions on ProBetTips.",
+          "Explore league details, fixtures, standings, and football predictions on ProBetPredictions.",
       });
     }
 
@@ -43,7 +43,7 @@ export const generateMetadata = async ({
     return seo({
       title: "League",
       description:
-        "Explore league details, fixtures, standings, and football predictions on ProBetTips.",
+        "Explore league details, fixtures, standings, and football predictions on ProBetPredictions.",
     });
   }
 };

@@ -6,7 +6,7 @@ import { seo } from "@/utils/seo";
 export const metadata = seo({
   title: "Contact Us",
   description:
-    "We'd love to hear from you. Contact ProBetTips for platform support, feature requests, partnership opportunities, or general feedback.",
+    "We'd love to hear from you. Contact ProBetPredictions for platform support, feature requests, partnership opportunities, or general feedback.",
 });
 
 const ContactPage: React.FC = () => {
