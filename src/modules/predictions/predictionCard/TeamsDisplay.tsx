@@ -22,7 +22,7 @@ const TeamsDisplay: React.FC<TeamsDisplayProps> = ({ match, layout }) => {
     ];
 
     return (
-      <div className="flex flex-col gap-3 pt-2">
+      <div className="flex flex-col gap-3">
         {teamRows.map((team, index) => (
           <div
             key={`${team.info.id}-${index}`}

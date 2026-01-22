@@ -1,12 +1,14 @@
 "use client";
 
+import { ApiResponse } from "@/api/types";
 import { Ads } from "@/components";
 import LeagueBanner from "@/modules/leagues/LeagueBanner";
-
 import { PredictableMatchesResponse } from "@/types/prediction";
-import { PredictionTabs } from "./tabs";
+
+import PredictionListing from "./PredictionListing";
+
 interface PredictionRepresentProps {
-  initialData: PredictableMatchesResponse;
+  initialData: ApiResponse<PredictableMatchesResponse>;
 }
 const PredictionRepresent: React.FC<PredictionRepresentProps> = ({
   initialData,
@@ -15,36 +17,16 @@ const PredictionRepresent: React.FC<PredictionRepresentProps> = ({
     <div className="text-white w-full">
       <Ads />
       <div className="max-w-7xl grid gap-5 mx-auto px-4 lg:px-6 py-8 md:py-12">
-        <div className="flex flex-col gap-4">
-          <h3 className="text-base md:text-lg font-medium text-white">
-            Prediction Performance
-          </h3>
-
-          {/* <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {stats.map(({ label, value }) => (
-              <Card
-                key={label}
-                className="group items-center justify-center gap-1 border-transparent transition-colors hover:border-primary-green cursor-pointer p-4"
-              >
-                <span className="text-xl md:text-2xl font-semibold text-primary-green">
-                  {value}
-                </span>
-
-                <span className="text-xs text-muted-foreground">{label}</span>
-              </Card>
-            ))}
-          </div> */}
+        <div className="text-white flex flex-col sm:items-center gap-2 mb-2">
+          <h1 className="text-primary-green text-2xl md:text-4xl font-bold">
+            Match Predictions
+          </h1>
+          <p className="text-white/70 text-base md:text-lg">
+            View win probabilities, draw chances, and data-driven forecasts for
+            Upcoming football matches.
+          </p>
         </div>
-
-        <div className="flex flex-col gap-3 py-4">
-          <h3 className="text-xl sm:text-3xl md:text-4xl text-center font-medium text-white">
-            Match Prediction
-          </h3>
-
-          <LeagueBanner banner="betting" />
-        </div>
-
-        <PredictionTabs />
+        <PredictionListing initialData={initialData} />
 
         <LeagueBanner banner="champions" />
       </div>

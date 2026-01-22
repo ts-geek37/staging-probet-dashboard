@@ -19,47 +19,35 @@ const PredictionBar: React.FC<PredictionBarProps> = ({
   isLocked = false,
   onUnlock,
 }) => {
-  const maxPrediction = Math.max(
-    prediction.home,
-    prediction.draw,
-    prediction.away,
-  );
-
   const segments = [
     {
       key: "home",
       value: prediction.home,
       label: "Home",
       bgColor: "bg-primary-green",
-      textColor: "text-white",
       highlightColor: "text-primary-green",
-      isHighest: prediction.home === maxPrediction,
     },
     {
       key: "draw",
       value: prediction.draw,
       label: "Draw",
-      bgColor: "bg-muted-foreground/40",
-      textColor: "text-foreground",
+      bgColor: "bg-primary-gray",
       highlightColor: "text-foreground",
-      isHighest: prediction.draw === maxPrediction,
       hasBorder: true,
     },
     {
       key: "away",
       value: prediction.away,
       label: "Away",
-      bgColor: "bg-destructive",
-      textColor: "text-white",
+      bgColor: "bg-primary-red",
       highlightColor: "text-destructive",
-      isHighest: prediction.away === maxPrediction,
     },
   ];
 
   return (
     <div className="relative space-y-2 flex-1 flex flex-col">
       {isLocked && onUnlock && (
-        <div className="absolute inset-0 z-10 flex flex-col items-center justify-center gap-3 bg-background/80 backdrop-blur-sm rounded-lg">
+        <div className="absolute inset-0 z-10 flex flex-col items-center justify-center gap-3 backdrop-blur-sm rounded-lg">
           <div className="hidden md:flex items-center gap-2 border-primary-yellow border p-2 rounded-full bg-background">
             <LockKeyhole className="size-5 text-primary-yellow" />
           </div>
@@ -78,7 +66,10 @@ const PredictionBar: React.FC<PredictionBarProps> = ({
       )}
 
       <div
-        className={cn("mt-auto flex flex-col gap-2", isLocked ? "blur-sm" : "")}
+        className={cn(
+          "border-t border-gray-800 mx-auto size-full flex flex-col justify-center gap-2 flex-1",
+          isLocked ? "blur-sm" : "",
+        )}
       >
         <div className="w-full bg-muted h-2 rounded-full overflow-hidden flex">
           {segments.map((segment) => (
@@ -94,7 +85,6 @@ const PredictionBar: React.FC<PredictionBarProps> = ({
             ></div>
           ))}
         </div>
-
         <div className="flex justify-between items-center text-xs">
           {segments.map((segment, index) => (
             <div
@@ -107,13 +97,7 @@ const PredictionBar: React.FC<PredictionBarProps> = ({
               )}
             >
               <span className="text-muted-foreground">{segment.label}</span>
-              <span
-                className={cn(
-                  "font-medium",
-                  segment.isHighest &&
-                    cn(segment.highlightColor, "font-semibold"),
-                )}
-              >
+              <span className={cn("font-medium")}>
                 {segment.value.toFixed(0)}%
               </span>
             </div>

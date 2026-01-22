@@ -180,5 +180,5 @@ export type RawPrediction = {
   id: number;
   fixture_id: number;
   type_id: number;
-  predictions: Record<string, any>;
+  predictions: Record<string, unknown>;
 };

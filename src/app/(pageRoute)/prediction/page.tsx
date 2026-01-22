@@ -19,7 +19,7 @@ const PredictionPage = async () => {
   if (!initialData)
     return <NoData isCenter message="No Predictable Matches Found" />;
 
-  return <PredictionRepresent initialData={initialData} />;
+  return <PredictionRepresent initialData={response} />;
 };
 
 export default PredictionPage;

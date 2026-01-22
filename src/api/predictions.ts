@@ -1,10 +1,10 @@
 import { serverFetch } from "@/api/http";
-
 import {
-    FixturePredictionsResponse,
-    GetPredictableMatchesParams,
-    PredictableMatchesResponse,
+  FixturePredictionsResponse,
+  GetPredictableMatchesParams,
+  PredictableMatchesResponse,
 } from "@/types/prediction";
+
 import { ApiResponse } from "./types";
 
 export const getPredictableMatches = (
