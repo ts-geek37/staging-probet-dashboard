@@ -34,7 +34,7 @@ const TeamsDisplay: React.FC<TeamsDisplayProps> = ({ match, layout }) => {
                 alt={team.info.name || "Team Logo"}
                 width={100}
                 height={100}
-                className="size-7 object-contain flex-shrink-0"
+                className="size-7 object-contain shrink-0"
                 onError={(e) => {
                   e.currentTarget.src = "/no-image.png";
                 }}
@@ -61,7 +61,7 @@ const TeamsDisplay: React.FC<TeamsDisplayProps> = ({ match, layout }) => {
           alt={home.name || "Home Team"}
           width={100}
           height={100}
-          className="size-7 object-contain flex-shrink-0"
+          className="size-7 object-contain shrink-0"
           onError={(e) => {
             e.currentTarget.src = "/no-image.png";
           }}
@@ -72,7 +72,7 @@ const TeamsDisplay: React.FC<TeamsDisplayProps> = ({ match, layout }) => {
       </div>
 
       {hasScore && (
-        <div className="flex-shrink-0 px-4">
+        <div className="shrink-0 px-4">
           <span className="text-sm font-bold whitespace-nowrap">
             {homeScore} - {awayScore}
           </span>
@@ -88,7 +88,7 @@ const TeamsDisplay: React.FC<TeamsDisplayProps> = ({ match, layout }) => {
           alt={away.name || "Away Team"}
           width={100}
           height={100}
-          className="size-7 object-contain flex-shrink-0"
+          className="size-7 object-contain shrink-0"
           onError={(e) => {
             e.currentTarget.src = "/no-image.png";
           }}
