@@ -177,15 +177,16 @@ export interface LeagueStanding {
 }
 export type FormValue = "W" | "D" | "L";
 export type StandingStats = {
-  played?: number;
-  win?: number;
-  draw?: number;
-  loss?: number;
-  goals_for?: number;
-  goals_against?: number;
-  goal_difference?: number;
+  matchesPlayed?: number;
+  wins?: number;
+  draws?: number;
+  losses?: number;
+  goalsFor?: number;
+  goalsAgainst?: number;
+  goalDifference?: number;
   points?: number;
 };
+
 export type StandingStatsByScope = {
   overall: StandingStats;
   home: StandingStats;

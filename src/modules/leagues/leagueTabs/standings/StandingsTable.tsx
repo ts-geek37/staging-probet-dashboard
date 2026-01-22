@@ -59,14 +59,13 @@ const StandingsTable: React.FC<Props> = ({ standings, isLoading }) => {
   }
   const data = standings.map((row) => {
     const overall = row.stats.overall;
-
     return {
       ...row,
-      played: overall.played ?? 0,
-      win: overall.win ?? 0,
-      draw: overall.draw ?? 0,
-      lose: overall.loss ?? 0,
-      goalDiff: overall.goal_difference ?? 0,
+      played: overall.matchesPlayed ?? 0,
+      win: overall.wins ?? 0,
+      draw: overall.draws ?? 0,
+      lose: overall.losses ?? 0,
+      goalDiff: overall.goalDifference ?? 0,
     };
   });
 
@@ -100,69 +99,72 @@ const StandingsTable: React.FC<Props> = ({ standings, isLoading }) => {
           </TableHeader>
 
           <TableBody className="max-h-100 overflow-y-auto custom-scrollbar-style block">
-            {data.map((row) => (
-              <TableRow
-                key={row.team.id}
-                className={cn(
-                  TABLE_GRID,
-                  "text-primary-gray text-sm hover:bg-white/5 border-b border-primary-gray/20",
-                  "group group-hover:text-primary-green active:bg-white/10 active:text-primary-green",
-                )}
-              >
-                <TableCell className="font-semibold text-left group-hover:text-primary-green active:text-primary-green">
-                  {row.position}
-                </TableCell>
-
-                <TableCell
-                  className="flex items-center gap-3 cursor-pointer group-hover:text-primary-green active:text-primary-green"
-                  onClick={() => router.push(`/teams/${row.team.id}`)}
+            {data.map((row) => {
+              console.log("eow", row);
+              return (
+                <TableRow
+                  key={row.team.id}
+                  className={cn(
+                    TABLE_GRID,
+                    "text-primary-gray text-sm hover:bg-white/5 border-b border-primary-gray/20",
+                    "group group-hover:text-primary-green active:bg-white/10 active:text-primary-green",
+                  )}
                 >
-                  <Image
-                    src={row.team.logo || "/no-image.png"}
-                    alt={row.team.name}
-                    width={22}
-                    height={22}
-                  />
-                  <span>{row.team.name}</span>
-                </TableCell>
+                  <TableCell className="font-semibold text-left group-hover:text-primary-green active:text-primary-green">
+                    {row.position}
+                  </TableCell>
 
-                <TableCell className="text-center group-hover:text-primary-green active:text-primary-green">
-                  {row.played}
-                </TableCell>
-                <TableCell className="text-center group-hover:text-primary-green active:text-primary-green">
-                  {row.win}
-                </TableCell>
-                <TableCell className="text-center group-hover:text-primary-green active:text-primary-green">
-                  {row.draw}
-                </TableCell>
-                <TableCell className="text-center group-hover:text-primary-green active:text-primary-green">
-                  {row.lose}
-                </TableCell>
-                <TableCell className="text-center group-hover:text-primary-green active:text-primary-green">
-                  {row.goalDiff}
-                </TableCell>
-                <TableCell className="text-center group-hover:text-primary-green active:text-primary-green">
-                  {row.points}
-                </TableCell>
+                  <TableCell
+                    className="flex items-center gap-3 cursor-pointer group-hover:text-primary-green active:text-primary-green"
+                    onClick={() => router.push(`/teams/${row.team.id}`)}
+                  >
+                    <Image
+                      src={row.team.logo || "/no-image.png"}
+                      alt={row.team.name}
+                      width={22}
+                      height={22}
+                    />
+                    <span>{row.team.name}</span>
+                  </TableCell>
 
-                <TableCell className="flex justify-center">
-                  <div className="flex gap-2">
-                    {row.form
-                      .slice(0, 5)
-                      .map((f: "W" | "D" | "L", i: number) => (
-                        <span
-                          key={i}
-                          className={`w-6 h-6 flex items-center justify-center text-xs rounded ${formColor(
-                            f,
-                          )} text-white`}
-                        >
-                          {f}
-                        </span>
-                      ))}
-                  </div>
-                </TableCell>
-              </TableRow>
-            ))}
+                  <TableCell className="text-center group-hover:text-primary-green active:text-primary-green">
+                    {row.played}
+                  </TableCell>
+                  <TableCell className="text-center group-hover:text-primary-green active:text-primary-green">
+                    {row.win}
+                  </TableCell>
+                  <TableCell className="text-center group-hover:text-primary-green active:text-primary-green">
+                    {row.draw}
+                  </TableCell>
+                  <TableCell className="text-center group-hover:text-primary-green active:text-primary-green">
+                    {row.lose}
+                  </TableCell>
+                  <TableCell className="text-center group-hover:text-primary-green active:text-primary-green">
+                    {row.goalDiff}
+                  </TableCell>
+                  <TableCell className="text-center group-hover:text-primary-green active:text-primary-green">
+                    {row.points}
+                  </TableCell>
+
+                  <TableCell className="flex justify-center">
+                    <div className="flex gap-2">
+                      {row.form
+                        .slice(0, 5)
+                        .map((f: "W" | "D" | "L", i: number) => (
+                          <span
+                            key={i}
+                            className={`w-6 h-6 flex items-center justify-center text-xs rounded ${formColor(
+                              f,
+                            )} text-white`}
+                          >
+                            {f}
+                          </span>
+                        ))}
+                    </div>
+                  </TableCell>
+                </TableRow>
+              );
+            })}
           </TableBody>
         </Table>
       </div>
