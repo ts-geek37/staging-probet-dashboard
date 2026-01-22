@@ -10,9 +10,9 @@ const AdvertisingPolicy: React.FC = () => {
           1. Advertising Philosophy
         </h2>
         <p>
-          <span className="text-primary-green">ProBetTips</span> may display
-          advertisements or sponsored content to support platform operations.
-          All advertisements are{" "}
+          <span className="text-primary-green">ProBetPredictions</span> may
+          display advertisements or sponsored content to support platform
+          operations. All advertisements are{" "}
           <span className="text-primary-green">
             clearly distinguishable from editorial content
           </span>
@@ -47,8 +47,8 @@ const AdvertisingPolicy: React.FC = () => {
           4. Third-Party Links
         </h2>
         <p>
-          <span className="text-primary-green">ProBetTips</span> may contain
-          links to third-party websites. We are{" "}
+          <span className="text-primary-green">ProBetPredictions</span> may
+          contain links to third-party websites. We are{" "}
           <span className="text-primary-green">not responsible</span> for their
           content, policies, or practices.
         </p>

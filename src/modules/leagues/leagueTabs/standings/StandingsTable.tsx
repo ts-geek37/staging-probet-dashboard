@@ -100,7 +100,6 @@ const StandingsTable: React.FC<Props> = ({ standings, isLoading }) => {
 
           <TableBody className="max-h-100 overflow-y-auto custom-scrollbar-style block">
             {data.map((row) => {
-              console.log("eow", row);
               return (
                 <TableRow
                   key={row.team.id}

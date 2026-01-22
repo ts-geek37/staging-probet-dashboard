@@ -54,7 +54,7 @@ const MatchesListingPresentation: React.FC = () => {
             <SearchBar
               value={search}
               onSearchChange={handleSearchChange}
-              placeholder="Search teams or leagues"
+              placeholder="Search by Team Name"
             />
           </div>
 

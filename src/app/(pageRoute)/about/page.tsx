@@ -6,7 +6,7 @@ import { seo } from "@/utils/seo";
 export const metadata = seo({
   title: "About Us",
   description:
-    "ProBetTips is a modern football insights and analytics platform built for fans who love data, statistics, and informed match analysis. Learn about our philosophy and mission.",
+    "ProBetPredictions is a modern football insights and analytics platform built for fans who love data, statistics, and informed match analysis. Learn about our philosophy and mission.",
 });
 
 const AboutPage: React.FC = () => {

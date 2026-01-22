@@ -29,19 +29,19 @@ export const generateMetadata = async ({
       return seo({
         title: "League",
         description:
-          "Explore league details, fixtures, standings, and football predictions on ProBetTips.",
+          "Explore league details, fixtures, standings, and football predictions on ProBetPredictions.",
       });
     }
 
     return seo({
       title: league?.name || "League",
-      description: `${league.name} football competition in ${league.country.name}. Get season information, standings, and key details on ProBetTips.`,
+      description: `${league.name} football competition in ${league.country.name}. Get season information, standings, and key details on ProBetPredictions.`,
     });
   } catch {
     return seo({
       title: "League",
       description:
-        "Explore league details, fixtures, standings, and football predictions on ProBetTips.",
+        "Explore league details, fixtures, standings, and football predictions on ProBetPredictions.",
     });
   }
 };

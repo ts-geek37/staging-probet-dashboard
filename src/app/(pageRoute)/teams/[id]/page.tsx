@@ -23,7 +23,7 @@ export const generateMetadata = async ({
       return seo({
         title: "Team",
         description:
-          "Explore team details, fixtures, standings, and football predictions on ProBetTips.",
+          "Explore team details, fixtures, standings, and football predictions on ProBetPredictions.",
       });
     }
 
@@ -38,7 +38,7 @@ export const generateMetadata = async ({
     return seo({
       title: "Team",
       description:
-        "Explore team details, fixtures, standings, and football predictions on ProBetTips.",
+        "Explore team details, fixtures, standings, and football predictions on ProBetPredictions.",
     });
   }
 };
@@ -52,7 +52,13 @@ const TeamDetailPage = async ({ params }: Props) => {
     id: teamId,
   });
 
-  return <TeamDetailPresentation teamId={teamId} teamName={teamName} initialData={response} />;
+  return (
+    <TeamDetailPresentation
+      teamId={teamId}
+      teamName={teamName}
+      initialData={response}
+    />
+  );
 };
 
 export default TeamDetailPage;

@@ -13,7 +13,7 @@ const Header = () => {
         <Link href="/" className="h-8 w-42 focus-visible:outline-none">
           <Image
             src="/logo.webp"
-            alt="ProBetTips logo"
+            alt="ProBetPredictions logo"
             width={500}
             height={24}
             priority

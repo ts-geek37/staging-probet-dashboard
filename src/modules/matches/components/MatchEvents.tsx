@@ -8,14 +8,16 @@ import { cn } from "@/lib/utils";
 import { MatchEventItem } from "@/types/matches";
 
 import { EVENT_CONFIG } from "../constants";
-import EventDescription from "./EventDespcription";
+import EventDescription from "./EventDescription";
 
 interface Props {
   event: MatchEventItem;
   index: number;
 }
+
 const MatchEvents: React.FC<Props> = ({ event, index }) => {
   const config = EVENT_CONFIG[event.type] || EVENT_CONFIG.DEFAULT;
+
   const isRedCard =
     event.type === "CARD" && event.detail?.toLowerCase().includes("red");
 
@@ -32,6 +34,7 @@ const MatchEvents: React.FC<Props> = ({ event, index }) => {
     >
       <div className="absolute left-0 top-0 bottom-0 w-0.5 bg-gradient-to-b from-transparent via-white/10 to-transparent group-hover:via-primary-green/50 transition-all" />
 
+      {/* Minute */}
       <div className="flex items-center gap-2 sm:gap-3 shrink-0">
         <div className="min-w-9 sm:w-12 text-right">
           <motion.span
@@ -46,6 +49,7 @@ const MatchEvents: React.FC<Props> = ({ event, index }) => {
         </div>
       </div>
 
+      {/* Content */}
       <div className="flex-1 pt-0.5 min-w-0">
         <div className="flex items-center gap-1.5 mb-0.5 flex-wrap">
           <motion.span
@@ -72,8 +76,11 @@ const MatchEvents: React.FC<Props> = ({ event, index }) => {
             </span>
           )}
         </div>
+
         <EventDescription event={event} />
       </div>
+
+      {/* Icon */}
       <div
         className={cn(
           "relative p-1.5 sm:p-2.5 rounded-lg sm:rounded-xl border border-white/5 shadow-lg shrink-0",

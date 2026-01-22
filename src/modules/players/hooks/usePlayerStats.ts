@@ -22,7 +22,13 @@ const usePlayerStats = (playerId: number) => {
     if (!stats) return [];
     return stats.map((stat) => ({
       value: stat.season?.id,
-      label: stat.season?.name,
+      label:
+        stat.season?.name && stat.season.league?.name
+          ? `${stat.season.name} (${stat.season.league.name})`
+          : stat.season?.name ||
+            stat.season?.league.name ||
+            stat.team?.name ||
+            "",
     }));
   }, [stats]);
 
