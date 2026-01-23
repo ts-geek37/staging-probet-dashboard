@@ -34,7 +34,7 @@ export const TAB_CONFIG: readonly TabConfig[] = [
     hideWhen: ["UPCOMING"],
   },
 
-  { label: "Head to Head", value: MatchDetailView.HEAD_TO_HEAD },
+  { label: "H2H", value: MatchDetailView.HEAD_TO_HEAD },
 
   {
     label: "Comments",

@@ -3,6 +3,8 @@ import React from "react";
 
 import { Card, CardContent } from "@/components/ui/card";
 
+import MarketPieChart from "./MarketPieChart";
+
 interface MarketData {
   [key: string]: number | unknown[];
 }
@@ -47,64 +49,74 @@ const MarketCard: React.FC<MarketProps> = ({ type, data }) => {
       if (indexA !== -1) return -1;
       if (indexB !== -1) return 1;
       return 0;
-    });
+    }) as [string, number][]; // Assert type since filter ensures values are numbers
 
   if (entries.length === 0) return null;
+
+  // Decide visualization mode
+  const marketName = type.toLowerCase();
+  // Use Pie for markets with few options, but exclude "correct score" if it ever comes here (though it's usually empty or array).
+  // Also "HT/FT" has 9 options, so list is better.
+  const usePie = entries.length > 1 && entries.length <= 3 && !marketName.includes("score");
 
   return (
     <motion.div
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4 }}
-      className="w-full"
+      className="w-full h-full"
     >
-      <Card className="rounded-2xl text-white shadow-xl w-full overflow-hidden">
-        <CardContent className="p-4 sm:p-6 md:p-8 space-y-4 sm:space-y-6">
-          <div className="flex items-center justify-between">
-            <p className="text-[10px] sm:text-xs font-bold text-white uppercase tracking-widest">
+      <Card className="rounded-2xl text-white shadow-xl w-full h-full overflow-hidden flex flex-col">
+        <CardContent className="flex-1 flex flex-col">
+          <div className="flex items-center justify-between mb-4">
+            <p className="text-base font-bold text-white  border-l-2 border-primary-green pl-2">
               {type.replace(" Probability", "").replace(/_/g, " ")}
             </p>
           </div>
 
-          <div className="h-px bg-white/5 w-full" />
+          <div className="flex-1 flex flex-col justify-center">
+             {usePie ? (
+               <MarketPieChart data={entries} />
+             ) : (
+               <div className="grid grid-cols-1 gap-4">
+                {entries.map(([label, value], index) => {
+                  const key = label.toLowerCase().trim();
+                  const barColor = COLORS[key] || "bg-zinc-600";
 
-          <div className="grid grid-cols-1 gap-4 sm:gap-5">
-            {entries.map(([label, value], index) => {
-              const key = label.toLowerCase().trim();
-              const barColor = COLORS[key] || "bg-zinc-600";
-
-              return (
-                <motion.div
-                  key={label}
-                  initial={{ opacity: 0, x: -10 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: index * 0.1 }}
-                  className="w-full space-y-2"
-                >
-                  <div className="flex justify-between items-center text-xs sm:text-sm font-medium">
-                    <span className="capitalize text-primary-gray truncate mr-2">
-                      {label.replace(/_/g, " ")}
-                    </span>
-                    <span className="text-primary-gray font-semibold tabular-nums">
-                      {Number(value).toFixed(1)}%
-                    </span>
-                  </div>
-
-                  <div className="h-1.5 sm:h-2 w-full bg-white/10 rounded-full overflow-hidden">
+                  return (
                     <motion.div
-                      initial={{ width: 0 }}
-                      animate={{ width: `${value}%` }}
-                      transition={{
-                        duration: 0.8,
-                        ease: "easeOut",
-                        delay: index * 0.1 + 0.2,
-                      }}
-                      className={`h-full rounded-full transition-all ${barColor}`}
-                    />
-                  </div>
-                </motion.div>
-              );
-            })}
+                      key={label}
+                      initial={{ opacity: 0, x: -10 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: index * 0.1 }}
+                      className="w-full space-y-1.5"
+                    >
+                      <div className="flex justify-between items-center text-xs font-medium">
+                        <span className="capitalize text-muted-foreground truncate mr-2">
+                          {label.replace(/_/g, " ")}
+                        </span>
+                        <span className="text-white font-semibold">
+                          {Number(value).toFixed(1)}%
+                        </span>
+                      </div>
+
+                      <div className="h-2 w-full rounded-full overflow-hidden">
+                        <motion.div
+                          initial={{ width: 0 }}
+                          animate={{ width: `${value}%` }}
+                          transition={{
+                            duration: 0.8,
+                            ease: "easeOut",
+                            delay: index * 0.1 + 0.2,
+                          }}
+                          className={`h-full rounded-full transition-all ${barColor}`}
+                        />
+                      </div>
+                    </motion.div>
+                  );
+                })}
+              </div>
+             )}
           </div>
         </CardContent>
       </Card>

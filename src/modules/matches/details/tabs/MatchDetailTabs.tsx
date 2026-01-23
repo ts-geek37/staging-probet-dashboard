@@ -10,7 +10,7 @@ import MatchEventsTab from "./MatchEventsTab";
 import MatchHeadToHeadTab from "./MatchHeadToHeadTab";
 import MatchLineupsTab from "./MatchLineupsTab";
 import MatchOverviewTab from "./MatchOverviewTab";
-import MatchPrediction from "./MatchPrediction";
+import MatchPrediction from "./MatchPredictionTab";
 import MatchSeasonStatsTab from "./matchSeasonStatsTab";
 import MatchStatsTab from "./MatchStatsTab";
 import { TAB_CONFIG } from "../../constants";
