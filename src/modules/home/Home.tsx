@@ -7,6 +7,7 @@ import { VIPBanner } from "@/components";
 import { HomeResponse } from "@/types/home";
 import { MatchListStatus } from "@/types/matches";
 
+import AccuratePredictions from "./AccuratePredictions";
 import Banner from "./Banner";
 import { Testimonials } from "./components";
 import FinishedMatchesCards from "./FinishedMatchesCards";
@@ -23,7 +24,7 @@ interface Props {
 }
 
 const Home: React.FC<Props> = ({ initialHome }) => {
-  const { data } = useHome(initialHome);
+  const { data, isLoading } = useHome(initialHome);
 
   if (!data) return null;
 
@@ -63,6 +64,10 @@ const Home: React.FC<Props> = ({ initialHome }) => {
         <VIPBanner />
         <PredictionBanner />
         <VIPBanner />
+        <AccuratePredictions
+          predictions={data.sections.accuratePredictions}
+          isLoading={isLoading}
+        />
         <LatestNews news={data.news ?? []} />
         <Testimonials />
       </div>

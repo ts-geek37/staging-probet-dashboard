@@ -46,7 +46,7 @@ export const TAB_CONFIG: readonly TabConfig[] = [
   {
     label: "Prediction",
     value: MatchDetailView.PREDICTION,
-    hideWhen: ["LIVE", "FINISHED"],
+    hideWhen: ["LIVE"],
   },
 ];
 

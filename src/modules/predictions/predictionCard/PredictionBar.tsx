@@ -77,11 +77,11 @@ const PredictionBar: React.FC<PredictionBarProps> = ({
               key={segment.key}
               className={cn(
                 "h-full transition-all duration-500 flex items-center justify-center",
-                segment.bgColor,
-                segment.value > 12 ? "px-1" : "",
-                segment.hasBorder && "border-x border-background",
+                segment?.bgColor,
+                segment?.value > 12 ? "px-1" : "",
+                segment?.hasBorder && "border-x border-background",
               )}
-              style={{ width: `${segment.value}%` }}
+              style={{ width: `${segment?.value ?? 34}%` }}
             ></div>
           ))}
         </div>
@@ -96,7 +96,7 @@ const PredictionBar: React.FC<PredictionBarProps> = ({
                 index === 2 && "items-end",
               )}
             >
-              {segment.label}:<span>{segment.value.toFixed(0)}%</span>
+              {segment?.label}:<span>{segment?.value?.toFixed(0) ?? 34}%</span>
             </div>
           ))}
         </div>

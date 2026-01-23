@@ -9,6 +9,7 @@ export interface HomeResponse {
     live_now: MatchListItem[];
     starting_soon: MatchListItem[];
     recently_finished: MatchListItem[];
+    accuratePredictions: AccuratePredictionItem[];
   };
 
   top_leagues: LeagueCard[];
@@ -20,6 +21,22 @@ export interface HomeResponse {
     updated_at: string;
     live_updated_at: string | null;
   };
+}
+
+export interface AccuratePredictionItem {
+  id: number;
+  name: string;
+  result_info: string;
+  starting_at: string;
+  participants: Array<{
+    id: number;
+    name: string;
+    image_path?: string;
+    location: "home" | "away";
+  }>;
+  predicted_score: string;
+  actual_score: string;
+  winning: boolean;
 }
 
 export interface NewsSummary {

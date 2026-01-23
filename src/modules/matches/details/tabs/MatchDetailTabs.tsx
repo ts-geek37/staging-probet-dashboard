@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useMemo } from "react";
+import { useSearchParams } from "next/navigation";
+import React, { startTransition, useEffect, useMemo, useState } from "react";
 
 import TabNavigation from "@/components/TabNavigation";
 import { MatchDetailView, MatchListItem } from "@/types/matches";
@@ -17,19 +18,30 @@ import { TAB_CONFIG } from "../../constants";
 
 interface Props {
   match: MatchListItem;
-  activeTab: MatchDetailView;
-  onTabChange: (tab: MatchDetailView) => void;
 }
 
-const MatchDetailTabs: React.FC<Props> = ({
-  match,
-  activeTab,
-  onTabChange,
-}) => {
+const MatchDetailTabs: React.FC<Props> = ({ match }) => {
   const matchId = match.id;
+  const [activeTab, setActiveTab] = useState<MatchDetailView>(
+    MatchDetailView.OVERVIEW,
+  );
   const tabs = useMemo(() => {
     return TAB_CONFIG.filter((tab) => !tab.hideWhen?.includes(match.status));
   }, [match.status]);
+  const searchParams = useSearchParams();
+
+  useEffect(() => {
+    const tabFromQuery = searchParams.get("tab");
+    if (!tabFromQuery) return;
+    const normalized = tabFromQuery.toLowerCase();
+
+    const validTab = tabs.find((tab) => tab.value.toLowerCase() === normalized);
+    if (!validTab) return;
+
+    startTransition(() => {
+      setActiveTab(validTab.value);
+    });
+  }, [searchParams]);
 
   const isLive = match.status === "LIVE";
   const renderActiveTab = () => {
@@ -68,7 +80,7 @@ const MatchDetailTabs: React.FC<Props> = ({
       <TabNavigation
         activeTab={activeTab}
         tabs={tabs}
-        onTabChange={onTabChange}
+        onTabChange={setActiveTab}
       />
 
       <div className="min-h-[40vh]">{renderActiveTab()}</div>
