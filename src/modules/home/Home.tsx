@@ -16,6 +16,7 @@ import LiveMatchCards from "./LiveMatchesCards";
 import PredictionBanner from "./PredictionBanner";
 import TopLeagues from "./TopLeagues";
 import UpcomingMatchCards from "./UpcomingMatchesCards";
+import AccuratePredictions from "./AccuratePredictions";
 import { LiveScopeEnum } from "../ws/types";
 
 interface Props {
@@ -23,7 +24,7 @@ interface Props {
 }
 
 const Home: React.FC<Props> = ({ initialHome }) => {
-  const { data } = useHome(initialHome);
+  const { data, isLoading } = useHome(initialHome);
 
   if (!data) return null;
 
@@ -63,6 +64,10 @@ const Home: React.FC<Props> = ({ initialHome }) => {
         <VIPBanner />
         <PredictionBanner />
         <VIPBanner />
+        <AccuratePredictions
+          predictions={data.sections.accuratePredictions}
+          isLoading={isLoading}
+        />
         <LatestNews news={data.news ?? []} />
         <Testimonials />
       </div>
