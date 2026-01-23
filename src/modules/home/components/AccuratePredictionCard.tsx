@@ -1,10 +1,11 @@
 "use client";
 
-import { Card } from "@/components/ui/card";
-import { AccuratePredictionItem } from "@/types/home";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React from "react";
+
+import { Card } from "@/components/ui/card";
+import { AccuratePredictionItem } from "@/types/home";
 
 interface Props {
   prediction: AccuratePredictionItem;
@@ -67,7 +68,9 @@ const AccuratePredictionCard: React.FC<Props> = ({ prediction }) => {
                 </span>
               </div>
             </div>
-            <span className="text-xl font-bold text-white group-hover:text-primary-neon group-active:text-primary-neon transition-colors">{team.score}</span>
+            <span className="text-xl font-bold text-white group-hover:text-primary-neon group-active:text-primary-neon transition-colors">
+              {team.score}
+            </span>
           </div>
         ))}
       </div>

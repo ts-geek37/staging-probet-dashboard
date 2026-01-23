@@ -1,12 +1,14 @@
 "use client";
 
 import React from "react";
+
+import { NoData } from "@/components";
 import { AccuratePredictionItem } from "@/types/home";
+
 import {
   AccuratePredictionCard,
   AccuratePredictionCardSkeleton,
 } from "./components";
-import { NoData } from "@/components";
 
 interface Props {
   predictions: AccuratePredictionItem[];

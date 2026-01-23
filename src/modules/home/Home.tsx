@@ -7,6 +7,7 @@ import { VIPBanner } from "@/components";
 import { HomeResponse } from "@/types/home";
 import { MatchListStatus } from "@/types/matches";
 
+import AccuratePredictions from "./AccuratePredictions";
 import Banner from "./Banner";
 import { Testimonials } from "./components";
 import FinishedMatchesCards from "./FinishedMatchesCards";
@@ -16,7 +17,6 @@ import LiveMatchCards from "./LiveMatchesCards";
 import PredictionBanner from "./PredictionBanner";
 import TopLeagues from "./TopLeagues";
 import UpcomingMatchCards from "./UpcomingMatchesCards";
-import AccuratePredictions from "./AccuratePredictions";
 import { LiveScopeEnum } from "../ws/types";
 
 interface Props {

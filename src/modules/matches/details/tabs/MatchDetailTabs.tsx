@@ -1,12 +1,11 @@
 "use client";
 
+import { useSearchParams } from "next/navigation";
 import React, { startTransition, useEffect, useMemo, useState } from "react";
 
 import TabNavigation from "@/components/TabNavigation";
 import { MatchDetailView, MatchListItem } from "@/types/matches";
 
-import { useSearchParams } from "next/navigation";
-import { TAB_CONFIG } from "../../constants";
 import MatchCommentsTab from "./MatchCommentsTab";
 import MatchEventsTab from "./MatchEventsTab";
 import MatchHeadToHeadTab from "./MatchHeadToHeadTab";
@@ -15,6 +14,7 @@ import MatchOverviewTab from "./MatchOverviewTab";
 import MatchPrediction from "./MatchPrediction";
 import MatchSeasonStatsTab from "./matchSeasonStatsTab";
 import MatchStatsTab from "./MatchStatsTab";
+import { TAB_CONFIG } from "../../constants";
 
 interface Props {
   match: MatchListItem;

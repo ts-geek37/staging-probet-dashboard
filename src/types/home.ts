@@ -32,7 +32,7 @@ export interface AccuratePredictionItem {
     id: number;
     name: string;
     image_path?: string;
-    location: 'home' | 'away';
+    location: "home" | "away";
   }>;
   predicted_score: string;
   actual_score: string;
