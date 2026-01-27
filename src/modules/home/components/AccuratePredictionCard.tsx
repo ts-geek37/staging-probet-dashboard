@@ -12,6 +12,11 @@ interface Props {
 }
 
 const AccuratePredictionCard: React.FC<Props> = ({ prediction }) => {
+  const router = useRouter();
+  const handleClick = () => {
+    router.push(`/matches/${prediction.id}?tab=Predictions`);
+  };
+
   const homeParticipant = prediction.participants.find(
     (p) => p.location === "home",
   );
@@ -19,70 +24,78 @@ const AccuratePredictionCard: React.FC<Props> = ({ prediction }) => {
     (p) => p.location === "away",
   );
 
-  const router = useRouter();
-  const handleClick = () => {
-    router.push(`/matches/${prediction.id}?tab=Predictions`);
-  };
-
   const [actualHome, actualAway] = prediction.actual_score.split("-");
-  const teams = [
-    { participant: homeParticipant, score: actualHome },
-    { participant: awayParticipant, score: actualAway },
-  ];
 
   return (
     <Card
       onClick={handleClick}
-      className="group relative overflow-hidden border border-white/10 p-6 h-full backdrop-blur-xl hover:border-primary-neon/30 group-active:border-primary-neon transition-all duration-300 cursor-pointer gap-1"
+      className="group relative overflow-hidden border border-slate-700 hover:border-primary-neon/30 active:border-primary-neon/30 transition-all duration-300 cursor-pointer p-0 gap-0"
     >
-      <div className="flex items-start justify-start text-xs text-primary-gray group-hover:text-primary-neon group-active:text-primary-neon font-medium mb-4">
-        {new Date(prediction.starting_at)
-          .toLocaleDateString("en-US", {
-            day: "numeric",
-            month: "short",
-            year: "numeric",
-          })
-          .toUpperCase()}
+      <div className="px-4 py-3 bg-slate-800/80 border-b border-slate-700 group-hover:bg-slate-800 active:bg-slate-800 transition-colors duration-300">
+        <div className="text-xs text-slate-400 font-medium mb-1 ">
+          {new Date(prediction.starting_at)
+            .toLocaleDateString("en-US", {
+              day: "numeric",
+              month: "short",
+            })
+            .toUpperCase()}
+        </div>
+        <div className="text-sm text-white">
+          {homeParticipant?.name} won after full-time.
+        </div>
       </div>
 
-      <div className="space-y-3 pb-3 border-b border-gray-600 mb-4">
-        {teams.map((team, index) => (
-          <div key={index} className="flex items-center justify-between gap-3">
-            <div className="flex items-center gap-3">
-              <div className="relative h-10 w-10 bg-white/5 rounded-full p-1.5 border border-white/10 shrink-0">
-                {team.participant?.image_path && (
-                  <Image
-                    src={team.participant.image_path}
-                    alt={team.participant.name}
-                    fill
-                    className="object-contain p-1.5 group-hover:scale-110 group-active:scale-110 transition-all duration-300"
-                  />
-                )}
-              </div>
-              <div className="flex flex-col">
-                <span className="text-sm font-semibold text-white group-hover:text-primary-neon group-active:text-primary-neon transition-colors">
-                  {team.participant?.name}
-                </span>
-                <span className="text-xs text-primary-gray uppercase">
-                  {team?.participant?.location}
-                </span>
-              </div>
-            </div>
-            <span className="text-xl font-bold text-white group-hover:text-primary-neon group-active:text-primary-neon transition-colors">
-              {team.score}
+      <div className="flex items-center justify-between gap-6 p-6">
+        <div className="flex flex-col items-center gap-3 flex-1">
+          <div className="relative h-16 w-16 bg-slate-800/50 rounded-lg border border-slate-700 flex items-center justify-center overflow-hidden group-hover:border-primary-neon/50     group-active:border-primary-neon/50 group-hover:bg-slate-800 group-active:bg-slate-800 transition-all duration-300">
+            {homeParticipant?.image_path && (
+              <Image
+                src={homeParticipant.image_path}
+                alt={homeParticipant.name}
+                fill
+                className="object-contain p-2"
+              />
+            )}
+          </div>
+          <span className="text-sm text-white font-medium text-center">
+            {homeParticipant?.name}
+          </span>
+        </div>
+
+        <div className="flex flex-col items-center gap-2 min-w-[120px]">
+          <span className="text-xs text-slate-400 uppercase tracking-wide ">
+            Result
+          </span>
+          <div className="text-5xl font-bold text-white tracking-tight group-hover:text-primary-neon group-active:text-primary-neon transition-colors duration-300">
+            {actualHome}-{actualAway}
+          </div>
+          <div className="flex flex-col items-center gap-1 border-t border-slate-700 pt-2">
+            <span className="text-xs text-slate-400 uppercase tracking-wide">
+              Predicted
+            </span>
+            <span className="text-xl font-semibold text-white">
+              {prediction?.predicted_score || "1-1"}
             </span>
           </div>
-        ))}
-      </div>
+        </div>
 
-      <div className="flex items-center justify-between text-primary-gray group-hover:text-primary-neon group-active:text-primary-neon">
-        <span className="text-sm">Predicted</span>
-        <span className="text-xl font-bold">
-          {prediction?.predicted_score || "--"}
-        </span>
+        <div className="flex flex-col items-center gap-3 flex-1">
+          <div className="relative h-16 w-16 bg-slate-800/50 rounded-lg border border-slate-700 flex items-center justify-center overflow-hidden group-hover:border-primary-neon/50 group-hover:bg-slate-800 transition-all duration-300">
+            {awayParticipant?.image_path && (
+              <Image
+                src={awayParticipant.image_path}
+                alt={awayParticipant.name}
+                fill
+                className="object-contain p-2"
+              />
+            )}
+          </div>
+          <span className="text-sm text-white font-medium text-center">
+            {awayParticipant?.name}
+          </span>
+        </div>
       </div>
     </Card>
   );
 };
-
 export default AccuratePredictionCard;

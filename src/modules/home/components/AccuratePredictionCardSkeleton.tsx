@@ -7,33 +7,31 @@ import { Skeleton } from "@/components/ui/skeleton";
 
 const AccuratePredictionCardSkeleton: React.FC = () => {
   return (
-    <Card className="relative overflow-hidden border border-white/10 bg-[#0E1320]/60 backdrop-blur-xl p-6 h-full space-y-8">
-      <div className="flex items-center justify-between">
-        <Skeleton className="h-6 w-32 bg-white/5" />
-        <Skeleton className="h-4 w-20 bg-white/5" />
+    <Card className="relative overflow-hidden border border-slate-700 p-0 gap-0">
+      <div className="px-4 py-3 bg-slate-800/80 border-b border-slate-700 space-y-2">
+        <Skeleton className="h-3 w-14 bg-white/5" />
+        <Skeleton className="h-4 w-48 bg-white/5" />
       </div>
 
-      <div className="grid grid-cols-3 items-center gap-4">
-        <div className="flex flex-col items-center gap-3">
-          <Skeleton className="h-16 w-16 rounded-full bg-white/5" />
+      <div className="flex items-center justify-between gap-6 p-6">
+        <div className="flex flex-col items-center gap-3 flex-1">
+          <Skeleton className="h-16 w-16 rounded-lg bg-white/5" />
           <Skeleton className="h-4 w-20 bg-white/5" />
         </div>
-        <div className="flex flex-col items-center">
-          <Skeleton className="h-3 w-8 bg-white/5" />
+
+        <div className="flex flex-col items-center gap-2 min-w-[120px]">
+          <Skeleton className="h-3 w-10 bg-white/5" />
+          <Skeleton className="h-12 w-20 bg-white/5" />
+          <div className="flex flex-col items-center gap-1 pt-2">
+            <Skeleton className="h-3 w-16 bg-white/5" />
+            <Skeleton className="h-5 w-12 bg-white/5" />
+          </div>
         </div>
-        <div className="flex flex-col items-center gap-3">
-          <Skeleton className="h-16 w-16 rounded-full bg-white/5" />
+
+        <div className="flex flex-col items-center gap-3 flex-1">
+          <Skeleton className="h-16 w-16 rounded-lg bg-white/5" />
           <Skeleton className="h-4 w-20 bg-white/5" />
         </div>
-      </div>
-
-      <div className="grid grid-cols-2 gap-4">
-        <Skeleton className="h-20 rounded-xl bg-white/5" />
-        <Skeleton className="h-20 rounded-xl bg-white/5" />
-      </div>
-
-      <div className="pt-4 border-t border-white/5 flex justify-center">
-        <Skeleton className="h-3 w-3/4 bg-white/5" />
       </div>
     </Card>
   );
