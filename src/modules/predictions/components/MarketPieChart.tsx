@@ -56,7 +56,7 @@ const MarketPieChart: React.FC<Props> = ({ data, size = 160, strokeWidth = 16 })
               style={{
                 transformOrigin: "center",
                 rotate: `${item.rotation}deg`,
-                transition: "stroke-dashoffset 1s ease-out", // Smooth entry
+                transition: "stroke-dashoffset 1s ease-out",
               }}
             />
           ))}

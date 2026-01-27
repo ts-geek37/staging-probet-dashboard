@@ -13,7 +13,7 @@ interface TeamGoalsChartProps {
   title: string;
   data: GoalProbability[];
   colorClass: string;
-  variant?: "list" | "bar"; // New variant prop
+  variant?: "list" | "bar";
 }
 
 const TeamGoalsChart: React.FC<TeamGoalsChartProps> = ({
@@ -36,7 +36,7 @@ const TeamGoalsChart: React.FC<TeamGoalsChartProps> = ({
           {data.map((item, index) => (
             <div key={item.line} className="w-full">
               {variant === "bar" ? (
-                // Bar Layout
+
                 <div className="space-y-1.5">
                   <div className="flex justify-between text-xs font-medium">
                     <span className="text-muted-foreground/80">Over {item.line}</span>
@@ -52,7 +52,7 @@ const TeamGoalsChart: React.FC<TeamGoalsChartProps> = ({
                   </div>
                 </div>
               ) : (
-                // List Layout (Clean Row)
+    
                 <div className="flex items-center justify-between border-b border-white/5 pb-3 last:border-0 last:pb-0">
                    <span className="text-sm text-muted-foreground/70 font-medium">Over {item.line}</span>
                    <span className="text-base text-white font-bold tabular-nums">{item.over.toFixed(1)}%</span>

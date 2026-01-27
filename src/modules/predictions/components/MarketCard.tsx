@@ -49,14 +49,12 @@ const MarketCard: React.FC<MarketProps> = ({ type, data }) => {
       if (indexA !== -1) return -1;
       if (indexB !== -1) return 1;
       return 0;
-    }) as [string, number][]; // Assert type since filter ensures values are numbers
+    }) as [string, number][]; 
 
   if (entries.length === 0) return null;
 
-  // Decide visualization mode
   const marketName = type.toLowerCase();
-  // Use Pie for markets with few options, but exclude "correct score" if it ever comes here (though it's usually empty or array).
-  // Also "HT/FT" has 9 options, so list is better.
+
   const usePie = entries.length > 1 && entries.length <= 3 && !marketName.includes("score");
 
   return (
