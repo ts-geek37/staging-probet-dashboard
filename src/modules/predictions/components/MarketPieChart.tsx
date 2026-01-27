@@ -11,37 +11,59 @@ const COLORS: Record<string, string> = {
   equal: "var(--primary-yellow)",
   no: "var(--primary-red)",
 };
+interface MarketItem {
+  label: string;
+  displayLabel: string;
+  value: number;
+  rotation: number;
+  color: string;
+  dashOffset: number;
+}
 
-const MarketPieChart: React.FC<Props> = ({ data, size = 160, strokeWidth = 16 }) => {
+const MarketPieChart: React.FC<Props> = ({
+  data,
+  size = 160,
+  strokeWidth = 16,
+}) => {
   const radius = (size - strokeWidth) / 2;
   const circumference = 2 * Math.PI * radius;
 
   const { processedData, dominantItem } = useMemo(() => {
-    let currentRotation = 0;
     const sorted = [...data].sort((a, b) => b[1] - a[1]);
 
-    const items = data.map(([label, value]) => {
+    const items = data.reduce<MarketItem[]>((acc, [label, value]) => {
       const percent = value / 100;
-      const rotation = currentRotation;
-      currentRotation += percent * 360;
+      const rotation =
+        acc.length === 0
+          ? 0
+          : acc[acc.length - 1].rotation +
+            (acc[acc.length - 1].value / 100) * 360;
 
-      return {
+      acc.push({
         label,
         displayLabel: label.replace(/_/g, " "),
         value,
         rotation,
-        color: COLORS[label.toLowerCase()] || "gray",
+        color: COLORS[label.toLowerCase()] ?? "gray",
         dashOffset: circumference * (1 - percent),
-      };
-    });
+      });
 
-    return { processedData: items, dominantItem: sorted[0] };
+      return acc;
+    }, []);
+
+    return {
+      processedData: items,
+      dominantItem: sorted[0],
+    };
   }, [data, circumference]);
 
   return (
     <div className="flex flex-col items-center justify-center p-2 sm:p-4 w-full h-full">
       <div className="relative w-full max-w-35 sm:max-w-40 aspect-square">
-        <svg viewBox={`0 0 ${size} ${size}`} className="w-full h-full -rotate-90">
+        <svg
+          viewBox={`0 0 ${size} ${size}`}
+          className="w-full h-full -rotate-90"
+        >
           {processedData.map((item) => (
             <circle
               key={item.label}
@@ -74,12 +96,22 @@ const MarketPieChart: React.FC<Props> = ({ data, size = 160, strokeWidth = 16 })
 
       <div className="mt-3 sm:mt-4 grid grid-cols-2 gap-x-2 sm:gap-x-4 gap-y-1 sm:gap-y-2 w-full">
         {processedData.map((item) => (
-          <div key={item.label} className="flex items-center justify-between text-[10px] sm:text-xs">
+          <div
+            key={item.label}
+            className="flex items-center justify-between text-[10px] sm:text-xs"
+          >
             <div className="flex items-center gap-1.5 overflow-hidden">
-              <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full shrink-0" style={{ backgroundColor: item.color }} />
-              <span className="capitalize text-primary-gray text-sm truncate">{item.displayLabel}</span>
+              <div
+                className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full shrink-0"
+                style={{ backgroundColor: item.color }}
+              />
+              <span className="capitalize text-primary-gray text-sm truncate">
+                {item.displayLabel}
+              </span>
             </div>
-            <span className="font-semibold text-white ml-1 mr-3">{item.value.toFixed(1)}%</span>
+            <span className="font-semibold text-white ml-1 mr-3">
+              {item.value.toFixed(1)}%
+            </span>
           </div>
         ))}
       </div>

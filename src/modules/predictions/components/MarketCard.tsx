@@ -49,13 +49,14 @@ const MarketCard: React.FC<MarketProps> = ({ type, data }) => {
       if (indexA !== -1) return -1;
       if (indexB !== -1) return 1;
       return 0;
-    }) as [string, number][]; 
+    }) as [string, number][];
 
   if (entries.length === 0) return null;
 
   const marketName = type.toLowerCase();
 
-  const usePie = entries.length > 1 && entries.length <= 3 && !marketName.includes("score");
+  const usePie =
+    entries.length > 1 && entries.length <= 3 && !marketName.includes("score");
 
   return (
     <motion.div
@@ -73,10 +74,10 @@ const MarketCard: React.FC<MarketProps> = ({ type, data }) => {
           </div>
 
           <div className="flex-1 flex flex-col justify-center">
-             {usePie ? (
-               <MarketPieChart data={entries} />
-             ) : (
-               <div className="grid grid-cols-1 gap-4">
+            {usePie ? (
+              <MarketPieChart data={entries} />
+            ) : (
+              <div className="grid grid-cols-1 gap-4">
                 {entries.map(([label, value], index) => {
                   const key = label.toLowerCase().trim();
                   const barColor = COLORS[key] || "bg-zinc-600";
@@ -114,7 +115,7 @@ const MarketCard: React.FC<MarketProps> = ({ type, data }) => {
                   );
                 })}
               </div>
-             )}
+            )}
           </div>
         </CardContent>
       </Card>

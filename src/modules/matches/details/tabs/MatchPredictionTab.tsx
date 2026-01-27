@@ -7,15 +7,20 @@ import {
   MarketCard,
   OutcomeCard,
 } from "@/modules/predictions/components";
-import usePredictionDetails from "@/modules/predictions/hooks/usePredictionDetails";
-import PredictionDesc from "@/modules/predictions/components/PredictionSentenceCard";
 import PredictionSentenceCard from "@/modules/predictions/components/PredictionSentenceCard";
+import usePredictionDetails from "@/modules/predictions/hooks/usePredictionDetails";
 
 interface Props {
   matchId: number;
+  homeTeam?: string;
+  awayTeam?: string;
 }
 
-const MatchPredictionsTab: React.FC<Props> = ({ matchId }) => {
+const MatchPredictionsTab: React.FC<Props> = ({
+  matchId,
+  homeTeam = "HOME",
+  awayTeam = "AWAY",
+}) => {
   const {
     isLoading,
     error,
@@ -23,8 +28,6 @@ const MatchPredictionsTab: React.FC<Props> = ({ matchId }) => {
     goalLines,
     cornerMarkets,
     otherMarkets,
-      homeTeam,
-  awayTeam,
   } = usePredictionDetails({ fixtureId: matchId });
 
   if (isLoading) return <SkeletonCardLoader />;

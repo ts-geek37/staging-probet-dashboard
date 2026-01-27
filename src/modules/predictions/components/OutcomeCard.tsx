@@ -9,7 +9,11 @@ interface OutcomeCardProps {
   colorClass: string;
 }
 
-const OutcomeCard: React.FC<OutcomeCardProps> = ({ label, value, colorClass }) => {
+const OutcomeCard: React.FC<OutcomeCardProps> = ({
+  label,
+  value,
+  colorClass,
+}) => {
   return (
     <motion.div
       initial={{ opacity: 0, scale: 0.95 }}
@@ -19,9 +23,13 @@ const OutcomeCard: React.FC<OutcomeCardProps> = ({ label, value, colorClass }) =
     >
       <Card className="rounded-2xl text-white w-full h-full flex flex-col justify-center">
         <CardContent>
-          <p className="text-xs sm:text-base font-medium text-muted-foreground mb-1">{label}</p>
-          <div className={`text-3xl sm:text-5xl font-bold ${colorClass} tracking-tight tabular-nums`}>
-           {value.toFixed(1)}%
+          <p className="text-xs sm:text-base font-medium text-muted-foreground mb-1">
+            {label}
+          </p>
+          <div
+            className={`text-3xl sm:text-5xl font-bold ${colorClass} tracking-tight tabular-nums`}
+          >
+            {value.toFixed(1)}%
           </div>
         </CardContent>
       </Card>

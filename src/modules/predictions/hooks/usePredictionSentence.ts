@@ -1,6 +1,7 @@
 "use client";
 
 import useSWR from "swr";
+
 import { ApiResponse } from "@/api/types";
 
 /* -------------------- Types -------------------- */
@@ -32,7 +33,7 @@ interface PredictionSentenceResult {
 /* -------------------- Helpers -------------------- */
 
 const getMarket = (markets: Market[], type: string) =>
-  markets.find((m) => m.type === type)?.data;
+  markets.find((m) => m.type === type)?.data || {};
 
 const getHighestProb = (data: Record<string, number>) =>
   Object.entries(data).sort((a, b) => b[1] - a[1])[0];
@@ -70,8 +71,8 @@ const getH2HInsight = (
       h2hPick === "home"
         ? homeTeam
         : h2hPick === "away"
-        ? awayTeam
-        : "Neither side";
+          ? awayTeam
+          : "Neither side";
 
     return {
       text: `Recent head-to-head meetings favor ${team}`,
@@ -91,12 +92,8 @@ const usePredictionSentence = ({
 }: UsePredictionSentenceParams) => {
   const shouldFetch = Boolean(fixtureId);
 
-  const { data, error, isLoading } = useSWR<
-    ApiResponse<PredictionAPIResponse>
-  >(
-    shouldFetch
-      ? `/api/v2/predictions/matches/${fixtureId}`
-      : null,
+  const { data, error, isLoading } = useSWR<ApiResponse<PredictionAPIResponse>>(
+    shouldFetch ? `/api/v2/predictions/matches/${fixtureId}` : null,
   );
 
   if (isLoading || error || !data?.data?.predictable) {
@@ -120,21 +117,12 @@ const usePredictionSentence = ({
   const dcPick = getBestDoubleChance(dc);
 
   const goalInsight = getGoalInsight(markets);
-  const h2hInsight = getH2HInsight(
-    markets,
-    ftPick,
-    homeTeam,
-    awayTeam,
-  );
+  const h2hInsight = getH2HInsight(markets, ftPick, homeTeam, awayTeam);
 
   /* -------------------- Sentence Builder -------------------- */
 
   const teamLabel =
-    ftPick === "home"
-      ? homeTeam
-      : ftPick === "away"
-      ? awayTeam
-      : "Both teams";
+    ftPick === "home" ? homeTeam : ftPick === "away" ? awayTeam : "Both teams";
 
   let sentence =
     ftPick === "draw"

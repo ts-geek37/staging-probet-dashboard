@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import React from "react";
+
 import { Card, CardContent } from "@/components/ui/card";
 
 interface GoalLineCardProps {
@@ -9,11 +10,31 @@ interface GoalLineCardProps {
   awayValue: number;
 }
 
-const GoalLineCard: React.FC<GoalLineCardProps> = ({ line, matchValue, homeValue, awayValue }) => {
+const GoalLineCard: React.FC<GoalLineCardProps> = ({
+  line,
+  matchValue,
+  homeValue,
+  awayValue,
+}) => {
   const items = [
-    { label: "Overall", value: matchValue, color: "bg-primary-red", textColor: "text-primary-red" },
-    { label: "Home Team", value: homeValue, color: "bg-primary-green", textColor: "text-primary-green" },
-    { label: "Away Team", value: awayValue, color: "bg-primary-yellow", textColor: "text-primary-yellow" },
+    {
+      label: "Overall",
+      value: matchValue,
+      color: "bg-primary-red",
+      textColor: "text-primary-red",
+    },
+    {
+      label: "Home Team",
+      value: homeValue,
+      color: "bg-primary-green",
+      textColor: "text-primary-green",
+    },
+    {
+      label: "Away Team",
+      value: awayValue,
+      color: "bg-primary-yellow",
+      textColor: "text-primary-yellow",
+    },
   ];
 
   return (
@@ -32,7 +53,9 @@ const GoalLineCard: React.FC<GoalLineCardProps> = ({ line, matchValue, homeValue
                 <span className="text-[11px] sm:text-xs font-medium text-muted-foreground truncate uppercase tracking-wider">
                   {item.label}
                 </span>
-                <span className={`text-xs sm:text-sm font-bold ${item.textColor}`}>
+                <span
+                  className={`text-xs sm:text-sm font-bold ${item.textColor}`}
+                >
                   {item.value.toFixed(1)}%
                 </span>
               </div>

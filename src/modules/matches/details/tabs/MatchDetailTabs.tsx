@@ -68,7 +68,13 @@ const MatchDetailTabs: React.FC<Props> = ({ match }) => {
         return <MatchSeasonStatsTab match={match} />;
 
       case MatchDetailView.PREDICTION:
-        return <MatchPrediction matchId={matchId} />;
+        return (
+          <MatchPrediction
+            matchId={matchId}
+            homeTeam={match?.teams?.home?.name}
+            awayTeam={match?.teams?.away?.name}
+          />
+        );
 
       default:
         return null;
