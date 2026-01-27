@@ -10,7 +10,6 @@ import { useMatchDetail } from "../../hooks";
 
 interface Props {
   matchId: number;
-
   isLive: boolean;
 }
 

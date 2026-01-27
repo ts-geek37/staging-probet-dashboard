@@ -20,7 +20,7 @@ interface Props {
 
 const UpcomingMatches: React.FC<
   Props & { leagueId?: number; teamId?: number }
-> = ({ search, leagueId, teamId }) => {
+> = ({ search, leagueId }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const { matches, isLoading, error, has_more } = useMatches({
     tab: MatchListStatus.UPCOMING,

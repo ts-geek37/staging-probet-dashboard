@@ -3,154 +3,123 @@
 import useSWR from "swr";
 
 import { ApiResponse } from "@/api/types";
-import {
-  FixturePredictionsResponse,
-  FixtureValueBetsResponse,
-  FullTimeResultPrediction,
-  OverUnderPrediction,
-  PredictionMarket,
-  PredictionMarketType,
-  YesNoPrediction,
-} from "@/types/prediction";
+import { FixturePredictionsResponse } from "@/types/prediction";
 
 interface UsePredictionDetailsParams {
   fixtureId?: number;
 }
-const isOverUnderMarket = (
-  market: PredictionMarket,
-): market is Extract<PredictionMarket, { data: OverUnderPrediction }> => {
-  return "over" in market.data && "under" in market.data;
-};
+
+type YesNoData = { yes?: number; no?: number };
+type HomeAwayDrawData = { home?: number; away?: number; draw?: number };
 
 const usePredictionDetails = ({ fixtureId }: UsePredictionDetailsParams) => {
-  const shouldFetch = Boolean(fixtureId);
+  const shouldFetch = !!fixtureId;
 
-  const predictionsSWR = useSWR<ApiResponse<FixturePredictionsResponse>>(
-    shouldFetch ? `/api/v2/predictions/matches/${fixtureId}` : null,
-  );
+  const { data, isLoading, error } = useSWR<
+    ApiResponse<FixturePredictionsResponse>
+  >(shouldFetch ? `/api/v2/predictions/matches/${fixtureId}` : null);
 
-  const valueBetsSWR = useSWR<ApiResponse<FixtureValueBetsResponse>>(
-    shouldFetch ? `/api/v2/predictions/matches/${fixtureId}/value-bets` : null,
-  );
+  const markets = data?.data?.markets ?? [];
+  const predictionSentence = data?.data?.prediction_sentence ?? "";
 
-  const markets: PredictionMarket[] = predictionsSWR.data?.data?.markets ?? [];
+  const getMarketByType = (type: string) =>
+    markets.find((m) => m.type === type);
 
-  /* -------------------- Helpers -------------------- */
-  const getMarket = <T extends PredictionMarketType>(
-    type: T,
-  ): Extract<PredictionMarket, { type: T }> | undefined =>
-    markets.find(
-      (m): m is Extract<PredictionMarket, { type: T }> => m.type === type,
-    );
-
-  const extractGoalData = (types: PredictionMarketType[]) =>
+  const parseOverUnderMarkets = (prefix: string) =>
     markets
-      .filter(
-        (m): m is Extract<PredictionMarket, { data: { over: number } }> =>
-          types.includes(m.type) && isOverUnderMarket(m),
-      )
+      .filter((m) => m.type.startsWith(prefix))
       .map((m) => {
         const line = m.type.match(/(\d+(\.\d+)?)/)?.[0] ?? "";
+        const d = m.data as YesNoData & { equal?: number };
+
         return {
           line,
-          over: m.data.over,
+          yes: d.yes ?? 0,
+          no: d.no ?? 0,
+          equal: d.equal ?? 0,
         };
       });
 
-  /* -------------------- Key Markets -------------------- */
-  const firstHalf = getMarket(PredictionMarketType.FIRST_HALF_WINNER);
-  const btts = getMarket(PredictionMarketType.BOTH_TEAMS_TO_SCORE);
-  const fullTime = getMarket(PredictionMarketType.FULLTIME_RESULT);
-  const teamToScoreFirst = getMarket(PredictionMarketType.TEAM_TO_SCORE_FIRST);
+  const firstHalf = getMarketByType("First Half Winner Probability")?.data as
+    | HomeAwayDrawData
+    | undefined;
 
-  /* -------------------- Goal Analysis -------------------- */
-  const generalGoals = extractGoalData([
-    PredictionMarketType.OVER_UNDER_1_5,
-    PredictionMarketType.OVER_UNDER_2_5,
-    PredictionMarketType.OVER_UNDER_3_5,
-    PredictionMarketType.OVER_UNDER_4_5,
-  ]);
+  const btts = getMarketByType("Both Teams To Score Probability")?.data as
+    | YesNoData
+    | undefined;
 
-  const homeGoals = extractGoalData([
-    PredictionMarketType.HOME_OVER_UNDER_0_5,
-    PredictionMarketType.HOME_OVER_UNDER_1_5,
-    PredictionMarketType.HOME_OVER_UNDER_2_5,
-    PredictionMarketType.HOME_OVER_UNDER_3_5,
-  ]);
+  const fullTime = getMarketByType("Fulltime Result Probability")?.data as
+    | HomeAwayDrawData
+    | undefined;
 
-  const awayGoals = extractGoalData([
-    PredictionMarketType.AWAY_OVER_UNDER_0_5,
-    PredictionMarketType.AWAY_OVER_UNDER_1_5,
-    PredictionMarketType.AWAY_OVER_UNDER_2_5,
-    PredictionMarketType.AWAY_OVER_UNDER_3_5,
-  ]);
+  const teamToScoreFirst = getMarketByType("Team To Score First Probability")
+    ?.data as HomeAwayDrawData | undefined;
 
-  const allLines = Array.from(
+  const generalGoals = parseOverUnderMarkets("Over/Under");
+  const homeGoals = parseOverUnderMarkets("Home Over/Under");
+  const awayGoals = parseOverUnderMarkets("Away Over/Under");
+
+  const goalLines = Array.from(
     new Set([
-      ...generalGoals.map((d) => d.line),
-      ...homeGoals.map((d) => d.line),
-      ...awayGoals.map((d) => d.line),
+      ...generalGoals.map((g) => g.line),
+      ...homeGoals.map((g) => g.line),
+      ...awayGoals.map((g) => g.line),
     ]),
-  ).sort((a, b) => Number(a) - Number(b));
+  )
+    .sort((a, b) => Number(a) - Number(b))
+    .map((line) => ({
+      line,
+      matchValue: generalGoals.find((g) => g.line === line)?.yes ?? 0,
+      homeValue: homeGoals.find((g) => g.line === line)?.yes ?? 0,
+      awayValue: awayGoals.find((g) => g.line === line)?.yes ?? 0,
+    }));
 
-  const consolidatedGoalData = allLines.map((line) => ({
-    line,
-    matchValue: generalGoals.find((d) => d.line === line)?.over ?? 0,
-    homeValue: homeGoals.find((d) => d.line === line)?.over ?? 0,
-    awayValue: awayGoals.find((d) => d.line === line)?.over ?? 0,
-  }));
-
-  /* -------------------- Market Grouping -------------------- */
   const cornerMarkets = markets.filter((m) => m.type.startsWith("Corners"));
 
-  const usedTypes = new Set<PredictionMarketType>(
-    [
-      PredictionMarketType.BOTH_TEAMS_TO_SCORE,
-      PredictionMarketType.OVER_UNDER_2_5,
-      PredictionMarketType.FIRST_HALF_WINNER,
-      PredictionMarketType.FULLTIME_RESULT,
-      PredictionMarketType.TEAM_TO_SCORE_FIRST,
-      ...generalGoals.map(() => null),
-    ].filter(Boolean) as PredictionMarketType[],
-  );
+  const excludedMarketTypes = new Set([
+    "Both Teams To Score Probability",
+    "Over/Under 2.5 Probability",
+    "First Half Winner Probability",
+    "Fulltime Result Probability",
+    "Team To Score First Probability",
+    ...markets
+      .filter((m) =>
+        /^(Over\/Under|Home Over\/Under|Away Over\/Under|Corners)/.test(m.type),
+      )
+      .map((m) => m.type),
+  ]);
 
-  const otherMarkets = markets.filter((m) => !usedTypes.has(m.type));
+  const otherMarkets = markets.filter((m) => !excludedMarketTypes.has(m.type));
 
-  /* -------------------- Final Return -------------------- */
   return {
-    isLoading: predictionsSWR.isLoading || valueBetsSWR.isLoading,
-    error: predictionsSWR.error || valueBetsSWR.error,
+    isLoading,
+    error,
+    predictionSentence,
 
     keyMarkets: {
       firstHalf: {
-        home: Number((firstHalf?.data as FullTimeResultPrediction)?.home ?? 0),
-        away: Number((firstHalf?.data as FullTimeResultPrediction)?.away ?? 0),
-        draw: Number((firstHalf?.data as FullTimeResultPrediction)?.draw ?? 0),
+        home: Number(firstHalf?.home ?? 0),
+        away: Number(firstHalf?.away ?? 0),
+        draw: Number(firstHalf?.draw ?? 0),
       },
       btts: {
-        yes: Number((btts?.data as YesNoPrediction)?.yes ?? 0),
-        no: Number((btts?.data as YesNoPrediction)?.no ?? 0),
+        yes: Number(btts?.yes ?? 0),
+        no: Number(btts?.no ?? 0),
       },
       fullTime: {
-        home: Number((fullTime?.data as FullTimeResultPrediction)?.home ?? 0),
-        draw: Number((fullTime?.data as FullTimeResultPrediction)?.draw ?? 0),
-        away: Number((fullTime?.data as FullTimeResultPrediction)?.away ?? 0),
+        home: Number(fullTime?.home ?? 0),
+        draw: Number(fullTime?.draw ?? 0),
+        away: Number(fullTime?.away ?? 0),
       },
       teamToScoreFirst: {
-        homeValue: Number(
-          (teamToScoreFirst?.data as FullTimeResultPrediction)?.home ?? 0,
-        ),
-        awayValue: Number(
-          (teamToScoreFirst?.data as FullTimeResultPrediction)?.away ?? 0,
-        ),
-        drawValue: Number(
-          (teamToScoreFirst?.data as FullTimeResultPrediction)?.draw ?? 0,
-        ),
+        home: Number(teamToScoreFirst?.home ?? 0),
+        away: Number(teamToScoreFirst?.away ?? 0),
+        draw: Number(teamToScoreFirst?.draw ?? 0),
       },
     },
 
     goalLines: {
-      consolidated: consolidatedGoalData,
+      consolidated: goalLines,
     },
 
     cornerMarkets,

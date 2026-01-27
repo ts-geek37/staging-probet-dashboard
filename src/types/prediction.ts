@@ -159,6 +159,7 @@ export type FixturePredictionsResponse = {
   fixture_id: number;
   predictable: boolean;
   markets: PredictionMarket[];
+  prediction_sentence?: string | null;
 };
 
 export type ValueBet = {

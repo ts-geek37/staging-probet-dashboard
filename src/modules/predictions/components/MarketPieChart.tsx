@@ -10,13 +10,17 @@ const COLORS: Record<string, string> = {
   yes: "var(--primary-green)",
   equal: "var(--primary-yellow)",
   no: "var(--primary-red)",
+  draw_home: "var(--primary-green)",
+  home_away: "var(--primary-yellow)",
+  draw_away: "var(--primary-red)",
 };
+
 interface MarketItem {
   label: string;
   displayLabel: string;
   value: number;
-  rotation: number;
   color: string;
+  dash: number;
   dashOffset: number;
 }
 
@@ -29,31 +33,36 @@ const MarketPieChart: React.FC<Props> = ({
   const circumference = 2 * Math.PI * radius;
 
   const { processedData, dominantItem } = useMemo(() => {
-    const sorted = [...data].sort((a, b) => b[1] - a[1]);
+    const { items } = data.reduce(
+      (acc, [label, value]) => {
+        const percent = value / 100;
+        const dash = percent * circumference;
 
-    const items = data.reduce<MarketItem[]>((acc, [label, value]) => {
-      const percent = value / 100;
-      const rotation =
-        acc.length === 0
-          ? 0
-          : acc[acc.length - 1].rotation +
-            (acc[acc.length - 1].value / 100) * 360;
+        const item: MarketItem = {
+          label,
+          displayLabel: label.replace(/_/g, " "),
+          value,
+          color: COLORS[label.toLowerCase()] ?? "gray",
+          dash,
+          dashOffset: -acc.offset,
+        };
 
-      acc.push({
-        label,
-        displayLabel: label.replace(/_/g, " "),
-        value,
-        rotation,
-        color: COLORS[label.toLowerCase()] ?? "gray",
-        dashOffset: circumference * (1 - percent),
-      });
+        acc.items.push(item);
+        acc.offset += dash;
 
-      return acc;
-    }, []);
+        return acc;
+      },
+      {
+        items: [] as MarketItem[],
+        offset: 0,
+      },
+    );
+
+    const dominantItem = [...data].sort((a, b) => b[1] - a[1])[0];
 
     return {
       processedData: items,
-      dominantItem: sorted[0],
+      dominantItem,
     };
   }, [data, circumference]);
 
@@ -62,7 +71,8 @@ const MarketPieChart: React.FC<Props> = ({
       <div className="relative w-full max-w-35 sm:max-w-40 aspect-square">
         <svg
           viewBox={`0 0 ${size} ${size}`}
-          className="w-full h-full -rotate-90"
+          className="w-full h-full"
+          style={{ transform: "rotate(-90deg)" }}
         >
           {processedData.map((item) => (
             <circle
@@ -73,13 +83,9 @@ const MarketPieChart: React.FC<Props> = ({
               fill="none"
               stroke={item.color}
               strokeWidth={strokeWidth}
-              strokeDasharray={circumference}
+              strokeDasharray={`${item.dash} ${circumference - item.dash}`}
               strokeDashoffset={item.dashOffset}
-              style={{
-                transformOrigin: "center",
-                rotate: `${item.rotation}deg`,
-                transition: "stroke-dashoffset 1s ease-out",
-              }}
+              strokeLinecap="butt"
             />
           ))}
         </svg>
@@ -105,7 +111,7 @@ const MarketPieChart: React.FC<Props> = ({
                 className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full shrink-0"
                 style={{ backgroundColor: item.color }}
               />
-              <span className="capitalize text-primary-gray text-sm truncate">
+              <span className="capitalize text-primary-gray truncate">
                 {item.displayLabel}
               </span>
             </div>

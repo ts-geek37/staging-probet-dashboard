@@ -10,12 +10,6 @@ const FOOTER_LINKS = [
   { href: "/contact", label: "Contact", icon: Mail },
 ];
 
-const QUICK_LINKS = [
-  { href: "/predictions", label: "Predictions" },
-  { href: "/leagues", label: "Leagues" },
-  { href: "/statistics", label: "Statistics" },
-];
-
 const LEGAL_LINKS = [
   { href: "/privacy-policy", label: "Privacy Policy" },
   { href: "/terms-and-conditions", label: "Terms & Conditions" },
