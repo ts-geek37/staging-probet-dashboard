@@ -2,6 +2,8 @@ import { UserButton, useUser } from "@clerk/nextjs";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
+import { cn } from "@/lib/utils";
+import { useSubscription } from "@/modules/billing/hooks";
 import { vipLink } from "@/modules/core-layout/constant";
 
 import { Button } from "../../../components/ui/button";
@@ -14,6 +16,7 @@ const VipSection: React.FC<VipSectionProps> = ({ onNavigate }) => {
   const Icon = vipLink.icon;
   const { user, isSignedIn } = useUser();
   const router = useRouter();
+  const { isVip } = useSubscription();
 
   const handleLogin = () => {
     router.push("/sign-in");
@@ -30,8 +33,17 @@ const VipSection: React.FC<VipSectionProps> = ({ onNavigate }) => {
         onClick={onNavigate}
         className="flex items-center gap-3 py-3 rounded-lg text-primary-yellow hover:bg-gray-800/50"
       >
-        <Icon className="w-5 h-5" />
-        <span className="text-base font-semibold">{vipLink.name}</span>
+        <Icon
+          className={cn(
+            "w-5 h-5",
+            isVip
+              ? "text-primary-yellow fill-primary-yellow"
+              : "text-primary-yellow",
+          )}
+        />
+        {!isVip && (
+          <span className="text-base font-semibold">{vipLink.name}</span>
+        )}
       </Link>
 
       {user ? (

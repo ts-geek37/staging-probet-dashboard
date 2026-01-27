@@ -14,6 +14,8 @@ const badgeVariants = cva(
         live: "bg-primary-red/20 text-primary-red relative flex items-center sm:px-4 py-1 sm:py-2 text-xs sm:text-sm before:content-[''] before:block before:w-2 before:h-2 before:rounded-full before:bg-primary-red before:mr-1 before:animate-pulse",
         upcoming:
           "bg-primary-neon/20 text-primary-neon px-3 sm:px-4 py-1 sm:py-2 text-xs sm:text-sm",
+        yellow:
+          "bg-primary-yellow/20 text-primary-yellow px-3 sm:px-4 py-1 sm:py-2 text-xs sm:text-sm",
         finished:
           "bg-primary-green/20 text-primary-green px-3 sm:px-4 py-1 sm:py-2 text-xs sm:text-sm",
         secondary:
