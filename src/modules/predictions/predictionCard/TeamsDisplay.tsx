@@ -29,7 +29,7 @@ const TeamsDisplay: React.FC<TeamsDisplayProps> = ({ match, layout }) => {
             className="flex items-center justify-between"
           >
             <div className="flex items-center gap-2 flex-1 min-w-0">
-              <Image
+              {/* <Image
                 src={team.info.logo || "/no-image.png"}
                 alt={team.info.name || "Team Logo"}
                 width={100}
@@ -38,7 +38,7 @@ const TeamsDisplay: React.FC<TeamsDisplayProps> = ({ match, layout }) => {
                 onError={(e) => {
                   e.currentTarget.src = "/no-image.png";
                 }}
-              />
+              /> */}
               <span className="text-sm font-medium line-clamp-1">
                 {team.info.name ?? "Unknown Team"}
               </span>
@@ -56,7 +56,7 @@ const TeamsDisplay: React.FC<TeamsDisplayProps> = ({ match, layout }) => {
   return (
     <div className="flex items-center justify-between gap-3">
       <div className="flex items-center gap-2 flex-1 min-w-0">
-        <Image
+        {/* <Image
           src={home.logo || "/no-image.png"}
           alt={home.name || "Home Team"}
           width={100}
@@ -65,7 +65,7 @@ const TeamsDisplay: React.FC<TeamsDisplayProps> = ({ match, layout }) => {
           onError={(e) => {
             e.currentTarget.src = "/no-image.png";
           }}
-        />
+        /> */}
         <span className="text-sm font-medium line-clamp-1">
           {home.name ?? "Unknown Team"}
         </span>
@@ -83,7 +83,7 @@ const TeamsDisplay: React.FC<TeamsDisplayProps> = ({ match, layout }) => {
         <span className="text-sm font-medium line-clamp-1 text-right">
           {away.name ?? "Unknown Team"}
         </span>
-        <Image
+        {/* <Image
           src={away.logo || "/no-image.png"}
           alt={away.name || "Away Team"}
           width={100}
@@ -92,7 +92,7 @@ const TeamsDisplay: React.FC<TeamsDisplayProps> = ({ match, layout }) => {
           onError={(e) => {
             e.currentTarget.src = "/no-image.png";
           }}
-        />
+        /> */}
       </div>
     </div>
   );

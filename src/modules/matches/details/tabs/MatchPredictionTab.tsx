@@ -10,6 +10,8 @@ import {
 import PredictionSentenceCard from "@/modules/predictions/components/PredictionSentenceCard";
 import usePredictionDetails from "@/modules/predictions/hooks/usePredictionDetails";
 
+import VIPUnlockCard from "../../components/VIPUnlockCard";
+
 interface Props {
   matchId: number;
   homeTeam?: string;
@@ -25,13 +27,18 @@ const MatchPredictionsTab: React.FC<Props> = ({ matchId }) => {
     cornerMarkets,
     otherMarkets,
     predictionSentence,
+    isVip,
   } = usePredictionDetails({ fixtureId: matchId });
+
+  if (!isVip) {
+    return <VIPUnlockCard />;
+  }
 
   if (isLoading) return <SkeletonCardLoader />;
   if (error) return <NoData message="Predictions not available" />;
+
   const isNumericMarket = (data: unknown): data is Record<string, number> => {
     if (!data || typeof data !== "object") return false;
-
     return Object.values(data).every((v) => typeof v === "number");
   };
 

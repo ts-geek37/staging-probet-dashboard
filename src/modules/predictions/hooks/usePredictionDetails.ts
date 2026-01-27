@@ -5,6 +5,8 @@ import useSWR from "swr";
 import { ApiResponse } from "@/api/types";
 import { FixturePredictionsResponse } from "@/types/prediction";
 
+import { useSubscription } from "../../billing/hooks";
+
 interface UsePredictionDetailsParams {
   fixtureId?: number;
 }
@@ -39,6 +41,8 @@ const usePredictionDetails = ({ fixtureId }: UsePredictionDetailsParams) => {
           equal: d.equal ?? 0,
         };
       });
+
+  const { isVip } = useSubscription();
 
   const firstHalf = getMarketByType("First Half Winner Probability")?.data as
     | HomeAwayDrawData
@@ -124,6 +128,7 @@ const usePredictionDetails = ({ fixtureId }: UsePredictionDetailsParams) => {
 
     cornerMarkets,
     otherMarkets,
+    isVip,
   };
 };
 

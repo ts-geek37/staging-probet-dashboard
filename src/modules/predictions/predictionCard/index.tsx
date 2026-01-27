@@ -19,7 +19,7 @@ const PredictionCard: React.FC<PredictionCardProps> = ({ match, variant }) => {
   const router = useRouter();
 
   const handleVIPClick = () => {
-    router.push("/price");
+    router.push("/pricing");
   };
 
   const kickoffDate = match?.kickoff_time ? new Date(match.kickoff_time) : null;
