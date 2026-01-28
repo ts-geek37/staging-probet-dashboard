@@ -2,6 +2,7 @@
 
 import { useAuth } from "@clerk/nextjs";
 import useSWRMutation from "swr/mutation";
+
 import { useSubscription } from ".";
 import { AUTH_REQUIRED, TOKEN_UNAVAILABLE } from "./useCheckout";
 
@@ -53,7 +54,7 @@ const useCancelSubscription = () => {
     }
     try {
       const result = await trigger({ token });
-      await refresh()
+      await refresh();
       return result;
     } catch (err) {
       console.error("Cancellation error:", err);

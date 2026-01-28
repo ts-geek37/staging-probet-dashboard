@@ -9,6 +9,7 @@ import { PlanWithFeatures } from "@/types/prices";
 import { Subscription } from "@/types/subscription";
 
 import PlanCard from "./PlanCard";
+
 interface Props {
   plans: PlanWithFeatures[];
   subscription: Subscription | null | undefined;

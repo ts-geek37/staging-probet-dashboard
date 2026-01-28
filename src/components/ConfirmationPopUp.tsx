@@ -39,14 +39,16 @@ export const ConfirmationPopUp: React.FC<ConfirmationPopUpProps> = ({
       <DialogTrigger asChild>{trigger}</DialogTrigger>
       <DialogContent className="sm:max-w-[425px] border-primary-green ">
         <DialogHeader>
-          <DialogTitle className="text-lg font-semibold text-white">{title}</DialogTitle>
-          <DialogDescription className="text-sm">{description}</DialogDescription>
+          <DialogTitle className="text-lg font-semibold text-white">
+            {title}
+          </DialogTitle>
+          <DialogDescription className="text-sm">
+            {description}
+          </DialogDescription>
         </DialogHeader>
         <DialogFooter className="flex gap-2 sm:justify-end">
           <DialogClose asChild>
-            <Button type="button">
-              Cancel
-            </Button>
+            <Button type="button">Cancel</Button>
           </DialogClose>
           <Button variant="green" onClick={handleConfirm} type="button">
             Confirm

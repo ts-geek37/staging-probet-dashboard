@@ -1,12 +1,12 @@
 import { Lock } from "lucide-react";
+import { toast } from "sonner";
 
+import { ConfirmationPopUp } from "@/components/ConfirmationPopUp";
 import { Button } from "@/components/ui/button";
 import { PlanUIState } from "@/lib/plan-resolver";
 import { BillingCycle } from "@/types/prices";
 
-import { ConfirmationPopUp } from "@/components/ConfirmationPopUp";
 import { useCancelSubscription, useCheckout } from "../billing/hooks";
-import { toast } from "sonner";
 
 type PlanCTAProps = {
   state: PlanUIState;
