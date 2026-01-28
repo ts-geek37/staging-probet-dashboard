@@ -14,6 +14,12 @@ interface UsePredictionDetailsParams {
 type YesNoData = { yes?: number; no?: number };
 type HomeAwayDrawData = { home?: number; away?: number; draw?: number };
 
+interface DoubleChanceMarketData {
+  draw_home?: number;
+  draw_away?: number;
+  home_away?: number;
+}
+
 const usePredictionDetails = ({ fixtureId }: UsePredictionDetailsParams) => {
   const shouldFetch = !!fixtureId;
 
@@ -42,7 +48,8 @@ const usePredictionDetails = ({ fixtureId }: UsePredictionDetailsParams) => {
         };
       });
 
-  const { isVip } = useSubscription();
+  const { isVip, isSubscriptionLoading } = useSubscription();
+  const isPageLoading = isLoading || isSubscriptionLoading || isVip === null;
 
   const firstHalf = getMarketByType("First Half Winner Probability")?.data as
     | HomeAwayDrawData
@@ -62,6 +69,23 @@ const usePredictionDetails = ({ fixtureId }: UsePredictionDetailsParams) => {
   const generalGoals = parseOverUnderMarkets("Over/Under");
   const homeGoals = parseOverUnderMarkets("Home Over/Under");
   const awayGoals = parseOverUnderMarkets("Away Over/Under");
+
+  const doubleChanceData = (() => {
+    const data = getMarketByType("Double Chance Probability")?.data as
+      | DoubleChanceMarketData
+      | undefined;
+    if (!data) return [];
+    return [
+      {
+        type: "Double Chance Probability",
+        data: {
+          draw_home: Number(data.draw_home ?? 0),
+          draw_away: Number(data.draw_away ?? 0),
+          home_away: Number(data.home_away ?? 0),
+        },
+      },
+    ];
+  })();
 
   const goalLines = Array.from(
     new Set([
@@ -86,6 +110,7 @@ const usePredictionDetails = ({ fixtureId }: UsePredictionDetailsParams) => {
     "First Half Winner Probability",
     "Fulltime Result Probability",
     "Team To Score First Probability",
+    "Double Chance Probability",
     ...markets
       .filter((m) =>
         /^(Over\/Under|Home Over\/Under|Away Over\/Under|Corners)/.test(m.type),
@@ -96,7 +121,7 @@ const usePredictionDetails = ({ fixtureId }: UsePredictionDetailsParams) => {
   const otherMarkets = markets.filter((m) => !excludedMarketTypes.has(m.type));
 
   return {
-    isLoading,
+    isPageLoading,
     error,
     predictionSentence,
 
@@ -128,6 +153,7 @@ const usePredictionDetails = ({ fixtureId }: UsePredictionDetailsParams) => {
 
     cornerMarkets,
     otherMarkets,
+    doubleChanceData,
     isVip,
   };
 };

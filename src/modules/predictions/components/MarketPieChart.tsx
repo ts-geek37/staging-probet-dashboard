@@ -10,8 +10,8 @@ const COLORS: Record<string, string> = {
   yes: "var(--primary-green)",
   equal: "var(--primary-yellow)",
   no: "var(--primary-red)",
-  draw_home: "var(--primary-green)",
-  home_away: "var(--primary-yellow)",
+  draw_home: "var(--primary-yellow)",
+  home_away: "var(--primary-green)",
   draw_away: "var(--primary-red)",
 };
 

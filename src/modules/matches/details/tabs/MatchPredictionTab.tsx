@@ -7,35 +7,44 @@ import {
   MarketCard,
   OutcomeCard,
 } from "@/modules/predictions/components";
+import OtherMarketCard from "@/modules/predictions/components/OtherMarketCard";
 import PredictionSentenceCard from "@/modules/predictions/components/PredictionSentenceCard";
 import usePredictionDetails from "@/modules/predictions/hooks/usePredictionDetails";
 
 import VIPUnlockCard from "../../components/VIPUnlockCard";
 
-interface Props {
-  matchId: number;
-  homeTeam?: string;
-  awayTeam?: string;
+interface Team {
+  name: string;
 }
 
-const MatchPredictionsTab: React.FC<Props> = ({ matchId }) => {
+interface Teams {
+  home: Team;
+  away: Team;
+}
+
+interface Props {
+  matchId: number;
+  teams: Teams;
+}
+
+const MatchPredictionsTab: React.FC<Props> = ({ matchId, teams }) => {
   const {
-    isLoading,
+    isPageLoading,
     error,
     keyMarkets,
     goalLines,
     cornerMarkets,
     otherMarkets,
     predictionSentence,
+    doubleChanceData,
     isVip,
   } = usePredictionDetails({ fixtureId: matchId });
 
+  if (isPageLoading) return <SkeletonCardLoader />;
+  if (error) return <NoData message="Predictions not available" />;
   if (!isVip) {
     return <VIPUnlockCard />;
   }
-
-  if (isLoading) return <SkeletonCardLoader />;
-  if (error) return <NoData message="Predictions not available" />;
 
   const isNumericMarket = (data: unknown): data is Record<string, number> => {
     if (!data || typeof data !== "object") return false;
@@ -49,7 +58,11 @@ const MatchPredictionsTab: React.FC<Props> = ({ matchId }) => {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <div className="lg:col-span-2 space-y-6">
           {predictionSentence && (
-            <PredictionSentenceCard text={predictionSentence} />
+            <PredictionSentenceCard
+              text={predictionSentence}
+              homeLabel={teams.home.name}
+              awayLabel={teams.away.name}
+            />
           )}
 
           <KeyOutcomeCard
@@ -58,6 +71,8 @@ const MatchPredictionsTab: React.FC<Props> = ({ matchId }) => {
             homeValue={keyMarkets.firstHalf.home}
             awayValue={keyMarkets.firstHalf.away}
             drawValue={keyMarkets.firstHalf.draw}
+            homeLabel={teams.home.name}
+            awayLabel={teams.away.name}
           />
 
           <KeyOutcomeCard
@@ -65,6 +80,8 @@ const MatchPredictionsTab: React.FC<Props> = ({ matchId }) => {
             type="binary"
             homeValue={keyMarkets.btts.yes}
             awayValue={keyMarkets.btts.no}
+            homeLabel="Yes"
+            awayLabel="No"
           />
 
           <KeyOutcomeCard
@@ -73,6 +90,8 @@ const MatchPredictionsTab: React.FC<Props> = ({ matchId }) => {
             homeValue={keyMarkets.teamToScoreFirst.home}
             awayValue={keyMarkets.teamToScoreFirst.away}
             drawValue={keyMarkets.teamToScoreFirst.draw}
+            homeLabel={teams.home.name}
+            awayLabel={teams.away.name}
           />
         </div>
 
@@ -81,6 +100,7 @@ const MatchPredictionsTab: React.FC<Props> = ({ matchId }) => {
             label="Home Win"
             value={keyMarkets.fullTime.home}
             colorClass="text-primary-green"
+            teamName={teams.home.name}
           />
           <OutcomeCard
             label="Draw"
@@ -91,6 +111,7 @@ const MatchPredictionsTab: React.FC<Props> = ({ matchId }) => {
             label="Away Win"
             value={keyMarkets.fullTime.away}
             colorClass="text-primary-red"
+            teamName={teams.away.name}
           />
         </div>
       </div>
@@ -100,7 +121,12 @@ const MatchPredictionsTab: React.FC<Props> = ({ matchId }) => {
       </h3>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         {goalLines.consolidated.map((g) => (
-          <GoalLineCard key={g.line} {...g} />
+          <GoalLineCard
+            key={g.line}
+            {...g}
+            homeTeamName={teams.home.name}
+            awayTeamName={teams.away.name}
+          />
         ))}
       </div>
 
@@ -108,7 +134,7 @@ const MatchPredictionsTab: React.FC<Props> = ({ matchId }) => {
         Corners Overview
       </h3>
       {cornerMarkets.length > 0 && (
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
           {cornerMarkets
             .filter((m) => isNumericMarket(m.data))
             .map((m, i) => (
@@ -131,12 +157,24 @@ const MatchPredictionsTab: React.FC<Props> = ({ matchId }) => {
                 key={i}
                 className={i === 0 ? "md:col-span-2" : "md:col-span-1"}
               >
-                <MarketCard
+                <OtherMarketCard
                   type={m.type}
                   data={m.data as Record<string, number>}
                 />
               </div>
             ))}
+          {doubleChanceData.length > 0 && (
+            <div>
+              {doubleChanceData.map((m, i) => (
+                <div
+                  key={i}
+                  className={i === 0 ? "md:col-span-2" : "md:col-span-1"}
+                >
+                  <MarketCard type={m.type} data={m.data} />
+                </div>
+              ))}
+            </div>
+          )}
         </div>
       )}
     </section>

@@ -8,12 +8,16 @@ interface GoalLineCardProps {
   matchValue?: number | null;
   homeValue?: number | null;
   awayValue?: number | null;
+  homeTeamName?: string;
+  awayTeamName?: string;
 }
 
 const GoalLineCard: React.FC<GoalLineCardProps> = ({
   line,
   matchValue = 0,
   homeValue = 0,
+  homeTeamName,
+  awayTeamName,
   awayValue = 0,
 }) => {
   const items = [
@@ -24,13 +28,13 @@ const GoalLineCard: React.FC<GoalLineCardProps> = ({
       textColor: "text-primary-red",
     },
     {
-      label: "Home Team",
+      label: homeTeamName ?? "Home Team",
       value: homeValue ?? 0,
       color: "bg-primary-green",
       textColor: "text-primary-green",
     },
     {
-      label: "Away Team",
+      label: awayTeamName ?? "Away Team",
       value: awayValue ?? 0,
       color: "bg-primary-yellow",
       textColor: "text-primary-yellow",
@@ -41,7 +45,7 @@ const GoalLineCard: React.FC<GoalLineCardProps> = ({
     <Card className="rounded-2xl text-white w-full overflow-hidden">
       <CardContent className="px-4">
         <div className="flex items-center justify-between mb-4 border-b border-primary-gray/20 pb-2">
-          <h3 className="text-sm sm:text-base font-bold text-white tracking-tight">
+          <h3 className="text-sm sm:text-base font-bold text-white tracking-tight  border-l-2 border-primary-green pl-2">
             Over {line} Goals
           </h3>
         </div>

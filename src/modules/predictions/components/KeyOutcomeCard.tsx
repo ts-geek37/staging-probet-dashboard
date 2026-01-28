@@ -8,6 +8,8 @@ interface OutcomeBarProps {
   homeValue: number;
   awayValue: number;
   drawValue?: number;
+  homeLabel: string;
+  awayLabel: string;
   type: "binary" | "ternary";
 }
 
@@ -16,6 +18,8 @@ const KeyOutcomeCard: React.FC<OutcomeBarProps> = ({
   homeValue,
   awayValue,
   drawValue,
+  homeLabel,
+  awayLabel,
   type,
 }) => {
   const isTernary = type === "ternary" && drawValue !== undefined;
@@ -63,15 +67,17 @@ const KeyOutcomeCard: React.FC<OutcomeBarProps> = ({
 
         <div className="flex justify-between mt-2 text-xs font-bold">
           <span className="text-primary-green">
-            {homeValue.toFixed(0)}% {type === "ternary" ? "Home" : "Yes"}
+            {homeValue.toFixed(0)}% {type === "ternary" ? homeLabel : "Yes"}
           </span>
+
           {isTernary && (
             <span className="text-primary-yellow">
               {drawValue?.toFixed(0)}% Draw
             </span>
           )}
+
           <span className="text-primary-red">
-            {awayValue.toFixed(0)}% {type === "ternary" ? "Away" : "No"}
+            {awayValue.toFixed(0)}% {type === "ternary" ? awayLabel : "No"}
           </span>
         </div>
       </CardContent>
