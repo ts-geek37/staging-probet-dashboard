@@ -58,21 +58,21 @@ const useCheckout = () => {
 
   const checkout = async (billingCycle: BillingCycle) => {
     try {
-    if (!isSignedIn) {
-      throw new Error(AUTH_REQUIRED);
-    }
+      if (!isSignedIn) {
+        throw new Error(AUTH_REQUIRED);
+      }
 
-    const token = await getToken();
-    if (!token) {
-      throw new Error(TOKEN_UNAVAILABLE);
-    }
+      const token = await getToken();
+      if (!token) {
+        throw new Error(TOKEN_UNAVAILABLE);
+      }
 
-    const data = await trigger({
-      billingCycle,
-      token,
-    });
+      const data = await trigger({
+        billingCycle,
+        token,
+      });
 
-    window.location.assign(data.checkout_url);
+      window.location.assign(data.checkout_url);
     } catch (error) {
       console.error(error);
     }

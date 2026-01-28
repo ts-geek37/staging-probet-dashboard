@@ -3,6 +3,7 @@
 import { useAuth } from "@clerk/nextjs";
 import useSWRMutation from "swr/mutation";
 
+import { useState } from "react";
 import { useSubscription } from ".";
 import { AUTH_REQUIRED, TOKEN_UNAVAILABLE } from "./useCheckout";
 
@@ -36,6 +37,7 @@ const cancelFetcher = async (
 
 const useCancelSubscription = () => {
   const { isSignedIn, getToken } = useAuth();
+  const [isPendingCancel, setIsPendingCancel] = useState(false);
   const { refresh } = useSubscription();
 
   const { trigger, isMutating, error } = useSWRMutation(
@@ -53,8 +55,13 @@ const useCancelSubscription = () => {
       if (!token) {
         throw new Error(TOKEN_UNAVAILABLE);
       }
+      setIsPendingCancel(true);
       const result = await trigger({ token });
-      await refresh();
+      setTimeout(async () => {
+        await refresh();
+        setIsPendingCancel(false);
+      }, 1000);
+
       return result;
     } catch (err) {
       console.error("Cancellation error:", err);
@@ -64,6 +71,7 @@ const useCancelSubscription = () => {
   return {
     cancelSubscription,
     isCancelling: isMutating,
+    isPendingCancel,
     error,
   };
 };
