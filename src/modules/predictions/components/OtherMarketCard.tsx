@@ -7,9 +7,9 @@ interface SimpleMarketProps {
 
 const OtherMarketCard: React.FC<SimpleMarketProps> = ({ type, data }) => {
   return (
-    <Card className="h-full border border-gray-800 bg-gray-950/50 backdrop-blur-sm shadow-xl overflow-hidden">
+    <Card className="h-full  bg-gray-950/50  overflow-hidden">
       <CardHeader className="bg-gray-900/20">
-        <CardTitle className="text-white text-lg   flex items-center gap-2  border-l-2 border-primary-green pl-2">
+        <CardTitle className="text-white text-lg flex items-center gap-2  border-l-2 border-primary-green pl-2">
           {type}
         </CardTitle>
       </CardHeader>
@@ -19,14 +19,14 @@ const OtherMarketCard: React.FC<SimpleMarketProps> = ({ type, data }) => {
             return (
               <div
                 key={idx}
-                className="group relative flex flex-col items-center justify-between p-4 rounded-xl border  border-primary-gray/20 bg-primary-green/5"
+                className="group relative flex flex-col items-center justify-between p-3 rounded-xl border  border-primary-gray/20 bg-primary-green/5"
               >
                 <div className="flex flex-col items-center w-full z-10 space-y-2">
                   <span className="text-xs font-semibold uppercase tracking-wider text-center text-primary-green">
                     {label}
                   </span>
 
-                  <span className="text-2xl font-black tracking-tight text-white">
+                  <span className="text-base sm:text-2xl font-black tracking-tight text-white">
                     {value.toFixed(1)}%
                   </span>
                 </div>

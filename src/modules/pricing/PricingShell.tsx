@@ -12,7 +12,7 @@ const PricingShell: React.FC = () => {
   const {
     subscription,
     isVip,
-    loading: subscriptionLoading,
+    isSubscriptionLoading: subscriptionLoading,
   } = useSubscription();
 
   const { plans, loading: plansLoading, error: plansError } = usePlans();
@@ -32,7 +32,11 @@ const PricingShell: React.FC = () => {
   }
 
   return (
-    <PricingPlans plans={plans} subscription={subscription} isVip={isVip} />
+    <PricingPlans
+      plans={plans}
+      subscription={subscription}
+      isVip={isVip ?? false}
+    />
   );
 };
 

@@ -1,4 +1,14 @@
-import React, { useMemo } from "react";
+"use client";
+
+import * as React from "react";
+import { Pie, PieChart, Label, Cell } from "recharts";
+
+import {
+  ChartContainer,
+  ChartTooltip,
+  ChartTooltipContent,
+  type ChartConfig,
+} from "@/components/ui/chart";
 
 interface Props {
   data: [string, number][];
@@ -10,109 +20,121 @@ const COLORS: Record<string, string> = {
   yes: "var(--primary-green)",
   equal: "var(--primary-yellow)",
   no: "var(--primary-red)",
-  draw_home: "var(--primary-yellow)",
-  home_away: "var(--primary-green)",
+  draw_home: "var(--primary-green)",
   draw_away: "var(--primary-red)",
+  home_away: "var(--primary-yellow)",
 };
-
-interface MarketItem {
-  label: string;
-  displayLabel: string;
-  value: number;
-  color: string;
-  dash: number;
-  dashOffset: number;
-}
 
 const MarketPieChart: React.FC<Props> = ({
   data,
-  size = 160,
-  strokeWidth = 16,
+  size = 200,
+  strokeWidth = 23,
 }) => {
-  const radius = (size - strokeWidth) / 2;
-  const circumference = 2 * Math.PI * radius;
+  const chartData = React.useMemo(
+    () =>
+      data.map(([label, value]) => ({
+        key: label,
+        label: label.replace(/_/g, " "),
+        value,
+        fill: COLORS[label.toLowerCase()] ?? "#6b7280",
+      })),
+    [data],
+  );
 
-  const { processedData, dominantItem } = useMemo(() => {
-    const { items } = data.reduce(
-      (acc, [label, value]) => {
-        const percent = value / 100;
-        const dash = percent * circumference;
+  const dominantItem = React.useMemo(
+    () => chartData.reduce((a, b) => (b.value > a.value ? b : a), chartData[0]),
+    [chartData],
+  );
 
-        const item: MarketItem = {
-          label,
-          displayLabel: label.replace(/_/g, " "),
-          value,
-          color: COLORS[label.toLowerCase()] ?? "gray",
-          dash,
-          dashOffset: -acc.offset,
-        };
-
-        acc.items.push(item);
-        acc.offset += dash;
-
-        return acc;
-      },
-      {
-        items: [] as MarketItem[],
-        offset: 0,
-      },
-    );
-
-    const dominantItem = [...data].sort((a, b) => b[1] - a[1])[0];
-
-    return {
-      processedData: items,
-      dominantItem,
+  const chartConfig = React.useMemo(() => {
+    const config: ChartConfig = {
+      value: { label: "Probability" },
     };
-  }, [data, circumference]);
+
+    chartData.forEach((item) => {
+      config[item.key] = {
+        label: item.label,
+        color: item.fill,
+      };
+    });
+
+    return config;
+  }, [chartData]);
 
   return (
-    <div className="flex flex-col items-center justify-center p-2 sm:p-4 w-full h-full">
-      <div className="relative w-full max-w-35 sm:max-w-40 aspect-square">
-        <svg
-          viewBox={`0 0 ${size} ${size}`}
-          className="w-full h-full"
-          style={{ transform: "rotate(-90deg)" }}
-        >
-          {processedData.map((item) => (
-            <circle
-              key={item.label}
-              cx={size / 2}
-              cy={size / 2}
-              r={radius}
-              fill="none"
-              stroke={item.color}
-              strokeWidth={strokeWidth}
-              strokeDasharray={`${item.dash} ${circumference - item.dash}`}
-              strokeDashoffset={item.dashOffset}
-              strokeLinecap="butt"
+    <div className="flex flex-col items-center justify-center p-2 w-full h-full">
+      <ChartContainer
+        config={chartConfig}
+        className="mx-auto"
+        style={{ width: size, height: size }}
+      >
+        <PieChart width={size} height={size}>
+          <ChartTooltip
+            cursor={false}
+            content={<ChartTooltipContent hideLabel />}
+          />
+
+          <Pie
+            data={chartData}
+            dataKey="value"
+            nameKey="label"
+            innerRadius={size / 2 - strokeWidth}
+            outerRadius={size / 2}
+            stroke="none"
+          >
+            {chartData.map((entry, index) => (
+              <Cell key={index} fill={entry.fill} />
+            ))}
+
+            <Label
+              content={({ viewBox }) => {
+                if (!viewBox) return null;
+
+                const { cx, cy } = viewBox as {
+                  cx: number;
+                  cy: number;
+                };
+
+                return (
+                  <text
+                    x={cx}
+                    y={cy}
+                    textAnchor="middle"
+                    dominantBaseline="middle"
+                    fill="#ffffff"
+                  >
+                    <tspan x={cx} y={cy} fontSize="22" fontWeight="700">
+                      {Math.round(dominantItem.value)}%
+                    </tspan>
+                    <tspan
+                      x={cx}
+                      y={cy + 18}
+                      fontSize="10"
+                      letterSpacing="0.08em"
+                    >
+                      {dominantItem.label}
+                    </tspan>
+                  </text>
+                );
+              }}
             />
-          ))}
-        </svg>
+          </Pie>
+        </PieChart>
+      </ChartContainer>
 
-        <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
-          <span className="text-xl sm:text-2xl font-bold text-white">
-            {dominantItem ? Math.round(dominantItem[1]) : 0}%
-          </span>
-          <span className="text-[9px] sm:text-[10px] text-muted-foreground uppercase max-w-[70%] text-center truncate px-1">
-            {dominantItem?.[0].replace(/_/g, " ")}
-          </span>
-        </div>
-      </div>
-
-      <div className="mt-3 sm:mt-4 grid grid-cols-2 gap-x-2 sm:gap-x-4 gap-y-1 sm:gap-y-2 w-full">
-        {processedData.map((item) => (
+      <div className="mt-3 grid grid-cols-2 gap-x-2 gap-y-1 w-full">
+        {chartData.map((item) => (
           <div
-            key={item.label}
-            className="flex items-center justify-between text-[10px] sm:text-xs"
+            key={item.key}
+            className="flex items-center justify-between text-xs"
           >
             <div className="flex items-center gap-1.5 overflow-hidden">
-              <div
-                className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full shrink-0"
-                style={{ backgroundColor: item.color }}
+              <span
+                className="w-1.5 h-1.5 rounded-full shrink-0"
+                style={{ backgroundColor: item.fill }}
               />
               <span className="capitalize text-primary-gray truncate">
-                {item.displayLabel}
+                {item.label}
               </span>
             </div>
             <span className="font-semibold text-white ml-1 mr-3">

@@ -11,13 +11,18 @@ interface UsePredictionDetailsParams {
   fixtureId?: number;
 }
 
-type YesNoData = { yes?: number; no?: number };
+type YesNoData = { yes?: number; no?: number; equal?: number };
 type HomeAwayDrawData = { home?: number; away?: number; draw?: number };
 
 interface DoubleChanceMarketData {
   draw_home?: number;
   draw_away?: number;
   home_away?: number;
+}
+
+interface Market {
+  type: string;
+  data?: unknown;
 }
 
 const usePredictionDetails = ({ fixtureId }: UsePredictionDetailsParams) => {
@@ -27,7 +32,7 @@ const usePredictionDetails = ({ fixtureId }: UsePredictionDetailsParams) => {
     ApiResponse<FixturePredictionsResponse>
   >(shouldFetch ? `/api/v2/predictions/matches/${fixtureId}` : null);
 
-  const markets = data?.data?.markets ?? [];
+  const markets: Market[] = data?.data?.markets ?? [];
   const predictionSentence = data?.data?.prediction_sentence ?? "";
 
   const getMarketByType = (type: string) =>
@@ -38,13 +43,12 @@ const usePredictionDetails = ({ fixtureId }: UsePredictionDetailsParams) => {
       .filter((m) => m.type.startsWith(prefix))
       .map((m) => {
         const line = m.type.match(/(\d+(\.\d+)?)/)?.[0] ?? "";
-        const d = m.data as YesNoData & { equal?: number };
-
+        const d = m.data as YesNoData;
         return {
           line,
-          yes: d.yes ?? 0,
-          no: d.no ?? 0,
-          equal: d.equal ?? 0,
+          yes: d?.yes ?? 0,
+          no: d?.no ?? 0,
+          equal: d?.equal ?? 0,
         };
       });
 
@@ -54,15 +58,12 @@ const usePredictionDetails = ({ fixtureId }: UsePredictionDetailsParams) => {
   const firstHalf = getMarketByType("First Half Winner Probability")?.data as
     | HomeAwayDrawData
     | undefined;
-
   const btts = getMarketByType("Both Teams To Score Probability")?.data as
     | YesNoData
     | undefined;
-
   const fullTime = getMarketByType("Fulltime Result Probability")?.data as
     | HomeAwayDrawData
     | undefined;
-
   const teamToScoreFirst = getMarketByType("Team To Score First Probability")
     ?.data as HomeAwayDrawData | undefined;
 
@@ -120,9 +121,36 @@ const usePredictionDetails = ({ fixtureId }: UsePredictionDetailsParams) => {
 
   const otherMarkets = markets.filter((m) => !excludedMarketTypes.has(m.type));
 
+  const isNumericMarket = (data: unknown): data is Record<string, number> =>
+    !!data &&
+    typeof data === "object" &&
+    Object.values(data).every((v) => typeof v === "number");
+
+  const hasValidValues = (data: Record<string, number> | undefined) =>
+    data && Object.values(data).some((v) => v > 0);
+
+  const hasContent =
+    !!predictionSentence?.trim() ||
+    (!!firstHalf && Object.values(firstHalf).some((v) => (v ?? 0) > 0)) ||
+    (!!btts && hasValidValues(btts)) ||
+    (!!teamToScoreFirst &&
+      Object.values(teamToScoreFirst).some((v) => (v ?? 0) > 0)) ||
+    (!!fullTime && Object.values(fullTime).some((v) => (v ?? 0) > 0)) ||
+    goalLines.some(
+      (g) => g.matchValue > 0 || g.homeValue > 0 || g.awayValue > 0,
+    ) ||
+    cornerMarkets.some(
+      (m) => isNumericMarket(m.data) && hasValidValues(m.data),
+    ) ||
+    otherMarkets.some(
+      (m) => isNumericMarket(m.data) && hasValidValues(m.data),
+    ) ||
+    doubleChanceData.length > 0;
+
   return {
     isPageLoading,
     error,
+    hasContent,
     predictionSentence,
 
     keyMarkets: {
