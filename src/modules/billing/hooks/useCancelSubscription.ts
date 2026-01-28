@@ -44,21 +44,20 @@ const useCancelSubscription = () => {
   );
 
   const cancelSubscription = async () => {
-    if (!isSignedIn) {
-      throw new Error(AUTH_REQUIRED);
-    }
-
-    const token = await getToken();
-    if (!token) {
-      throw new Error(TOKEN_UNAVAILABLE);
-    }
     try {
+      if (!isSignedIn) {
+        throw new Error(AUTH_REQUIRED);
+      }
+
+      const token = await getToken();
+      if (!token) {
+        throw new Error(TOKEN_UNAVAILABLE);
+      }
       const result = await trigger({ token });
       await refresh();
       return result;
     } catch (err) {
       console.error("Cancellation error:", err);
-      throw err;
     }
   };
 

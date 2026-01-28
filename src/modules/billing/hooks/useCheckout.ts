@@ -57,6 +57,7 @@ const useCheckout = () => {
   );
 
   const checkout = async (billingCycle: BillingCycle) => {
+    try {
     if (!isSignedIn) {
       throw new Error(AUTH_REQUIRED);
     }
@@ -72,6 +73,9 @@ const useCheckout = () => {
     });
 
     window.location.assign(data.checkout_url);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return {
