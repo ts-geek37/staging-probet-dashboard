@@ -45,7 +45,7 @@ const AccuratePredictions: React.FC<Props> = ({ predictions, isLoading }) => {
             {predictions.map((prediction) => (
               <div
                 key={prediction.id}
-                className="w-full md:w-[calc(50%-0.75rem)] nav:w-[calc(33.333%-1rem)] flex"
+                className="w-full md:w-[calc(50%-0.75rem)] xl:w-[calc(33.333%-1rem)] flex"
               >
                 <AccuratePredictionCard prediction={prediction} />
               </div>
