@@ -4,7 +4,9 @@ import { Button } from "@/components/ui/button";
 import { PlanUIState } from "@/lib/plan-resolver";
 import { BillingCycle } from "@/types/prices";
 
-import { useCheckout } from "./hooks";
+import { ConfirmationPopUp } from "@/components/ConfirmationPopUp";
+import { useCancelSubscription, useCheckout } from "../billing/hooks";
+import { toast } from "sonner";
 
 type PlanCTAProps = {
   state: PlanUIState;
@@ -13,23 +15,36 @@ type PlanCTAProps = {
   onSignIn: () => void;
 };
 
-export const PlanCTA: React.FC<PlanCTAProps> = ({
+const PlanCTA: React.FC<PlanCTAProps> = ({
   state,
   isSignedIn,
   billingCycle,
   onSignIn,
 }) => {
   const { checkout, loading, error } = useCheckout();
+  const { cancelSubscription, isCancelling } = useCancelSubscription();
 
   switch (state) {
     case "current":
       return (
-        <Button
-          disabled
-          className="w-full rounded-lg bg-slate-800 px-4 py-3 text-sm font-medium text-slate-400"
-        >
-          Current Plan
-        </Button>
+        <ConfirmationPopUp
+          title="Cancel your subscription?"
+          description="Canceling your plan will remove access to all premium features."
+          onConfirm={async () => {
+            const res = await cancelSubscription();
+            if (res) {
+              toast.success(res.message);
+            }
+          }}
+          trigger={
+            <Button
+              disabled={isCancelling}
+              className="w-full rounded-lg bg-slate-800 px-4 py-3 text-sm font-medium text-slate-400"
+            >
+              {isCancelling ? "Cancelling..." : "Cancel Plan"}
+            </Button>
+          }
+        />
       );
 
     case "disabled":
@@ -92,3 +107,4 @@ export const PlanCTA: React.FC<PlanCTAProps> = ({
       return null;
   }
 };
+export default PlanCTA;

@@ -5,13 +5,12 @@ import React from "react";
 
 import { Badge } from "@/components/ui/badge";
 import { derivePlanState } from "@/lib/plan-resolver";
-import { Plan } from "@/types/prices";
+import { PlanWithFeatures } from "@/types/prices";
 import { Subscription } from "@/types/subscription";
 
 import PlanCard from "./PlanCard";
-
 interface Props {
-  plans: Plan[];
+  plans: PlanWithFeatures[];
   subscription: Subscription | null | undefined;
   isVip: boolean;
 }
@@ -21,7 +20,7 @@ const PricingPlans: React.FC<Props> = ({ plans, subscription, isVip }) => {
   const monthlyPlan = sortedPlans.find((p) => p.billingCycle === "monthly");
 
   return (
-    <section className="m-auto w-full max-w-7xl px-6 md:px-0 py-16 md:py-20">
+    <section className="m-auto w-full max-w-7xl px-6 xl:px-0  py-16 md:py-20">
       <div className="flex justify-center mb-4">
         <Badge variant="yellow">
           <Star className="h-3.5 w-3.5" />
@@ -42,10 +41,9 @@ const PricingPlans: React.FC<Props> = ({ plans, subscription, isVip }) => {
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
         {sortedPlans.map((plan, index) => {
           const state = derivePlanState(plan, subscription);
-
           return (
             <PlanCard
-              key={plan.billingCycle}
+              key={index}
               plan={plan}
               state={state}
               highlight={plan.billingCycle === "quarterly"}

@@ -17,7 +17,7 @@ const PricingShell: React.FC = () => {
 
   const { plans, loading: plansLoading, error: plansError } = usePlans();
 
-  const isResolving = subscriptionLoading || plansLoading;
+  const isResolving = isSubscriptionLoading || plansLoading;
 
   if (isResolving) {
     return <PricingSkeleton />;

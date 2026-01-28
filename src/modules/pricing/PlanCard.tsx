@@ -13,55 +13,16 @@ import {
   PlanUIState,
 } from "@/lib/plan-resolver";
 import { cn } from "@/lib/utils";
-import { BillingCycle, Plan } from "@/types/prices";
-
-import { PlanCTA } from "../billing/PlanCTA";
+import { PlanWithFeatures } from "@/types/prices";
+import { PlanCTA } from ".";
 
 interface Props {
-  plan: Plan;
+  plan: PlanWithFeatures;
   state: PlanUIState;
   highlight?: boolean;
   expiryAt?: string | null;
   monthlyAmount?: number;
 }
-
-const FEATURES = [
-  "Full prediction access",
-  "All match statistics",
-  "Head-to-head analysis",
-  "Email alerts",
-  "Priority support / API access",
-];
-
-const SECONDARY_FEATURES: Record<string, string[]> = {
-  monthly: [
-    "Full prediction access",
-    "All match statistics",
-    "Head-to-head analysis",
-    "Email alerts",
-  ],
-  quarterly: [
-    "Full prediction access",
-    "All match statistics",
-    "Head-to-head analysis",
-    "Email alerts",
-    "Priority support",
-  ],
-  "semi-annual": [
-    "Full prediction access",
-    "All match statistics",
-    "Head-to-head analysis",
-    "Email alerts",
-    "Priority support/API access",
-  ],
-  annual: [
-    "Full prediction access",
-    "All match statistics",
-    "Head-to-head analysis",
-    "Email alerts/Custom alerts",
-    "Priority support/API access",
-  ],
-};
 
 const PlanCard: React.FC<Props> = ({
   plan,
@@ -79,8 +40,6 @@ const PlanCard: React.FC<Props> = ({
   const handleSignIn = () => {
     router.push(`/sign-in?redirect_url=/pricing`);
   };
-
-  const features = SECONDARY_FEATURES[plan.billingCycle] || FEATURES;
 
   return (
     <div
@@ -107,7 +66,7 @@ const PlanCard: React.FC<Props> = ({
       </div>
 
       <div className="mb-6">
-        <div className="flex items-baseline gap-2">
+        <div className="flex flex-wrap items-baseline gap-2">
           <p className="text-3xl sm:text-5xl font-bold text-white">
             {formatPrice(plan.amount, plan.currency)}
           </p>
@@ -124,7 +83,7 @@ const PlanCard: React.FC<Props> = ({
       </div>
 
       <ul className="mb-8 flex flex-col gap-4">
-        {features.map((feature) => (
+        {plan?.features?.map((feature) => (
           <li key={feature} className="flex items-center gap-3 text-sm">
             <Check className="size-5 shrink-0 text-white group-hover:text-primary-green" />
             <span className="text-slate-300 group-hover:scale-y-105 transition-all duration-300">

@@ -10,7 +10,7 @@ const useSubscription = () => {
     "/api/v2/billing/subscription",
   );
 
-  const isVip = isLoading || !data ? null : Boolean(data.data?.is_vip);
+  const isVip = isLoading || !data ? false : Boolean(data?.data?.is_vip);
 
   return {
     subscription: data?.data,
