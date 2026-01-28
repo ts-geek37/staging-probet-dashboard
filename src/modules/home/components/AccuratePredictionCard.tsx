@@ -40,7 +40,7 @@ const AccuratePredictionCard: React.FC<Props> = ({ prediction }) => {
   return (
     <Card
       onClick={handleClick}
-      className="group relative overflow-hidden border border-slate-700 hover:border-primary-neon/30 active:border-primary-neon/30 transition-all duration-300 cursor-pointer p-0 gap-0"
+      className="group relative w-full flex-1 overflow-hidden border border-slate-700 hover:border-primary-neon/30 active:border-primary-neon/30 transition-all duration-300 cursor-pointer p-0 gap-0"
     >
       <div className="px-4 py-3 bg-slate-800/80 border-b border-slate-700 group-hover:bg-slate-800 active:bg-slate-800 transition-colors duration-300">
         <div className="text-xs text-slate-400 font-medium mb-1 ">

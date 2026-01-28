@@ -41,24 +41,15 @@ const AccuratePredictions: React.FC<Props> = ({ predictions, isLoading }) => {
         ) : !predictions?.length ? (
           <NoData message="No predictions available" />
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:w-4/5 w-full mx-auto">
-            {predictions.map((prediction, index) => {
-              const isLastChild = index === predictions.length - 1;
-              const isOdd = predictions.length % 2 !== 0;
-
-              return (
-                <div
-                  key={prediction.id}
-                  className={`${isLastChild && isOdd ? "md:col-span-2 flex justify-center" : ""}`}
-                >
-                  <div
-                    className={`${isLastChild && isOdd ? "w-full md:w-1/2" : "w-full"}`}
-                  >
-                    <AccuratePredictionCard prediction={prediction} />
-                  </div>
-                </div>
-              );
-            })}
+          <div className="flex flex-wrap justify-center gap-6">
+            {predictions.map((prediction) => (
+              <div
+                key={prediction.id}
+                className="w-full md:w-[calc(50%-0.75rem)] nav:w-[calc(33.333%-1rem)] flex"
+              >
+                <AccuratePredictionCard prediction={prediction} />
+              </div>
+            ))}
           </div>
         )}
       </div>
