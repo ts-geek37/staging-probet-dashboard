@@ -9,15 +9,11 @@ import PricingPlans from "./PricingPlans";
 import PricingSkeleton from "./PricingSkeleton";
 
 const PricingShell: React.FC = () => {
-  const {
-    subscription,
-    isVip,
-    loading: subscriptionLoading,
-  } = useSubscription();
+  const { subscription, isVip, isSubscriptionLoading } = useSubscription();
 
   const { plans, loading: plansLoading, error: plansError } = usePlans();
 
-  const isResolving = subscriptionLoading || plansLoading;
+  const isResolving = isSubscriptionLoading || plansLoading;
 
   if (isResolving) {
     return <PricingSkeleton />;

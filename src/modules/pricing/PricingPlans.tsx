@@ -5,13 +5,12 @@ import React from "react";
 
 import { Badge } from "@/components/ui/badge";
 import { derivePlanState } from "@/lib/plan-resolver";
-import { Plan } from "@/types/prices";
+import { PlanWithFeatures } from "@/types/prices";
 import { Subscription } from "@/types/subscription";
 
 import PlanCard from "./PlanCard";
-
 interface Props {
-  plans: Plan[];
+  plans: PlanWithFeatures[];
   subscription: Subscription | null | undefined;
   isVip: boolean;
 }

@@ -4,7 +4,8 @@ import { Button } from "@/components/ui/button";
 import { PlanUIState } from "@/lib/plan-resolver";
 import { BillingCycle } from "@/types/prices";
 
-import { useCheckout } from "./hooks";
+import { ConfirmationPopUp } from "@/components/ConfirmationPopUp";
+import { useCheckout } from "../billing/hooks";
 
 type PlanCTAProps = {
   state: PlanUIState;
@@ -13,7 +14,7 @@ type PlanCTAProps = {
   onSignIn: () => void;
 };
 
-export const PlanCTA: React.FC<PlanCTAProps> = ({
+const PlanCTA: React.FC<PlanCTAProps> = ({
   state,
   isSignedIn,
   billingCycle,
@@ -24,12 +25,16 @@ export const PlanCTA: React.FC<PlanCTAProps> = ({
   switch (state) {
     case "current":
       return (
-        <Button
-          disabled
-          className="w-full rounded-lg bg-slate-800 px-4 py-3 text-sm font-medium text-slate-400"
-        >
-          Current Plan
-        </Button>
+        <ConfirmationPopUp
+          title="Cancel your subscription?"
+          description="Canceling your plan will remove access to all premium features."
+          onConfirm={() => console.log("User current plan: ", state)}
+          trigger={
+            <Button className="w-full rounded-lg bg-slate-800 px-4 py-3 text-sm font-medium text-slate-400">
+              Cancel Plan
+            </Button>
+          }
+        />
       );
 
     case "disabled":
@@ -92,3 +97,4 @@ export const PlanCTA: React.FC<PlanCTAProps> = ({
       return null;
   }
 };
+export default PlanCTA;
