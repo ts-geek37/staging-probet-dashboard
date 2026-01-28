@@ -66,7 +66,7 @@ const PlanCard: React.FC<Props> = ({
       </div>
 
       <div className="mb-6">
-        <div className="flex items-baseline gap-2">
+        <div className="flex flex-wrap items-baseline gap-2">
           <p className="text-3xl sm:text-5xl font-bold text-white">
             {formatPrice(plan.amount, plan.currency)}
           </p>

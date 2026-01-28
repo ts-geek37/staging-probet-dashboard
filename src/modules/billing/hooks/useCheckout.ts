@@ -13,8 +13,8 @@ type CheckoutResponse = {
   checkout_url: string;
 };
 
-const AUTH_REQUIRED = "AUTH_REQUIRED";
-const TOKEN_UNAVAILABLE = "TOKEN_UNAVAILABLE";
+export const AUTH_REQUIRED = "AUTH_REQUIRED";
+export const TOKEN_UNAVAILABLE = "TOKEN_UNAVAILABLE";
 
 const checkoutFetcher = async (
   url: string,
