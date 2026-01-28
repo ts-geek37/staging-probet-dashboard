@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/chart";
 
 interface Props {
-  data: [string, number][];
+  data: [string, number, string?][];
   size?: number;
   strokeWidth?: number;
 }
@@ -32,11 +32,11 @@ const MarketPieChart: React.FC<Props> = ({
 }) => {
   const chartData = React.useMemo(
     () =>
-      data.map(([label, value]) => ({
-        key: label,
-        label: label.replace(/_/g, " "),
+      data.map(([key, value, customLabel]) => ({
+        key: key,
+        label: customLabel || key.replace(/_/g, " "),
         value,
-        fill: COLORS[label.toLowerCase()] ?? "#6b7280",
+        fill: COLORS[key.toLowerCase()] ?? "#6b7280",
       })),
     [data],
   );
@@ -90,10 +90,19 @@ const MarketPieChart: React.FC<Props> = ({
               content={({ viewBox }) => {
                 if (!viewBox) return null;
 
-                const { cx, cy } = viewBox as {
-                  cx: number;
-                  cy: number;
-                };
+                const { cx, cy } = viewBox as { cx: number; cy: number };
+                const lines = dominantItem.label.split(" ").reduce<string[]>(
+                  (acc, word) => {
+                    const lastLine = acc[acc.length - 1] || "";
+                    if ((lastLine + " " + word).trim().length > 15) {
+                      acc.push(word);
+                    } else {
+                      acc[acc.length - 1] = (lastLine + " " + word).trim();
+                    }
+                    return acc;
+                  },
+                  [""],
+                );
 
                 return (
                   <text
@@ -103,17 +112,22 @@ const MarketPieChart: React.FC<Props> = ({
                     dominantBaseline="middle"
                     fill="#ffffff"
                   >
-                    <tspan x={cx} y={cy} fontSize="22" fontWeight="700">
+                    <tspan x={cx} y={cy} fontSize={22} fontWeight="700">
                       {Math.round(dominantItem.value)}%
                     </tspan>
-                    <tspan
-                      x={cx}
-                      y={cy + 18}
-                      fontSize="10"
-                      letterSpacing="0.08em"
-                    >
-                      {dominantItem.label}
-                    </tspan>
+
+                    {lines.map((line, index) => (
+                      <tspan
+                        key={index}
+                        x={cx}
+                        y={cy + 18 + index * 14}
+                        fontSize={12}
+                        letterSpacing="0.08em"
+                        style={{ textTransform: "capitalize" }}
+                      >
+                        {line}
+                      </tspan>
+                    ))}
                   </text>
                 );
               }}
