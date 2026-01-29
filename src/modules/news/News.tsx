@@ -1,13 +1,19 @@
 "use client";
 
-import Link from "next/link";
 import React from "react";
+import Link from "next/link";
 
 import { NewsCard } from "@/components";
-import { footballNewsMock } from "@/mock-data/NewsMockData";
+import { NewsItem } from "@/types/news";
 
-const News: React.FC = () => {
-  const [mainNews, ...sideNews] = footballNewsMock;
+interface NewsProps {
+  initialNews: NewsItem[];
+}
+
+const News: React.FC<NewsProps> = ({ initialNews }) => {
+  if (!initialNews || initialNews.length === 0) return null;
+
+  const [mainNews, ...sideNews] = initialNews;
 
   return (
     <section className="space-y-6 py-10">
@@ -21,25 +27,33 @@ const News: React.FC = () => {
       </div>
 
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-3">
+        {/* Main News */}
         <div className="sm:col-span-3 h-105">
-          <NewsCard
-            title={mainNews.title}
-            excerpt={mainNews.subtitle}
-            image={mainNews.image}
-            category={mainNews.category}
-            published_at={mainNews.publishedAt}
-            isMain
-          />
+          <Link href={`/news/${mainNews.id}`} className="block h-full">
+            <NewsCard
+              id={mainNews.id}
+              title={mainNews.title}
+              image={mainNews.image}
+              alias={mainNews.alias}
+              original_url={mainNews.original_url}
+              lang={mainNews.lang}
+              published_at={mainNews.published_at}
+              isMain
+            />
+          </Link>
         </div>
 
+        {/* Side News */}
         {sideNews.map((news) => (
           <Link key={news.id} href={`/news/${news.id}`} className="block">
             <NewsCard
+              id={news.id}
               title={news.title}
-              excerpt={news.subtitle}
               image={news.image}
-              category={news.category}
-              published_at={news.publishedAt}
+              alias={news.alias}
+              original_url={news.original_url}
+              lang={news.lang}
+              published_at={news.published_at}
               isBelow
             />
           </Link>
