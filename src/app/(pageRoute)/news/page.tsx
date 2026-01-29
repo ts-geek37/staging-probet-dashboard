@@ -4,14 +4,13 @@ import News from "@/modules/news/News";
 import { seo } from "@/utils/seo";
 
 export const metadata = seo({
-  title: "Football News – ProBetPredictions",
+  title: "Football News",
   description: "Latest football news from around the world",
 });
 
 const NewsPage = async () => {
   const response = await getNews({});
-
-  const newsList = response?.data?.data; // ✅ THIS IS THE ARRAY
+  const newsList = response?.data;
 
   if (!Array.isArray(newsList) || newsList.length === 0) {
     return <NoData isCenter message="No news available" />;

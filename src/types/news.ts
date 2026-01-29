@@ -1,8 +1,4 @@
-// /types/news.ts
 
-/**
- * Basic news item used for lists
- */
 export interface NewsItem {
   id: number;
   title: string;
@@ -10,23 +6,17 @@ export interface NewsItem {
   alias: string;
   original_url: string;
   lang: string;
-  published_at: string; // could convert to Date if needed
+  published_at: string; 
   categories: number[];
   leagues: number[];
   teams: number[];
 }
 
-/**
- * Detailed news article content
- */
 export interface NewsDetail extends NewsItem {
-  html_content: string;          // HTML of the full article
-  html_content_scripts: string;  // Scripts to render widgets (Twitter, etc.)
+  html_content: string;
+  html_content_scripts: string;
 }
 
-/**
- * Responses from the API
- */
 export interface NewsListResponse {
   page: number;
   limit: number;
