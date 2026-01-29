@@ -1,5 +1,4 @@
 import { Lock } from "lucide-react";
-import { toast } from "sonner";
 
 import { ConfirmationPopUp } from "@/components/ConfirmationPopUp";
 import { Button } from "@/components/ui/button";
@@ -31,10 +30,7 @@ const PlanCTA: React.FC<PlanCTAProps> = ({
           title="Cancel your subscription?"
           description="Canceling your plan will remove access to all premium features."
           onConfirm={async () => {
-            const res = await cancelSubscription();
-            if (res) {
-              toast.success(res.message);
-            }
+            await cancelSubscription();
           }}
           trigger={
             <Button

@@ -2,8 +2,8 @@ import { UserButton, useUser } from "@clerk/nextjs";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
+import { useSubscription } from "@/context";
 import { cn } from "@/lib/utils";
-import { useSubscription } from "@/modules/billing/hooks";
 import { vipLink } from "@/modules/core-layout/constant";
 
 import { Button } from "../../../components/ui/button";

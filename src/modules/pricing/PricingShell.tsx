@@ -2,10 +2,8 @@
 
 import React from "react";
 
-import {
-  useCancelSubscription,
-  useSubscription,
-} from "@/modules/billing/hooks";
+import { useSubscription } from "@/context";
+import { useCancelSubscription } from "@/modules/billing/hooks";
 
 import { usePlans } from "./hooks/usePlans";
 import PricingPlans from "./PricingPlans";

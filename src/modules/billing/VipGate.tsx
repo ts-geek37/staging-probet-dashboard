@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 
-import { useSubscription } from "./hooks";
+import { useSubscription } from "@/context";
 
 type Props = {
   children: ReactNode;

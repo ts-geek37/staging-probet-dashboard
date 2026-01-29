@@ -48,7 +48,6 @@ const PredictionListing: React.FC<Props> = ({ initialData }) => {
               <PredictionCard
                 key={index}
                 {...match}
-                variant={match.variant as PredictionCardVariant}
               />
             ))}
           </div>
