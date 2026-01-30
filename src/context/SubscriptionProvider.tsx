@@ -16,6 +16,8 @@ interface SubscriptionContextType {
   subscription: Subscription | null | undefined;
   isVip: boolean | null;
   isSubscriptionLoading: boolean;
+  isCancelling: boolean;
+  setIsCancelling: (value: boolean) => void;
   error: Error | null;
   refresh: () => void;
 }
@@ -28,6 +30,7 @@ export const SubscriptionProvider: React.FC<{ children: ReactNode }> = ({
   children,
 }) => {
   const { isLoaded, isSignedIn } = useAuth();
+  const [isCancelling, setIsCancelling] = React.useState(false);
 
   const { data, error, isLoading, mutate } = useSWR<ApiResponse<Subscription>>(
     "/api/v2/billing/subscription",
@@ -48,6 +51,8 @@ export const SubscriptionProvider: React.FC<{ children: ReactNode }> = ({
     subscription: data?.data,
     isVip,
     isSubscriptionLoading: isLoading,
+    isCancelling,
+    setIsCancelling,
     error,
     refresh: refreshSubscription,
   };
