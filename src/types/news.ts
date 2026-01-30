@@ -1,4 +1,3 @@
-
 export interface NewsItem {
   id: number;
   title: string;
@@ -6,7 +5,7 @@ export interface NewsItem {
   alias: string;
   original_url: string;
   lang: string;
-  published_at: string; 
+  published_at: string;
   categories: number[];
   leagues: number[];
   teams: number[];
@@ -25,4 +24,7 @@ export interface NewsListResponse {
   data: NewsItem[];
 }
 
-export type NewsDetailResponse = NewsDetail | null;
+export type NewsDetailResponse = {
+  data: NewsDetail | null;
+  relatedNews: NewsItem[];
+} | null;

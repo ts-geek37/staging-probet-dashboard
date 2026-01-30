@@ -19,7 +19,7 @@ export const generateMetadata = async ({
 
   try {
     const response = await getNewsDetails(id);
-    const news = response?.data;
+    const news = response?.data?.data;
 
     if (!news) {
       return seo({
@@ -45,12 +45,13 @@ export const generateMetadata = async ({
 const Page: React.FC<Props> = async ({ params }) => {
   const { id } = await params;
   const response = await getNewsDetails(id);
-  const news = response?.data;
+  const news = response?.data?.data;
+  const relatedNews = response?.data?.relatedNews;
   if (!news) {
     return <NoData isCenter message="News not found" />;
   }
 
-  return <NewsDetail news={news} />;
+  return <NewsDetail news={news} relatedNews={relatedNews ?? []} />;
 };
 
 export default Page;
