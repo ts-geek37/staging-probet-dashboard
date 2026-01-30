@@ -1,4 +1,4 @@
-import { NewsListResponse, NewsDetail } from "@/types/news";
+import { NewsDetailResponse, NewsListResponse } from "@/types/news";
 import { serverFetch } from "./http";
 import { ApiResponse } from "./types";
 
@@ -19,6 +19,6 @@ export const getNews = (params?: {
 };
 export const getNewsDetails = (
   id: number | string,
-): Promise<ApiResponse<NewsDetail>> => {
-  return serverFetch<NewsDetail>(`/api/v2/news/${id}`);
+): Promise<ApiResponse<NewsDetailResponse>> => {
+  return serverFetch<NewsDetailResponse>(`/api/v2/news/${id}`);
 };
