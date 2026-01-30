@@ -31,7 +31,7 @@ const VipSection: React.FC<VipSectionProps> = ({ onNavigate }) => {
       <Link
         href={vipLink.href}
         onClick={onNavigate}
-        className="flex items-center gap-3 py-3 rounded-lg text-primary-yellow hover:bg-gray-800/50"
+        className="flex items-center gap-3 py-3 px-1 rounded-lg text-primary-yellow hover:bg-gray-800/50"
       >
         <Icon
           className={cn(

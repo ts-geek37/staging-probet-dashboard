@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
@@ -18,9 +18,8 @@ import {
   MatchListItem as PlayerMatch,
   MatchStatus as PlayerStatus,
 } from "@/types/players";
-import { formatDate } from "@/utils";
 import { getCountdownData } from "@/utils/formatCountdown";
-import formatLocalTime from "@/utils/formatLocalTime";
+import { formatDate, formatTimeLocal } from "@/utils/formatLocalTime";
 
 interface MatchCardProps {
   match: MatchListItem | PlayerMatch;
@@ -103,7 +102,7 @@ const MatchCard: React.FC<MatchCardProps> = ({ match, href }) => {
 
   const isLive = status === "LIVE";
   const isUpcoming = status === "UPCOMING" || status === "PROBLEM";
-  const localKickoffTime = formatLocalTime(kickoff_time);
+  const localKickoffTime = formatTimeLocal(kickoff_time);
 
   const homeScore = score?.home ?? 0;
   const awayScore = score?.away ?? 0;

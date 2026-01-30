@@ -40,7 +40,7 @@ export const SubscriptionProvider: React.FC<{ children: ReactNode }> = ({
     } else if (isLoaded && !isSignedIn) {
       mutate(undefined, false); // Clear cache when signed out
     }
-  }, [isLoaded, mutate]);
+  }, [isLoaded, mutate, isSignedIn]);
 
   const isVip = isLoading || !data ? null : Boolean(data?.data?.is_vip);
 
