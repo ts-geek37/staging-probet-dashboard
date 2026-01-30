@@ -41,7 +41,7 @@ const VipSection: React.FC<VipSectionProps> = ({ onNavigate }) => {
               : "text-primary-yellow",
           )}
         />
-        <span className={cn("text-base font-semibold", isVip ? "hidden" : "block")}>{vipLink.name}</span>
+        <span className={cn("text-base font-semibold", isVip ? "md:hidden" : "block")}>{vipLink.name}</span>
       </Link>
 
       {user ? (
