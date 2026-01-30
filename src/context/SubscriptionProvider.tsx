@@ -6,6 +6,7 @@ import React, {
   ReactNode,
   useCallback,
   useContext,
+  useEffect,
 } from "react";
 import useSWR from "swr";
 
@@ -16,6 +17,8 @@ interface SubscriptionContextType {
   subscription: Subscription | null | undefined;
   isVip: boolean | null;
   isSubscriptionLoading: boolean;
+  isCancelling: boolean;
+  setIsCancelling: (value: boolean) => void;
   error: Error | null;
   refresh: () => void;
 }
@@ -28,17 +31,28 @@ export const SubscriptionProvider: React.FC<{ children: ReactNode }> = ({
   children,
 }) => {
   const { isLoaded, isSignedIn } = useAuth();
+  const [isCancelling, setIsCancelling] = React.useState(false);
 
   const { data, error, isLoading, mutate } = useSWR<ApiResponse<Subscription>>(
     "/api/v2/billing/subscription",
   );
 
+  useEffect(() => {
+    if (!isLoaded) return;
+
+    if (isSignedIn) {
+      mutate(); 
+    } else {
+      mutate(undefined, false);
+    }
+  }, [isLoaded, isSignedIn, mutate]);
+
   // Re-fetch subscription whenever auth state changes
   const refreshSubscription = useCallback(() => {
     if (isLoaded && isSignedIn) {
-      mutate(); // Revalidate when signed in
+      mutate();
     } else if (isLoaded && !isSignedIn) {
-      mutate(undefined, false); // Clear cache when signed out
+      mutate(undefined, false);
     }
   }, [isLoaded, mutate, isSignedIn]);
 
@@ -48,6 +62,8 @@ export const SubscriptionProvider: React.FC<{ children: ReactNode }> = ({
     subscription: data?.data,
     isVip,
     isSubscriptionLoading: isLoading,
+    isCancelling,
+    setIsCancelling,
     error,
     refresh: refreshSubscription,
   };

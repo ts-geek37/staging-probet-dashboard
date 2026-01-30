@@ -39,20 +39,19 @@ const cancelFetcher = async (
 
 const useCancelSubscription = () => {
   const { isSignedIn, getToken } = useAuth();
-  const [isPendingCancel, setIsPendingCancel] = useState(false);
-  const { refresh } = useSubscription();
+  const { refresh, isCancelling, setIsCancelling } = useSubscription();
 
   const { trigger, isMutating, error } = useSWRMutation(
     `${process.env.NEXT_PUBLIC_API_URL}/api/v2/billing/cancel-subscription`,
     cancelFetcher,
     {
       onSuccess: async (res) => {
-        setIsPendingCancel(true);
+        setIsCancelling(true);
         toast.success(res?.message ?? "Subscription cancelled successfully");
 
         setTimeout(async () => {
           await refresh();
-          setIsPendingCancel(false);
+          setIsCancelling(false);
         }, 2000);
       },
       onError: (err: Error) => {
@@ -61,10 +60,10 @@ const useCancelSubscription = () => {
             ? "Failed to cancel subscription. Please try again."
             : err.message,
         );
-        setIsPendingCancel(true);
+        setIsCancelling(true);
         setTimeout(async () => {
           await refresh();
-          setIsPendingCancel(false);
+          setIsCancelling(false);
         }, 2000);
       },
     },
@@ -85,13 +84,13 @@ const useCancelSubscription = () => {
       return result;
     } catch (err) {
       console.log("Cancellation error:", err);
-      setIsPendingCancel(false);
+      setIsCancelling(false);
     }
   };
 
   return {
     cancelSubscription,
-    isCancelling: isMutating || isPendingCancel,
+    isCancelling: isMutating || isCancelling,
     error,
   };
 };
