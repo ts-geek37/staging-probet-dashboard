@@ -2,11 +2,11 @@
 
 import { useAuth } from "@clerk/nextjs";
 import { useState } from "react";
+import { toast } from "sonner";
 import useSWRMutation from "swr/mutation";
 
 import { useSubscription } from "@/context";
 
-import { toast } from "sonner";
 import { AUTH_REQUIRED, TOKEN_UNAVAILABLE } from "./useCheckout";
 
 type CancelSubscriptionResponse = {
@@ -48,13 +48,23 @@ const useCancelSubscription = () => {
     {
       onSuccess: async (res) => {
         setIsPendingCancel(true);
-        console.log("Cancelling subscription...");
         toast.success(res?.message ?? "Subscription cancelled successfully");
 
         setTimeout(async () => {
           await refresh();
           setIsPendingCancel(false);
-          console.log("Subscription cancelled");
+        }, 2000);
+      },
+      onError: (err: Error) => {
+        toast.error(
+          err.message.startsWith("CANCELLATION_FAILED_")
+            ? "Failed to cancel subscription. Please try again."
+            : err.message,
+        );
+        setIsPendingCancel(true);
+        setTimeout(async () => {
+          await refresh();
+          setIsPendingCancel(false);
         }, 2000);
       },
     },
@@ -74,14 +84,14 @@ const useCancelSubscription = () => {
 
       return result;
     } catch (err) {
-      console.error("Cancellation error:", err);
+      console.log("Cancellation error:", err);
+      setIsPendingCancel(false);
     }
   };
 
   return {
     cancelSubscription,
-    isCancelling: isMutating,
-    isPendingCancel,
+    isCancelling: isMutating || isPendingCancel,
     error,
   };
 };

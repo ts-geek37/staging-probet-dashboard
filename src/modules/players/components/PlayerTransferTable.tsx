@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 
 import { NoData } from "@/components";
@@ -63,38 +64,52 @@ const PlayerTransfersTable: React.FC<Props> = ({
             {transfers.map((transfer) => (
               <TableRow
                 key={transfer.id}
-                className="border-b border-primary-gray/20 "
+                className="border-b border-primary-gray/20"
               >
                 <TableCell className="text-primary-gray p-4">
                   {transfer.type?.label ?? "-"}
                 </TableCell>
 
                 <TableCell className="text-primary-gray p-4">
-                  <div className="flex items-center gap-2">
-                    {transfer.fromTeam?.image && (
-                      <Image
-                        src={transfer.fromTeam.image}
-                        alt={transfer.fromTeam.name}
-                        width={20}
-                        height={20}
-                      />
-                    )}
-                    <span>{transfer.fromTeam?.name ?? "-"}</span>
-                  </div>
+                  {transfer.fromTeam ? (
+                    <Link
+                      href={`/teams/${transfer.fromTeam.id}`}
+                      className="flex items-center gap-2"
+                    >
+                      {transfer.fromTeam.image && (
+                        <Image
+                          src={transfer.fromTeam.image}
+                          alt={transfer.fromTeam.name}
+                          width={20}
+                          height={20}
+                        />
+                      )}
+                      <span>{transfer.fromTeam.name}</span>
+                    </Link>
+                  ) : (
+                    "-"
+                  )}
                 </TableCell>
 
                 <TableCell className="text-primary-gray p-4">
-                  <div className="flex items-center gap-2">
-                    {transfer.toTeam?.image && (
-                      <Image
-                        src={transfer.toTeam.image}
-                        alt={transfer.toTeam.name}
-                        width={20}
-                        height={20}
-                      />
-                    )}
-                    <span>{transfer.toTeam?.name ?? "-"}</span>
-                  </div>
+                  {transfer.toTeam ? (
+                    <Link
+                      href={`/teams/${transfer.toTeam.id}`}
+                      className="flex items-center gap-2"
+                    >
+                      {transfer.toTeam.image && (
+                        <Image
+                          src={transfer.toTeam.image}
+                          alt={transfer.toTeam.name}
+                          width={20}
+                          height={20}
+                        />
+                      )}
+                      <span>{transfer.toTeam.name}</span>
+                    </Link>
+                  ) : (
+                    "-"
+                  )}
                 </TableCell>
 
                 <TableCell className="text-primary-gray p-4">
