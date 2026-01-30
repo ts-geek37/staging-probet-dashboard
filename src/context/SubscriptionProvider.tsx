@@ -6,6 +6,7 @@ import React, {
   ReactNode,
   useCallback,
   useContext,
+  useEffect,
 } from "react";
 import useSWR from "swr";
 
@@ -36,12 +37,22 @@ export const SubscriptionProvider: React.FC<{ children: ReactNode }> = ({
     "/api/v2/billing/subscription",
   );
 
+  useEffect(() => {
+    if (!isLoaded) return;
+
+    if (isSignedIn) {
+      mutate(); 
+    } else {
+      mutate(undefined, false);
+    }
+  }, [isLoaded, isSignedIn, mutate]);
+
   // Re-fetch subscription whenever auth state changes
   const refreshSubscription = useCallback(() => {
     if (isLoaded && isSignedIn) {
-      mutate(); // Revalidate when signed in
+      mutate();
     } else if (isLoaded && !isSignedIn) {
-      mutate(undefined, false); // Clear cache when signed out
+      mutate(undefined, false);
     }
   }, [isLoaded, mutate, isSignedIn]);
 
