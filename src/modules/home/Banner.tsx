@@ -27,7 +27,7 @@ const HomeBanner: React.FC = () => {
           </Button>
         </Link>
 
-        <Link href="/price">
+        <Link href="/pricing">
           <Button
             variant="outline"
             className="h-14 w-60 rounded-xl text-base sm:text-xl font-medium"

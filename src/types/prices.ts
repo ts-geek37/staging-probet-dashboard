@@ -7,3 +7,5 @@ export type Plan = {
   amount: number;
   label: string;
 };
+
+export type PlanWithFeatures = Plan & { features: string[] };

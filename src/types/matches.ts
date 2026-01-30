@@ -71,6 +71,11 @@ export interface MatchListItem {
   teams: MatchTeams;
   score?: MatchScore;
   referee?: string;
+  prediction?: {
+    home: number;
+    draw: number;
+    away: number;
+  } | null;
 }
 
 export interface MatchesListResponse {
@@ -97,6 +102,7 @@ export enum MatchDetailView {
   HEAD_TO_HEAD = "head-to-head",
   COMMENTS = "comments",
   SEASON_STATS = "season-stats",
+  PREDICTION = "Predictions",
 }
 
 export interface MatchLineupsResponse {

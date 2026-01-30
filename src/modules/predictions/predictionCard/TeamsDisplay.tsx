@@ -1,39 +1,50 @@
 import Image from "next/image";
 import React from "react";
 
-import { PredictionMatchCard } from "@/types/prediction";
+import { MatchListItem } from "@/types/matches";
 
 interface TeamsDisplayProps {
-  match: PredictionMatchCard;
+  match: MatchListItem;
   layout: "horizontal" | "stacked";
 }
 
 const TeamsDisplay: React.FC<TeamsDisplayProps> = ({ match, layout }) => {
-  const hasScore =
-    match.home_team.score !== undefined && match.away_team.score !== undefined;
+  const { home, away } = match.teams;
+  const homeScore = match.score?.home;
+  const awayScore = match.score?.away;
+
+  const hasScore = !!homeScore && !!awayScore;
 
   if (layout === "stacked") {
+    const teamRows = [
+      { info: home, score: homeScore },
+      { info: away, score: awayScore },
+    ];
+
     return (
-      <div className="flex flex-col gap-3 pt-2">
-        {[match.home_team, match.away_team].map((team) => (
-          <div key={team.name} className="flex items-center justify-between">
+      <div className="flex flex-col gap-3">
+        {teamRows.map((team, index) => (
+          <div
+            key={`${team.info.id}-${index}`}
+            className="flex items-center justify-between"
+          >
             <div className="flex items-center gap-2 flex-1 min-w-0">
               <Image
-                src={team?.logo || "/no-image.png"}
-                alt={team?.name || "Team Logo"}
+                src={team.info.logo || "/no-image.png"}
+                alt={team.info.name || "Team Logo"}
                 width={100}
                 height={100}
-                className="size-7 object-contain flex-shrink-0"
+                className="size-7 object-contain shrink-0"
                 onError={(e) => {
                   e.currentTarget.src = "/no-image.png";
                 }}
               />
               <span className="text-sm font-medium line-clamp-1">
-                {team?.name ?? "Unknown Team"}
+                {team.info.name ?? "Unknown Team"}
               </span>
             </div>
 
-            {team?.score !== undefined && (
+            {team.score !== null && team.score !== undefined && (
               <span className="text-sm font-bold">{team.score}</span>
             )}
           </div>
@@ -45,43 +56,43 @@ const TeamsDisplay: React.FC<TeamsDisplayProps> = ({ match, layout }) => {
   return (
     <div className="flex items-center justify-between gap-3">
       <div className="flex items-center gap-2 flex-1 min-w-0">
-        <Image
-          src={match?.home_team?.logo || "/no-image.png"}
-          alt={match?.home_team?.name || "Home Team"}
+        {/* <Image
+          src={home.logo || "/no-image.png"}
+          alt={home.name || "Home Team"}
           width={100}
           height={100}
-          className="size-7 object-contain flex-shrink-0"
+          className="size-7 object-contain shrink-0"
           onError={(e) => {
             e.currentTarget.src = "/no-image.png";
           }}
-        />
+        /> */}
         <span className="text-sm font-medium line-clamp-1">
-          {match?.home_team?.name ?? "Unknown Team"}
+          {home.name ?? "Unknown Team"}
         </span>
       </div>
 
       {hasScore && (
-        <div className="flex-shrink-0 px-4">
+        <div className="shrink-0 px-4">
           <span className="text-sm font-bold whitespace-nowrap">
-            {match?.home_team?.score} - {match?.away_team?.score}
+            {homeScore} - {awayScore}
           </span>
         </div>
       )}
 
       <div className="flex items-center gap-2 flex-1 min-w-0 justify-end">
         <span className="text-sm font-medium line-clamp-1 text-right">
-          {match?.away_team?.name ?? "Unknown Team"}
+          {away.name ?? "Unknown Team"}
         </span>
-        <Image
-          src={match?.away_team?.logo || "/no-image.png"}
-          alt={match?.away_team?.name || "Away Team"}
+        {/* <Image
+          src={away.logo || "/no-image.png"}
+          alt={away.name || "Away Team"}
           width={100}
           height={100}
-          className="size-7 object-contain flex-shrink-0"
+          className="size-7 object-contain shrink-0"
           onError={(e) => {
             e.currentTarget.src = "/no-image.png";
           }}
-        />
+        /> */}
       </div>
     </div>
   );

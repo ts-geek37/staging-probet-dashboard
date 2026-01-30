@@ -13,8 +13,8 @@ type CheckoutResponse = {
   checkout_url: string;
 };
 
-const AUTH_REQUIRED = "AUTH_REQUIRED";
-const TOKEN_UNAVAILABLE = "TOKEN_UNAVAILABLE";
+export const AUTH_REQUIRED = "AUTH_REQUIRED";
+export const TOKEN_UNAVAILABLE = "TOKEN_UNAVAILABLE";
 
 const checkoutFetcher = async (
   url: string,
@@ -57,21 +57,25 @@ const useCheckout = () => {
   );
 
   const checkout = async (billingCycle: BillingCycle) => {
-    if (!isSignedIn) {
-      throw new Error(AUTH_REQUIRED);
+    try {
+      if (!isSignedIn) {
+        throw new Error(AUTH_REQUIRED);
+      }
+
+      const token = await getToken();
+      if (!token) {
+        throw new Error(TOKEN_UNAVAILABLE);
+      }
+
+      const data = await trigger({
+        billingCycle,
+        token,
+      });
+
+      window.location.assign(data.checkout_url);
+    } catch (error) {
+      console.error(error);
     }
-
-    const token = await getToken();
-    if (!token) {
-      throw new Error(TOKEN_UNAVAILABLE);
-    }
-
-    const data = await trigger({
-      billingCycle,
-      token,
-    });
-
-    window.location.assign(data.checkout_url);
   };
 
   return {

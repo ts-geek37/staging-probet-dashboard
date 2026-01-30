@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 
-import { useSubscription } from "./hooks";
+import { useSubscription } from "@/context";
 
 type Props = {
   children: ReactNode;
@@ -8,9 +8,9 @@ type Props = {
 };
 
 const VipGate = ({ children, fallback }: Props) => {
-  const { subscription, loading } = useSubscription();
+  const { subscription, isSubscriptionLoading } = useSubscription();
 
-  if (loading) return null;
+  if (isSubscriptionLoading) return null;
   if (!subscription?.is_vip) return fallback ?? null;
 
   return <>{children}</>;

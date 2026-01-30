@@ -1,7 +1,6 @@
 import { ApiResponse } from "@/api/types";
 import { PlayerDetailView, PlayerProfileResponse } from "@/types/players";
 
-import PlayerMatchesTab from "./PlayerMatchesTab";
 import PlayerOverviewTab from "./PlayerOverviewTab";
 import PlayerStatsTab from "./PlayerStatsTab";
 import PlayerTransferTab from "./PlayerTransferTab";

@@ -4,26 +4,22 @@ import { useRouter } from "next/navigation";
 import React from "react";
 
 import { Card } from "@/components/ui/card";
-import { PredictionCardVariant, PredictionMatchCard } from "@/types/prediction";
+import { MatchListItem } from "@/types/matches";
+import { PredictionCardVariant } from "@/types/prediction";
 
 import PredictionBar from "./PredictionBar";
 import TeamsDisplay from "./TeamsDisplay";
 
 interface PredictionCardProps {
-  match: PredictionMatchCard;
-  prediction: number;
+  match: MatchListItem;
   variant: PredictionCardVariant;
 }
 
-const PredictionCard: React.FC<PredictionCardProps> = ({
-  match,
-  prediction,
-  variant,
-}) => {
+const PredictionCard: React.FC<PredictionCardProps> = ({ match, variant }) => {
   const router = useRouter();
 
   const handleVIPClick = () => {
-    router.push("/price");
+    router.push("/pricing");
   };
 
   const kickoffDate = match?.kickoff_time ? new Date(match.kickoff_time) : null;
@@ -44,9 +40,17 @@ const PredictionCard: React.FC<PredictionCardProps> = ({
       })
     : "--:--";
 
+  const prediction =
+    variant === "prediction"
+      ? (match?.prediction ?? { home: 0, draw: 0, away: 0 })
+      : { home: 10, draw: 10, away: 10 };
+
   return (
-    <Card className="text-white p-4 border-none gap-3 min-h-[175px] sm:min-h-[200px]">
-      <div className="flex items-center justify-between text-xs sm:text-sm">
+    <Card
+      onClick={() => router.push(`/matches/${match.id}?tab=Predictions`)}
+      className="text-white p-4 border-none gap-3 min-h-[175px] sm:min-h-[200px]"
+    >
+      <div className="flex items-center pb-2 justify-between text-xs sm:text-sm">
         <span>{formattedDate}</span>
         <span>{formattedTime}</span>
       </div>
