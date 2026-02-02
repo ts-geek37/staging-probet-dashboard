@@ -71,6 +71,9 @@ const TeamLogo: React.FC<{ src: string | null; alt: string }> = ({
       alt={alt}
       width={20}
       height={20}
+      onError={(e) => {
+        e.currentTarget.src = "/no-image.png";
+      }}
       className="object-contain w-6 h-6"
     />
   </div>
@@ -153,10 +156,13 @@ const MatchCard: React.FC<MatchCardProps> = ({ match, href }) => {
               className="flex items-center gap-2.5 flex-1 cursor-pointer hover:opacity-80 active:opacity-70"
             >
               <Image
-                src={league.logo || "/no-image.png"}
+                src={league?.logo || "/no-image.png"}
                 alt={league.name}
                 width={25}
                 height={25}
+                onError={(e) => {
+                  e.currentTarget.src = "/no-image.png";
+                }}
                 className="object-contain w-6 h-6"
               />
               <span className="text-sm sm:text-base font-medium text-white line-clamp-1">
