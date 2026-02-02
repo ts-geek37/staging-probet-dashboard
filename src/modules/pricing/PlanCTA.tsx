@@ -2,7 +2,7 @@ import { Lock } from "lucide-react";
 
 import { ConfirmationPopUp } from "@/components/ConfirmationPopUp";
 import { Button } from "@/components/ui/button";
-import { PlanUIState } from "@/lib/plan-resolver";
+import { formatDate24h, PlanUIState } from "@/lib/plan-resolver";
 import { BillingCycle } from "@/types/prices";
 
 import { useCancelSubscription, useCheckout } from "../billing/hooks";
@@ -12,6 +12,7 @@ type PlanCTAProps = {
   isSignedIn: boolean;
   billingCycle: BillingCycle;
   onSignIn: () => void;
+  expiryAt?: string | null;
 };
 
 const PlanCTA: React.FC<PlanCTAProps> = ({
@@ -19,16 +20,28 @@ const PlanCTA: React.FC<PlanCTAProps> = ({
   isSignedIn,
   billingCycle,
   onSignIn,
+  expiryAt,
 }) => {
   const { checkout, loading, error } = useCheckout();
   const { cancelSubscription, isCancelling } = useCancelSubscription();
 
   switch (state) {
     case "current":
+      const formattedDate = formatDate24h(expiryAt);
       return (
         <ConfirmationPopUp
           title="Cancel your subscription?"
-          description="Canceling your plan will remove access to all premium features."
+          description={
+            <>
+              Your subscription will remain active until{" "}
+              <span className="font-semibold">{formattedDate}</span>.
+              If you cancel it,{" "}
+              <span className="font-semibold">
+                No recurring payment will be charged
+              </span>{" "}
+              for the next cycle.
+            </>
+          }
           onConfirm={async () => {
             await cancelSubscription();
           }}

@@ -7,6 +7,7 @@ import React from "react";
 
 import { Badge } from "@/components/ui/badge";
 import {
+  formatDate24h,
   formatPrice,
   getDiscountPercent,
   getPlanDurationLabel,
@@ -29,6 +30,7 @@ const PlanCard: React.FC<Props> = ({
   plan,
   state,
   highlight,
+  expiryAt,
   monthlyAmount,
 }) => {
   const router = useRouter();
@@ -83,7 +85,7 @@ const PlanCard: React.FC<Props> = ({
         )}
       </div>
 
-      <ul className="mb-8 flex flex-col gap-4">
+      <ul className="mb-2 flex flex-col gap-4">
         {plan?.features?.map((feature) => (
           <li key={feature} className="flex items-center gap-3 text-sm">
             <Check className="size-5 shrink-0 text-white group-hover:text-primary-green" />
@@ -94,12 +96,19 @@ const PlanCard: React.FC<Props> = ({
         ))}
       </ul>
 
+      {expiryAt && state === "current" && (
+        <p className="mb-3 text-xs font-semibold text-primary-red/60">
+          Current plan expires: {formatDate24h(expiryAt)}
+        </p>
+      )}
+
       <div className="mt-auto">
         <PlanCTA
           state={state}
           isSignedIn={isSignedIn ?? false}
           billingCycle={plan?.billingCycle}
           onSignIn={handleSignIn}
+          expiryAt={expiryAt}
         />
       </div>
     </div>

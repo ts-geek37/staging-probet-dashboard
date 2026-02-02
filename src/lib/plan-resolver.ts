@@ -69,3 +69,18 @@ export const getPlanValue = (billingCycle?: BillingCycle): number => {
   if (!billingCycle) return 0;
   return BILLING_CYCLE_MONTHS[billingCycle] || 0;
 };
+
+export const formatDate24h = (
+  dateString: string | null | undefined,
+): string => {
+  if (!dateString) return "";
+  const date = new Date(dateString);
+  return new Intl.DateTimeFormat("en-GB", {
+    day: "2-digit",
+    month: "short",
+    year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: false,
+  }).format(date);
+};
