@@ -1,7 +1,12 @@
 import { BillingCycle, Plan } from "@/types/prices";
 import { Subscription } from "@/types/subscription";
 
-export type PlanUIState = "available" | "current" | "disabled" | "active";
+export type PlanUIState =
+  | "available"
+  | "current"
+  | "disabled"
+  | "active"
+  | "cancelled";
 
 export const derivePlanState = (
   plan: Plan,
@@ -10,14 +15,17 @@ export const derivePlanState = (
   if (!subscription || !subscription.is_vip) {
     return "available";
   }
-  if (
-    subscription.status === "active" &&
-    subscription.billing_cycle === plan.billingCycle
-  ) {
-    return "current";
+
+  if (subscription.status === "cancel_at_period_end") {
+    return subscription.billing_cycle === plan.billingCycle
+      ? "cancelled"
+      : "active";
   }
+
   if (subscription.status === "active") {
-    return "active";
+    return subscription.billing_cycle === plan.billingCycle
+      ? "current"
+      : "active";
   }
 
   return "disabled";
@@ -68,4 +76,19 @@ export const getDiscountPercent = (
 export const getPlanValue = (billingCycle?: BillingCycle): number => {
   if (!billingCycle) return 0;
   return BILLING_CYCLE_MONTHS[billingCycle] || 0;
+};
+
+export const formatDate24h = (
+  dateString: string | null | undefined,
+): string => {
+  if (!dateString) return "";
+  const date = new Date(dateString);
+  return new Intl.DateTimeFormat("en-GB", {
+    day: "2-digit",
+    month: "short",
+    year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: false,
+  }).format(date);
 };

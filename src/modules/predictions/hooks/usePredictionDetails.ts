@@ -53,7 +53,7 @@ const usePredictionDetails = ({ fixtureId }: UsePredictionDetailsParams) => {
       });
 
   const { isVip, isSubscriptionLoading } = useSubscription();
-  const isPageLoading = isLoading || isSubscriptionLoading || isVip === null;
+  const isPageLoading = isLoading || isSubscriptionLoading;
 
   const firstHalf = getMarketByType("First Half Winner Probability")?.data as
     | HomeAwayDrawData
