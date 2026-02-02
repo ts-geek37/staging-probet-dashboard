@@ -10,17 +10,15 @@ export const derivePlanState = (
   if (!subscription || !subscription.is_vip) {
     return "available";
   }
-  if (
-    subscription.status === "active" &&
-    subscription.billing_cycle === plan.billingCycle
-  ) {
-    return "current";
+  const hasPlan =
+    subscription.status === "active" ||
+    subscription.status === "cancel_at_period_end";
+  if (!hasPlan) {
+    return "disabled";
   }
-  if (subscription.status === "active") {
-    return "active";
-  }
-
-  return "disabled";
+  return subscription.billing_cycle === plan.billingCycle
+    ? "current"
+    : "active";
 };
 
 export const formatPrice = (amount: number, currency: string): string => {
