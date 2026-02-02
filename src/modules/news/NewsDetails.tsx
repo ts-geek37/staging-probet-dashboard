@@ -1,4 +1,6 @@
 "use client";
+import { Clock } from "lucide-react";
+import Image from "next/image";
 import React, { useMemo } from "react";
 
 import { NewsCard, NoData } from "@/components";
@@ -6,8 +8,6 @@ import { Badge } from "@/components/ui/badge";
 import { NewsDetail as INewsDetail, NewsItem } from "@/types/news";
 import { sanitizeAndStyleHTML } from "@/utils";
 import { formatTimeAgo } from "@/utils/timeAgo";
-import { Clock } from "lucide-react";
-import Image from "next/image";
 
 interface Props {
   news: INewsDetail;
@@ -76,7 +76,7 @@ const NewsDetail: React.FC<Props> = ({ news, relatedNews }) => {
               <h2 className="text-xl md:text-2xl font-bold text-primary-yellow uppercase italic">
                 Related News
               </h2>
-              <div className="h-[1px] bg-primary-yellow/40 w-full" />
+              <div className="h-px bg-primary-yellow/40 w-full" />
             </div>
 
             <div className="flex flex-wrap lg:flex-col gap-6 justify-center sm:justify-start">
@@ -93,8 +93,8 @@ const NewsDetail: React.FC<Props> = ({ news, relatedNews }) => {
                     id={item.id}
                     title={item.title}
                     image={item.image}
-                    alias={item.alias}
-                    original_url={item.original_url}
+                    // alias={item.alias}
+                    // original_url={item.original_url}
                     lang={item.lang}
                     published_at={item.published_at}
                   />

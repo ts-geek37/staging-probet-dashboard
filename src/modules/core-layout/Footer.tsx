@@ -1,4 +1,4 @@
-import { FileText, Mail } from "lucide-react";
+import { Facebook, FileText, Instagram, Mail, Music, Send } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
@@ -14,6 +14,13 @@ const LEGAL_LINKS = [
   { href: "/privacy-policy", label: "Privacy Policy" },
   { href: "/terms-and-conditions", label: "Terms & Conditions" },
   { href: "/advertising-policy", label: "Advertising Policy" },
+];
+
+const SOCIAL_LINKS = [
+  { name: "Facebook", icon: Facebook, url: "#" },
+  { name: "Instagram", icon: Instagram, url: "#" },
+  { name: "Tiktok", icon: Music, url: "#" },
+  { name: "Telegram", icon: Send, url: "#" },
 ];
 
 const Footer: React.FC = () => {
@@ -44,6 +51,21 @@ const Footer: React.FC = () => {
               . All predictions and insights are provided for educational and
               analytical purposes only
             </p>
+
+            <div className="flex items-center gap-4">
+              {SOCIAL_LINKS.map((social) => (
+                <Link
+                  key={social.name}
+                  href={social.url}
+                  className="p-2 rounded-lg bg-white/5 text-primary-gray hover:text-primary-green hover:bg-white/10 transition-all duration-300"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <social.icon size={20} />
+                  <span className="sr-only">{social.name}</span>
+                </Link>
+              ))}
+            </div>
           </div>
 
           <FooterLinksGroup title="Resources" links={FOOTER_LINKS} />

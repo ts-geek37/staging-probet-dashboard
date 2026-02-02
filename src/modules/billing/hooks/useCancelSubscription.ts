@@ -1,9 +1,9 @@
 "use client";
 
 import { useAuth } from "@clerk/nextjs";
+import { useState } from "react";
 import useSWRMutation from "swr/mutation";
 
-import { useState } from "react";
 import { useSubscription } from ".";
 import { AUTH_REQUIRED, TOKEN_UNAVAILABLE } from "./useCheckout";
 

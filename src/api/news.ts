@@ -1,4 +1,5 @@
 import { NewsDetailResponse, NewsListResponse } from "@/types/news";
+
 import { serverFetch } from "./http";
 import { ApiResponse } from "./types";
 
@@ -9,7 +10,7 @@ export const getNews = (params?: {
   limit?: number;
 }): Promise<ApiResponse<NewsListResponse>> => {
   const query = new URLSearchParams({
-    ...(params?.categoryId && { categoryId: String(params.categoryId) }),
+    ...(params?.categoryId && { category: String(params?.categoryId) }),
     ...(params?.date && { date: params.date }),
     ...(params?.page && { page: String(params.page) }),
     ...(params?.limit && { limit: String(params.limit) }),

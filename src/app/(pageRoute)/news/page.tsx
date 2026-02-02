@@ -9,7 +9,7 @@ export const metadata = seo({
 });
 
 const NewsPage = async () => {
-  const response = await getNews({});
+  const response = await getNews({ categoryId: 1, limit: 20 });
   const newsList = response?.data;
 
   if (!Array.isArray(newsList) || newsList.length === 0) {
@@ -24,4 +24,3 @@ const NewsPage = async () => {
 };
 
 export default NewsPage;
-

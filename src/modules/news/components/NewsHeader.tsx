@@ -1,12 +1,12 @@
 "use client";
 
-import React, { useRef } from "react";
 import {
   ChevronLeft,
   ChevronRight,
   Calendar as CalendarIcon,
   Trophy,
 } from "lucide-react";
+import React, { useRef } from "react";
 
 interface NewsHeaderProps {
   selectedDate: Date;
@@ -39,7 +39,6 @@ const NewsHeader: React.FC<NewsHeaderProps> = ({
 
   return (
     <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between border-b border-white/10 pb-6">
-      {/* Left */}
       <div className="flex items-center gap-4">
         <div className="bg-blue-600 p-2.5 rounded-xl shadow-lg shadow-blue-500/20">
           <Trophy className="text-white" size={28} />
@@ -57,7 +56,6 @@ const NewsHeader: React.FC<NewsHeaderProps> = ({
         </div>
       </div>
 
-      {/* Right */}
       <div className="flex items-center">
         <div className="flex items-center bg-[#0f172a] border border-white/10 rounded-full p-1 shadow-2xl">
           <button
@@ -82,9 +80,7 @@ const NewsHeader: React.FC<NewsHeaderProps> = ({
               type="date"
               className="absolute inset-0 opacity-0 pointer-events-none"
               value={selectedDate.toISOString().split("T")[0]}
-              onChange={(e) =>
-                onDateChange(new Date(e.target.value))
-              }
+              onChange={(e) => onDateChange(new Date(e.target.value))}
             />
           </div>
 
