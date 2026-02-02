@@ -50,7 +50,7 @@ const PricingPlans: React.FC<Props> = ({ plans, subscription, isVip }) => {
               highlight={plan.billingCycle === "quarterly"}
               monthlyAmount={monthlyPlan?.amount}
               expiryAt={
-                state === "current"
+                state === "current" || state === "cancelled"
                   ? (subscription?.current_period_end ?? null)
                   : null
               }

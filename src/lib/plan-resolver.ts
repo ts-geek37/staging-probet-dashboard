@@ -1,7 +1,12 @@
 import { BillingCycle, Plan } from "@/types/prices";
 import { Subscription } from "@/types/subscription";
 
-export type PlanUIState = "available" | "current" | "disabled" | "active";
+export type PlanUIState =
+  | "available"
+  | "current"
+  | "disabled"
+  | "active"
+  | "cancelled";
 
 export const derivePlanState = (
   plan: Plan,
@@ -10,15 +15,20 @@ export const derivePlanState = (
   if (!subscription || !subscription.is_vip) {
     return "available";
   }
-  const hasPlan =
-    subscription.status === "active" ||
-    subscription.status === "cancel_at_period_end";
-  if (!hasPlan) {
-    return "disabled";
+
+  if (subscription.status === "cancel_at_period_end") {
+    return subscription.billing_cycle === plan.billingCycle
+      ? "cancelled"
+      : "active";
   }
-  return subscription.billing_cycle === plan.billingCycle
-    ? "current"
-    : "active";
+
+  if (subscription.status === "active") {
+    return subscription.billing_cycle === plan.billingCycle
+      ? "current"
+      : "active";
+  }
+
+  return "disabled";
 };
 
 export const formatPrice = (amount: number, currency: string): string => {

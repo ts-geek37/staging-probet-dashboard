@@ -96,7 +96,7 @@ const PlanCard: React.FC<Props> = ({
         ))}
       </ul>
 
-      {expiryAt && state === "current" && (
+      {expiryAt && (state === "current" || state === "cancelled") && (
         <p className="mb-3 text-xs font-semibold text-primary-red/60">
           Current plan expires: {formatDate24h(expiryAt)}
         </p>

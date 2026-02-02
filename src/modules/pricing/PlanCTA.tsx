@@ -34,8 +34,8 @@ const PlanCTA: React.FC<PlanCTAProps> = ({
           description={
             <>
               Your subscription will remain active until{" "}
-              <span className="font-semibold">{formattedDate}</span>.
-              If you cancel it,{" "}
+              <span className="font-semibold">{formattedDate}</span>. If you
+              cancel it,{" "}
               <span className="font-semibold">
                 No recurring payment will be charged
               </span>{" "}
@@ -77,6 +77,16 @@ const PlanCTA: React.FC<PlanCTAProps> = ({
             <Lock className="size-5 text-primary-green" />
             Locked During Active Period
           </span>
+        </Button>
+      );
+
+    case "cancelled":
+      return (
+        <Button
+          disabled
+          className="w-full rounded-lg bg-slate-800 px-4 py-3 text-sm font-medium text-slate-500"
+        >
+          Cancelled
         </Button>
       );
 
