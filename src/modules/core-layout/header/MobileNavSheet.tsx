@@ -1,10 +1,9 @@
-"use client";
-
-import { UserButton, useUser } from "@clerk/nextjs";
+import { useUser } from "@clerk/nextjs";
 import { Menu, X } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
 
+import AppUserButton from "@/components/AppUserButton";
 import { Button } from "@/components/ui/button";
 import {
   Sheet,
@@ -65,8 +64,8 @@ const MobileNavSheet: React.FC<Props> = ({
 
         <nav className="flex flex-col gap-4 ">
           {user && (
-            <div className="size-8 sm:hidden">
-              <UserButton />
+            <div className="size-8 sm:hidden px-2">
+              <AppUserButton />
             </div>
           )}
           {links.map((link) => {

@@ -1,7 +1,8 @@
-import { UserButton, useUser } from "@clerk/nextjs";
+import { useUser } from "@clerk/nextjs";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
+import AppUserButton from "@/components/AppUserButton";
 import { useSubscription } from "@/context";
 import { cn } from "@/lib/utils";
 import { vipLink } from "@/modules/core-layout/constant";
@@ -41,12 +42,19 @@ const VipSection: React.FC<VipSectionProps> = ({ onNavigate }) => {
               : "text-primary-yellow",
           )}
         />
-        <span className={cn("text-base font-semibold", isVip ? "md:hidden" : "block")}>{vipLink.name}</span>
+        <span
+          className={cn(
+            "text-base font-semibold",
+            isVip ? "md:hidden" : "block",
+          )}
+        >
+          {vipLink.name}
+        </span>
       </Link>
 
       {user ? (
         <div className="hidden sm:block">
-          <UserButton />
+          <AppUserButton />
         </div>
       ) : (
         <Button

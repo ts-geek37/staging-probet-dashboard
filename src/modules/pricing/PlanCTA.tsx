@@ -1,11 +1,10 @@
 import { Lock } from "lucide-react";
 
-import { ConfirmationPopUp } from "@/components/ConfirmationPopUp";
 import { Button } from "@/components/ui/button";
-import { formatDate24h, PlanUIState } from "@/lib/plan-resolver";
+import { PlanUIState } from "@/lib/plan-resolver";
 import { BillingCycle } from "@/types/prices";
 
-import { useCancelSubscription, useCheckout } from "../billing/hooks";
+import { useCheckout } from "../billing/hooks";
 
 type PlanCTAProps = {
   state: PlanUIState;
@@ -20,40 +19,22 @@ const PlanCTA: React.FC<PlanCTAProps> = ({
   isSignedIn,
   billingCycle,
   onSignIn,
-  expiryAt,
 }) => {
   const { checkout, loading, error } = useCheckout();
-  const { cancelSubscription, isCancelling } = useCancelSubscription();
 
   switch (state) {
     case "current":
-      const formattedDate = formatDate24h(expiryAt);
       return (
-        <ConfirmationPopUp
-          title="Cancel your subscription?"
-          description={
-            <>
-              Your subscription will remain active until{" "}
-              <span className="font-semibold">{formattedDate}</span>. If you
-              cancel it,{" "}
-              <span className="font-semibold">
-                No recurring payment will be charged
-              </span>{" "}
-              for the next cycle.
-            </>
-          }
-          onConfirm={async () => {
-            await cancelSubscription();
-          }}
-          trigger={
-            <Button
-              disabled={isCancelling}
-              className="w-full rounded-lg bg-slate-800 px-4 py-3 text-sm font-medium text-slate-400"
-            >
-              {isCancelling ? "Cancelling..." : "Cancel Plan"}
-            </Button>
-          }
-        />
+        <Button
+          disabled
+          variant="green"
+          className="w-full rounded-lg px-4 py-3 text-sm font-medium disabled:opacity-90"
+        >
+          <span className="flex items-center justify-center gap-2 text-white text-sm">
+            <Lock className="size-5 text-primary-green" />
+            Current Plan
+          </span>
+        </Button>
       );
 
     case "disabled":
@@ -86,7 +67,10 @@ const PlanCTA: React.FC<PlanCTAProps> = ({
           disabled
           className="w-full rounded-lg bg-slate-800 px-4 py-3 text-sm font-medium text-slate-500"
         >
-          Cancelled
+          <span className="flex items-center justify-center gap-2 text-white text-sm">
+            <Lock className="size-5 text-primary-green" />
+            Cancelled
+          </span>
         </Button>
       );
 
