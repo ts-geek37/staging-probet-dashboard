@@ -15,13 +15,17 @@ export interface NewsDetail extends NewsItem {
   html_content: string;
   html_content_scripts: string;
 }
-
-export interface NewsListResponse {
+export interface Pagination {
   page: number;
   limit: number;
   total: number;
-  appliedFilter: "category" | "date";
+  totalPages: number;
+  appliedFilter?: "category" | "date";
+}
+
+export interface NewsListResponse {
   data: NewsItem[];
+  pagination: Pagination;
 }
 
 export type NewsDetailResponse = {

@@ -95,7 +95,7 @@ const NewsDetail: React.FC<Props> = ({ news, relatedNews }) => {
                     image={item.image}
                     // alias={item.alias}
                     // original_url={item.original_url}
-                    lang={item.lang}
+              
                     published_at={item.published_at}
                   />
                 </div>

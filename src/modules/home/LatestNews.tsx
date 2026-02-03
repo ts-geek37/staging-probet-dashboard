@@ -37,11 +37,8 @@ const LatestNews: React.FC<Props> = ({ news }) => {
             <Link href={`/news/${mainNews.id}`}>
               <NewsCard
                 id={Number(mainNews?.id)}
-                lang={mainNews?.excerpt}
                 title={mainNews.title}
-                // excerpt={mainNews.excerpt}
                 image={mainNews.image}
-                // category={mainNews.category}
                 published_at={mainNews.published_at}
                 isMain
               />
@@ -52,10 +49,8 @@ const LatestNews: React.FC<Props> = ({ news }) => {
               <Link key={item.id} href={`/news/${item.id}`}>
                 <NewsCard
                   id={Number(item?.id)}
-                  lang={item?.excerpt}
                   title={item.title}
                   image={item.image}
-                  // category={item.category}
                   published_at={item.published_at}
                 />
               </Link>

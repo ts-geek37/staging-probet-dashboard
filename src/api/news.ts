@@ -1,23 +1,26 @@
-import { NewsDetailResponse, NewsListResponse } from "@/types/news";
+import { NewsDetailResponse, NewsItem } from "@/types/news";
 
 import { serverFetch } from "./http";
-import { ApiResponse } from "./types";
+import { ApiResponse, PaginatedApiResponse } from "./types";
 
 export const getNews = (params?: {
   categoryId?: number;
   date?: string;
   page?: number;
   limit?: number;
-}): Promise<ApiResponse<NewsListResponse>> => {
+}): Promise<PaginatedApiResponse<NewsItem[]>> => {
   const query = new URLSearchParams({
-    ...(params?.categoryId && { category: String(params?.categoryId) }),
+    ...(params?.categoryId && { category: String(params.categoryId) }),
     ...(params?.date && { date: params.date }),
     ...(params?.page && { page: String(params.page) }),
     ...(params?.limit && { limit: String(params.limit) }),
   });
 
-  return serverFetch<NewsListResponse>(`/api/v2/news?${query.toString()}`);
+  return serverFetch<NewsItem[]>(`/api/v2/news?${query.toString()}`) as Promise<
+    PaginatedApiResponse<NewsItem[]>
+  >;
 };
+
 export const getNewsDetails = (
   id: number | string,
 ): Promise<ApiResponse<NewsDetailResponse>> => {

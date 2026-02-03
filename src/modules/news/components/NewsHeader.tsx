@@ -38,40 +38,39 @@ const NewsHeader: React.FC<NewsHeaderProps> = ({
   };
 
   return (
-    <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between border-b border-white/10 pb-6">
-      <div className="flex items-center gap-4">
-        <div className="bg-blue-600 p-2.5 rounded-xl shadow-lg shadow-blue-500/20">
-          <Trophy className="text-white" size={28} />
+    <div className="flex flex-row items-center justify-between border-b border-primary-gray/20 pb-6 gap-2">
+      <div className="flex items-center gap-3 md:gap-4">
+        <div className="bg-primary-green p-2 md:p-2.5 rounded-xl shadow-lg shadow-primary-green/20 shrink-0">
+          <Trophy className="text-white" size={24} />
         </div>
         <div>
-          <h2 className="text-3xl font-black tracking-tight text-white uppercase sm:text-4xl leading-none">
-            Football <span className="text-blue-500">News</span>
+          <h2 className="text-lg sm:text-3xl font-black tracking-tight text-white uppercase leading-none">
+            Football <span className="text-primary-green">News</span>
           </h2>
           <div className="flex items-center gap-2 mt-1">
-            <span className="h-2 w-2 rounded-full bg-green-500 animate-pulse" />
-            <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-gray-500">
-              Live Headlines
+            <span className="h-1.5 w-1.5 rounded-full bg-primary-green animate-pulse" />
+            <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-primary-gray">
+              Football Insights
             </p>
           </div>
         </div>
       </div>
 
-      <div className="flex items-center">
-        <div className="flex items-center bg-[#0f172a] border border-white/10 rounded-full p-1 shadow-2xl">
+      <div className="flex items-center shrink-0">
+        <div className="flex items-center bg-card border border-primary-gray/20 rounded-full p-1 shadow-2xl">
           <button
             onClick={() => handleAdjustDate(-1)}
-            className="p-2 text-gray-400 hover:text-white transition-colors"
+            className="hidden md:block p-2 text-gray-400 hover:text-white"
           >
             <ChevronLeft size={18} />
           </button>
 
-          {/* Click anywhere → open calendar */}
           <div
             onClick={openCalendar}
-            className="relative flex items-center px-3 gap-2 cursor-pointer select-none"
+            className="relative flex items-center px-2 md:px-3 gap-2 cursor-pointer select-none"
           >
-            <CalendarIcon size={16} className="text-blue-500" />
-            <span className="text-sm font-bold text-gray-200 whitespace-nowrap">
+            <CalendarIcon size={18} className="text-primary-green" />
+            <span className="hidden md:block text-sm font-bold text-white whitespace-nowrap">
               {formatDisplayDate(selectedDate)}
             </span>
 
@@ -86,7 +85,7 @@ const NewsHeader: React.FC<NewsHeaderProps> = ({
 
           <button
             onClick={() => handleAdjustDate(1)}
-            className="p-2 text-gray-400 hover:text-white transition-colors"
+            className="hidden md:block p-2 text-primary-gray hover:text-white transition-colors"
           >
             <ChevronRight size={18} />
           </button>
