@@ -27,23 +27,29 @@ const PlanCTA: React.FC<PlanCTAProps> = ({
   switch (state) {
     case "current":
       return (
-        <Button
-          disabled
-          variant="green"
-          className="w-full flex-col h-auto rounded-lg px-4 py-3 text-sm font-medium disabled:opacity-90"
-        >
-          <span className="flex items-center justify-center gap-2 text-white text-sm">
-            <Lock className="size-5 text-primary-green" />
-            Current Plan
-          </span>
-          {expiryAt && (
-            <span className="text-xs text-white uppercase tracking-wider mt-1">
-              Expires: {formatDateOnly(expiryAt)}
-            </span>
-          )}
-        </Button>
-      );
+        <div className="group relative overflow-hidden rounded-2xl pt-2 ">
+          <div className="relative flex flex-col items-center gap-3 rounded-[14px] bg-card p-2 py-3 border border-primary-gray/20 min-h-25">
+            <div className="flex items-center gap-1.5 rounded-full bg-primary-green/10 px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-primary-green ring-1 ring-inset ring-primary-green/20">
+              <span className="relative flex h-2 w-2">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary-green opacity-75"></span>
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-primary-green"></span>
+              </span>
+              Active Now
+            </div>
 
+            <div className="flex flex-col items-center gap-1">
+              {expiryAt && (
+                <span className="text-center text-xs text-primary-gray">
+                  The current plan expires {" "} <br />
+                  <span className="text-white">
+                   on {formatDateOnly(expiryAt)}
+                  </span>
+                </span>
+              )}
+            </div>
+          </div>
+        </div>
+      );
     case "disabled":
       return (
         <Button
@@ -56,36 +62,41 @@ const PlanCTA: React.FC<PlanCTAProps> = ({
       );
     case "active":
       return (
-        <Button
-          disabled
-          variant="green"
-          className="w-full rounded-lg px-4 py-3 text-sm font-medium disabled:opacity-90"
-        >
-          <span className="flex items-center justify-center gap-2 text-white text-sm">
-            <Lock className="size-5 text-primary-green" />
-            Locked During Active Period
-          </span>
-        </Button>
+        <div className="group relative mt-2 overflow-hidden rounded-2xl border border-primary-gray/20">
+          <div className="relative flex flex-col items-center gap-3 rounded-[15px] bg-card p-3 py-3">
+            <div className="flex items-center gap-1.5 rounded-full bg-slate-500/10 p-2 text-[10px] font-bold uppercase tracking-wider text-primary-gray ring-1 ring-inset ring-slate-500/20">
+              <Lock className="size-3" />
+              Plan Locked
+            </div>
+
+            <div className="flex flex-col items-center gap-1 text-center">
+              <p className="max-w-50 text-xs leading-snug text-primary-gray">
+                This option is restricted while your <br />
+                <span className="text-primary-green/70">
+                  active subscription
+                </span>{" "}
+                is in effect.
+              </p>
+            </div>
+          </div>
+        </div>
       );
 
     case "cancelled":
       return (
-        <Button
-          disabled
-          className="w-full h-auto flex-col rounded-lg bg-slate-800 px-4 py-3 text-sm font-medium text-slate-500"
-        >
-          <span className="flex items-center justify-center gap-2 text-white text-sm">
-            <Lock className="size-5 text-primary-green" />
-            Cancelled
-          </span>
-          {expiryAt && (
-            <span className="text-xs text-white uppercase tracking-wider mt-1">
-              Access until: {formatDateOnly(expiryAt)}
-            </span>
-          )}
-        </Button>
-      );
+        <div className="group relative overflow-hidden rounded-2xl border border-primary-gray/20 mt-2">
+          <div className="relative flex flex-col items-center gap-3 rounded-[15px] bg-card p-2 py-4 backdrop-blur-md">
+            <div className="flex items-center gap-1.5 rounded-full bg-red-500/10 px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-red-400 ring-1 ring-inset ring-red-500/20">
+              Cancelled
+            </div>
 
+            <p className="text-center text-xs leading-relaxed text-primary-gray">
+              You still have full access to all features <br /> until the date{" "}
+              <span className="text-white">{formatDateOnly(expiryAt)}</span>
+            </p>
+          </div>
+        </div>
+      );
     case "available":
       if (!isSignedIn) {
         return (
