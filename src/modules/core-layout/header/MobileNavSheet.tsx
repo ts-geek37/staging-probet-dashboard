@@ -57,14 +57,28 @@ const MobileNavSheet: React.FC<Props> = ({
         className="border-primary-gray/20 w-75 sm:w-87.5 p-4"
       >
         <SheetClose asChild className="absolute top-2 right-5">
-          <Button variant="ghost" size="icon" aria-label="Close">
+          <Button
+            variant="ghost"
+            size="icon"
+            aria-label="Close"
+            onClick={(e) => {
+              e.stopPropagation();
+              setOpen(false);
+            }}
+          >
             <X className="w-5 h-5 text-white" />
           </Button>
         </SheetClose>
 
         <nav className="flex flex-col gap-4 ">
           {user && (
-            <div className="size-8 sm:hidden px-2">
+            <div
+              className="sm:hidden px-2"
+              onClick={(e) => {
+                e.stopPropagation();
+              }}
+              style={{ isolation: "isolate", pointerEvents: "auto" }}
+            >
               <AppUserButton />
             </div>
           )}
@@ -75,7 +89,10 @@ const MobileNavSheet: React.FC<Props> = ({
               <Link
                 key={link.name}
                 href={link.href}
-                onClick={() => setOpen(false)}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setOpen(false);
+                }}
                 className={cn(
                   "flex items-center gap-3 py-2 rounded-lg transition-colors",
                   "text-gray-300 hover:text-white hover:bg-gray-800",

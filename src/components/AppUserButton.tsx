@@ -16,7 +16,19 @@ const AppUserButton = () => {
 
   return (
     <>
-      <UserButton>
+      <UserButton
+        appearance={{
+          elements: {
+            userButtonPopoverCard: {
+              pointerEvents: "auto",
+              zIndex: 9999,
+            },
+            userButtonPopoverActionButton: {
+              pointerEvents: "auto",
+            },
+          },
+        }}
+      >
         {isVip && (
           <UserButton.MenuItems>
             <UserButton.Action
