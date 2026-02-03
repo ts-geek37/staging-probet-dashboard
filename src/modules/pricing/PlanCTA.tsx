@@ -37,7 +37,7 @@ const PlanCTA: React.FC<PlanCTAProps> = ({
             Current Plan
           </span>
           {expiryAt && (
-            <span className="text-[10px] text-white/70 uppercase tracking-wider mt-1">
+            <span className="text-sm text-white/70 uppercase tracking-wider mt-1">
               Expires: {formatDateOnly(expiryAt)}
             </span>
           )}
@@ -79,7 +79,7 @@ const PlanCTA: React.FC<PlanCTAProps> = ({
             Cancelled
           </span>
           {expiryAt && (
-            <span className="text-[10px] text-white/50 uppercase tracking-wider mt-1">
+            <span className="text-sm text-white/50 uppercase tracking-wider mt-1">
               Access until: {formatDateOnly(expiryAt)}
             </span>
           )}
