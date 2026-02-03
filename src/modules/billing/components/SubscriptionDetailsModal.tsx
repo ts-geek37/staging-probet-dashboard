@@ -16,12 +16,19 @@ import {
 import { useSubscription } from "@/context";
 import { formatDate24h } from "@/lib/plan-resolver";
 
+import { BillingCycle } from "@/types/prices";
 import { useCancelSubscription } from "../hooks";
 
 interface SubscriptionDetailsModalProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
 }
+const BILLING_CYCLE_LABEL: Record<BillingCycle, string> = {
+  monthly: "Monthly",
+  quarterly: "Quarterly",
+  semi_annual: "Semi Annual",
+  yearly: "Yearly",
+};
 
 const SubscriptionDetailsModal: React.FC<SubscriptionDetailsModalProps> = ({
   open,
@@ -36,8 +43,7 @@ const SubscriptionDetailsModal: React.FC<SubscriptionDetailsModalProps> = ({
 
   const formattedDate = formatDate24h(subscription.current_period_end);
   const planName = subscription.billing_cycle
-    ? subscription.billing_cycle.charAt(0).toUpperCase() +
-      subscription.billing_cycle.slice(1)
+    ? BILLING_CYCLE_LABEL[subscription.billing_cycle]
     : "Active";
 
   const isCancelled = subscription.status === "cancel_at_period_end";
@@ -45,14 +51,14 @@ const SubscriptionDetailsModal: React.FC<SubscriptionDetailsModalProps> = ({
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent
-        className="sm:max-w-[425px] border-primary-green"
+        className="sm:max-w-[525px] border-primary-green max-sm:px-4 "
         showCloseButton={false}
       >
         <DialogClose className="absolute top-4 right-4 text-gray-300 hover:text-white border-none bg-transparent outline-none focus:ring-0 focus:ring-offset-0 focus-visible:ring-0 focus-visible:outline-none">
           <XIcon />
           <span className="sr-only">Close</span>
         </DialogClose>
-        <DialogHeader>
+        <DialogHeader className="text-left">
           <DialogTitle className="text-xl font-bold text-white">
             Current Subscription
           </DialogTitle>
@@ -62,18 +68,32 @@ const SubscriptionDetailsModal: React.FC<SubscriptionDetailsModalProps> = ({
         </DialogHeader>
 
         <div className="space-y-4 py-4">
-          <div className="flex justify-between items-center p-3 rounded-lg bg-gray-800/50 border border-gray-700">
-            <div>
-              <p className="text-sm font-medium text-gray-400">Plan</p>
-              <p className="text-lg font-semibold text-white">{planName} VIP</p>
-            </div>
-            <div className="text-right">
-              <p className="text-sm font-medium text-gray-400">
-                {isCancelled ? "Ends on" : "Renews on"}
-              </p>
-              <p className="text-sm font-semibold text-primary-green">
-                {formattedDate}
-              </p>
+          <div className="rounded-lg bg-gray-800/50 border border-gray-700 p-3">
+            <div className="flex flex-col gap-2 sm:gap-3">
+              <div className="flex justify-between text-xs font-medium text-gray-400 sm:hidden">
+                <span>Plan</span>
+                <span>{isCancelled ? "Ends on" : "Renews on"}</span>
+              </div>
+
+              <div className="flex justify-between items-center">
+                <div>
+                  <p className="hidden sm:block text-sm font-medium text-gray-400">
+                    Plan
+                  </p>
+                  <p className="text-base sm:text-lg font-semibold text-white">
+                    {planName} VIP
+                  </p>
+                </div>
+
+                <div className="text-right">
+                  <p className="hidden sm:block text-sm font-medium text-gray-400">
+                    {isCancelled ? "Ends on" : "Renews on"}
+                  </p>
+                  <p className="text-xs sm:text-sm font-semibold text-primary-green">
+                    {formattedDate}
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
 
