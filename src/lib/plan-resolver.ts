@@ -92,3 +92,15 @@ export const formatDate24h = (
     hour12: false,
   }).format(date);
 };
+
+export const formatDateOnly = (
+  dateString: string | null | undefined,
+): string => {
+  if (!dateString) return "";
+  const date = new Date(dateString);
+  return new Intl.DateTimeFormat("en-GB", {
+    day: "2-digit",
+    month: "short",
+    year: "numeric",
+  }).format(date);
+};

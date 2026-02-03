@@ -10,6 +10,7 @@ import {
   Sheet,
   SheetClose,
   SheetContent,
+  SheetDescription,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
@@ -91,6 +92,9 @@ const TabNavigation = <T extends string | number>({
               <SheetTitle className="text-primary-green text-lg">
                 Select Tab
               </SheetTitle>
+              <SheetDescription className="sr-only">
+                Change the active view by selecting a tab from the list below.
+              </SheetDescription>
               <SheetClose asChild>
                 <Button variant="ghost" size="icon" aria-label="Close">
                   <X className="size-5 text-white" />

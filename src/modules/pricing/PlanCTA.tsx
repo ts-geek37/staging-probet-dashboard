@@ -1,7 +1,8 @@
 import { Lock } from "lucide-react";
+import React from "react";
 
 import { Button } from "@/components/ui/button";
-import { PlanUIState } from "@/lib/plan-resolver";
+import { formatDateOnly, PlanUIState } from "@/lib/plan-resolver";
 import { BillingCycle } from "@/types/prices";
 
 import { useCheckout } from "../billing/hooks";
@@ -19,6 +20,7 @@ const PlanCTA: React.FC<PlanCTAProps> = ({
   isSignedIn,
   billingCycle,
   onSignIn,
+  expiryAt,
 }) => {
   const { checkout, loading, error } = useCheckout();
 
@@ -28,12 +30,17 @@ const PlanCTA: React.FC<PlanCTAProps> = ({
         <Button
           disabled
           variant="green"
-          className="w-full rounded-lg px-4 py-3 text-sm font-medium disabled:opacity-90"
+          className="w-full flex-col h-auto rounded-lg px-4 py-3 text-sm font-medium disabled:opacity-90"
         >
           <span className="flex items-center justify-center gap-2 text-white text-sm">
             <Lock className="size-5 text-primary-green" />
             Current Plan
           </span>
+          {expiryAt && (
+            <span className="text-[10px] text-white/70 uppercase tracking-wider mt-1">
+              Expires: {formatDateOnly(expiryAt)}
+            </span>
+          )}
         </Button>
       );
 
@@ -65,12 +72,17 @@ const PlanCTA: React.FC<PlanCTAProps> = ({
       return (
         <Button
           disabled
-          className="w-full rounded-lg bg-slate-800 px-4 py-3 text-sm font-medium text-slate-500"
+          className="w-full h-auto flex-col rounded-lg bg-slate-800 px-4 py-3 text-sm font-medium text-slate-500"
         >
           <span className="flex items-center justify-center gap-2 text-white text-sm">
             <Lock className="size-5 text-primary-green" />
             Cancelled
           </span>
+          {expiryAt && (
+            <span className="text-[10px] text-white/50 uppercase tracking-wider mt-1">
+              Access until: {formatDateOnly(expiryAt)}
+            </span>
+          )}
         </Button>
       );
 

@@ -9,6 +9,8 @@ import {
   Sheet,
   SheetClose,
   SheetContent,
+  SheetDescription,
+  SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { cn } from "@/lib/utils";
@@ -56,6 +58,10 @@ const MobileNavSheet: React.FC<Props> = ({
         side="right"
         className="border-primary-gray/20 w-75 sm:w-87.5 p-4"
       >
+        <SheetTitle className="sr-only">Navigation Menu</SheetTitle>
+        <SheetDescription className="sr-only">
+          Access site links and user platform settings.
+        </SheetDescription>
         <SheetClose asChild className="absolute top-2 right-5">
           <Button
             variant="ghost"
