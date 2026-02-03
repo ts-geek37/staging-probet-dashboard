@@ -1,5 +1,6 @@
 "use client";
 
+import { XIcon } from "lucide-react";
 import React from "react";
 
 import { ConfirmationPopUp } from "@/components/ConfirmationPopUp";
@@ -15,7 +16,6 @@ import {
 import { useSubscription } from "@/context";
 import { formatDate24h } from "@/lib/plan-resolver";
 
-import { XIcon } from "lucide-react";
 import { useCancelSubscription } from "../hooks";
 
 interface SubscriptionDetailsModalProps {
