@@ -229,7 +229,7 @@
 .news-content h2,
 .news-content h3,
 .news-content h4 {
-  color: var(--primary-yellow);
+  color: var(--primary-green);
   font-weight: 700;
   text-transform: uppercase;
   margin-top: 2rem;

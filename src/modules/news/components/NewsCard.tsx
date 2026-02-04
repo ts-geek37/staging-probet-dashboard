@@ -1,10 +1,11 @@
 "use client";
 
+import Image from "next/image";
+import React from "react";
+
 import { Badge } from "@/components/ui/badge";
 import { Category } from "@/types/news";
 import { formatTimeAgo } from "@/utils/timeAgo";
-import Image from "next/image";
-import React from "react";
 
 interface Props {
   id: number;
@@ -29,7 +30,7 @@ const NewsCard: React.FC<Props> = ({
   categories,
   id,
 }) => {
-  const belowCardHeight = "h-80";
+  const belowCardHeight = "h-85";
   const categoryName = Array.isArray(categories)
     ? categories[0]?.name
     : categories?.name;
@@ -64,9 +65,9 @@ const NewsCard: React.FC<Props> = ({
             {title}
           </h3>
           <div className="flex items-center gap-2 text-sm text-primary-gray">
-            <span className="text-primary-yellow">
+            <p className="text-sm font-medium text-primary-green bg-primary-green/10 p-2 rounded-xl w-fit ">
               {formatTimeAgo(published_at)}
-            </span>
+            </p>
           </div>
         </div>
       </a>
@@ -93,7 +94,7 @@ const NewsCard: React.FC<Props> = ({
         <h4 className="line-clamp-2 text-sm font-semibold text-white pb-1">
           {title}
         </h4>
-        <p className="text-xs text-primary-yellow">
+        <p className="text-sm font-medium text-primary-green bg-primary-green/10 p-2 rounded-xl w-fit ">
           {formatTimeAgo(published_at)}
         </p>
       </a>
@@ -118,13 +119,10 @@ const NewsCard: React.FC<Props> = ({
       <div className="flex flex-col justify-between gap-3 sm:gap-0">
         <div className="flex flex-col items-start gap-2">
           <h4 className="text-sm font-semibold text-white">{title}</h4>
-          <Badge variant="yellow" className="text-xs">
+          <Badge variant="green" className="text-xs">
             {categoryName ?? "News"}
           </Badge>
         </div>
-        <p className="text-xs text-primary-yellow">
-          {formatTimeAgo(published_at)}
-        </p>
       </div>
     </a>
   );

@@ -14,7 +14,7 @@ const NewsMeta: FC<NewsMetaProps> = ({ news, className = "" }) => {
   return (
     <div className={`flex flex-col gap-4 ${className}`}>
       <Badge
-        variant="yellow"
+        variant="green"
         className="font-bold text-xs md:text-sm uppercase tracking-widest"
       >
         {news?.categories?.[0]?.name ?? "News"}
@@ -25,7 +25,7 @@ const NewsMeta: FC<NewsMetaProps> = ({ news, className = "" }) => {
       </h1>
 
       {news?.published_at && (
-        <div className="flex items-center gap-2 text-primary-yellow font-medium text-sm md:text-base">
+        <div className="flex items-center gap-2 text-primary-green font-medium text-sm md:text-base">
           <Clock className="w-4 h-4 md:w-5 md:h-5" />
           <span>{formatTimeAgo(news?.published_at)}</span>
         </div>

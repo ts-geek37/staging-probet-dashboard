@@ -19,7 +19,7 @@ const NewsDetail: React.FC<Props> = ({ news, relatedNews }) => {
     () => sanitizeAndStyleHTML(news.html_content),
     [news.html_content],
   );
-  console.log("🚀 ~ NewsDetail ~ sanitizedContent:", sanitizedContent)
+  console.log("🚀 ~ NewsDetail ~ sanitizedContent:", sanitizedContent);
   const haveRelatedNews = relatedNews?.length > 0;
   const [imageError, setImageError] = useState(false);
 
@@ -80,20 +80,20 @@ const NewsDetail: React.FC<Props> = ({ news, relatedNews }) => {
             haveRelatedNews ? "lg:grid-cols-[2fr_1fr]" : "",
           )}
         >
-            <article className="text-white">
-              <div
-                className="news-content"
-                dangerouslySetInnerHTML={{ __html: sanitizedContent }}
-              />
-            </article>
+          <article className="text-white">
+            <div
+              className="news-content"
+              dangerouslySetInnerHTML={{ __html: sanitizedContent }}
+            />
+          </article>
 
           {haveRelatedNews && (
             <div className="lg:sticky lg:top-6 self-start">
               <div className="flex flex-col gap-3 mb-6">
-                <h2 className="text-xl md:text-2xl font-bold text-primary-yellow uppercase italic">
+                <h2 className="text-xl md:text-2xl font-bold text-primary-green uppercase italic">
                   Related News
                 </h2>
-                <div className="h-px bg-primary-yellow/40 w-full" />
+                <div className="h-px bg-primary-green/40 w-full" />
               </div>
 
               <div className="flex flex-wrap lg:flex-col gap-6 justify-center sm:justify-start">

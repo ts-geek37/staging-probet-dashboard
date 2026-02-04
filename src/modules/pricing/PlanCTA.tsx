@@ -102,8 +102,8 @@ const PlanCTA: React.FC<PlanCTAProps> = ({
         return (
           <Button
             onClick={onSignIn}
-            variant="green"
-            className="w-full rounded-lg px-4 py-3 text-sm font-medium transition text-white/80 group-hover:text-white"
+            variant="outline"
+            className="w-full rounded-lg px-4 py-5 text-sm font-medium border-primary-gray/20 hover:text-white hover:bg-black/80 text-white/90 mt-4"
           >
             Sign in to continue
           </Button>
