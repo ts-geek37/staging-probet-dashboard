@@ -2,7 +2,7 @@ import { Clock } from "lucide-react";
 import { FC } from "react";
 
 import { Badge } from "@/components/ui/badge";
-import { NewsDetail as INewsDetail, NewsItem } from "@/types/news";
+import { NewsDetail as INewsDetail } from "@/types/news";
 import { formatTimeAgo } from "@/utils/timeAgo";
 
 interface NewsMetaProps {
@@ -15,12 +15,12 @@ const NewsMeta: FC<NewsMetaProps> = ({ news, className = "" }) => {
     <div className={`flex flex-col gap-4 ${className}`}>
       <Badge
         variant="yellow"
-        className="font-bold text-xs md:text-sm uppercase tracking-[0.2em] w-fit"
+        className="font-bold text-xs md:text-sm uppercase tracking-widest"
       >
-        {news?.categories?.[0] ?? "News"}
+        {news?.categories?.[0]?.name ?? "News"}
       </Badge>
 
-      <h1 className="text-3xl md:text-5xl lg:text-6xl font-black text-white leading-tight uppercase italic">
+      <h1 className="text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-black text-white leading-tight uppercase italic">
         {news?.title}
       </h1>
 

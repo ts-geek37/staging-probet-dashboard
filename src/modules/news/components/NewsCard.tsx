@@ -1,5 +1,8 @@
 "use client";
 
+import { Badge } from "@/components/ui/badge";
+import { Category } from "@/types/news";
+import { formatTimeAgo } from "@/utils/timeAgo";
 import Image from "next/image";
 import React from "react";
 
@@ -11,6 +14,7 @@ interface Props {
   original_url?: string;
   isMain?: boolean;
   isBelow?: boolean;
+  categories?: Category | Category[];
   containerClass?: string;
 }
 
@@ -22,6 +26,8 @@ const NewsCard: React.FC<Props> = ({
   isMain = false,
   isBelow = false,
   containerClass = "",
+  categories,
+  id,
 }) => {
   const belowCardHeight = "h-80";
 
@@ -39,7 +45,7 @@ const NewsCard: React.FC<Props> = ({
             alt={title}
             width={1300}
             height={900}
-            className="object-cover transition-transform duration-700 group-hover:scale-105"
+            className="h-full w-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
             priority
           />
           <div className="absolute inset-0 bg-linear-to-t from-[#0B0E14] via-[#0B0E14]/60 to-transparent" />
@@ -86,15 +92,17 @@ const NewsCard: React.FC<Props> = ({
       </a>
     );
   }
+  const categoryName = Array.isArray(categories)
+    ? categories[0]?.name
+    : categories?.name;
 
   return (
     <a
-      href={original_url}
-      target="_blank"
+      href={`/news/${id}`}
       rel="noopener noreferrer"
-      className={`flex gap-4 rounded-2xl border border-primary-gray/20 bg- p-4 ${belowCardHeight}`}
+      className={`flex gap-4 rounded-2xl border border-primary-gray/20 bg- p-4`}
     >
-      <div className="relative h-36 w-36 shrink-0 overflow-hidden sm:h-36 sm:w-36">
+      <div className="relative aspect-square w-24 sm:w-36 shrink-0 overflow-hidden">
         <Image
           src={image || "/placeholder.png"}
           alt={title}
@@ -103,9 +111,16 @@ const NewsCard: React.FC<Props> = ({
         />
       </div>
 
-      <div className="flex flex-col justify-between">
-        <h4 className="text-sm font-semibold text-white">{title}</h4>
-        <p className="text-xs text-primary-yellow">{published_at}</p>
+      <div className="flex flex-col justify-between gap-3 sm:gap-0">
+        <div className="flex flex-col items-start gap-2">
+          <h4 className="text-sm font-semibold text-white">{title}</h4>
+          <Badge variant="yellow" className="text-xs">
+            {categoryName ?? "News"}
+          </Badge>
+        </div>
+        <p className="text-xs text-primary-yellow">
+          {formatTimeAgo(published_at)}
+        </p>
       </div>
     </a>
   );

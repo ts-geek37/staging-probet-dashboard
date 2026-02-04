@@ -6,11 +6,14 @@ export interface NewsItem {
   original_url: string;
   lang: string;
   published_at: string;
-  categories: number[];
+  categories: Category[];
   leagues: number[];
   teams: number[];
 }
-
+export interface Category {
+  id: number;
+  name: string | null;
+}
 export interface NewsDetail extends NewsItem {
   html_content: string;
   html_content_scripts: string;

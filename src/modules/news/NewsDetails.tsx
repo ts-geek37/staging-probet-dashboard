@@ -23,19 +23,22 @@ const NewsDetail: React.FC<Props> = ({ news, relatedNews }) => {
   const [imageError, setImageError] = useState(false);
 
   return (
-    <section className="w-full">
-      <div className="relative h-[60vh] md:h-[75vh] w-full overflow-hidden bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
+    <section className="w-full h-full">
+      <div className="relative h-[40vh] sm:h-[50vh] overflow-hidden ">
         {!imageError ? (
           <>
             <Image
               src={news?.image}
               alt={news?.title}
-              fill
-              className="object-cover"
+              height={1000}
+              width={1000}
+              className="absolute h-full w-full mx-auto inset-0 object-cover object-center"
               priority
+              quality={100}
+              sizes="100vw"
               onError={() => setImageError(true)}
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-gray-950 via-gray-950/50 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-gray-950 to-transparent" />
           </>
         ) : (
           <>
@@ -66,7 +69,7 @@ const NewsDetail: React.FC<Props> = ({ news, relatedNews }) => {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 py-12 w-full">
         {!imageError && (
-          <div className="py-8 md:py-12 border-b border-gray-800">
+          <div className="pb-8 md:pb-12">
             <NewsMeta news={news} />
           </div>
         )}
@@ -107,9 +110,7 @@ const NewsDetail: React.FC<Props> = ({ news, relatedNews }) => {
                       id={item.id}
                       title={item.title}
                       image={item.image}
-                      // alias={item.alias}
-                      // original_url={item.original_url}
-
+                      categories={item.categories?.[0]}
                       published_at={item.published_at}
                     />
                   </div>
