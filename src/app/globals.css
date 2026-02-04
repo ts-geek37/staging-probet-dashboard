@@ -190,3 +190,132 @@
 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
   background: rgba(255, 255, 255, 0.3);
 }
+
+.news-content {
+  color: var(--primary-gray);
+  line-height: 1.75;
+  font-size: 1rem;
+}
+
+.news-content p {
+  line-height: 1.75;
+  margin-bottom: 1.5rem;
+  font-size: 1.125rem;
+}
+
+.news-content p + p {
+  margin-top: 0;
+}
+
+.news-content p:has(+ p) {
+  margin-bottom: 0.75rem;
+}
+
+.news-content h1,
+.news-content h2,
+.news-content h3,
+.news-content h4 {
+  color: var(--primary-yellow);
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-top: 2rem;
+  letter-spacing: 0.025em;
+}
+
+.news-content h1 {
+  font-size: clamp(1.75rem, 4vw, 2.25rem);
+}
+.news-content h2 {
+  font-size: clamp(1.5rem, 3.5vw, 1.875rem);
+}
+.news-content h3 {
+  font-size: clamp(1.25rem, 3vw, 1.5rem);
+}
+.news-content h4 {
+  font-size: clamp(1.125rem, 2.5vw, 1.25rem);
+}
+
+.news-content strong,
+.news-content b {
+  color: var(--primary-yellow) !important;
+  font-weight: 900 !important;
+}
+
+.news-content em,
+.news-content i {
+  font-style: italic;
+}
+
+.news-content a {
+  color: #01e1fa;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.news-content a:hover {
+  opacity: 0.85;
+}
+
+.news-content ul,
+.news-content ol {
+  list-style-position: outside !important;
+  padding-left: 1.5rem !important;
+  margin-bottom: 1.5rem !important;
+  margin-top: 1rem !important;
+}
+
+.news-content ul {
+  list-style-type: disc !important;
+}
+
+.news-content ol {
+  list-style-type: decimal !important;
+}
+
+.news-content li {
+  color: #d1d5db !important;
+  margin-bottom: 0.75rem !important;
+  padding-left: 0.5rem !important;
+  font-size: 1.125rem !important;
+  line-height: 1.75 !important;
+}
+
+.news-content li strong,
+.news-content li b {
+  color: #ffffff !important;
+}
+
+.news-content blockquote {
+  border-left: 4px solid var(--primary-yellow);
+  background: rgba(20, 24, 31, 0.5);
+  padding: 1.25rem 1.5rem;
+  margin: 1.5rem 0;
+  font-style: italic;
+}
+
+.news-content img {
+  border-radius: 0.5rem !important;
+  margin: 2rem auto !important;
+  max-width: 100% !important;
+  height: auto !important;
+}
+
+.news-content em,
+.news-content i {
+  font-style: italic !important;
+  color: #d1d5db !important;
+}
+.news-content code {
+  background: rgba(20, 24, 31, 0.8);
+  padding: 0.2rem 0.4rem;
+  border-radius: 0.25rem;
+  font-family: ui-monospace, monospace;
+  color: #01e1fa;
+}
+
+.news-content pre {
+  background: rgba(20, 24, 31, 0.8);
+  padding: 1rem;
+  border-radius: 0.5rem;
+  overflow-x: auto;
+}

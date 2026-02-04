@@ -1,7 +1,6 @@
 "use client";
 
 import { useAuth } from "@clerk/nextjs";
-import { useState } from "react";
 import { toast } from "sonner";
 import useSWRMutation from "swr/mutation";
 

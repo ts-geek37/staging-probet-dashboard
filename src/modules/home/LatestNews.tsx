@@ -36,10 +36,9 @@ const LatestNews: React.FC<Props> = ({ news }) => {
           <div className="lg:col-span-2 h-70 sm:h-105">
             <Link href={`/news/${mainNews.id}`}>
               <NewsCard
+                id={Number(mainNews?.id)}
                 title={mainNews.title}
-                excerpt={mainNews.excerpt}
                 image={mainNews.image}
-                category={mainNews.category}
                 published_at={mainNews.published_at}
                 isMain
               />
@@ -49,9 +48,9 @@ const LatestNews: React.FC<Props> = ({ news }) => {
             {sideNews.slice(0, 3).map((item) => (
               <Link key={item.id} href={`/news/${item.id}`}>
                 <NewsCard
+                  id={Number(item?.id)}
                   title={item.title}
                   image={item.image}
-                  category={item.category}
                   published_at={item.published_at}
                 />
               </Link>
