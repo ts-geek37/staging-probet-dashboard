@@ -14,7 +14,7 @@ import React from "react";
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
-interface Item {
+export interface Item {
   id?: number | string;
   label: string;
   value?: string | number | null;
@@ -48,6 +48,21 @@ const TeamProfileOverview: React.FC<Props> = ({
   };
 
   const teamLogo = teamInfo?.[0]?.image;
+  const teamDetails = [
+    {
+      icon: <Calendar size={18} />,
+      label: "Founded",
+      value: teamInfo?.[3]?.value,
+    },
+    {
+      icon: <Globe size={18} />,
+      label: "Country",
+      value: teamInfo?.[2]?.value,
+    },
+  ].filter(
+    (item) =>
+      item.value !== undefined && item.value !== null && item.value !== "",
+  );
 
   return (
     <div className="py-4 space-y-7">
@@ -77,18 +92,7 @@ const TeamProfileOverview: React.FC<Props> = ({
                         {teamInfo?.[0]?.value || "Team Name"}
                       </h2>
                       <div className="hidden sm:grid grid-cols-2 gap-4 mt-6">
-                        {[
-                          {
-                            icon: <Calendar size={18} />,
-                            label: "Founded",
-                            value: teamInfo?.[3]?.value,
-                          },
-                          {
-                            icon: <Globe size={18} />,
-                            label: "Country",
-                            value: teamInfo?.[2]?.value,
-                          },
-                        ].map((item, i) => (
+                        {teamDetails.map((item, i) => (
                           <div
                             key={i}
                             className="flex items-center gap-3 p-3 rounded-xl bg-white/5 border border-primary-gray/20"

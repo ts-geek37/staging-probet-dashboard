@@ -3,6 +3,11 @@ import useSWR from "swr";
 import { ApiResponse } from "@/api/types";
 import { TeamOverviewResponse } from "@/types/teams";
 
+import { Item as OverviewItem } from "../components/TeamProfileOverview";
+
+const mapOverview = (
+  item: OverviewItem | false | null | "",
+): OverviewItem | undefined => (item ? item : undefined);
 export const useTeamOverview = (
   teamId: number,
   initialData?: ApiResponse<TeamOverviewResponse>,
@@ -30,41 +35,28 @@ export const useTeamOverview = (
     };
   }
 
-  const teamInfo = [
-    {
-      label: "Name",
-      value: team.name ?? "N/A",
-      image: team.logo,
-    },
-    {
-      label: "Short Code",
-      value: team.short_code ?? "N/A",
-    },
-    {
-      label: "Country",
-      value: team.country?.name ?? "N/A",
-      image: team.country?.flag,
-    },
-    {
-      label: "Founded",
-      value: team.founded ?? "N/A",
-    },
-  ];
+  const teamInfo: OverviewItem[] = [
+    team.name ? { label: "Name", value: team.name, image: team.logo } : null,
+    team.short_code ? { label: "Short Code", value: team.short_code } : null,
+    team.country?.name
+      ? { label: "Country", value: team.country.name, image: team.country.flag }
+      : null,
+    team.founded ? { label: "Founded", value: team.founded } : null,
+  ]
+    .map(mapOverview)
+    .filter(Boolean) as OverviewItem[];
 
-  const venue = [
-    {
-      label: "Stadium",
-      value: team.stadium?.name ?? "N/A",
-    },
-    {
-      label: "Stadium Image",
-      image: team.stadium?.image || "/football-stadium.png",
-    },
-    {
-      label: "Capacity",
-      value: team.stadium?.capacity?.toLocaleString() ?? "N/A",
-    },
-  ];
+  const venue: OverviewItem[] = [
+    team.stadium?.name ? { label: "Stadium", value: team.stadium.name } : null,
+    team.stadium?.image
+      ? { label: "Stadium Image", image: team.stadium.image }
+      : null,
+    team.stadium?.capacity != null
+      ? { label: "Capacity", value: team.stadium.capacity.toLocaleString() }
+      : null,
+  ]
+    .map(mapOverview)
+    .filter(Boolean) as OverviewItem[];
 
   const seasons =
     team.current_seasons?.map((s) => ({

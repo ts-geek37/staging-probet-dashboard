@@ -24,7 +24,7 @@ const TeamSquadTab: React.FC<Props> = ({ teamId }) => {
   if (error) return <DataError />;
 
   if (!sections || sections.length === 0) {
-    return <NoData message="Team data not available" />;
+    return <NoData message="No player information available." />;
   }
 
   return (
