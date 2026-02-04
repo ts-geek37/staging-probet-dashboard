@@ -4,7 +4,7 @@ import Link from "next/link";
 import React from "react";
 
 import { VIPBanner } from "@/components";
-import NewsCard from "@/components/NewsCard";
+import NewsCard from "@/modules/news/components/NewsCard";
 import { NewsSummary } from "@/types/home";
 
 interface Props {

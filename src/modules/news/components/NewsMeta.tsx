@@ -1,25 +1,23 @@
-import { Clock } from 'lucide-react';
-import { Badge } from '@/components/ui/badge';
-import { FC } from 'react';
-import { formatTimeAgo } from '@/utils/timeAgo';
+import { Clock } from "lucide-react";
+import { FC } from "react";
+
+import { Badge } from "@/components/ui/badge";
 import { NewsDetail as INewsDetail, NewsItem } from "@/types/news";
+import { formatTimeAgo } from "@/utils/timeAgo";
 
 interface NewsMetaProps {
   news: INewsDetail;
   className?: string;
 }
 
-const NewsMeta: FC<NewsMetaProps> = ({
-  news,
-  className = ''
-}) => {
+const NewsMeta: FC<NewsMetaProps> = ({ news, className = "" }) => {
   return (
     <div className={`flex flex-col gap-4 ${className}`}>
       <Badge
         variant="yellow"
         className="font-bold text-xs md:text-sm uppercase tracking-[0.2em] w-fit"
       >
-        {news?.categories?.[0] ?? 'News'}
+        {news?.categories?.[0] ?? "News"}
       </Badge>
 
       <h1 className="text-3xl md:text-5xl lg:text-6xl font-black text-white leading-tight uppercase italic">

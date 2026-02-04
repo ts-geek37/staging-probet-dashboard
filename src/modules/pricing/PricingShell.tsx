@@ -3,7 +3,6 @@
 import React from "react";
 
 import { useSubscription } from "@/context";
-import { useCancelSubscription } from "@/modules/billing/hooks";
 
 import { usePlans } from "./hooks/usePlans";
 import PricingPlans from "./PricingPlans";

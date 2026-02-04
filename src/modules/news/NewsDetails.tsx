@@ -6,6 +6,7 @@ import { NewsCard } from "@/components";
 import { cn } from "@/lib/utils";
 import { NewsDetail as INewsDetail, NewsItem } from "@/types/news";
 import { sanitizeAndStyleHTML } from "@/utils";
+
 import { NewsMeta } from "./components";
 
 interface Props {

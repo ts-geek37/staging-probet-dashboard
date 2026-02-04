@@ -2,7 +2,7 @@ export { default as Ads } from "./Ads";
 export { default as Banner } from "./Banner";
 export { default as DataError } from "./DataError";
 export { default as MatchCard } from "./MatchesCard";
-export { default as NewsCard } from "./NewsCard";
+export { default as NewsCard } from "../modules/news/components/NewsCard";
 export { default as NoData } from "./NoData";
 export { default as OverviewCard } from "../modules/teams/components/TeamProfileOverview";
 export { default as Pagination } from "./Pagination";

@@ -16,7 +16,7 @@ interface Props {
   isVip: boolean;
 }
 
-const PricingPlans: React.FC<Props> = ({ plans, subscription, isVip }) => {
+const PricingPlans: React.FC<Props> = ({ plans, subscription }) => {
   const sortedPlans = [...plans].sort((a, b) => a.amount - b.amount);
   const monthlyPlan = sortedPlans.find((p) => p.billingCycle === "monthly");
 
