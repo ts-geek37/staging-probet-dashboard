@@ -16,7 +16,7 @@ import {
 
 interface ConfirmationPopUpProps {
   title: string;
-  description: string;
+  description: string | React.ReactNode;
   onConfirm: () => void;
   trigger: React.ReactNode;
 }

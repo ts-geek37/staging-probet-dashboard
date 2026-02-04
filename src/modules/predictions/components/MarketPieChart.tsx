@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { Pie, PieChart, Label, Cell } from "recharts";
+import { Cell, Label, Pie, PieChart } from "recharts";
 
 import {
   ChartContainer,
@@ -9,11 +9,22 @@ import {
   ChartTooltipContent,
   type ChartConfig,
 } from "@/components/ui/chart";
+import { cn } from "@/lib/utils";
+
+interface MarketPieChartClassNames {
+  root?: string;
+  chartContainer?: string;
+  legendGrid?: string;
+  legendItem?: string;
+  legendLabel?: string;
+  legendValue?: string;
+}
 
 interface Props {
   data: [string, number, string?][];
   size?: number;
   strokeWidth?: number;
+  classNames?: MarketPieChartClassNames;
 }
 
 const COLORS: Record<string, string> = {
@@ -29,6 +40,7 @@ const MarketPieChart: React.FC<Props> = ({
   data,
   size = 200,
   strokeWidth = 23,
+  classNames,
 }) => {
   const chartData = React.useMemo(
     () =>
@@ -62,10 +74,15 @@ const MarketPieChart: React.FC<Props> = ({
   }, [chartData]);
 
   return (
-    <div className="flex flex-col items-center justify-center p-2 w-full h-full">
+    <div
+      className={cn(
+        "flex flex-col items-center justify-center p-2 w-full h-full",
+        classNames?.root,
+      )}
+    >
       <ChartContainer
         config={chartConfig}
-        className="mx-auto"
+        className={cn("mx-auto", classNames?.chartContainer)}
         style={{ width: size, height: size }}
       >
         <PieChart width={size} height={size}>
@@ -136,22 +153,40 @@ const MarketPieChart: React.FC<Props> = ({
         </PieChart>
       </ChartContainer>
 
-      <div className="mt-3 grid grid-cols-2 gap-x-2 gap-y-1 w-full">
+      <div
+        className={cn(
+          "mt-3 grid grid-cols-2 gap-x-2 gap-y-1 w-full",
+          classNames?.legendGrid,
+        )}
+      >
         {chartData.map((item) => (
           <div
             key={item.key}
-            className="flex items-center justify-between text-xs"
+            className={cn(
+              "flex items-center justify-between text-xs",
+              classNames?.legendItem,
+            )}
           >
             <div className="flex items-center gap-1.5 overflow-hidden">
               <span
                 className="w-1.5 h-1.5 rounded-full shrink-0"
                 style={{ backgroundColor: item.fill }}
               />
-              <span className="capitalize text-primary-gray truncate">
+              <span
+                className={cn(
+                  "capitalize text-primary-gray truncate",
+                  classNames?.legendLabel,
+                )}
+              >
                 {item.label}
               </span>
             </div>
-            <span className="font-semibold text-white ml-1 mr-3">
+            <span
+              className={cn(
+                "font-semibold text-white ml-1 mr-3",
+                classNames?.legendValue,
+              )}
+            >
               {item.value.toFixed(1)}%
             </span>
           </div>

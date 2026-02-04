@@ -29,12 +29,12 @@ const LiveMatches: React.FC<Props> = ({
 
   return (
     <section className=" text-white">
-      <div className="">
-        {error && <DataError />}
-
-        {loading && <SkeletonCardLoader />}
-
-        {!loading && data.length === 0 ? (
+      <div>
+        {error ? (
+          <DataError />
+        ) : loading ? (
+          <SkeletonCardLoader />
+        ) : data.length === 0 ? (
           <NoData message="No live matches found" />
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">

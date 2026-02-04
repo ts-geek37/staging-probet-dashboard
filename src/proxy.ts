@@ -4,7 +4,7 @@ const isPrivateRoute = createRouteMatcher([
   // "/leagues(.*)",
   // "/matches(.*)",
   "/prediction(.*)",
-  "/pricing(.*)",
+  // "/pricing(.*)",
   // "/news(.*)",
 ]);
 

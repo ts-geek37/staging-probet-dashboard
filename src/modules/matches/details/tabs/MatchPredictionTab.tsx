@@ -3,14 +3,14 @@
 import React from "react";
 
 import { NoData, SkeletonCardLoader } from "@/components";
-import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   GoalLineCard,
   KeyOutcomeCard,
-  OutcomeCard,
-  OtherMarketCard,
-  PredictionSentenceCard,
   MarketPieChart,
+  OtherMarketCard,
+  OutcomeCard,
+  PredictionSentenceCard,
 } from "@/modules/predictions/components";
 import usePredictionDetails from "@/modules/predictions/hooks/usePredictionDetails";
 import { OtherMarketLabel } from "@/utils";
@@ -177,7 +177,7 @@ const MatchPredictionsTab: React.FC<Props> = ({ matchId, teams }) => {
       {(otherMarkets?.filter(
         (m) => isNumericMarket(m.data) && hasValidValues(m.data),
       ).length > 0 ||
-        doubleChanceData?.length > 0) && (
+        !!doubleChanceData) && (
         <>
           <h3 className="text-sm sm:text-xl font-bold text-white">
             Other Markets
@@ -199,26 +199,34 @@ const MatchPredictionsTab: React.FC<Props> = ({ matchId, teams }) => {
                 </div>
               ))}
 
-            {doubleChanceData?.map((m, i) => (
-              <Card key={i} className="md:col-span-1 w-full h-full">
+            {doubleChanceData && (
+              <Card key={0} className="md:col-span-1 w-full h-full">
                 <CardHeader className="pb-2">
-                  <CardTitle className="text-sm font-semibold text-white truncate border-l-2 border-primary-green pl-2">
-                    {m.type.replace(/Probability/gi, "").trim()}
+                  <CardTitle className="text-lg font-semibold text-white truncate border-l-2 border-primary-green pl-2">
+                    {doubleChanceData.type.replace(/Probability/gi, "").trim()}
                   </CardTitle>
                 </CardHeader>
-                <CardContent className="pt-0">
+                <CardContent className="pt-0 flex flex-col h-full">
                   <MarketPieChart
-                    data={Object.entries(m.data as Record<string, number>).map(
-                      ([key, value]) => [
-                        key,
-                        value,
-                        OtherMarketLabel(key, teams.home.name, teams.away.name),
-                      ],
-                    )}
+                    data={Object.entries(
+                      doubleChanceData.data as Record<string, number>,
+                    ).map(([key, value]) => [
+                      key,
+                      value,
+                      OtherMarketLabel(key, teams.home.name, teams.away.name),
+                    ])}
+                    size={250}
+                    classNames={{
+                      root: "p-0 justify-start flex-1",
+                      chartContainer: "mx-auto",
+                      legendGrid:
+                        "grid-cols-1 gap-x-2 gap-y-1 w-full justify-self-end",
+                      legendItem: "flex items-center justify-between text-sm",
+                    }}
                   />
                 </CardContent>
               </Card>
-            ))}
+            )}
           </div>
         </>
       )}

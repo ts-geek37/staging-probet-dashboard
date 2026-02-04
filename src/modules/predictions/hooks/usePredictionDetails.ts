@@ -1,11 +1,11 @@
 "use client";
 
+import { useMemo } from "react";
 import useSWR from "swr";
 
 import { ApiResponse } from "@/api/types";
+import { useSubscription } from "@/context";
 import { FixturePredictionsResponse } from "@/types/prediction";
-
-import { useSubscription } from "../../billing/hooks";
 
 interface UsePredictionDetailsParams {
   fixtureId?: number;
@@ -53,7 +53,7 @@ const usePredictionDetails = ({ fixtureId }: UsePredictionDetailsParams) => {
       });
 
   const { isVip, isSubscriptionLoading } = useSubscription();
-  const isPageLoading = isLoading || isSubscriptionLoading || isVip === null;
+  const isPageLoading = isLoading || isSubscriptionLoading;
 
   const firstHalf = getMarketByType("First Half Winner Probability")?.data as
     | HomeAwayDrawData
@@ -71,22 +71,22 @@ const usePredictionDetails = ({ fixtureId }: UsePredictionDetailsParams) => {
   const homeGoals = parseOverUnderMarkets("Home Over/Under");
   const awayGoals = parseOverUnderMarkets("Away Over/Under");
 
-  const doubleChanceData = (() => {
+  const doubleChanceData = useMemo(() => {
     const data = getMarketByType("Double Chance Probability")?.data as
       | DoubleChanceMarketData
       | undefined;
-    if (!data) return [];
-    return [
-      {
-        type: "Double Chance Probability",
-        data: {
-          draw_home: Number(data.draw_home ?? 0),
-          draw_away: Number(data.draw_away ?? 0),
-          home_away: Number(data.home_away ?? 0),
-        },
+
+    if (!data) return undefined;
+
+    return {
+      type: "Double Chance Probability",
+      data: {
+        draw_home: Number(data.draw_home ?? 0),
+        draw_away: Number(data.draw_away ?? 0),
+        home_away: Number(data.home_away ?? 0),
       },
-    ];
-  })();
+    };
+  }, [getMarketByType]);
 
   const goalLines = Array.from(
     new Set([
@@ -145,7 +145,7 @@ const usePredictionDetails = ({ fixtureId }: UsePredictionDetailsParams) => {
     otherMarkets.some(
       (m) => isNumericMarket(m.data) && hasValidValues(m.data),
     ) ||
-    doubleChanceData.length > 0;
+    !!doubleChanceData;
 
   return {
     isPageLoading,

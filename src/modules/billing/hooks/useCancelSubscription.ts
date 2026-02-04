@@ -1,10 +1,11 @@
 "use client";
 
 import { useAuth } from "@clerk/nextjs";
-import { useState } from "react";
+import { toast } from "sonner";
 import useSWRMutation from "swr/mutation";
 
-import { useSubscription } from ".";
+import { useSubscription } from "@/context";
+
 import { AUTH_REQUIRED, TOKEN_UNAVAILABLE } from "./useCheckout";
 
 type CancelSubscriptionResponse = {
@@ -37,12 +38,34 @@ const cancelFetcher = async (
 
 const useCancelSubscription = () => {
   const { isSignedIn, getToken } = useAuth();
-  const [isPendingCancel, setIsPendingCancel] = useState(false);
-  const { refresh } = useSubscription();
+  const { refresh, isCancelling, setIsCancelling } = useSubscription();
 
   const { trigger, isMutating, error } = useSWRMutation(
     `${process.env.NEXT_PUBLIC_API_URL}/api/v2/billing/cancel-subscription`,
     cancelFetcher,
+    {
+      onSuccess: async (res) => {
+        setIsCancelling(true);
+        toast.success(res?.message ?? "Subscription cancelled successfully");
+
+        setTimeout(async () => {
+          await refresh();
+          setIsCancelling(false);
+        }, 2000);
+      },
+      onError: (err: Error) => {
+        toast.error(
+          err.message.startsWith("CANCELLATION_FAILED_")
+            ? "Failed to cancel subscription. Please try again."
+            : err.message,
+        );
+        setIsCancelling(true);
+        setTimeout(async () => {
+          await refresh();
+          setIsCancelling(false);
+        }, 2000);
+      },
+    },
   );
 
   const cancelSubscription = async () => {
@@ -55,23 +78,18 @@ const useCancelSubscription = () => {
       if (!token) {
         throw new Error(TOKEN_UNAVAILABLE);
       }
-      setIsPendingCancel(true);
       const result = await trigger({ token });
-      setTimeout(async () => {
-        await refresh();
-        setIsPendingCancel(false);
-      }, 1000);
 
       return result;
     } catch (err) {
-      console.error("Cancellation error:", err);
+      console.log("Cancellation error:", err);
+      setIsCancelling(false);
     }
   };
 
   return {
     cancelSubscription,
-    isCancelling: isMutating,
-    isPendingCancel,
+    isCancelling: isMutating || isCancelling,
     error,
   };
 };

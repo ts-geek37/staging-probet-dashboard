@@ -1,18 +1,18 @@
 import { Lock } from "lucide-react";
-import { toast } from "sonner";
+import React from "react";
 
-import { ConfirmationPopUp } from "@/components/ConfirmationPopUp";
 import { Button } from "@/components/ui/button";
-import { PlanUIState } from "@/lib/plan-resolver";
+import { formatDateOnly, PlanUIState } from "@/lib/plan-resolver";
 import { BillingCycle } from "@/types/prices";
 
-import { useCancelSubscription, useCheckout } from "../billing/hooks";
+import { useCheckout } from "../billing/hooks";
 
 type PlanCTAProps = {
   state: PlanUIState;
   isSignedIn: boolean;
   billingCycle: BillingCycle;
   onSignIn: () => void;
+  expiryAt?: string | null;
 };
 
 const PlanCTA: React.FC<PlanCTAProps> = ({
@@ -20,33 +20,36 @@ const PlanCTA: React.FC<PlanCTAProps> = ({
   isSignedIn,
   billingCycle,
   onSignIn,
+  expiryAt,
 }) => {
   const { checkout, loading, error } = useCheckout();
-  const { cancelSubscription, isCancelling } = useCancelSubscription();
 
   switch (state) {
     case "current":
       return (
-        <ConfirmationPopUp
-          title="Cancel your subscription?"
-          description="Canceling your plan will remove access to all premium features."
-          onConfirm={async () => {
-            const res = await cancelSubscription();
-            if (res) {
-              toast.success(res.message);
-            }
-          }}
-          trigger={
-            <Button
-              disabled={isCancelling}
-              className="w-full rounded-lg bg-slate-800 px-4 py-3 text-sm font-medium text-slate-400"
-            >
-              {isCancelling ? "Cancelling..." : "Cancel Plan"}
-            </Button>
-          }
-        />
-      );
+        <div className="group relative overflow-hidden rounded-2xl pt-2 ">
+          <div className="relative flex flex-col items-center gap-3 rounded-[14px] bg-card p-2 py-3 border border-primary-gray/20 min-h-25">
+            <div className="flex items-center gap-1.5 rounded-full bg-primary-green/10 px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-primary-green ring-1 ring-inset ring-primary-green/20">
+              <span className="relative flex h-2 w-2">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary-green opacity-75"></span>
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-primary-green"></span>
+              </span>
+              Active Now
+            </div>
 
+            <div className="flex flex-col items-center gap-1">
+              {expiryAt && (
+                <span className="text-center text-xs text-primary-gray">
+                  The current plan expires {" "} <br />
+                  <span className="text-white">
+                   on {formatDateOnly(expiryAt)}
+                  </span>
+                </span>
+              )}
+            </div>
+          </div>
+        </div>
+      );
     case "disabled":
       return (
         <Button
@@ -59,18 +62,41 @@ const PlanCTA: React.FC<PlanCTAProps> = ({
       );
     case "active":
       return (
-        <Button
-          disabled
-          variant="green"
-          className="w-full rounded-lg px-4 py-3 text-sm font-medium disabled:opacity-90"
-        >
-          <span className="flex items-center justify-center gap-2 text-white text-sm">
-            <Lock className="size-5 text-primary-green" />
-            Locked During Active Period
-          </span>
-        </Button>
+        <div className="group relative mt-2 overflow-hidden rounded-2xl border border-primary-gray/20">
+          <div className="relative flex flex-col items-center gap-3 rounded-[15px] bg-card p-3 py-3">
+            <div className="flex items-center gap-1.5 rounded-full bg-slate-500/10 p-2 text-[10px] font-bold uppercase tracking-wider text-primary-gray ring-1 ring-inset ring-slate-500/20">
+              <Lock className="size-3" />
+              Plan Locked
+            </div>
+
+            <div className="flex flex-col items-center gap-1 text-center">
+              <p className="max-w-50 text-xs leading-snug text-primary-gray">
+                This option is restricted while your <br />
+                <span className="text-primary-green/70">
+                  active subscription
+                </span>{" "}
+                is in effect.
+              </p>
+            </div>
+          </div>
+        </div>
       );
 
+    case "cancelled":
+      return (
+        <div className="group relative overflow-hidden rounded-2xl border border-primary-gray/20 mt-2">
+          <div className="relative flex flex-col items-center gap-3 rounded-[15px] bg-card p-2 py-4 backdrop-blur-md">
+            <div className="flex items-center gap-1.5 rounded-full bg-red-500/10 px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-red-400 ring-1 ring-inset ring-red-500/20">
+              Cancelled
+            </div>
+
+            <p className="text-center text-xs leading-relaxed text-primary-gray">
+              You still have full access to all features <br /> until the date{" "}
+              <span className="text-white">{formatDateOnly(expiryAt)}</span>
+            </p>
+          </div>
+        </div>
+      );
     case "available":
       if (!isSignedIn) {
         return (

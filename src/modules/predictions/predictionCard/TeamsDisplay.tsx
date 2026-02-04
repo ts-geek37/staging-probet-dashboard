@@ -29,7 +29,7 @@ const TeamsDisplay: React.FC<TeamsDisplayProps> = ({ match, layout }) => {
             className="flex items-center justify-between"
           >
             <div className="flex items-center gap-2 flex-1 min-w-0">
-              {/* <Image
+              <Image
                 src={team.info.logo || "/no-image.png"}
                 alt={team.info.name || "Team Logo"}
                 width={100}
@@ -38,7 +38,7 @@ const TeamsDisplay: React.FC<TeamsDisplayProps> = ({ match, layout }) => {
                 onError={(e) => {
                   e.currentTarget.src = "/no-image.png";
                 }}
-              /> */}
+              />
               <span className="text-sm font-medium line-clamp-1">
                 {team.info.name ?? "Unknown Team"}
               </span>

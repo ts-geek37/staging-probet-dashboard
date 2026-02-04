@@ -29,6 +29,7 @@ const PlanCard: React.FC<Props> = ({
   plan,
   state,
   highlight,
+  expiryAt,
   monthlyAmount,
 }) => {
   const router = useRouter();
@@ -45,7 +46,7 @@ const PlanCard: React.FC<Props> = ({
   return (
     <div
       className={cn(
-        "relative group flex flex-col rounded-md border p-6 transition-all duration-300",
+        "relative group flex flex-col rounded-md border px-4 mobile:px-6 py-6 transition-all duration-300",
         highlight
           ? "border-primary-green/50 bg-primary-green/20 shadow-lg shadow-primary-green/10"
           : "border-primary-green/20 bg-primary-green/10 hover:border-primary-green/30 hover:bg-primary-green/20 active:border-primary-green/30 active:bg-primary-green/25",
@@ -83,7 +84,7 @@ const PlanCard: React.FC<Props> = ({
         )}
       </div>
 
-      <ul className="mb-8 flex flex-col gap-4">
+      <ul className="mb-2 flex flex-col gap-4">
         {plan?.features?.map((feature) => (
           <li key={feature} className="flex items-center gap-3 text-sm">
             <Check className="size-5 shrink-0 text-white group-hover:text-primary-green" />
@@ -100,6 +101,7 @@ const PlanCard: React.FC<Props> = ({
           isSignedIn={isSignedIn ?? false}
           billingCycle={plan?.billingCycle}
           onSignIn={handleSignIn}
+          expiryAt={expiryAt}
         />
       </div>
     </div>

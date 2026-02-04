@@ -2,10 +2,8 @@
 
 import React from "react";
 
-import {
-  useCancelSubscription,
-  useSubscription,
-} from "@/modules/billing/hooks";
+import { useSubscription } from "@/context";
+import { useCancelSubscription } from "@/modules/billing/hooks";
 
 import { usePlans } from "./hooks/usePlans";
 import PricingPlans from "./PricingPlans";
@@ -16,12 +14,12 @@ const PricingShell: React.FC = () => {
     subscription,
     isVip,
     isSubscriptionLoading: subscriptionLoading,
+    isCancelling,
   } = useSubscription();
 
   const { plans, loading: plansLoading, error: plansError } = usePlans();
-  const { isPendingCancel } = useCancelSubscription();
 
-  const isResolving = subscriptionLoading || plansLoading || isPendingCancel;
+  const isResolving = isCancelling || subscriptionLoading || plansLoading;
 
   if (isResolving) {
     return <PricingSkeleton />;

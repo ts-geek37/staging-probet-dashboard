@@ -1,9 +1,10 @@
-import { UserButton, useUser } from "@clerk/nextjs";
+import { useUser } from "@clerk/nextjs";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
+import AppUserButton from "@/components/AppUserButton";
+import { useSubscription } from "@/context";
 import { cn } from "@/lib/utils";
-import { useSubscription } from "@/modules/billing/hooks";
 import { vipLink } from "@/modules/core-layout/constant";
 
 import { Button } from "../../../components/ui/button";
@@ -31,7 +32,7 @@ const VipSection: React.FC<VipSectionProps> = ({ onNavigate }) => {
       <Link
         href={vipLink.href}
         onClick={onNavigate}
-        className="flex items-center gap-3 py-3 rounded-lg text-primary-yellow hover:bg-gray-800/50"
+        className="flex items-center gap-3 py-3 px-1 rounded-lg text-primary-yellow hover:bg-gray-800/50"
       >
         <Icon
           className={cn(
@@ -41,14 +42,19 @@ const VipSection: React.FC<VipSectionProps> = ({ onNavigate }) => {
               : "text-primary-yellow",
           )}
         />
-        {!isVip && (
-          <span className="text-base font-semibold">{vipLink.name}</span>
-        )}
+        <span
+          className={cn(
+            "text-base font-semibold",
+            isVip ? "md:hidden" : "block",
+          )}
+        >
+          {vipLink.name}
+        </span>
       </Link>
 
       {user ? (
         <div className="hidden sm:block">
-          <UserButton />
+          <AppUserButton />
         </div>
       ) : (
         <Button

@@ -3,12 +3,12 @@
 import useSWR from "swr";
 
 import { ApiResponse } from "@/api/types";
+import { useSubscription } from "@/context";
 import {
   GetPredictableMatchesParams,
   PredictableMatchesResponse,
+  PredictionCardVariant,
 } from "@/types/prediction";
-
-import { useSubscription } from "../../billing/hooks";
 
 interface UsePredictionParams extends GetPredictableMatchesParams {
   initialData: ApiResponse<PredictableMatchesResponse>;
@@ -19,7 +19,7 @@ const usePrediction = ({
   limit = 10,
   initialData,
 }: UsePredictionParams) => {
-  const { isVip } = useSubscription();
+  const { isVip, isSubscriptionLoading } = useSubscription();
 
   const query = new URLSearchParams({
     page: String(page),
@@ -35,11 +35,15 @@ const usePrediction = ({
 
   const matches = data?.data?.data ?? [];
   const pagination = data?.data?.pagination;
+  const matchCards = matches.map((match, index) => {
+    const variant: PredictionCardVariant =
+      !isVip && index > 0 ? "vip" : "prediction";
 
-  const matchCards = matches.map((match, index) => ({
-    match,
-    variant: !isVip && index > 0 ? "vip" : "prediction",
-  }));
+    return {
+      match,
+      variant,
+    };
+  });
 
   return {
     matchCards,
@@ -49,7 +53,7 @@ const usePrediction = ({
     limit: pagination?.limit ?? limit,
     has_more: isVip ? (pagination?.has_more ?? false) : false,
     count: isVip ? (pagination?.count ?? matches.length) : 1,
-    isLoading,
+    isLoading: isSubscriptionLoading || isLoading,
     error,
   };
 };

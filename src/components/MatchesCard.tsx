@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
@@ -18,9 +18,8 @@ import {
   MatchListItem as PlayerMatch,
   MatchStatus as PlayerStatus,
 } from "@/types/players";
-import { formatDate } from "@/utils";
 import { getCountdownData } from "@/utils/formatCountdown";
-import formatLocalTime from "@/utils/formatLocalTime";
+import { formatDate, formatTimeLocal } from "@/utils/formatLocalTime";
 
 interface MatchCardProps {
   match: MatchListItem | PlayerMatch;
@@ -72,6 +71,9 @@ const TeamLogo: React.FC<{ src: string | null; alt: string }> = ({
       alt={alt}
       width={20}
       height={20}
+      onError={(e) => {
+        e.currentTarget.src = "/no-image.png";
+      }}
       className="object-contain w-6 h-6"
     />
   </div>
@@ -103,7 +105,7 @@ const MatchCard: React.FC<MatchCardProps> = ({ match, href }) => {
 
   const isLive = status === "LIVE";
   const isUpcoming = status === "UPCOMING" || status === "PROBLEM";
-  const localKickoffTime = formatLocalTime(kickoff_time);
+  const localKickoffTime = formatTimeLocal(kickoff_time);
 
   const homeScore = score?.home ?? 0;
   const awayScore = score?.away ?? 0;
@@ -154,10 +156,13 @@ const MatchCard: React.FC<MatchCardProps> = ({ match, href }) => {
               className="flex items-center gap-2.5 flex-1 cursor-pointer hover:opacity-80 active:opacity-70"
             >
               <Image
-                src={league.logo || "/no-image.png"}
+                src={league?.logo || "/no-image.png"}
                 alt={league.name}
                 width={25}
                 height={25}
+                onError={(e) => {
+                  e.currentTarget.src = "/no-image.png";
+                }}
                 className="object-contain w-6 h-6"
               />
               <span className="text-sm sm:text-base font-medium text-white line-clamp-1">
