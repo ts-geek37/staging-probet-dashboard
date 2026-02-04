@@ -35,6 +35,11 @@ export const sanitizeAndStyleHTML = (html: string): string => {
   allElements.forEach((el) => {
     el.removeAttribute("class");
   });
+  const links = tempDiv.querySelectorAll("a");
+  links.forEach((link) => {
+    link.setAttribute("target", "_blank");
+    link.setAttribute("rel", "noopener noreferrer");
+  });
 
   return tempDiv.innerHTML;
 };

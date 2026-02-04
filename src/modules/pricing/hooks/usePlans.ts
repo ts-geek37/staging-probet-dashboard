@@ -8,9 +8,10 @@ import { Plan, PlanWithFeatures } from "@/types/prices";
 type PlansResponse = ApiResponse<Plan[]>;
 const FEATURES = [
   "Full prediction access",
-  "Match statistics and predictions",
+  "All match statistics",
   "Head-to-head analysis",
   "Latest football news",
+  "Live match scores",
 ];
 
 export const usePlans = () => {

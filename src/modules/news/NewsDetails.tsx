@@ -24,22 +24,21 @@ const NewsDetail: React.FC<Props> = ({ news, relatedNews }) => {
 
   return (
     <section className="w-full h-full">
-      <div className="relative h-[40vh] sm:h-[50vh] overflow-hidden ">
+      <div className="relative h-[40vh] sm:h-[50vh] md:h-[75vh] overflow-hidden ">
         {!imageError ? (
-          <>
+          <div className="relative h-full w-full mx-auto max-w-7xl py-12">
             <Image
               src={news?.image}
               alt={news?.title}
-              height={1000}
-              width={1000}
-              className="absolute h-full w-full mx-auto inset-0 object-cover object-center"
+              height={10000}
+              width={10000}
+              className="h-full w-full object-cover object-center rounded-2xl"
               priority
               quality={100}
               sizes="100vw"
               onError={() => setImageError(true)}
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-gray-950 to-transparent" />
-          </>
+          </div>
         ) : (
           <>
             <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-gray-800 to-black">
@@ -67,7 +66,7 @@ const NewsDetail: React.FC<Props> = ({ news, relatedNews }) => {
         )}
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-12 w-full">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 pb-12 w-full">
         {!imageError && (
           <div className="pb-8 md:pb-12">
             <NewsMeta news={news} />
@@ -80,12 +79,12 @@ const NewsDetail: React.FC<Props> = ({ news, relatedNews }) => {
             haveRelatedNews ? "lg:grid-cols-[2fr_1fr]" : "",
           )}
         >
-          <article className="text-white">
-            <div
-              className="news-content text-justify"
-              dangerouslySetInnerHTML={{ __html: sanitizedContent }}
-            />
-          </article>
+            <article className="text-white">
+              <div
+                className="news-content"
+                dangerouslySetInnerHTML={{ __html: sanitizedContent }}
+              />
+            </article>
 
           {haveRelatedNews && (
             <div className="lg:sticky lg:top-6 self-start">

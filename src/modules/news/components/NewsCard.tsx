@@ -30,6 +30,9 @@ const NewsCard: React.FC<Props> = ({
   id,
 }) => {
   const belowCardHeight = "h-80";
+  const categoryName = Array.isArray(categories)
+    ? categories[0]?.name
+    : categories?.name;
 
   if (isMain) {
     return (
@@ -54,14 +57,16 @@ const NewsCard: React.FC<Props> = ({
         <div
           className={`absolute bottom-0 left-0 w-full p-6 md:p-10 ${containerClass}`}
         >
-          <div className="mb-3 inline-flex items-center rounded-full bg-primary-green/20 px-3 py-1 text-xs font-bold text-primary-green backdrop-blur-md border border-primary-green/20">
-            FEATURED
+          <div className="mb-3 inline-flex uppercase items-center rounded-full bg-primary-green/20 px-3 py-1 text-xs font-bold text-primary-green backdrop-blur-md border border-primary-green/20">
+            {categoryName ?? "Featured"}
           </div>
           <h3 className="mb-3 text-2xl font-black leading-tight text-white md:text-4xl lg:text-5xl drop-shadow-lg">
             {title}
           </h3>
           <div className="flex items-center gap-2 text-sm text-primary-gray">
-            <span className="text-primary-yellow">{published_at}</span>
+            <span className="text-primary-yellow">
+              {formatTimeAgo(published_at)}
+            </span>
           </div>
         </div>
       </a>
@@ -88,13 +93,12 @@ const NewsCard: React.FC<Props> = ({
         <h4 className="line-clamp-2 text-sm font-semibold text-white pb-1">
           {title}
         </h4>
-        <p className="text-xs text-primary-yellow">{published_at}</p>
+        <p className="text-xs text-primary-yellow">
+          {formatTimeAgo(published_at)}
+        </p>
       </a>
     );
   }
-  const categoryName = Array.isArray(categories)
-    ? categories[0]?.name
-    : categories?.name;
 
   return (
     <a

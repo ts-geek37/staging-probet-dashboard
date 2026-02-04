@@ -260,7 +260,7 @@
 }
 
 .news-content a {
-  color: #01e1fa;
+  color: var(--primary-yellow);
   text-decoration: underline;
   text-underline-offset: 2px;
 }
