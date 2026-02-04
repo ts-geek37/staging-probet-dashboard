@@ -32,14 +32,13 @@ export const derivePlanState = (
 };
 
 export const formatPrice = (amount: number, currency: string): string => {
-  return new Intl.NumberFormat("en-US", { 
+  return new Intl.NumberFormat("en-US", {
     style: "currency",
     currency,
     currencyDisplay: "symbol",
     maximumFractionDigits: 0,
   }).format(amount);
 };
-
 
 export const getPlanDurationLabel = (billingCycle: string): string => {
   switch (billingCycle) {

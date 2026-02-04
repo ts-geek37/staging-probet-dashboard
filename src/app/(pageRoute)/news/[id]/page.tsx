@@ -50,6 +50,7 @@ const Page: React.FC<Props> = async ({ params }) => {
   if (!news) {
     return <NoData isCenter message="News not found" />;
   }
+  news.image = news.image+"1080"
 
   return <NewsDetail news={news} relatedNews={relatedNews ?? []} />;
 };

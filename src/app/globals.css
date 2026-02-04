@@ -237,7 +237,6 @@
 
 .news-content strong,
 .news-content b {
-  color: var(--primary-yellow) !important;
   font-weight: 900 !important;
 }
 

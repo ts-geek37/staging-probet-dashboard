@@ -24,7 +24,7 @@ export const sanitizeAndStyleHTML = (html: string): string => {
     ALLOWED_ATTR: ["href", "src", "alt", "title", "class"],
     FORBID_ATTR: ["style", "class", "id"],
   });
-  if (!document) return clean;
+  if (typeof document === "undefined") return clean;
   const tempDiv = document.createElement("div");
   tempDiv.innerHTML = clean;
 

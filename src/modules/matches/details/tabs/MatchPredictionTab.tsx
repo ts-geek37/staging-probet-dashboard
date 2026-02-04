@@ -43,7 +43,7 @@ const MatchPredictionsTab: React.FC<Props> = ({ matchId, teams }) => {
     doubleChanceData,
     isVip,
     hasContent,
-  } = usePredictionDetails({ fixtureId: matchId }); 
+  } = usePredictionDetails({ fixtureId: matchId });
   if (isPageLoading) return <SkeletonCardLoader />;
   if (error) return <VIPUnlockCard />;
   if (!isVip) return <VIPUnlockCard />;

@@ -15,8 +15,8 @@ import {
 } from "@/components/ui/dialog";
 import { useSubscription } from "@/context";
 import { formatDate24h } from "@/lib/plan-resolver";
-
 import { BillingCycle } from "@/types/prices";
+
 import { useCancelSubscription } from "../hooks";
 
 interface SubscriptionDetailsModalProps {
