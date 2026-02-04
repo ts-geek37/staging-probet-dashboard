@@ -89,10 +89,10 @@ const NewsDetail: React.FC<Props> = ({ news, relatedNews }) => {
           {haveRelatedNews && (
             <div className="lg:sticky lg:top-6 self-start">
               <div className="flex flex-col gap-3 mb-6">
-                <h2 className="text-xl md:text-2xl font-bold text-primary-yellow uppercase italic">
+                <h2 className="text-xl md:text-2xl font-bold text-primary-green uppercase italic">
                   Related News
                 </h2>
-                <div className="h-px bg-primary-yellow/40 w-full" />
+                <div className="h-px bg-primary-green/40 w-full" />
               </div>
 
               <div className="flex flex-wrap lg:flex-col gap-6 justify-center sm:justify-start">

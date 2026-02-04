@@ -9,7 +9,6 @@ type PlansResponse = ApiResponse<Plan[]>;
 const FEATURES = [
   "Full prediction access",
   "All match statistics",
-  "Head-to-head analysis",
   "Latest football news",
   "Live match scores",
 ];

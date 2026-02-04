@@ -43,6 +43,23 @@ const PlanCard: React.FC<Props> = ({
     router.push(`/sign-in?redirect_url=/pricing`);
   };
 
+  const getPlanMonths = (billingCycle: string) => {
+    switch (billingCycle) {
+      case "monthly":
+        return 1;
+      case "quarterly":
+        return 3;
+      case "semi_annual":
+        return 6;
+      case "yearly":
+        return 12;
+      default:
+        return 1;
+    }
+  };
+
+  const planMonths = getPlanMonths(plan.billingCycle);
+
   return (
     <div
       className={cn(
@@ -93,6 +110,14 @@ const PlanCard: React.FC<Props> = ({
             </span>
           </li>
         ))}
+
+        <li className="flex items-center gap-3 text-sm">
+          <Check className="size-5 shrink-0 text-white group-hover:text-primary-green" />
+          <span className="text-slate-300 group-hover:scale-y-105 transition-all duration-300">
+            Unlimited prediction access for {planMonths}{" "}
+            {planMonths > 1 ? "months" : "month"}
+          </span>
+        </li>
       </ul>
 
       <PlanCTA
