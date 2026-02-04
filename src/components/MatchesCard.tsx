@@ -19,7 +19,7 @@ import {
   MatchStatus as PlayerStatus,
 } from "@/types/players";
 import { getCountdownData } from "@/utils/formatCountdown";
-import { formatDate, formatTimeLocal } from "@/utils/formatLocalTime";
+import { convertToLocalTime } from "@/utils/convertTime";
 
 interface MatchCardProps {
   match: MatchListItem | PlayerMatch;
@@ -105,7 +105,9 @@ const MatchCard: React.FC<MatchCardProps> = ({ match, href }) => {
 
   const isLive = status === "LIVE";
   const isUpcoming = status === "UPCOMING" || status === "PROBLEM";
-  const localKickoffTime = formatTimeLocal(kickoff_time);
+
+  // Use convertToLocalTime instead of old functions
+  const localTime = convertToLocalTime(kickoff_time);
 
   const homeScore = score?.home ?? 0;
   const awayScore = score?.away ?? 0;
@@ -189,7 +191,7 @@ const MatchCard: React.FC<MatchCardProps> = ({ match, href }) => {
 
                   <div className="flex items-center gap-2">
                     <span className="text-xs text-primary-gray">
-                      {localKickoffTime}
+                      {localTime.time}
                     </span>
                   </div>
                 </>
@@ -199,19 +201,17 @@ const MatchCard: React.FC<MatchCardProps> = ({ match, href }) => {
                     HALF TIME
                   </span>
                   <div className="flex items-center gap-2">
-                    <span className="text-xs text-primary-gray">
-                      {localKickoffTime}
-                    </span>
+                    <span className="text-xs text-primary-gray">{localTime.time}</span>
                   </div>
                 </>
               )
             ) : (
               <>
                 <span className="text-sm text-primary-gray font-medium">
-                  {formatDate(kickoff_time)}
+                  {localTime.date}
                 </span>
                 <span className="text-sm text-primary-gray font-medium">
-                  {localKickoffTime}
+                  {localTime.time}
                 </span>
               </>
             )}
