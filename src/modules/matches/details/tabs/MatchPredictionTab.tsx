@@ -43,10 +43,9 @@ const MatchPredictionsTab: React.FC<Props> = ({ matchId, teams }) => {
     doubleChanceData,
     isVip,
     hasContent,
-  } = usePredictionDetails({ fixtureId: matchId });
-
+  } = usePredictionDetails({ fixtureId: matchId }); 
   if (isPageLoading) return <SkeletonCardLoader />;
-  if (error) return <NoData message="Predictions not available" />;
+  if (error) return <VIPUnlockCard />;
   if (!isVip) return <VIPUnlockCard />;
   if (!hasContent) return <NoData message="Predictions not available" />;
 
