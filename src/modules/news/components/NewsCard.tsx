@@ -1,10 +1,11 @@
 "use client";
 
+import Image from "next/image";
+import React from "react";
+
 import { Badge } from "@/components/ui/badge";
 import { Category } from "@/types/news";
 import { formatTimeAgo } from "@/utils/timeAgo";
-import Image from "next/image";
-import React from "react";
 
 interface Props {
   id: number;

@@ -6,14 +6,12 @@ import {
   Instagram,
   MapPin,
   Shield,
-  TrendingUp,
   Trophy,
   Twitter,
 } from "lucide-react";
 import Image from "next/image";
 import React from "react";
 
-import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 interface Item {
@@ -28,7 +26,6 @@ interface Props {
   teamInfo?: Item[];
   venue?: Item[];
   seasons?: Item[];
-  rankings?: Item[];
   rivals?: Item[];
   socials?: Item[];
 }
@@ -37,7 +34,6 @@ const TeamProfileOverview: React.FC<Props> = ({
   teamInfo,
   venue,
   seasons,
-  rankings,
   rivals,
   socials,
 }) => {
@@ -146,7 +142,7 @@ const TeamProfileOverview: React.FC<Props> = ({
           )}
         </div>
 
-        {rankings && rankings.length > 0 && (
+        {/* {rankings && rankings.length > 0 && (
           <Card className="shadow-none border-primary-gray/20 h-full">
             <CardContent>
               <div className="flex justify-between items-center mb-8">
@@ -175,6 +171,33 @@ const TeamProfileOverview: React.FC<Props> = ({
                     <span className="text-2xl font-black text-white">
                       {rank.value}
                     </span>
+                  </div>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+        )} */}
+        {seasons && seasons.length > 0 && (
+          <Card className="shadow-none border-primary-gray/20">
+            <CardHeader>
+              <CardTitle className="text-xl font-semibold text-primary-green flex items-center gap-2">
+                <Trophy size={16} /> Recent Seasons
+              </CardTitle>
+            </CardHeader>
+
+            <CardContent>
+              <div className="ml-2 border-l border-primary-gray/20 pl-6 space-y-8">
+                {seasons.map((season, index) => (
+                  <div key={index} className="relative">
+                    <div className="absolute -left-[30px] top-2 w-3 h-3 rounded-full bg-primary-green" />
+                    <h4 className="text-lg font-bold text-white">
+                      {season.label}
+                    </h4>
+                    {season.extra && (
+                      <p className="text-sm text-primary-gray">
+                        {season.extra}
+                      </p>
+                    )}
                   </div>
                 ))}
               </div>
@@ -212,34 +235,6 @@ const TeamProfileOverview: React.FC<Props> = ({
                   </p>
                 </div>
               ))}
-            </CardContent>
-          </Card>
-        )}
-
-        {seasons && seasons.length > 0 && (
-          <Card className="shadow-none border-primary-gray/20">
-            <CardHeader>
-              <CardTitle className="text-xl font-semibold text-primary-green flex items-center gap-2">
-                <Trophy size={16} /> Recent Seasons
-              </CardTitle>
-            </CardHeader>
-
-            <CardContent>
-              <div className="ml-2 border-l border-primary-gray/20 pl-6 space-y-8">
-                {seasons.map((season, index) => (
-                  <div key={index} className="relative">
-                    <div className="absolute -left-[30px] top-2 w-3 h-3 rounded-full bg-primary-green" />
-                    <h4 className="text-lg font-bold text-white">
-                      {season.label}
-                    </h4>
-                    {season.extra && (
-                      <p className="text-sm text-primary-gray">
-                        {season.extra}
-                      </p>
-                    )}
-                  </div>
-                ))}
-              </div>
             </CardContent>
           </Card>
         )}

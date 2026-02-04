@@ -19,7 +19,6 @@ const NewsDetail: React.FC<Props> = ({ news, relatedNews }) => {
     () => sanitizeAndStyleHTML(news.html_content),
     [news.html_content],
   );
-  console.log("🚀 ~ NewsDetail ~ sanitizedContent:", sanitizedContent)
   const haveRelatedNews = relatedNews?.length > 0;
   const [imageError, setImageError] = useState(false);
 
@@ -80,12 +79,12 @@ const NewsDetail: React.FC<Props> = ({ news, relatedNews }) => {
             haveRelatedNews ? "lg:grid-cols-[2fr_1fr]" : "",
           )}
         >
-            <article className="text-white">
-              <div
-                className="news-content"
-                dangerouslySetInnerHTML={{ __html: sanitizedContent }}
-              />
-            </article>
+          <article className="text-white">
+            <div
+              className="news-content"
+              dangerouslySetInnerHTML={{ __html: sanitizedContent }}
+            />
+          </article>
 
           {haveRelatedNews && (
             <div className="lg:sticky lg:top-6 self-start">
