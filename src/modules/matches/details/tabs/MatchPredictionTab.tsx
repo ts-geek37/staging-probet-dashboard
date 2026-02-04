@@ -215,11 +215,12 @@ const MatchPredictionsTab: React.FC<Props> = ({ matchId, teams }) => {
                       value,
                       OtherMarketLabel(key, teams.home.name, teams.away.name),
                     ])}
-                     size={250}
+                    size={250}
                     classNames={{
                       root: "p-0 justify-start flex-1",
                       chartContainer: "mx-auto",
-                      legendGrid: "grid-cols-1 gap-x-2 gap-y-1 w-full justify-self-end",
+                      legendGrid:
+                        "grid-cols-1 gap-x-2 gap-y-1 w-full justify-self-end",
                       legendItem: "flex items-center justify-between text-sm",
                     }}
                   />

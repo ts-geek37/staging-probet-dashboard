@@ -7,7 +7,6 @@ import React from "react";
 
 import { Badge } from "@/components/ui/badge";
 import {
-  formatDate24h,
   formatPrice,
   getDiscountPercent,
   getPlanDurationLabel,
@@ -47,7 +46,7 @@ const PlanCard: React.FC<Props> = ({
   return (
     <div
       className={cn(
-        "relative group flex flex-col rounded-md border p-6 transition-all duration-300",
+        "relative group flex flex-col rounded-md border px-4 mobile:px-6 py-6 transition-all duration-300",
         highlight
           ? "border-primary-green/50 bg-primary-green/20 shadow-lg shadow-primary-green/10"
           : "border-primary-green/20 bg-primary-green/10 hover:border-primary-green/30 hover:bg-primary-green/20 active:border-primary-green/30 active:bg-primary-green/25",
@@ -95,12 +94,6 @@ const PlanCard: React.FC<Props> = ({
           </li>
         ))}
       </ul>
-
-      {expiryAt && (state === "current" || state === "cancelled") && (
-        <p className="mb-3 text-xs font-semibold text-primary-red/60">
-          Current plan expires: {formatDate24h(expiryAt)}
-        </p>
-      )}
 
       <div className="mt-auto">
         <PlanCTA

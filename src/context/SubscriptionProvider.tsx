@@ -41,7 +41,7 @@ export const SubscriptionProvider: React.FC<{ children: ReactNode }> = ({
     if (!isLoaded) return;
 
     if (isSignedIn) {
-      mutate(); 
+      mutate();
     } else {
       mutate(undefined, false);
     }

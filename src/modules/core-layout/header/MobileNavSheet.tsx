@@ -1,15 +1,16 @@
-"use client";
-
-import { UserButton, useUser } from "@clerk/nextjs";
+import { useUser } from "@clerk/nextjs";
 import { Menu, X } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
 
+import AppUserButton from "@/components/AppUserButton";
 import { Button } from "@/components/ui/button";
 import {
   Sheet,
   SheetClose,
   SheetContent,
+  SheetDescription,
+  SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { cn } from "@/lib/utils";
@@ -57,16 +58,34 @@ const MobileNavSheet: React.FC<Props> = ({
         side="right"
         className="border-primary-gray/20 w-75 sm:w-87.5 p-4"
       >
+        <SheetTitle className="sr-only">Navigation Menu</SheetTitle>
+        <SheetDescription className="sr-only">
+          Access site links and user platform settings.
+        </SheetDescription>
         <SheetClose asChild className="absolute top-2 right-5">
-          <Button variant="ghost" size="icon" aria-label="Close">
+          <Button
+            variant="ghost"
+            size="icon"
+            aria-label="Close"
+            onClick={(e) => {
+              e.stopPropagation();
+              setOpen(false);
+            }}
+          >
             <X className="w-5 h-5 text-white" />
           </Button>
         </SheetClose>
 
         <nav className="flex flex-col gap-4 ">
           {user && (
-            <div className="size-8 sm:hidden">
-              <UserButton />
+            <div
+              className="sm:hidden px-2"
+              onClick={(e) => {
+                e.stopPropagation();
+              }}
+              style={{ isolation: "isolate", pointerEvents: "auto" }}
+            >
+              <AppUserButton />
             </div>
           )}
           {links.map((link) => {
@@ -76,7 +95,10 @@ const MobileNavSheet: React.FC<Props> = ({
               <Link
                 key={link.name}
                 href={link.href}
-                onClick={() => setOpen(false)}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setOpen(false);
+                }}
                 className={cn(
                   "flex items-center gap-3 py-2 rounded-lg transition-colors",
                   "text-gray-300 hover:text-white hover:bg-gray-800",

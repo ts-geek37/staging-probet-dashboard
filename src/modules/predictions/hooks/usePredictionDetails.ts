@@ -1,11 +1,11 @@
 "use client";
 
+import { useMemo } from "react";
 import useSWR from "swr";
 
 import { ApiResponse } from "@/api/types";
 import { useSubscription } from "@/context";
 import { FixturePredictionsResponse } from "@/types/prediction";
-import { useMemo } from "react";
 
 interface UsePredictionDetailsParams {
   fixtureId?: number;

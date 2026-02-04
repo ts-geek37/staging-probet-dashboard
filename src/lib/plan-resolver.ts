@@ -32,21 +32,23 @@ export const derivePlanState = (
 };
 
 export const formatPrice = (amount: number, currency: string): string => {
-  return new Intl.NumberFormat(undefined, {
+  return new Intl.NumberFormat("en-US", { 
     style: "currency",
     currency,
-    maximumFractionDigits: 2,
+    currencyDisplay: "symbol",
+    maximumFractionDigits: 0,
   }).format(amount);
 };
+
 
 export const getPlanDurationLabel = (billingCycle: string): string => {
   switch (billingCycle) {
     case "monthly":
       return "/month";
     case "quarterly":
-      return "/3 month";
+      return "/3 months";
     case "semi_annual":
-      return "/6 month";
+      return "/6 months";
     case "yearly":
       return "/year";
     default:
@@ -90,5 +92,17 @@ export const formatDate24h = (
     hour: "2-digit",
     minute: "2-digit",
     hour12: false,
+  }).format(date);
+};
+
+export const formatDateOnly = (
+  dateString: string | null | undefined,
+): string => {
+  if (!dateString) return "";
+  const date = new Date(dateString);
+  return new Intl.DateTimeFormat("en-GB", {
+    day: "2-digit",
+    month: "short",
+    year: "numeric",
   }).format(date);
 };
