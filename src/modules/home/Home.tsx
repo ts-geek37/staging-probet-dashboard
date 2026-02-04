@@ -40,7 +40,7 @@ const Home: React.FC<Props> = ({ initialHome }) => {
   return (
     <>
       <Banner />
-      <div className="max-w-7xl w-full mx-auto px-4">
+      <div className="max-w-7xl w-full mx-auto px-4 sm:px-6">
         <VIPBanner />
 
         {live_now.length > 0 && (
