@@ -2,10 +2,7 @@ import { useState } from "react";
 
 import { ApiResponse } from "@/api/types";
 import { NoData, Pagination } from "@/components";
-import {
-  PredictableMatchesResponse,
-  PredictionCardVariant,
-} from "@/types/prediction";
+import { PredictableMatchesResponse } from "@/types/prediction";
 
 import { usePrediction } from "./hooks";
 import PredictionCard from "./predictionCard";

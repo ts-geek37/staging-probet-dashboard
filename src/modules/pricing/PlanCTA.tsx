@@ -40,9 +40,9 @@ const PlanCTA: React.FC<PlanCTAProps> = ({
             <div className="flex flex-col items-center gap-1">
               {expiryAt && (
                 <span className="text-center text-xs text-primary-gray">
-                  The current plan expires {" "} <br />
+                  The current plan expires <br />
                   <span className="text-white">
-                   on {formatDateOnly(expiryAt)}
+                    on {formatDateOnly(expiryAt)}
                   </span>
                 </span>
               )}

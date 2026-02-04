@@ -1,9 +1,9 @@
 "use client";
 
 import {
+  Calendar as CalendarIcon,
   ChevronLeft,
   ChevronRight,
-  Calendar as CalendarIcon,
   Trophy,
 } from "lucide-react";
 import React, { useRef } from "react";
@@ -12,6 +12,12 @@ interface NewsHeaderProps {
   selectedDate: Date;
   onDateChange: (date: Date) => void;
 }
+const formatDateForInput = (date: Date) => {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, "0");
+  return `${year}-${month}-${day}`;
+};
 
 const NewsHeader: React.FC<NewsHeaderProps> = ({
   selectedDate,
@@ -19,9 +25,20 @@ const NewsHeader: React.FC<NewsHeaderProps> = ({
 }) => {
   const dateInputRef = useRef<HTMLInputElement>(null);
 
+  const tomorrow = new Date();
+  tomorrow.setDate(tomorrow.getDate() + 1);
+  tomorrow.setHours(0, 0, 0, 0);
+
+  const maxDate = tomorrow.toISOString().split("T")[0];
+
   const handleAdjustDate = (days: number) => {
     const newDate = new Date(selectedDate);
     newDate.setDate(newDate.getDate() + days);
+
+    newDate.setHours(0, 0, 0, 0);
+
+    if (newDate > tomorrow) return;
+
     onDateChange(newDate);
   };
 
@@ -36,6 +53,9 @@ const NewsHeader: React.FC<NewsHeaderProps> = ({
   const openCalendar = () => {
     dateInputRef.current?.showPicker();
   };
+
+  const isNextDisabled =
+    selectedDate.toDateString() === tomorrow.toDateString();
 
   return (
     <div className="flex flex-row items-center justify-between border-b border-primary-gray/20 pb-6 gap-2">
@@ -60,7 +80,7 @@ const NewsHeader: React.FC<NewsHeaderProps> = ({
         <div className="flex items-center bg-card border border-primary-gray/20 rounded-full p-1 shadow-2xl">
           <button
             onClick={() => handleAdjustDate(-1)}
-            className="hidden md:block p-2 text-gray-400 hover:text-white"
+            className="hidden cursor-pointer md:block p-2 text-gray-400 hover:text-white"
           >
             <ChevronLeft size={18} />
           </button>
@@ -77,15 +97,24 @@ const NewsHeader: React.FC<NewsHeaderProps> = ({
             <input
               ref={dateInputRef}
               type="date"
+              max={maxDate}
               className="absolute inset-0 opacity-0 pointer-events-none"
-              value={selectedDate.toISOString().split("T")[0]}
-              onChange={(e) => onDateChange(new Date(e.target.value))}
+              value={formatDateForInput(selectedDate)}
+              onChange={(e) => {
+                const pickedDate = new Date(e.target.value);
+                pickedDate.setHours(0, 0, 0, 0);
+
+                if (pickedDate > tomorrow) return;
+
+                onDateChange(pickedDate);
+              }}
             />
           </div>
 
           <button
             onClick={() => handleAdjustDate(1)}
-            className="hidden md:block p-2 text-primary-gray hover:text-white transition-colors"
+            disabled={isNextDisabled}
+            className="hidden md:block p-2 cursor-pointer text-primary-gray hover:text-white transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
           >
             <ChevronRight size={18} />
           </button>

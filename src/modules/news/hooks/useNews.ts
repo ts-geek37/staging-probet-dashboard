@@ -3,8 +3,7 @@
 import { useEffect, useState, useRef } from "react";
 
 import { getNews } from "@/api/news";
-import { ApiResponse } from "@/api/types";
-import { NewsItem, Pagination, NewsListResponse } from "@/types/news";
+import { NewsItem, Pagination } from "@/types/news";
 
 type UseNewsResult = {
   news: NewsItem[];

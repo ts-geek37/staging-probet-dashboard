@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 import {
   NewsCard,
@@ -34,6 +34,8 @@ const News: React.FC<NewsProps> = ({
     dateParam ? new Date(dateParam) : new Date(),
   );
 
+  const [hasLoaded, setHasLoaded] = useState(false);
+
   const {
     news,
     pagination,
@@ -43,6 +45,12 @@ const News: React.FC<NewsProps> = ({
     pagination: PaginationType | null;
     loading: boolean;
   } = useNews(selectedDate, currentPage, initialNews);
+
+  useEffect(() => {
+    if (!loading) {
+      queueMicrotask(() => setHasLoaded(true));
+    }
+  }, [loading]);
 
   const updateURL = (page: number, date: Date) => {
     const params = new URLSearchParams();
@@ -57,6 +65,7 @@ const News: React.FC<NewsProps> = ({
   };
 
   const handleDateChange = (date: Date) => {
+    setHasLoaded(false);
     setSelectedDate(date);
     updateURL(1, date);
   };
@@ -65,20 +74,16 @@ const News: React.FC<NewsProps> = ({
   const [mainNews, ...sideNews] = news ?? [];
 
   return (
-    <section className="space-y-8 relative">
+    <section className="relative space-y-8">
       <NewsHeader selectedDate={selectedDate} onDateChange={handleDateChange} />
 
-      {loading && <SkeletonCardLoader />}
-
-      {news && news.length > 0 ? (
-        <div
-          className={`grid grid-cols-1 gap-5 md:gap-8 sm:grid-cols-3 ${
-            loading ? "opacity-50" : ""
-          }`}
-        >
+      {loading || !hasLoaded ? (
+        <SkeletonCardLoader />
+      ) : news && news.length > 0 ? (
+        <div className="grid grid-cols-1 gap-5 sm:grid-cols-3 md:gap-8">
           {mainNews && (
             <>
-              <div className="hidden sm:block sm:col-span-3 group">
+              <div className="hidden sm:col-span-3 sm:block group">
                 <Link
                   href={`/news/${mainNews.id}`}
                   className="block overflow-hidden rounded-2xl"
@@ -102,19 +107,20 @@ const News: React.FC<NewsProps> = ({
           ))}
         </div>
       ) : (
-        !loading && (
-          <NoData message="No news articles found for this date. Try selecting a different day from the calendar to stay updated." />
-        )
+        <NoData message="No news articles found for this date. Try selecting a different day from the calendar to stay updated." />
       )}
 
-      {currentPagination && currentPagination.totalPages > 1 && (
-        <PaginationComponent
-          mode="total"
-          currentPage={currentPagination.page}
-          totalPages={currentPagination.totalPages}
-          onPageChange={handlePageChange}
-        />
-      )}
+      {!loading &&
+        hasLoaded &&
+        currentPagination &&
+        currentPagination.totalPages > 1 && (
+          <PaginationComponent
+            mode="total"
+            currentPage={currentPagination.page}
+            totalPages={currentPagination.totalPages}
+            onPageChange={handlePageChange}
+          />
+        )}
     </section>
   );
 };

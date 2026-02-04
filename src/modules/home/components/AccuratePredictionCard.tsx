@@ -34,9 +34,6 @@ const AccuratePredictionCard: React.FC<Props> = ({ prediction }) => {
   );
 
   const [actualHome, actualAway] = prediction.actual_score.split("-");
-  const reason =
-    prediction?.result_info ?? getResultReason(actualHome, actualAway);
-
   return (
     <Card
       onClick={handleClick}
@@ -73,7 +70,7 @@ const AccuratePredictionCard: React.FC<Props> = ({ prediction }) => {
           </span>
         </div>
 
-        <div className="flex flex-col items-center gap-2 min-w-[120px]">
+        <div className="flex flex-col items-center gap-2 min-w-30">
           <span className="text-xs text-slate-400 uppercase tracking-wide ">
             Result
           </span>

@@ -1,7 +1,11 @@
 import DOMPurify from "isomorphic-dompurify";
 
 export const sanitizeAndStyleHTML = (html: string): string => {
-  const clean = DOMPurify.sanitize(html, {
+  const fixedHtml = html
+    .replaceAll("<source", "<div")
+    .replaceAll("</source>", "</div>");
+
+  const clean = DOMPurify.sanitize(fixedHtml, {
     ALLOWED_TAGS: [
       "p",
       "br",
@@ -20,11 +24,24 @@ export const sanitizeAndStyleHTML = (html: string): string => {
       "a",
       "blockquote",
       "img",
+      "figure",
+      "figcaption",
+      "div",
     ],
-    ALLOWED_ATTR: ["href", "src", "alt", "title", "class"],
+    ALLOWED_ATTR: [
+      "href",
+      "src",
+      "alt",
+      "title",
+      "target",
+      "rel",
+      "decoding",
+      "fetchpriority",
+    ],
     FORBID_ATTR: ["style", "class", "id"],
   });
-  if (!document) return clean;
+
+  if (typeof document === "undefined") return clean;
   const tempDiv = document.createElement("div");
   tempDiv.innerHTML = clean;
 
@@ -34,6 +51,19 @@ export const sanitizeAndStyleHTML = (html: string): string => {
   const allElements = tempDiv.querySelectorAll("*");
   allElements.forEach((el) => {
     el.removeAttribute("class");
+  });
+  tempDiv.querySelectorAll("figcaption").forEach((el) => el.remove());
+
+  tempDiv.querySelectorAll("source").forEach((source) => {
+    const img = source.querySelector("img");
+    if (img) source.replaceWith(img);
+    else source.remove();
+  });
+
+  const links = tempDiv.querySelectorAll("a");
+  links.forEach((link) => {
+    link.setAttribute("target", "_blank");
+    link.setAttribute("rel", "noopener noreferrer");
   });
 
   return tempDiv.innerHTML;
