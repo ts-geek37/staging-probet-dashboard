@@ -8,41 +8,10 @@ import { Plan, PlanWithFeatures } from "@/types/prices";
 type PlansResponse = ApiResponse<Plan[]>;
 const FEATURES = [
   "Full prediction access",
-  "All match statistics",
+  "Match statistics and predictions",
   "Head-to-head analysis",
-  "Email alerts",
-  "Priority support / API access",
+  "Latest football news",
 ];
-
-const SECONDARY_FEATURES: Record<string, string[]> = {
-  monthly: [
-    "Full prediction access",
-    "All match statistics",
-    "Head-to-head analysis",
-    "Email alerts",
-  ],
-  quarterly: [
-    "Full prediction access",
-    "All match statistics",
-    "Head-to-head analysis",
-    "Email alerts",
-    "Priority support",
-  ],
-  "semi-annual": [
-    "Full prediction access",
-    "All match statistics",
-    "Head-to-head analysis",
-    "Email alerts",
-    "Priority support/API access",
-  ],
-  annual: [
-    "Full prediction access",
-    "All match statistics",
-    "Head-to-head analysis",
-    "Email alerts/Custom alerts",
-    "Priority support/API access",
-  ],
-};
 
 export const usePlans = () => {
   const { data, error, isLoading } = useSWR<PlansResponse>("/api/v2/prices", {
@@ -52,7 +21,7 @@ export const usePlans = () => {
   const plans: PlanWithFeatures[] =
     data?.data?.map((plan) => ({
       ...plan,
-      features: SECONDARY_FEATURES[plan.billingCycle] ?? FEATURES,
+      features: FEATURES,
     })) ?? [];
 
   return {
