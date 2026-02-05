@@ -16,6 +16,8 @@ interface Props {
 const MatchHeader: React.FC<Props> = ({ match }) => {
   const router = useRouter();
   const { data: liveMatches } = useGeneralLiveMatches();
+  // const shouldShowResultInfo =
+  //   match?.status === "FINISHED" && Boolean(match?.result_info?.trim());
 
   const liveMatch = useMemo(
     () => liveMatches.find((m) => m.id === match.id),
@@ -92,6 +94,11 @@ const MatchHeader: React.FC<Props> = ({ match }) => {
             <p className="text-xs sm:text-sm font-semibold text-primary-gray capitalize">
               {getMatchTime()}
             </p>
+            {/* {shouldShowResultInfo && (
+              <p className="text-[10px] sm:text-xs font-medium text-green-400 mt-1 text-center">
+                {currentMatch.result_info}
+              </p>
+            )} */}
           </div>
           <div
             role="button"

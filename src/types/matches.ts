@@ -54,6 +54,7 @@ export interface MatchListItem {
     name: string;
     logo: string | null;
   };
+  result_info?: string | null;
   live_period?: LivePeriod | null;
   season?: {
     id: number;

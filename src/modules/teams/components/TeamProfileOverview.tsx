@@ -37,6 +37,9 @@ const TeamProfileOverview: React.FC<Props> = ({
   rivals,
   socials,
 }) => {
+  const getTeamInfo = (label: string) =>
+    teamInfo?.find((item) => item.label === label);
+
   const getSocialIcon = (platform = "") => {
     const name = platform.toLowerCase();
     const props = { size: 18 };
@@ -46,23 +49,25 @@ const TeamProfileOverview: React.FC<Props> = ({
     if (name.includes("facebook")) return <Facebook {...props} />;
     return <Globe {...props} />;
   };
+  const teamName = getTeamInfo("Name")?.value || "Team Name";
 
-  const teamLogo = teamInfo?.[0]?.image;
   const teamDetails = [
     {
       icon: <Calendar size={18} />,
       label: "Founded",
-      value: teamInfo?.[3]?.value,
+      value: getTeamInfo("Founded")?.value,
     },
     {
       icon: <Globe size={18} />,
       label: "Country",
-      value: teamInfo?.[2]?.value,
+      value: getTeamInfo("Country")?.value,
     },
   ].filter(
     (item) =>
       item.value !== undefined && item.value !== null && item.value !== "",
   );
+
+  const teamLogo = getTeamInfo("Name")?.image;
 
   return (
     <div className="py-4 space-y-7">
@@ -89,7 +94,7 @@ const TeamProfileOverview: React.FC<Props> = ({
 
                     <div className="flex-1">
                       <h2 className="text-2xl sm:text-4xl font-black text-white tracking-tight">
-                        {teamInfo?.[0]?.value || "Team Name"}
+                        {teamName}
                       </h2>
                       <div className="hidden sm:grid grid-cols-2 gap-4 mt-6">
                         {teamDetails.map((item, i) => (

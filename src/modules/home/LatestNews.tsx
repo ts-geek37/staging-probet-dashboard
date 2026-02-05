@@ -5,10 +5,10 @@ import React from "react";
 
 import { VIPBanner } from "@/components";
 import NewsCard from "@/modules/news/components/NewsCard";
-import { NewsSummary } from "@/types/home";
+import { NewsItem } from "@/types/news";
 
 interface Props {
-  news: NewsSummary[];
+  news: NewsItem[];
 }
 
 const LatestNews: React.FC<Props> = ({ news }) => {
@@ -17,7 +17,7 @@ const LatestNews: React.FC<Props> = ({ news }) => {
   const [mainNews, ...sideNews] = news;
 
   return (
-    <section className="py-10 md:py-20 text-white">
+    <section className="pb-10 text-white">
       <div className="space-y-10">
         <div className="flex items-end justify-between gap-6">
           <div className="space-y-2">
@@ -33,10 +33,10 @@ const LatestNews: React.FC<Props> = ({ news }) => {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          <div className="lg:col-span-2 h-70 sm:h-105">
+          <div className="lg:col-span-2 h-64 sm:h-96">
             <Link href={`/news/${mainNews.id}`}>
               <NewsCard
-                id={Number(mainNews?.id)}
+                id={Number(mainNews.id)}
                 title={mainNews.title}
                 image={mainNews.image}
                 published_at={mainNews.published_at}
@@ -48,7 +48,7 @@ const LatestNews: React.FC<Props> = ({ news }) => {
             {sideNews.slice(0, 3).map((item) => (
               <Link key={item.id} href={`/news/${item.id}`}>
                 <NewsCard
-                  id={Number(item?.id)}
+                  id={Number(item.id)}
                   title={item.title}
                   image={item.image}
                   published_at={item.published_at}

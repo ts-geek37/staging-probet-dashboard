@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 
-import { DataError, MatchCard, NoData, SkeletonCardLoader } from "@/components";
+import { DataError, MatchCard, NoData } from "@/components";
 import { cn } from "@/lib/utils";
 import { MatchListItem } from "@/types/home";
 
@@ -32,6 +32,7 @@ const LiveMatchCards: React.FC<Props> = ({
     initialMatches,
     scopeInfo,
   );
+  const haveHref = href && data.length > (limit ?? 0);
   const matches = limit ? data.slice(0, limit) : data;
 
   return (
@@ -47,10 +48,9 @@ const LiveMatchCards: React.FC<Props> = ({
 
             <div className="flex items-center gap-2 text-xs sm:text-base">
               {description && <span>{description}</span>}
-              {!connected && <SkeletonCardLoader />}
             </div>
           </div>
-          {href && (
+          {haveHref && (
             <Link href={href} className="text-primary-gray hover:text-white">
               View all
             </Link>
@@ -59,7 +59,7 @@ const LiveMatchCards: React.FC<Props> = ({
 
         {error && <DataError />}
 
-        {loading ? (
+        {loading && !connected ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {[0, 1, 2].map((i) => (
               <div

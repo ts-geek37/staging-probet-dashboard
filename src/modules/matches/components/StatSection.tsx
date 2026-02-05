@@ -51,11 +51,11 @@ const StatRow: React.FC<IStatRow> = ({
       </div>
       <div className="flex gap-1.5 h-1.5 w-full rounded-full overflow-hidden bg-white/5">
         <div
-          className={`h-full transition-all duration-500 ${h > a ? "bg-primary-green" : "bg-white/20"}`}
+          className={`h-full transition-all duration-500 ${h >= a ? "bg-primary-green" : "bg-white/20"}`}
           style={{ width: `${(h / (h + a || 1)) * 100}%` }}
         />
         <div
-          className={`h-full transition-all duration-500 ${a > h ? "bg-primary-green" : "bg-white/20"}`}
+          className={`h-full transition-all duration-500 ${a >= h ? "bg-primary-green" : "bg-white/20"}`}
           style={{ width: `${(a / (h + a || 1)) * 100}%` }}
         />
       </div>

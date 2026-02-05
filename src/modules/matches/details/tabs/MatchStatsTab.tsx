@@ -38,11 +38,11 @@ const MatchStatsTab: FC<Props> = ({ matchId }) => {
         </h3>
 
         <div className="flex justify-between w-full max-w-3xl sm:mb-4">
-          <div className="text-left text-sm sm:text-base text-primary-green">
-            {homeTeam.team.name}
-          </div>
-          <div className="text-right text-sm sm:text-base text-primary-red">
+          <div className="text-right text-sm sm:text-base font-medium text-primary-green">
             {awayTeam.team.name}
+          </div>
+          <div className="text-left text-sm sm:text-base font-medium text-primary-red">
+            {homeTeam.team.name}
           </div>
         </div>
 
@@ -51,8 +51,8 @@ const MatchStatsTab: FC<Props> = ({ matchId }) => {
             <StatsRow
               key={key}
               label={key.replace(/_/g, " ")}
-              home={homeTeam.statistics[key] ?? 0}
               away={awayTeam.statistics[key] ?? 0}
+              home={homeTeam.statistics[key] ?? 0}
             />
           ))}
         </div>

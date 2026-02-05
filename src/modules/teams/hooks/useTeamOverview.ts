@@ -38,10 +38,10 @@ export const useTeamOverview = (
   const teamInfo: OverviewItem[] = [
     team.name ? { label: "Name", value: team.name, image: team.logo } : null,
     team.short_code ? { label: "Short Code", value: team.short_code } : null,
+    team.founded ? { label: "Founded", value: team.founded } : null,
     team.country?.name
       ? { label: "Country", value: team.country.name, image: team.country.flag }
       : null,
-    team.founded ? { label: "Founded", value: team.founded } : null,
   ]
     .map(mapOverview)
     .filter(Boolean) as OverviewItem[];
