@@ -24,67 +24,37 @@ const NewsDetail: React.FC<Props> = ({ news, relatedNews }) => {
 
   return (
     <section className="w-full h-full">
-      <div className="relative h-[40vh] sm:h-[50vh] md:h-[75vh] overflow-hidden ">
-        {!imageError ? (
-          <div className="relative h-full w-full mx-auto max-w-7xl py-12 px-6 lg:px-8 ">
-            <Image
-              src={news?.image}
-              alt={news?.title}
-              height={10000}
-              width={10000}
-              className="h-full w-full object-cover object-center rounded-2xl"
-              priority
-              quality={100}
-              sizes="100vw"
-              onError={() => setImageError(true)}
-            />
-          </div>
-        ) : (
-          <>
-            <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-gray-800 to-black">
-              <div className="absolute inset-0 opacity-20">
-                <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_30%_50%,rgba(1,225,250,0.15),transparent_50%)]" />
-                <div className="absolute top-0 right-0 w-full h-full bg-[radial-gradient(circle_at_70%_50%,rgba(255,193,7,0.1),transparent_50%)]" />
-              </div>
-
-              <div
-                className="absolute inset-0 opacity-5"
-                style={{
-                  backgroundImage: `linear-gradient(rgba(1,225,250,0.3) 1px, transparent 1px),
-                             linear-gradient(90deg, rgba(1,225,250,0.3) 1px, transparent 1px)`,
-                  backgroundSize: "50px 50px",
-                }}
-              />
-            </div>
-
-            <div className="absolute inset-0 z-10 flex items-end">
-              <div className="max-w-7xl mx-auto px-6 lg:px-8 pb-12 w-full">
-                <NewsMeta news={news} />
-              </div>
-            </div>
-          </>
-        )}
-      </div>
-
-      <div className="max-w-7xl mx-auto px-6 lg:px-8 pb-12 w-full">
-        {!imageError && (
-          <div className="pb-8 md:pb-12">
-            <NewsMeta news={news} />
-          </div>
-        )}
-
+      <div className="max-w-7xl mx-auto px-6 lg:px-8 py-12 w-full">
         <div
           className={cn(
             "grid grid-cols-1 gap-5 sm:gap-8 md:gap-12",
             haveRelatedNews ? "lg:grid-cols-[2fr_1fr]" : "",
           )}
         >
-          <article className="text-white">
-            <div
-              className="news-content"
-              dangerouslySetInnerHTML={{ __html: sanitizedContent }}
-            />
-          </article>
+          <div className="h-full">
+            <NewsMeta news={news} className="py-4" />
+
+            <div className="relative h-[250px] sm:h-[350px] my-4 overflow-hidden rounded-2xl">
+              <div className="relative h-full w-full flex justify-center items-center">
+                <Image
+                  src={news?.image}
+                  alt={news?.title}
+                  height={1000}
+                  width={1000}
+                  className="w-full h-full object-top object-cover rounded-xl shadow-lg"
+                  priority
+                  onError={() => setImageError(true)}
+                />
+              </div>
+            </div>
+
+            <article className="text-white">
+              <div
+                className="news-content"
+                dangerouslySetInnerHTML={{ __html: sanitizedContent }}
+              />
+            </article>
+          </div>
 
           {haveRelatedNews && (
             <div className="lg:sticky lg:top-6 self-start">
