@@ -11,13 +11,19 @@ if (!API_BASE_URL) {
 
 type AuthMode = "clerk" | "internal" | "none";
 
-const AUTH_ROUTES: Array<{
-  prefix: string;
+type AuthRoute = {
+  pattern: RegExp;
   mode: AuthMode;
-}> = [{ prefix: "/api/v2/billing", mode: "clerk" }];
+};
 
-function resolveAuthMode(path: string): AuthMode {
-  return AUTH_ROUTES.find((r) => path.startsWith(r.prefix))?.mode ?? "none";
+export const AUTH_ROUTES: AuthRoute[] = [
+  { pattern: /^\/api\/v2\/billing/, mode: "clerk" },
+  { pattern: /^\/api\/v2\/predictions\/matches\/?$/, mode: "internal" },
+  { pattern: /^\/api\/v2\/predictions\/matches\/[^/]+(\/.*)?$/, mode: "clerk" },
+];
+
+export function resolveAuthMode(path: string): AuthMode {
+  return AUTH_ROUTES.find((r) => r.pattern.test(path))?.mode ?? "none";
 }
 
 export function useSwrFetcher() {
@@ -25,7 +31,6 @@ export function useSwrFetcher() {
 
   return async function swrFetcher<T>(url: string): Promise<T> {
     const authMode = resolveAuthMode(url);
-
     const headers: HeadersInit = {
       "Content-Type": "application/json",
     };

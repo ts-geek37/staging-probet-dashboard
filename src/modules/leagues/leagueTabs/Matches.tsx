@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Ads } from "@/components";
+import { Ads, NoData } from "@/components";
 import MatchListing from "@/components/MatchListing";
 import { MatchListStatus } from "@/types/matches";
 
@@ -14,7 +14,14 @@ interface Props {
 const Matches: React.FC<Props> = ({ id }) => {
   const { recentMatches, upcomingMatches, liveMatches, isLoading } =
     useLeagueMatches(id);
-
+  if (
+    !isLoading &&
+    recentMatches.length == 0 &&
+    upcomingMatches.length == 0 &&
+    liveMatches.length == 0
+  ) {
+    return <NoData message="No matches found for this league." />;
+  }
   return (
     <div className="flex-1 text-white flex flex-col gap-4 sm:gap-8 md:gap-12">
       {isLoading ? (
