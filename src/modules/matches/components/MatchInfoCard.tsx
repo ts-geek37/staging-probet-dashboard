@@ -30,9 +30,7 @@ const MatchInfoCard: React.FC<MatchInfoCardProps> = ({
       })
     : null;
 
-  const localTime = kickoff_time
-    ? convertToLocalTime(kickoff_time).time
-    : null;
+  const localTime = kickoff_time ? convertToLocalTime(kickoff_time).time : null;
 
   const formatStatus = (value: string) =>
     value

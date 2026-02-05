@@ -4,7 +4,7 @@ import React from "react";
 
 import { ApiResponse } from "@/api/types";
 import { VIPBanner } from "@/components";
-import { HomeResponse } from "@/types/home";
+import { HomeResponse, NewsSummary } from "@/types/home";
 import { MatchListStatus } from "@/types/matches";
 
 import AccuratePredictions from "./AccuratePredictions";
@@ -30,10 +30,10 @@ const Home: React.FC<Props> = ({ initialHome }) => {
       starting_soon,
       recently_finished,
       accuratePredictions,
+      news,
     },
     topLeagues,
     popularTeams,
-    news,
     isLoading,
   } = useHome(initialHome);
 
@@ -50,7 +50,7 @@ const Home: React.FC<Props> = ({ initialHome }) => {
               href={`/matches?status=${MatchListStatus.LIVE}`}
               scopeInfo={{ scope: LiveScopeEnum.GENERAL }}
               className="py-10 md:py-20"
-              limit={6}
+              limit={3}
             />
             <VIPBanner />
           </>
@@ -80,7 +80,7 @@ const Home: React.FC<Props> = ({ initialHome }) => {
           isLoading={isLoading}
         />
 
-        <LatestNews news={news} />
+        {news.length > 0 && <LatestNews news={news} />}
         <Testimonials />
       </div>
     </>

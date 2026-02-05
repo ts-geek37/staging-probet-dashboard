@@ -107,7 +107,7 @@ const NewsCard: React.FC<Props> = ({
       rel="noopener noreferrer"
       className={`flex gap-4 rounded-2xl border border-primary-gray/20 bg- p-4`}
     >
-      <div className="relative aspect-square w-24 sm:w-36 shrink-0 overflow-hidden">
+      <div className="relative aspect-square w-24 sm:w-31 shrink-0 overflow-hidden">
         <Image
           src={image || "/placeholder.png"}
           alt={title}
