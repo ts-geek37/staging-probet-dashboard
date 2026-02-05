@@ -147,18 +147,22 @@ const StandingsTable: React.FC<Props> = ({ standings, isLoading }) => {
 
                   <TableCell className="flex justify-center">
                     <div className="flex gap-2">
-                      {row.form
-                        .slice(0, 5)
-                        .map((f: "W" | "D" | "L", i: number) => (
+                      {Array.from({ length: 5 }).map((_, i) => {
+                        const f = row.form?.[i];
+                        return (
                           <span
                             key={i}
-                            className={`w-6 h-6 flex items-center justify-center text-xs rounded ${formColor(
-                              f,
-                            )} text-white`}
+                            className={cn(
+                              "w-6 h-6 flex items-center justify-center text-xs rounded text-white",
+                              f
+                                ? formColor(f as "W" | "D" | "L")
+                                : "bg-primary-gray/20",
+                            )}
                           >
-                            {f}
+                            {f || ""}
                           </span>
-                        ))}
+                        );
+                      })}
                     </div>
                   </TableCell>
                 </TableRow>

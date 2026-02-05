@@ -34,19 +34,32 @@ const NewsDetail: React.FC<Props> = ({ news, relatedNews }) => {
           <div className="h-full">
             <NewsMeta news={news} className="py-4" />
 
-            <div className="relative h-[250px] sm:h-[350px] my-4 overflow-hidden rounded-2xl">
-              <div className="relative h-full w-full flex justify-center items-center">
-                <Image
-                  src={news?.image}
-                  alt={news?.title}
-                  height={1000}
-                  width={1000}
-                  className="w-full h-full object-top object-cover rounded-xl shadow-lg"
-                  priority
-                  onError={() => setImageError(true)}
-                />
+            {!imageError && (
+              <div
+                className={cn(
+                  "relative w-full my-4 overflow-hidden rounded-2xl bg-black/20",
+                  haveRelatedNews
+                    ? "h-[250px] sm:h-[350px]"
+                    : "h-[250px] sm:h-[350px]",
+                )}
+              >
+                <div className="relative h-full w-full flex justify-center items-center">
+                  <Image
+                    src={news?.image}
+                    alt={news?.title}
+                    height={1000}
+                    width={1000}
+                    className={cn(
+                      " h-full object-top object-cover rounded-xl shadow-lg",
+                      !haveRelatedNews ? "w-full lg:w-4/5 mx-auto " : "w-full",
+                    )}
+                    priority
+                    quality={1000}
+                    onError={() => setImageError(true)}
+                  />
+                </div>
               </div>
-            </div>
+            )}
 
             <article className="text-white">
               <div
