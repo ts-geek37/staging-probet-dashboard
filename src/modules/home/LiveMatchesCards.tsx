@@ -46,13 +46,12 @@ const LiveMatchCards: React.FC<Props> = ({
               <div className="text-xs sm:text-base">{description}</div>
             )}
           </div>
-          {haveHref && (
+          {href && (
             <Link href={href} className="text-primary-gray hover:text-white">
               View all
             </Link>
           )}
         </div>
-
 
         {loading ? (
           <SkeletonCardLoader />
