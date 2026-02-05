@@ -3,6 +3,7 @@ import React from "react";
 
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { MatchListItem } from "@/types/matches";
 
 interface PredictionBarProps {
   prediction: {
@@ -12,18 +13,20 @@ interface PredictionBarProps {
   };
   isLocked?: boolean;
   onUnlock?: () => void;
+  match: MatchListItem;
 }
 
 const PredictionBar: React.FC<PredictionBarProps> = ({
   prediction,
   isLocked = false,
   onUnlock,
+  match,
 }) => {
   const segments = [
     {
       key: "home",
       value: prediction.home,
-      label: "Home",
+      label: match.teams.home.name,
       bgColor: "bg-primary-green",
       highlightColor: "text-primary-green",
     },
@@ -32,15 +35,15 @@ const PredictionBar: React.FC<PredictionBarProps> = ({
       value: prediction.draw,
       label: "Draw",
       bgColor: "bg-primary-gray",
-      highlightColor: "text-foreground",
+      highlightColor: "text-primary-gray",
       hasBorder: true,
     },
     {
       key: "away",
       value: prediction.away,
-      label: "Away",
+      label: match.teams.away.name,
       bgColor: "bg-primary-red",
-      highlightColor: "text-destructive",
+      highlightColor: "text-red-400",
     },
   ];
 
@@ -85,18 +88,22 @@ const PredictionBar: React.FC<PredictionBarProps> = ({
             ></div>
           ))}
         </div>
-        <div className="flex justify-between items-center text-xs">
-          {segments.map((segment, index) => (
+        <div className="flex justify-between text-xs sm:text-sm mt-1 flex-wrap gap-1">
+          {segments.map((segment) => (
             <div
               key={segment.key}
-              className={cn(
-                "flex gap-1 text-xs",
-                index === 0 && "items-start",
-                index === 1 && "items-center",
-                index === 2 && "items-end",
-              )}
+              className="flex flex-col items-center text-center min-w-15 wrap-break-word"
             >
-              {segment?.label}:<span>{segment?.value?.toFixed(0) ?? 34}%</span>
+              <span
+                className={`text-sm font-medium truncate line-clamp-1 ${segment.highlightColor}`}
+              >
+                {segment.value !== undefined ? segment.value.toFixed(0) : 0}%
+              </span>
+              <span
+                className={`text-sm font-medium ${segment.highlightColor} truncate overflow-hidden whitespace-nowrap max-w-17.5 sm:max-w-full`}
+              >
+                {segment.label}
+              </span>
             </div>
           ))}
         </div>

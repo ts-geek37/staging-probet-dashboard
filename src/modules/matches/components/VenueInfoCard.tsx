@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import { MapPin, Users, Landmark } from "lucide-react";
 import Image from "next/image";
-import React from "react";
+import React, { useState } from "react";
 
 import { NoData } from "@/components";
 import { Card, CardContent } from "@/components/ui/card";
@@ -20,7 +20,11 @@ interface VenueInfoCardProps {
 }
 
 const VenueInfoCard: React.FC<VenueInfoCardProps> = ({ venue }) => {
-  if (!venue) return <NoData />;
+  const [imgSrc, setImgSrc] = useState<string>(
+    venue?.image?.trim() || "/football-stadium.png",
+  );
+
+  if (!venue) return <NoData message="Venue information is not available" />;
 
   return (
     <motion.div
@@ -31,10 +35,11 @@ const VenueInfoCard: React.FC<VenueInfoCardProps> = ({ venue }) => {
       <Card className="relative border-primary-gray/20 h-full text-white overflow-hidden">
         <div className="absolute inset-0">
           <Image
-            src={venue.image || "/football-stadium.png"}
+            src={imgSrc}
             alt={venue.name || "Venue"}
             fill
             className="object-cover opacity-12"
+            onError={() => setImgSrc("/football-stadium.png")}
           />
         </div>
 
@@ -47,7 +52,7 @@ const VenueInfoCard: React.FC<VenueInfoCardProps> = ({ venue }) => {
                 <span className="flex items-center gap-2 text-white/70">
                   <Landmark size={16} /> Stadium
                 </span>
-                <span>{venue.name}</span>
+                <span className="text-right">{venue.name}</span>
               </div>
             )}
 
@@ -56,7 +61,7 @@ const VenueInfoCard: React.FC<VenueInfoCardProps> = ({ venue }) => {
                 <span className="flex items-center gap-2 text-white/70">
                   <MapPin size={16} /> Location
                 </span>
-                <span>
+                <span className="text-right">
                   {venue.city ?? ""}
                   {venue.city && venue.country ? ", " : ""}
                   {venue.country ?? ""}
@@ -69,7 +74,9 @@ const VenueInfoCard: React.FC<VenueInfoCardProps> = ({ venue }) => {
                 <span className="flex items-center gap-2 text-white/70">
                   <Users size={16} /> Capacity
                 </span>
-                <span>{venue.capacity.toLocaleString()}</span>
+                <span className="text-right">
+                  {venue.capacity.toLocaleString()}
+                </span>
               </div>
             )}
 
@@ -78,7 +85,7 @@ const VenueInfoCard: React.FC<VenueInfoCardProps> = ({ venue }) => {
                 <span className="flex items-center gap-2 text-white/70">
                   <Landmark size={16} /> Surface
                 </span>
-                <span>{venue.surface}</span>
+                <span className="text-right">{venue.surface}</span>
               </div>
             )}
           </div>

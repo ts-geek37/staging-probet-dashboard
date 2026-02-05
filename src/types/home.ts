@@ -1,5 +1,6 @@
 import { LeagueCard } from "./leagues";
 import { MatchListItem } from "./matches";
+import { NewsItem } from "./news";
 import { TeamCard } from "./teams";
 
 export interface HomeResponse {
@@ -10,12 +11,11 @@ export interface HomeResponse {
     starting_soon: MatchListItem[];
     recently_finished: MatchListItem[];
     accuratePredictions: AccuratePredictionItem[];
+    news: NewsItem[];
   };
 
   top_leagues: LeagueCard[];
   popular_teams: TeamCard[];
-
-  news?: NewsSummary[];
 
   meta: {
     updated_at: string;

@@ -117,36 +117,50 @@ const MatchSeasonStatsTab: React.FC<Props> = ({ match }) => {
       ) : (
         <NoData message="Season statistics not available" />
       )}
+      {quickStatCards.length > 0 && (
+        <div className="space-y-6">
+          <div className="flex items-center gap-3 px-4">
+            <div className="h-8 w-1 bg-primary-green rounded-full shadow-[0_0_8px_rgba(0,197,158,0.5)]" />
+            <div>
+              <h2 className="text-lg sm:text-xl font-black text-white uppercase tracking-tight my-4">
+                Quick Stats
+              </h2>
+            </div>
+          </div>
 
-      {quickStatCards.length > 0 ? (
-        <div className="grid grid-cols-1 gap-6 px-4 sm:grid-cols-3">
-          {quickStatCards.map((card) => (
-            <Card
-              key={card.label}
-              className="flex flex-col items-center gap-2 border-primary-gray/20 bg-primary-gray/5 p-4"
-            >
-              {card.icon}
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 px-4">
+            {quickStatCards.map((card) => (
+              <Card
+                key={card.label}
+                className="relative flex flex-col items-center gap-2 border-white/5 bg-white/3 p-5 transition-all hover:bg-white/6 hover:border-white/10"
+              >
+                <div className="absolute top-2 right-2 opacity-10 scale-125">
+                  {card.icon}
+                </div>
 
-              <span className="text-[10px] font-bold uppercase text-primary-gray">
-                {card.label}
-              </span>
+                <div className="p-2 bg-white/5 rounded-xl mb-1">
+                  {card.icon}
+                </div>
 
-              <div className="mt-2 flex w-full items-baseline justify-between">
-                <span className="text-xl font-black text-white">
-                  {card.homeValue}
+                <span className="text-[10px] font-bold uppercase text-white/40 tracking-wider text-center">
+                  {card.label}
                 </span>
 
-                <span className="text-xs font-bold text-primary-gray">vs</span>
+                <div className="mt-1 flex w-full items-center justify-between gap-2">
+                  <span className="text-lg sm:text-xl font-black text-primary-green">
+                    {card.homeValue}
+                  </span>
 
-                <span className="text-xl font-black text-white">
-                  {card.awayValue}
-                </span>
-              </div>
-            </Card>
-          ))}
+                  <div className="h-px flex-1 bg-white/10" />
+
+                  <span className="text-lg sm:text-xl font-black text-white">
+                    {card.awayValue}
+                  </span>
+                </div>
+              </Card>
+            ))}
+          </div>
         </div>
-      ) : (
-        <NoData message="Quick statistics not available" />
       )}
     </div>
   );
