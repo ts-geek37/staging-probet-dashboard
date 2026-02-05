@@ -19,7 +19,6 @@ const NewsDetail: React.FC<Props> = ({ news, relatedNews }) => {
     () => sanitizeAndStyleHTML(news.html_content),
     [news.html_content],
   );
-  console.log("🚀 ~ NewsDetail ~ sanitizedContent:", sanitizedContent);
   const haveRelatedNews = relatedNews?.length > 0;
   const [imageError, setImageError] = useState(false);
 
