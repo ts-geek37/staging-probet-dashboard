@@ -32,7 +32,7 @@ const LiveMatchCards: React.FC<Props> = ({
     initialMatches,
     scopeInfo,
   );
-  const haveHref = href && data.length > (limit ?? 0);
+  const displayLink = href && data.length > (limit ?? 0);
   const matches = limit ? data.slice(0, limit) : data;
 
   return (
@@ -50,7 +50,7 @@ const LiveMatchCards: React.FC<Props> = ({
               {description && <span>{description}</span>}
             </div>
           </div>
-          {haveHref && (
+          {displayLink && (
             <Link href={href} className="text-primary-gray hover:text-white">
               View all
             </Link>
@@ -64,7 +64,7 @@ const LiveMatchCards: React.FC<Props> = ({
             {[0, 1, 2].map((i) => (
               <div
                 key={i}
-                className="h-32 rounded-xl bg-[#111] animate-pulse"
+                className="h-52 rounded-xl bg-[#111] animate-pulse"
               />
             ))}
           </div>
