@@ -80,7 +80,7 @@ const Home: React.FC<Props> = ({ initialHome }) => {
           isLoading={isLoading}
         />
 
-        {news.length > 0 && <LatestNews news={news} />}
+        {news?.length > 0 && <LatestNews news={news} />}
         <Testimonials />
       </div>
     </>
