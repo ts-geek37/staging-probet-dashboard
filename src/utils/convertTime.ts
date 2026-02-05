@@ -1,5 +1,6 @@
-
-export const convertToLocalTime = (kickoffTime: string): { date: string; time: string } => {
+export const convertToLocalTime = (
+  kickoffTime: string,
+): { date: string; time: string } => {
   if (!kickoffTime) return { date: "Date TBD", time: "--:--" };
 
   const utcDate = new Date(kickoffTime + " UTC");

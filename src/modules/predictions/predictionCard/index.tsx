@@ -6,10 +6,10 @@ import React from "react";
 import { Card } from "@/components/ui/card";
 import { MatchListItem } from "@/types/matches";
 import { PredictionCardVariant } from "@/types/prediction";
+import { convertToLocalTime } from "@/utils/convertTime";
 
 import PredictionBar from "./PredictionBar";
 import TeamsDisplay from "./TeamsDisplay";
-import { convertToLocalTime } from "@/utils/convertTime";
 
 interface PredictionCardProps {
   match: MatchListItem;

@@ -18,8 +18,8 @@ import {
   MatchListItem as PlayerMatch,
   MatchStatus as PlayerStatus,
 } from "@/types/players";
-import { getCountdownData } from "@/utils/formatCountdown";
 import { convertToLocalTime } from "@/utils/convertTime";
+import { getCountdownData } from "@/utils/formatCountdown";
 
 interface MatchCardProps {
   match: MatchListItem | PlayerMatch;
@@ -201,7 +201,9 @@ const MatchCard: React.FC<MatchCardProps> = ({ match, href }) => {
                     HALF TIME
                   </span>
                   <div className="flex items-center gap-2">
-                    <span className="text-xs text-primary-gray">{localTime.time}</span>
+                    <span className="text-xs text-primary-gray">
+                      {localTime.time}
+                    </span>
                   </div>
                 </>
               )

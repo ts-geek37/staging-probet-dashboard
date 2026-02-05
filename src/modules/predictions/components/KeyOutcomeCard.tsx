@@ -33,7 +33,7 @@ const KeyOutcomeCard: React.FC<OutcomeBarProps> = ({
           </h3>
         </div>
 
-        <div className="relative w-full bg-primary-gray/20 rounded-lg flex overflow-hidden h-2 sm:h-3">
+        <div className="relative w-full bg-primary-gray/20 rounded-lg flex overflow-hidden h-2 ">
           <motion.div
             initial={{ width: 0 }}
             animate={{ width: `${homeValue}%` }}

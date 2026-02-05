@@ -69,6 +69,15 @@ const createRow = (
   options?: { suffix?: string; isHigherBetter?: boolean },
 ): StatRow | null => {
   if (homeValue == null && awayValue == null) return null;
+  const isZero = (val: any) => {
+    if (val === null || val === undefined) return true;
+    if (typeof val === "number") return val === 0;
+    const cleanVal = val.toString().replace(/[^0-9.]/g, "");
+    return cleanVal === "0" || cleanVal === "0.0" || cleanVal === "";
+  };
+
+  if (isZero(homeValue) && isZero(awayValue)) return null;
+
   return {
     label,
     homeValue: homeValue ?? 0,
@@ -451,13 +460,19 @@ const useMatchSeasonStat = (matchId: number, seasonId?: number) => {
 
     if (!h || !a) return [];
 
+    const isZeroish = (val: any) => {
+      if (val === null || val === undefined) return true;
+      const clean = val.toString().replace(/[^0-9.]/g, "");
+      return clean === "0" || clean === "0.0" || clean === "";
+    };
+
     const createCard = (
       label: string,
       icon: React.ReactNode,
       homeValue: number | string | null | undefined,
       awayValue: number | string | null | undefined,
     ): QuickStatCardConfig | null => {
-      if (!!homeValue && !!awayValue) return null;
+      if (isZeroish(homeValue) && isZeroish(awayValue)) return null;
 
       return {
         label,

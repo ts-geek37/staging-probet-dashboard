@@ -5,6 +5,7 @@ import { Calendar, CalendarDays, Clock, Trophy, UserCheck } from "lucide-react";
 import React from "react";
 
 import { Card, CardContent } from "@/components/ui/card";
+import { convertToLocalTime } from "@/utils/convertTime"; // adjust path if needed
 
 interface MatchInfoCardProps {
   league?: { name: string };
@@ -21,15 +22,16 @@ const MatchInfoCard: React.FC<MatchInfoCardProps> = ({
   season,
   kickoff_time,
 }) => {
-  const kickoffDate = kickoff_time
-    ? new Date(kickoff_time).toLocaleString("en-US", {
+  const formattedDate = kickoff_time
+    ? new Date(kickoff_time).toLocaleDateString("en-US", {
         year: "numeric",
         month: "long",
         day: "numeric",
-        hour: "numeric",
-        minute: "numeric",
-        hour12: false,
       })
+    : null;
+
+  const localTime = kickoff_time
+    ? convertToLocalTime(kickoff_time).time
     : null;
 
   const formatStatus = (value: string) =>
@@ -58,12 +60,21 @@ const MatchInfoCard: React.FC<MatchInfoCardProps> = ({
               </div>
             )}
 
-            {kickoffDate && (
+            {formattedDate && (
               <div className="flex justify-between items-center">
                 <span className="flex items-center gap-2 text-primary-gray">
                   <Calendar size={16} /> Date
                 </span>
-                <span>{kickoffDate}</span>
+                <span>{formattedDate}</span>
+              </div>
+            )}
+
+            {localTime && (
+              <div className="flex justify-between items-center">
+                <span className="flex items-center gap-2 text-primary-gray">
+                  <Clock size={16} /> Time
+                </span>
+                <span>{localTime}</span>
               </div>
             )}
 
