@@ -13,14 +13,11 @@ interface NewsMetaProps {
 const NewsMeta: FC<NewsMetaProps> = ({ news, className = "" }) => {
   return (
     <div className={`flex flex-col gap-4 ${className}`}>
-      <Badge
-        variant="green"
-        className="font-bold text-xs md:text-sm uppercase tracking-widest"
-      >
+      <Badge variant="green" className="font-bold text-xs md:text-sm uppercase">
         {news?.categories?.[0]?.name ?? "News"}
       </Badge>
 
-      <h1 className="text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-black text-white leading-tight uppercase italic">
+      <h1 className="text-2xl sm:text-3xl md:text-4xl font-black text-white leading-tight uppercase italic">
         {news?.title}
       </h1>
 

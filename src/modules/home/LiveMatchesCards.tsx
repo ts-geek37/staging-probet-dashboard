@@ -46,7 +46,7 @@ const LiveMatchCards: React.FC<Props> = ({
               <div className="text-xs sm:text-base">{description}</div>
             )}
           </div>
-          {href && (
+          {haveHref && (
             <Link href={href} className="text-primary-gray hover:text-white">
               View all
             </Link>
