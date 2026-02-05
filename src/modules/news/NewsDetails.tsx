@@ -26,7 +26,7 @@ const NewsDetail: React.FC<Props> = ({ news, relatedNews }) => {
     <section className="w-full h-full">
       <div className="relative h-[40vh] sm:h-[50vh] md:h-[75vh] overflow-hidden ">
         {!imageError ? (
-          <div className="relative h-full w-full mx-auto max-w-7xl py-12">
+          <div className="relative h-full w-full mx-auto max-w-7xl py-12 px-6 lg:px-8 ">
             <Image
               src={news?.image}
               alt={news?.title}
@@ -66,7 +66,7 @@ const NewsDetail: React.FC<Props> = ({ news, relatedNews }) => {
         )}
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 pb-12 w-full">
+      <div className="max-w-7xl mx-auto px-6 lg:px-8 pb-12 w-full">
         {!imageError && (
           <div className="pb-8 md:pb-12">
             <NewsMeta news={news} />
@@ -75,7 +75,7 @@ const NewsDetail: React.FC<Props> = ({ news, relatedNews }) => {
 
         <div
           className={cn(
-            "grid grid-cols-1 gap-12",
+            "grid grid-cols-1 gap-5 sm:gap-8 md:gap-12",
             haveRelatedNews ? "lg:grid-cols-[2fr_1fr]" : "",
           )}
         >
