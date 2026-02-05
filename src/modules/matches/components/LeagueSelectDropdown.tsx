@@ -97,7 +97,8 @@ const LeagueSelectDropdown: React.FC<Props> = ({
                 onClick={() => onSelectLeague(null)}
                 className={cn(
                   "flex items-center justify-between gap-3 px-3 py-2 rounded-sm cursor-pointer",
-                  "hover:bg-primary-green/20 focus:bg-primary-green/20",
+                  "hover:bg-primary-green/20 focus:bg-primary-green/20 ",
+                  "text-white/80 hover:text-white",
                   selectedLeague === null && "bg-zinc-800",
                 )}
               >
@@ -128,8 +129,8 @@ const LeagueSelectDropdown: React.FC<Props> = ({
                 onClick={() => onSelectLeague(league)}
                 className={cn(
                   "flex items-center justify-between gap-3 px-3 py-2 rounded-sm cursor-pointer",
-                  "hover:bg-primary-green/20 focus:bg-primary-green/20",
-                  selectedLeague?.id === league.id && "bg-zinc-800",
+                  "hover:bg-primary-green/20 focus:bg-primary-green/20 text-white/80 hover:text-white",
+                  selectedLeague?.id === league.id && "bg-zinc-800 ",
                 )}
               >
                 <div className="flex items-center gap-3 min-w-0">

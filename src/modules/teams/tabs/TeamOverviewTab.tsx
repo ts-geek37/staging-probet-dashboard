@@ -14,16 +14,8 @@ interface Props {
 }
 
 const TeamOverviewTab: React.FC<Props> = ({ initialData }) => {
-  const {
-    teamInfo,
-    venue,
-    seasons,
-    rankings,
-    rivals,
-    socials,
-    isLoading,
-    error,
-  } = useTeamOverview(initialData?.data?.id ?? 0, initialData);
+  const { teamInfo, venue, seasons, rivals, socials, isLoading, error } =
+    useTeamOverview(initialData?.data?.id ?? 0, initialData);
 
   if (isLoading) return <SkeletonCardLoader />;
   if (error) return <DataError />;
@@ -34,7 +26,6 @@ const TeamOverviewTab: React.FC<Props> = ({ initialData }) => {
       teamInfo={teamInfo}
       venue={venue}
       seasons={seasons}
-      rankings={rankings}
       rivals={rivals}
       socials={socials}
     />

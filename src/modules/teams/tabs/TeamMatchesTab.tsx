@@ -17,29 +17,25 @@ const TeamMatchesTab: React.FC<Props> = ({ teamId, teamName }) => {
   const { latest, upcoming, isLoading, error } = useTeamMatches(teamId);
 
   if (isLoading) return <SkeletonCardLoader />;
-  if (error) return <DataError />;
+  if (error) return <DataError message={error} />;
   if (!latest && !upcoming) return <NoData message="Team data not available" />;
 
   return (
     <div className="space-y-12">
-      {latest.length > 0 ? (
+      {upcoming?.length > 0 && (
         <MatchListing
           title="Upcoming Fixtures"
           matches={upcoming as MatchListItem[]}
           href={`/matches?status=${MatchListStatus.UPCOMING}&q=${encodeURIComponent(teamName)}`}
         />
-      ) : (
-        <NoData message="No recent matches found" />
       )}
 
-      {upcoming.length > 0 ? (
+      {latest?.length > 0 && (
         <MatchListing
           title="Recent Matches"
           matches={latest as MatchListItem[]}
           href={`/matches?status=${MatchListStatus.FINISHED}&q=${encodeURIComponent(teamName)}`}
         />
-      ) : (
-        <NoData message="No upcoming matches found" />
       )}
     </div>
   );

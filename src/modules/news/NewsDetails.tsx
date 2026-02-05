@@ -23,20 +23,22 @@ const NewsDetail: React.FC<Props> = ({ news, relatedNews }) => {
   const [imageError, setImageError] = useState(false);
 
   return (
-    <section className="w-full">
-      <div className="relative h-[60vh] md:h-[75vh] w-full overflow-hidden bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
+    <section className="w-full h-full">
+      <div className="relative h-[40vh] sm:h-[50vh] md:h-[75vh] overflow-hidden ">
         {!imageError ? (
-          <>
+          <div className="relative h-full w-full mx-auto max-w-7xl py-12">
             <Image
               src={news?.image}
               alt={news?.title}
-              fill
-              className="object-cover"
+              height={10000}
+              width={10000}
+              className="h-full w-full object-cover object-center rounded-2xl"
               priority
+              quality={100}
+              sizes="100vw"
               onError={() => setImageError(true)}
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-gray-950 via-gray-950/50 to-transparent" />
-          </>
+          </div>
         ) : (
           <>
             <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-gray-800 to-black">
@@ -64,9 +66,9 @@ const NewsDetail: React.FC<Props> = ({ news, relatedNews }) => {
         )}
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-12 w-full">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 pb-12 w-full">
         {!imageError && (
-          <div className="py-8 md:py-12 border-b border-gray-800">
+          <div className="pb-8 md:pb-12">
             <NewsMeta news={news} />
           </div>
         )}
@@ -79,7 +81,7 @@ const NewsDetail: React.FC<Props> = ({ news, relatedNews }) => {
         >
           <article className="text-white">
             <div
-              className="news-content text-justify"
+              className="news-content"
               dangerouslySetInnerHTML={{ __html: sanitizedContent }}
             />
           </article>
@@ -87,10 +89,10 @@ const NewsDetail: React.FC<Props> = ({ news, relatedNews }) => {
           {haveRelatedNews && (
             <div className="lg:sticky lg:top-6 self-start">
               <div className="flex flex-col gap-3 mb-6">
-                <h2 className="text-xl md:text-2xl font-bold text-primary-yellow uppercase italic">
+                <h2 className="text-xl md:text-2xl font-bold text-primary-green uppercase italic">
                   Related News
                 </h2>
-                <div className="h-px bg-primary-yellow/40 w-full" />
+                <div className="h-px bg-primary-green/40 w-full" />
               </div>
 
               <div className="flex flex-wrap lg:flex-col gap-6 justify-center sm:justify-start">
@@ -107,9 +109,7 @@ const NewsDetail: React.FC<Props> = ({ news, relatedNews }) => {
                       id={item.id}
                       title={item.title}
                       image={item.image}
-                      // alias={item.alias}
-                      // original_url={item.original_url}
-
+                      categories={item.categories?.[0]}
                       published_at={item.published_at}
                     />
                   </div>

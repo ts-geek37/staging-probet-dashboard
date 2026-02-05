@@ -3,6 +3,10 @@
 import Image from "next/image";
 import React from "react";
 
+import { Badge } from "@/components/ui/badge";
+import { Category } from "@/types/news";
+import { formatTimeAgo } from "@/utils/timeAgo";
+
 interface Props {
   id: number;
   title: string;
@@ -11,6 +15,7 @@ interface Props {
   original_url?: string;
   isMain?: boolean;
   isBelow?: boolean;
+  categories?: Category | Category[];
   containerClass?: string;
 }
 
@@ -22,8 +27,13 @@ const NewsCard: React.FC<Props> = ({
   isMain = false,
   isBelow = false,
   containerClass = "",
+  categories,
+  id,
 }) => {
-  const belowCardHeight = "h-80";
+  const belowCardHeight = "h-85";
+  const categoryName = Array.isArray(categories)
+    ? categories[0]?.name
+    : categories?.name;
 
   if (isMain) {
     return (
@@ -39,7 +49,7 @@ const NewsCard: React.FC<Props> = ({
             alt={title}
             width={1300}
             height={900}
-            className="object-cover transition-transform duration-700 group-hover:scale-105"
+            className="h-full w-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
             priority
           />
           <div className="absolute inset-0 bg-linear-to-t from-[#0B0E14] via-[#0B0E14]/60 to-transparent" />
@@ -48,14 +58,16 @@ const NewsCard: React.FC<Props> = ({
         <div
           className={`absolute bottom-0 left-0 w-full p-6 md:p-10 ${containerClass}`}
         >
-          <div className="mb-3 inline-flex items-center rounded-full bg-primary-green/20 px-3 py-1 text-xs font-bold text-primary-green backdrop-blur-md border border-primary-green/20">
-            FEATURED
+          <div className="mb-3 inline-flex uppercase items-center rounded-full bg-primary-green/20 px-3 py-1 text-xs font-bold text-primary-green backdrop-blur-md border border-primary-green/20">
+            {categoryName ?? "Featured"}
           </div>
           <h3 className="mb-3 text-2xl font-black leading-tight text-white md:text-4xl lg:text-5xl drop-shadow-lg">
             {title}
           </h3>
           <div className="flex items-center gap-2 text-sm text-primary-gray">
-            <span className="text-primary-yellow">{published_at}</span>
+            <p className="text-sm font-medium text-primary-green bg-primary-green/10 p-2 rounded-xl w-fit ">
+              {formatTimeAgo(published_at)}
+            </p>
           </div>
         </div>
       </a>
@@ -82,19 +94,20 @@ const NewsCard: React.FC<Props> = ({
         <h4 className="line-clamp-2 text-sm font-semibold text-white pb-1">
           {title}
         </h4>
-        <p className="text-xs text-primary-yellow">{published_at}</p>
+        <p className="text-sm font-medium text-primary-green bg-primary-green/10 p-2 rounded-xl w-fit ">
+          {formatTimeAgo(published_at)}
+        </p>
       </a>
     );
   }
 
   return (
     <a
-      href={original_url}
-      target="_blank"
+      href={`/news/${id}`}
       rel="noopener noreferrer"
-      className={`flex gap-4 rounded-2xl border border-primary-gray/20 bg- p-4 ${belowCardHeight}`}
+      className={`flex gap-4 rounded-2xl border border-primary-gray/20 bg- p-4`}
     >
-      <div className="relative h-36 w-36 shrink-0 overflow-hidden sm:h-36 sm:w-36">
+      <div className="relative aspect-square w-24 sm:w-36 shrink-0 overflow-hidden">
         <Image
           src={image || "/placeholder.png"}
           alt={title}
@@ -103,9 +116,13 @@ const NewsCard: React.FC<Props> = ({
         />
       </div>
 
-      <div className="flex flex-col justify-between">
-        <h4 className="text-sm font-semibold text-white">{title}</h4>
-        <p className="text-xs text-primary-yellow">{published_at}</p>
+      <div className="flex flex-col justify-between gap-3 sm:gap-0">
+        <div className="flex flex-col items-start gap-2">
+          <h4 className="text-sm font-semibold text-white">{title}</h4>
+          <Badge variant="green" className="text-xs">
+            {categoryName ?? "News"}
+          </Badge>
+        </div>
       </div>
     </a>
   );
