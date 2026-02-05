@@ -84,16 +84,18 @@ const TeamRow: React.FC<{ team: MatchTeam; value: string | number }> = ({
   value,
 }) => (
   <div className="flex items-center justify-between gap-3">
-    <Link
-      href={`/teams/${team.id}`}
-      onClick={(e) => e.stopPropagation()}
-      className="flex items-center gap-3 min-w-0 flex-1 hover:underline"
-    >
+    <div className="flex items-center gap-3 min-w-0 flex-1">
       <TeamLogo src={team.logo ?? null} alt={team.name} />
-      <span className="truncate text-sm font-medium text-white">
+
+      <Link
+        href={`/teams/${team.id}`}
+        onClick={(e) => e.stopPropagation()}
+        className="truncate text-sm font-medium text-white hover:underline"
+      >
         {team.name}
-      </span>
-    </Link>
+      </Link>
+    </div>
+
     <span className="text-base font-medium text-primary-gray">{value}</span>
   </div>
 );
@@ -147,14 +149,7 @@ const MatchCard: React.FC<MatchCardProps> = ({ match, href }) => {
       <Card className="cursor-pointer h-full border border-primary-gray/20 py-3 gap-2 transition-all duration-300">
         <CardHeader className="pb-2 pt-3 px-4">
           <div className="flex items-center justify-between gap-2">
-            <div
-              onClick={(e) => {
-                e.stopPropagation();
-                router.push(`/leagues/${league.id}`);
-              }}
-              role="button"
-              className="flex items-center gap-2.5 flex-1 cursor-pointer hover:opacity-80 active:opacity-70"
-            >
+            <div className="flex items-center gap-2.5 flex-1 min-w-0">
               <Image
                 src={league?.logo || "/no-image.png"}
                 alt={league.name}
@@ -165,9 +160,14 @@ const MatchCard: React.FC<MatchCardProps> = ({ match, href }) => {
                 }}
                 className="object-contain w-6 h-6"
               />
-              <span className="text-sm sm:text-base font-medium text-white line-clamp-1">
+
+              <Link
+                href={`/leagues/${league.id}`}
+                onClick={(e) => e.stopPropagation()}
+                className="text-sm sm:text-base font-medium text-white line-clamp-1 hover:opacity-80 active:opacity-70"
+              >
                 {league.name}
-              </span>
+              </Link>
             </div>
             <StatusBadge status={status} countdown={countdown} />
           </div>

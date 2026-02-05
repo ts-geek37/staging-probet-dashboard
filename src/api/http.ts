@@ -1,6 +1,3 @@
-"use server";
-import { auth } from "@clerk/nextjs/server";
-
 import { ApiResponse } from "./types";
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL;
@@ -14,14 +11,11 @@ export async function serverFetch<T>(
   options?: RequestInit,
 ): Promise<ApiResponse<T>> {
   try {
-    const { getToken } = await auth();
-    const userToken = await getToken();
-    const token = userToken || API_TOKEN;
     const res = await fetch(`${API_BASE_URL}${path}`, {
       ...options,
       cache: "no-store",
       headers: {
-        ...(token ? { Authorization: `Bearer ${token}` } : {}),
+        ...(API_TOKEN ? { Authorization: `Bearer ${API_TOKEN}` } : {}),
         ...(options?.headers ?? {}),
       },
     });
