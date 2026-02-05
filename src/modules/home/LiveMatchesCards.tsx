@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 
-import { DataError, MatchCard, NoData } from "@/components";
+import { DataError, MatchCard, NoData, SkeletonCardLoader } from "@/components";
 import { cn } from "@/lib/utils";
 import { MatchListItem } from "@/types/home";
 
@@ -28,7 +28,7 @@ const LiveMatchCards: React.FC<Props> = ({
   href,
   limit,
 }) => {
-  const { data, loading, error, connected } = useGeneralLiveMatches(
+  const { data, loading, error } = useGeneralLiveMatches(
     initialMatches,
     scopeInfo,
   );
@@ -37,7 +37,7 @@ const LiveMatchCards: React.FC<Props> = ({
 
   return (
     <section className={cn("text-white", className)}>
-      <div className="space-y-10">
+      <div className="space-y-6">
         <div className="flex items-end justify-between gap-6">
           <div className="space-y-2">
             {title && (
@@ -45,10 +45,9 @@ const LiveMatchCards: React.FC<Props> = ({
                 {title}
               </h1>
             )}
-
-            <div className="flex items-center gap-2 text-xs sm:text-base">
-              {description && <span>{description}</span>}
-            </div>
+            {description && (
+              <div className="text-xs sm:text-base">{description}</div>
+            )}
           </div>
           {displayLink && (
             <Link href={href} className="text-primary-gray hover:text-white">
@@ -57,28 +56,23 @@ const LiveMatchCards: React.FC<Props> = ({
           )}
         </div>
 
-        {error && <DataError />}
-
-        {loading && !connected ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {[0, 1, 2].map((i) => (
-              <div
-                key={i}
-                className="h-52 rounded-xl bg-[#111] animate-pulse"
-              />
-            ))}
-          </div>
-        ) : data.length === 0 ? (
-          <NoData message="No matches found" />
+        {loading ? (
+          <SkeletonCardLoader />
+        ) : error ? (
+          <DataError />
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {matches.map((match) => (
-              <MatchCard
-                key={match.id}
-                match={match}
-                href={`/matches/${match.id}`}
-              />
-            ))}
+            {data && data.length > 0 ? (
+              matches.map((match) => (
+                <MatchCard
+                  key={match.id}
+                  match={match}
+                  href={`/matches/${match.id}`}
+                />
+              ))
+            ) : (
+              <NoData message="No matches found" />
+            )}
           </div>
         )}
       </div>

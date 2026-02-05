@@ -10,10 +10,10 @@ import {
   Twitter,
 } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import Link from "next/link";
 
 export interface Item {
   id?: number | string;
@@ -240,7 +240,10 @@ const TeamProfileOverview: React.FC<Props> = ({
                       className="rounded-full"
                     />
                   )}
-                  <Link href={`/teams/${rival.id}`} className="text-sm font-medium text-white">
+                  <Link
+                    href={`/teams/${rival.id}`}
+                    className="text-sm font-medium text-white"
+                  >
                     {rival.label}
                   </Link>
                 </div>

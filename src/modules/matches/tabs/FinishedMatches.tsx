@@ -42,7 +42,7 @@ const FinishedMatches: React.FC<Props> = ({ search, leagueId }) => {
 
   return (
     <>
-      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 items-start">
+      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 ">
         {matches.slice(0, 2).map((match) => (
           <MatchCard
             key={match.id}

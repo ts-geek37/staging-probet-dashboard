@@ -69,7 +69,7 @@ const createRow = (
   options?: { suffix?: string; isHigherBetter?: boolean },
 ): StatRow | null => {
   if (homeValue == null && awayValue == null) return null;
-  const isZero = (val: any) => {
+  const isZero = (val: number | string | null | undefined) => {
     if (val === null || val === undefined) return true;
     if (typeof val === "number") return val === 0;
     const cleanVal = val.toString().replace(/[^0-9.]/g, "");
@@ -460,7 +460,7 @@ const useMatchSeasonStat = (matchId: number, seasonId?: number) => {
 
     if (!h || !a) return [];
 
-    const isZeroish = (val: any) => {
+    const isZeroish = (val: number | string | null | undefined) => {
       if (val === null || val === undefined) return true;
       const clean = val.toString().replace(/[^0-9.]/g, "");
       return clean === "0" || clean === "0.0" || clean === "";
