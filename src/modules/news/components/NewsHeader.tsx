@@ -12,6 +12,7 @@ interface NewsHeaderProps {
   selectedDate: Date;
   onDateChange: (date: Date) => void;
 }
+
 const formatDateForInput = (date: Date) => {
   const year = date.getFullYear();
   const month = String(date.getMonth() + 1).padStart(2, "0");
@@ -25,19 +26,17 @@ const NewsHeader: React.FC<NewsHeaderProps> = ({
 }) => {
   const dateInputRef = useRef<HTMLInputElement>(null);
 
-  const tomorrow = new Date();
-  tomorrow.setDate(tomorrow.getDate() + 1);
-  tomorrow.setHours(0, 0, 0, 0);
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
 
-  const maxDate = tomorrow.toISOString().split("T")[0];
+  const maxDate = today.toISOString().split("T")[0];
 
   const handleAdjustDate = (days: number) => {
     const newDate = new Date(selectedDate);
     newDate.setDate(newDate.getDate() + days);
-
     newDate.setHours(0, 0, 0, 0);
 
-    if (newDate > tomorrow) return;
+    if (newDate > today) return;
 
     onDateChange(newDate);
   };
@@ -55,7 +54,7 @@ const NewsHeader: React.FC<NewsHeaderProps> = ({
   };
 
   const isNextDisabled =
-    selectedDate.toDateString() === tomorrow.toDateString();
+    selectedDate.toDateString() === today.toDateString();
 
   return (
     <div className="flex flex-row items-center justify-between border-b border-primary-gray/20 pb-6 gap-2">
@@ -104,7 +103,7 @@ const NewsHeader: React.FC<NewsHeaderProps> = ({
                 const pickedDate = new Date(e.target.value);
                 pickedDate.setHours(0, 0, 0, 0);
 
-                if (pickedDate > tomorrow) return;
+                if (pickedDate > today) return;
 
                 onDateChange(pickedDate);
               }}
