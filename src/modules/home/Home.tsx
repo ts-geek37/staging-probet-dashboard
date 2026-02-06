@@ -47,6 +47,7 @@ const Home: React.FC<Props> = ({ initialHome }) => {
           <>
             <LiveMatchCards
               initialMatches={live_now}
+              title="Live Matches"
               href={`/matches?status=${MatchListStatus.LIVE}`}
               scopeInfo={{ scope: LiveScopeEnum.GENERAL }}
               className="py-10 md:py-20"
