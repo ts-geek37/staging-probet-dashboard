@@ -96,7 +96,7 @@ const AccuratePredictionCard: React.FC<Props> = ({ prediction }) => {
         </div>
       </div>
       {prediction?.prediction_sentence && (
-        <div className="px-4 py-3 border-t border-slate-700 bg-slate-800/60">
+        <div className="px-4 py-3 border-t border-slate-700 bg-slate-800/60 mt-auto">
           <span className="block text-sm text-white">
             {prediction.prediction_sentence}
           </span>

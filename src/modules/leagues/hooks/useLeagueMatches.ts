@@ -2,6 +2,8 @@
 import useSWR from "swr";
 
 import { ApiResponse } from "@/api/types";
+import { useGeneralLiveMatches } from "@/modules/ws/hooks";
+import { LiveScopeEnum } from "@/modules/ws/types";
 import { LeagueMatchesResponse, LeagueView } from "@/types/leagues";
 
 const useLeagueMatches = (leagueId: number) => {
@@ -13,14 +15,16 @@ const useLeagueMatches = (leagueId: number) => {
   const recentMatches = response.data?.data?.recentMatches.slice(0, 6) ?? [];
   const upcomingMatches =
     response.data?.data?.upcomingMatches.slice(0, 6) ?? [];
-  const liveMatches = response.data?.data?.liveMatches.slice(0, 6) ?? [];
-
+   const { data: liveMatches, loading: isLoading } = useGeneralLiveMatches([], {
+    scope: LiveScopeEnum.LEAGUE,
+    id: leagueId,
+  });
   return {
+    liveMatches: liveMatches,
     upcomingMatches,
     recentMatches,
     leagueName,
-    liveMatches,
-    isLoading: !response.data && !response.error,
+    isLoading: !response.data && !response.error && !isLoading,
     error: response.error,
   };
 };
