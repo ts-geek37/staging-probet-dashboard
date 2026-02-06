@@ -24,44 +24,40 @@ const NewsDetail: React.FC<Props> = ({ news, relatedNews }) => {
 
   return (
     <section className="w-full h-full">
-      <div className="max-w-7xl mx-auto px-6 lg:px-8 py-12 w-full">
+      <div className="max-w-7xl mx-auto px-6 lg:px-8 py-8 sm:py-12 w-full">
         <div
           className={cn(
             "grid grid-cols-1 gap-5 sm:gap-8 md:gap-12",
-            haveRelatedNews ? "lg:grid-cols-[2fr_1fr]" : "",
+            haveRelatedNews ? "lg:grid-cols-[2fr_1fr]" : "max-w-4xl mx-auto",
           )}
         >
           <div className="h-full">
-            <NewsMeta news={news} className="py-4" />
+            <NewsMeta news={news} className="pb-4" />
 
             {!imageError && (
               <div
                 className={cn(
-                  "relative w-full my-4 overflow-hidden rounded-2xl bg-black/20",
-                  haveRelatedNews
-                    ? "h-[250px] sm:h-[350px]"
-                    : "h-[250px] sm:h-[350px]",
+                  "relative w-full my-4 overflow-hidden rounded-2xl bg-black/20 aspect-[3/2]",
                 )}
               >
                 <div className="relative h-full w-full flex justify-center items-center">
                   <Image
                     src={news?.image}
                     alt={news?.title}
-                    height={1000}
-                    width={1000}
+                    fill
                     className={cn(
-                      " h-full object-top object-cover rounded-xl shadow-lg",
-                      !haveRelatedNews ? "w-full lg:w-4/5 mx-auto " : "w-full",
+                      "object-cover rounded-xl shadow-lg",
+                      !haveRelatedNews ? "w-full" : "w-full",
                     )}
                     priority
-                    quality={1000}
+                    quality={100}
                     onError={() => setImageError(true)}
                   />
                 </div>
               </div>
             )}
 
-            <article className="text-white">
+            <article className="text-white mt-8">
               <div
                 className="news-content"
                 dangerouslySetInnerHTML={{ __html: sanitizedContent }}
