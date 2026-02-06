@@ -1,9 +1,11 @@
 "use client";
 
 import Link from "next/link";
+
 import { DataError, MatchCard, NoData, SkeletonCardLoader } from "@/components";
 import { cn } from "@/lib/utils";
 import { MatchListItem } from "@/types/home";
+
 import { useGeneralLiveMatches } from "../ws/hooks";
 import { LiveMatchesScopeProps } from "../ws/types";
 
@@ -30,7 +32,8 @@ const LiveMatchCards: React.FC<Props> = ({
     initialMatches,
     scopeInfo,
   );
-  const matchesToShow = !loading ? (limit ? data.slice(0, limit) : data) : [];
+  const displayLink = href && data.length > (limit ?? 0);
+  const matches = limit ? data.slice(0, limit) : data;
 
   return (
     <section className={cn("text-white", className)}>
@@ -46,7 +49,7 @@ const LiveMatchCards: React.FC<Props> = ({
               <div className="text-xs sm:text-base">{description}</div>
             )}
           </div>
-          {href && (
+          {displayLink && (
             <Link href={href} className="text-primary-gray hover:text-white">
               View all
             </Link>
@@ -60,7 +63,7 @@ const LiveMatchCards: React.FC<Props> = ({
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {data && data.length > 0 ? (
-              (limit ? data.slice(0, limit) : data).map((match) => (
+              matches.map((match) => (
                 <MatchCard
                   key={match.id}
                   match={match}

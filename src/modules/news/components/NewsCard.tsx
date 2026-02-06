@@ -45,14 +45,15 @@ const NewsCard: React.FC<Props> = ({
       >
         <div className="relative h-100 w-full md:h-125">
           <Image
-            src={image || "/placeholder.png"}
+            src={image ?? "/no-image.png"}
             alt={title}
             width={1300}
             height={900}
             className="h-full w-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
             priority
+            onError={(img) => (img.currentTarget.src = "/no-image.png")}
           />
-          <div className="absolute inset-0 bg-linear-to-t from-[#0B0E14] via-[#0B0E14]/60 to-transparent" />
+          <div className="absolute inset-0 bg-linear-to-b from-[#0B0E14]/60 to-85% to-[#0B0E14]/60" />
         </div>
 
         <div

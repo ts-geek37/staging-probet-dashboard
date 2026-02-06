@@ -260,7 +260,7 @@
 }
 
 .news-content a {
-  color: var(--primary-yellow);
+  color: var(--primary-green);
   text-decoration: underline;
   text-underline-offset: 2px;
 }
@@ -299,7 +299,7 @@
 }
 
 .news-content blockquote {
-  border-left: 4px solid var(--primary-yellow);
+  border-left: 4px solid var(--primary-green);
   background: rgba(20, 24, 31, 0.5);
   padding: 1.25rem 1.5rem;
   margin: 1.5rem 0;
