@@ -37,6 +37,11 @@ export interface AccuratePredictionItem {
   predicted_score: string;
   actual_score: string;
   winning: boolean;
+  home_win_probability: Number;
+  away_win_probability: Number;
+  draw_probability: Number;
+  prediction_sentence: String;
+
 }
 
 export interface NewsSummary {
