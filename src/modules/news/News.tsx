@@ -8,11 +8,11 @@ import {
   NewsCard,
   NoData,
   Pagination as PaginationComponent,
-  SkeletonCardLoader,
 } from "@/components";
 import { NewsItem, Pagination as PaginationType } from "@/types/news";
 
 import NewsHeader from "./components/NewsHeader";
+import NewsSkeleton from "./components/NewsSkeleton";
 import { useNews } from "./hooks/useNews";
 
 interface NewsProps {
@@ -78,7 +78,7 @@ const News: React.FC<NewsProps> = ({
       <NewsHeader selectedDate={selectedDate} onDateChange={handleDateChange} />
 
       {loading || !hasLoaded ? (
-        <SkeletonCardLoader />
+        <NewsSkeleton />
       ) : news && news.length > 0 ? (
         <div className="grid grid-cols-1 gap-5 sm:grid-cols-3 md:gap-8">
           {mainNews && (
