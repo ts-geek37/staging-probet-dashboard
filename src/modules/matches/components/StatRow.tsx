@@ -32,12 +32,12 @@ const StatRow: React.FC<Props> = ({ label, home, away }) => {
         </span>
         <div className="flex items-center flex-1 gap-2">
           <span className="text-xs md:text-sm font-bold w-12 shrink-0">
-            {displayAway}
+            {displayHome}
           </span>
           <div className="relative flex-1 h-1.5 bg-[#232529] rounded-full overflow-hidden">
             <div
               className="h-full bg-primary-green transition-all duration-700"
-              style={{ width: `${awayWidth}%` }}
+              style={{ width: `${homeWidth}%` }}
             />
           </div>
         </div>
@@ -48,11 +48,11 @@ const StatRow: React.FC<Props> = ({ label, home, away }) => {
           <div className="relative flex-1 h-1.5 bg-[#232529] rounded-full overflow-hidden">
             <div
               className="absolute right-0 h-full bg-primary-red transition-all duration-700"
-              style={{ width: `${homeWidth}%` }}
+              style={{ width: `${awayWidth}%` }}
             />
           </div>
           <span className="text-xs md:text-sm font-bold w-12 text-right shrink-0">
-            {displayHome}
+            {displayAway}
           </span>
         </div>
       </div>
