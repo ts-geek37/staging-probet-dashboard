@@ -65,7 +65,7 @@
                 />
               )}
             </div>
-            <span className="text-sm text-white font-medium text-center">
+            <span className="text-sm text-white font-medium text-center line-clamp-1">
               {homeParticipant?.name}
             </span>
           </div>
@@ -90,7 +90,7 @@
                 />
               )}
             </div>
-            <span className="text-sm text-white font-medium text-center">
+            <span className="text-sm text-white font-medium text-center line-clamp-1">
               {awayParticipant?.name}
             </span>
           </div>

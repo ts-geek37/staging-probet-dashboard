@@ -3,8 +3,10 @@ import Link from "next/link";
 
 import { Banner } from "@/components";
 import { Button } from "@/components/ui/button";
+import { useSubscription } from "@/context";
 
 const HomeBanner: React.FC = () => {
+  const { isVip } = useSubscription();
   return (
     <Banner
       title={
@@ -26,16 +28,17 @@ const HomeBanner: React.FC = () => {
             View Predictions
           </Button>
         </Link>
-
-        <Link href="/pricing">
-          <Button
-            variant="outline"
-            className="h-14 w-60 rounded-xl text-base sm:text-xl font-medium"
-          >
-            <Crown className="mr-3 h-6 w-6" />
-            Become VIP
-          </Button>
-        </Link>
+        {!isVip && (
+          <Link href="/pricing">
+            <Button
+              variant="outline"
+              className="h-14 w-60 rounded-xl text-base sm:text-xl font-medium"
+            >
+              <Crown className="mr-3 h-6 w-6" />
+              Become VIP
+            </Button>
+          </Link>
+        )}
       </div>
     </Banner>
   );
