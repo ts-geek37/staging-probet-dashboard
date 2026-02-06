@@ -72,6 +72,7 @@ const TeamLogo: React.FC<{ src: string | null; alt: string }> = ({
         src={error || !src ? "/no-image.png" : src}
         alt={alt}
         width={20}
+        unoptimized
         height={20}
         onError={() => setError(true)}
         className="object-contain w-6 h-6"
@@ -163,6 +164,7 @@ const MatchCard: React.FC<MatchCardProps> = ({ match, href }) => {
                 }
                 alt={league.name}
                 width={25}
+                unoptimized
                 height={25}
                 onError={() => setLeagueLogoError(true)}
                 className="object-contain w-6 h-6"
