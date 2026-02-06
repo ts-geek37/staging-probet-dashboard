@@ -27,6 +27,19 @@ interface Props {
   id: number;
 }
 
+const FallbackImage: React.FC<React.ComponentProps<typeof Image>> = (props) => {
+  const [error, setError] = React.useState(false);
+
+  return (
+    <Image
+      {...props}
+      src={error || !props.src ? "/no-image.png" : props.src}
+      unoptimized
+      onError={() => setError(true)}
+    />
+  );
+};
+
 const TopScorers: React.FC<Props> = ({ id }) => {
   const { data, tableOrder, hasData, isLoading } = useLeagueTopScorers(id);
 
@@ -99,11 +112,11 @@ const TopScorers: React.FC<Props> = ({ id }) => {
                             onClick={(e) => e.stopPropagation()}
                             className="flex items-center gap-3 min-w-0 flex-1"
                           >
-                            <Image
+                            <FallbackImage
                               src={row?.player?.image || "/no-image.png"}
-                              alt={row?.player?.name || ""}
-                              width={1000}
-                              height={1000}
+                              alt={row?.player?.name || "Player"}
+                              width={40}
+                              height={40}
                               className="size-7 shrink-0 rounded-full overflow-hidden bg-white/10"
                             />
                             <span className="font-medium text-white transition-colors group-hover:text-primary-green group-active:text-primary-green">
@@ -117,11 +130,11 @@ const TopScorers: React.FC<Props> = ({ id }) => {
                             onClick={(e) => e.stopPropagation()}
                             className="flex items-center gap-2"
                           >
-                            <Image
-                              src={row.team.logo || "/no-image.png"}
-                              alt={row.team.name}
-                              width={1000}
-                              height={1000}
+                            <FallbackImage
+                              src={row?.team?.logo || "/no-image.png"}
+                              alt={row?.team?.name || "Team"}
+                              width={40}
+                              height={40}
                               className="size-7 shrink-0 rounded-full overflow-hidden bg-white/10"
                             />
                             <span className="font-medium transition-colors group-hover:text-primary-green group-active:text-primary-green">

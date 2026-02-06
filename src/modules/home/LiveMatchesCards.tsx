@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import React, { useMemo } from "react";
 
 import { DataError, MatchCard, NoData, SkeletonCardLoader } from "@/components";
 import { cn } from "@/lib/utils";
@@ -32,8 +33,26 @@ const LiveMatchCards: React.FC<Props> = ({
     initialMatches,
     scopeInfo,
   );
-  const displayLink = href && data.length > (limit ?? 0);
-  const matches = limit ? data.slice(0, limit) : data;
+
+  const sortedData = useMemo(() => {
+    if (!data) return [];
+    const priority: Record<string, number> = {
+      LIVE: 1,
+      UPCOMING: 2,
+      PROBLEM: 2,
+      FINISHED: 3,
+      FT: 3,
+    };
+
+    return [...data].sort((a, b) => {
+      const priorityA = priority[a.status] || 99;
+      const priorityB = priority[b.status] || 99;
+      return priorityA - priorityB;
+    });
+  }, [data]);
+
+  const displayLink = href && sortedData.length > (limit ?? 0);
+  const matches = limit ? sortedData.slice(0, limit) : sortedData;
 
   return (
     <section className={cn("text-white", className)}>

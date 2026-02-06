@@ -53,8 +53,7 @@ const NewsHeader: React.FC<NewsHeaderProps> = ({
     dateInputRef.current?.showPicker();
   };
 
-  const isNextDisabled =
-    selectedDate.toDateString() === today.toDateString();
+  const isNextDisabled = selectedDate.toDateString() === today.toDateString();
 
   return (
     <div className="flex flex-row items-center justify-between border-b border-primary-gray/20 pb-6 gap-2">

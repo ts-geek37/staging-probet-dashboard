@@ -16,8 +16,9 @@ interface Props {
 const MatchHeader: React.FC<Props> = ({ match }) => {
   const router = useRouter();
   const { data: liveMatches } = useGeneralLiveMatches();
-  // const shouldShowResultInfo =
-  //   match?.status === "FINISHED" && Boolean(match?.result_info?.trim());
+  const [leagueLogoError, setLeagueLogoError] = React.useState(false);
+  const [homeLogoError, setHomeLogoError] = React.useState(false);
+  const [awayLogoError, setAwayLogoError] = React.useState(false);
 
   const liveMatch = useMemo(
     () => liveMatches.find((m) => m.id === match.id),
@@ -27,6 +28,10 @@ const MatchHeader: React.FC<Props> = ({ match }) => {
   const currentMatch = liveMatch ?? match;
 
   const { league, teams, score, status } = currentMatch;
+
+  const shouldShowResultInfo =
+    currentMatch?.status === "FINISHED" &&
+    Boolean(currentMatch?.result_info?.trim());
 
   const getMatchTime = () => {
     if (status !== "LIVE") return status;
@@ -55,11 +60,14 @@ const MatchHeader: React.FC<Props> = ({ match }) => {
           className="flex items-center gap-2 mb-2 sm:mb-6 cursor-pointer"
         >
           <Image
-            src={league.logo || "/no-image.png"}
+            src={
+              leagueLogoError || !league.logo ? "/no-image.png" : league.logo
+            }
             alt={league.name}
             width={40}
             height={40}
             className="object-contain w-6 h-6 sm:w-10 sm:h-10"
+            onError={() => setLeagueLogoError(true)}
           />
           <p className="text-xs sm:text-sm font-medium uppercase">
             {league.name}
@@ -74,11 +82,16 @@ const MatchHeader: React.FC<Props> = ({ match }) => {
             className="flex flex-col items-center flex-1 cursor-pointer"
           >
             <Image
-              src={teams.home.logo || "/no-image.png"}
+              src={
+                homeLogoError || !teams.home.logo
+                  ? "/no-image.png"
+                  : teams.home.logo
+              }
               alt={teams.home.name}
               width={80}
               height={80}
               className="object-contain w-12 h-12 sm:w-20 sm:h-20 mb-2"
+              onError={() => setHomeLogoError(true)}
             />
             <span className="text-xs sm:text-lg font-bold text-center">
               {teams.home.name}
@@ -95,7 +108,7 @@ const MatchHeader: React.FC<Props> = ({ match }) => {
               {getMatchTime()}
             </p>
             {/* {shouldShowResultInfo && (
-              <p className="text-[10px] sm:text-xs font-medium text-green-400 mt-1 text-center">
+              <p className="text-[10px] sm:text-xs font-medium text-primary-green mt-2 text-center bg-primary-green/10 px-3 py-1 rounded-full border border-primary-green/20">
                 {currentMatch.result_info}
               </p>
             )} */}
@@ -107,11 +120,16 @@ const MatchHeader: React.FC<Props> = ({ match }) => {
             className="flex flex-col items-center flex-1 cursor-pointer"
           >
             <Image
-              src={teams.away.logo || "/no-image.png"}
+              src={
+                awayLogoError || !teams.away.logo
+                  ? "/no-image.png"
+                  : teams.away.logo
+              }
               alt={teams.away.name}
               width={80}
               height={80}
               className="object-contain w-12 h-12 sm:w-20 sm:h-20 mb-2"
+              onError={() => setAwayLogoError(true)}
             />
             <span className="text-xs sm:text-lg font-bold text-center truncate">
               {teams.away.name}

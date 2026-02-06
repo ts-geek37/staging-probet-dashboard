@@ -18,6 +18,12 @@ interface Props {
 const MatchLineupsTab: React.FC<Props> = ({ matchId }) => {
   const router = useRouter();
   const { data, isLoading } = useMatchDetail(matchId, MatchDetailView.LINEUPS);
+  const { data: overviewData } = useMatchDetail(
+    matchId,
+    MatchDetailView.OVERVIEW,
+  );
+
+  const homeTeamId = (overviewData as any)?.teams?.home?.id;
 
   if (isLoading) return <SkeletonCardLoader />;
   if (!data) return <NoData message="Lineups not available" />;
@@ -27,10 +33,17 @@ const MatchLineupsTab: React.FC<Props> = ({ matchId }) => {
     return <NoData message="Lineups not available" />;
   }
 
+  // Sort teams so Home team (matching homeTeamId) is first
+  const sortedTeams = [...teams].sort((a, b) => {
+    if (a.team.id === homeTeamId) return -1;
+    if (b.team.id === homeTeamId) return 1;
+    return 0;
+  });
+
   return (
     <div className="grid grid-cols-1 gap-4 sm:gap-6 lg:grid-cols-2">
-      {teams.slice(0, 2).map((team, teamIndex) => {
-        const isHome = teamIndex === 0;
+      {sortedTeams.slice(0, 2).map((team) => {
+        const isHome = team.team.id === homeTeamId;
 
         return (
           <div key={team.team.id} className="space-y-4">

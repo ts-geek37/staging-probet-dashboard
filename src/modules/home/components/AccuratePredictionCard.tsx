@@ -77,14 +77,6 @@ const AccuratePredictionCard: React.FC<Props> = ({ prediction }) => {
           <div className="text-2xl sm:text-3xl lg:text-5xl font-bold text-white tracking-tight group-hover:text-primary-neon group-active:text-primary-neon transition-colors duration-300">
             {actualHome}-{actualAway}
           </div>
-          <div className="flex flex-col items-center gap-1 border-t border-slate-700 pt-2">
-            <span className="text-xs text-slate-400 uppercase tracking-wide">
-              Predicted
-            </span>
-            <span className="text-base sm:text-lg md:text-xl font-semibold text-white">
-              {prediction?.predicted_score || "1-1"}
-            </span>
-          </div>
         </div>
 
         <div className="flex flex-col items-center gap-3 flex-1">
@@ -103,6 +95,13 @@ const AccuratePredictionCard: React.FC<Props> = ({ prediction }) => {
           </span>
         </div>
       </div>
+      {prediction?.prediction_sentence && (
+        <div className="px-4 py-3 border-t border-slate-700 bg-slate-800/60">
+          <span className="block text-sm text-white">
+            {prediction.prediction_sentence}
+          </span>
+        </div>
+      )}
     </Card>
   );
 };

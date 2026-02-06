@@ -4,7 +4,7 @@ import React from "react";
 
 import { NoData, StatsGrid } from "@/components";
 
-import { SeasonOverview, PlayerStatsLoading } from "../components";
+import { PlayerStatsLoading, SeasonOverview } from "../components";
 import { usePlayerStats } from "../hooks";
 
 interface Props {
@@ -26,7 +26,8 @@ const PlayerStatsTab: React.FC<Props> = ({ playerId }) => {
   } = usePlayerStats(playerId);
 
   if (isLoading) return <PlayerStatsLoading />;
-  if (!stats) return <NoData message="No stats available" />;
+  if (!stats?.length)
+    return <NoData message="No detailed statistics found for this player." />;
 
   const mapToStatItems = (statsArray: typeof currentSeasonStats) =>
     statsArray.map((stat) => ({
