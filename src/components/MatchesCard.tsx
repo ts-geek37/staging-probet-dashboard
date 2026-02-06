@@ -64,20 +64,21 @@ const StatusBadge: React.FC<{
 const TeamLogo: React.FC<{ src: string | null; alt: string }> = ({
   src,
   alt,
-}) => (
-  <div className="w-8 h-8 rounded-full flex items-center justify-center overflow-hidden shrink-0">
-    <Image
-      src={src || "/no-image.png"}
-      alt={alt}
-      width={20}
-      height={20}
-      onError={(e) => {
-        e.currentTarget.src = "/no-image.png";
-      }}
-      className="object-contain w-6 h-6"
-    />
-  </div>
-);
+}) => {
+  const [error, setError] = useState(false);
+  return (
+    <div className="w-8 h-8 rounded-full flex items-center justify-center overflow-hidden shrink-0">
+      <Image
+        src={error || !src ? "/no-image.png" : src}
+        alt={alt}
+        width={20}
+        height={20}
+        onError={() => setError(true)}
+        className="object-contain w-6 h-6"
+      />
+    </div>
+  );
+};
 
 const TeamRow: React.FC<{ team: MatchTeam; value: string | number }> = ({
   team,
@@ -141,6 +142,8 @@ const MatchCard: React.FC<MatchCardProps> = ({ match, href }) => {
     return () => clearInterval(interval);
   }, [kickoff_time, isUpcoming]);
 
+  const [leagueLogoError, setLeagueLogoError] = useState(false);
+
   return (
     <motion.div
       whileHover={{ scale: 1.02 }}
@@ -153,13 +156,15 @@ const MatchCard: React.FC<MatchCardProps> = ({ match, href }) => {
           <div className="flex items-center justify-between gap-2">
             <div className="flex items-center gap-2.5 flex-1 min-w-0">
               <Image
-                src={league?.logo || "/no-image.png"}
+                src={
+                  leagueLogoError || !league?.logo
+                    ? "/no-image.png"
+                    : league.logo
+                }
                 alt={league.name}
                 width={25}
                 height={25}
-                onError={(e) => {
-                  e.currentTarget.src = "/no-image.png";
-                }}
+                onError={() => setLeagueLogoError(true)}
                 className="object-contain w-6 h-6"
               />
 
