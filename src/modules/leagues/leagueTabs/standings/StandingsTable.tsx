@@ -38,7 +38,7 @@ export const COLUMNS: Column[] = [
   { key: "losses", label: "L", align: "center" },
   { key: "goalDiff", label: "GD", align: "center" },
   { key: "points", label: "PTS", align: "center" },
-  { key: "form", label: "Form", align: "center" },
+  { key: "form", label: "Last 5", align: "center" },
 ];
 
 export const TABLE_GRID =
