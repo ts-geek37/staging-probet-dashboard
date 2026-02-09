@@ -81,9 +81,9 @@ const NewsCard: React.FC<Props> = ({
         href={original_url}
         target="_blank"
         rel="noopener noreferrer"
-        className={`block overflow-hidden rounded-xl border border-primary-gray/20 bg-card p-4 space-y-3 ${belowCardHeight}`}
+        className={`flex flex-col overflow-hidden rounded-xl border border-primary-gray/20 bg-card p-4 ${belowCardHeight}`}
       >
-        <div className="relative w-full h-50 overflow-hidden rounded-md">
+        <div className="relative w-full h-50 overflow-hidden rounded-md shrink-0 mb-3">
           <Image
             src={image || "/placeholder.png"}
             alt={title}
@@ -92,16 +92,17 @@ const NewsCard: React.FC<Props> = ({
           />
         </div>
 
-        <h4 className="line-clamp-2 text-sm font-semibold text-white pb-1">
+        <h4 className="line-clamp-2 text-sm font-semibold text-white">
           {title}
         </h4>
-        <p className="text-sm font-medium text-primary-green bg-primary-green/10 p-2 rounded-xl w-fit ">
+        <div className="grow" />
+
+        <p className="text-sm font-medium text-primary-green bg-primary-green/10 p-2 rounded-xl w-fit mt-3">
           {formatTimeAgo(published_at)}
         </p>
       </a>
     );
   }
-
   return (
     <a
       href={`/news/${id}`}

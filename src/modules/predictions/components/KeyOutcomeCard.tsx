@@ -25,7 +25,7 @@ const KeyOutcomeCard: React.FC<OutcomeBarProps> = ({
   const isTernary = type === "ternary" && drawValue !== undefined;
 
   return (
-    <Card className="rounded-xl text-white w-auto lg:w-full overflow-hidden shadow-sm">
+    <Card className="rounded-xl text-white w-auto lg:w-full overflow-hidden shadow-sm ">
       <CardContent>
         <div className="flex justify-between items-center mb-4">
           <h3 className="font-semibold text-white text-xs sm:text-base">

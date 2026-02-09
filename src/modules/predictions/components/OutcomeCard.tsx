@@ -23,9 +23,9 @@ const OutcomeCard: React.FC<OutcomeCardProps> = ({
       transition={{ duration: 0.5 }}
       className="w-full"
     >
-      <Card className="rounded-2xl text-white w-full flex flex-col justify-center h-full sm:h-42 ">
+      <Card className="rounded-2xl text-white w-full flex flex-col justify-center h-full py-6">
         <CardContent>
-          <p className="text-xs sm:text-base font-medium text-muted-foreground mb-1">
+          <p className="text-xs sm:text-base font-medium text-muted-foreground ">
             {teamName ? `${teamName} Win` : label}
           </p>
 
