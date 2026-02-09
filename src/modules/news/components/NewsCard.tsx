@@ -45,28 +45,34 @@ const NewsCard: React.FC<Props> = ({
       >
         <div className="relative h-100 w-full md:h-125">
           <Image
-            src={image ?? "/no-image.png"}
+            src={image ?? "/company-og-image.webp"}
             alt={title}
             width={1300}
             height={900}
             className="h-full w-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
             priority
-            onError={(img) => (img.currentTarget.src = "/no-image.png")}
+            onError={(img) =>
+              (img.currentTarget.src = "/company-og-image.webp")
+            }
           />
-          <div className="absolute inset-0 bg-linear-to-b from-[#0B0E14]/60 to-85% to-[#0B0E14]/60" />
+
+          <div className="absolute inset-0 bg-linear-to-t from-[#0B0E14]/95 via-[#0B0E14]/55 via-45% to-transparent to-85%" />
+          <div className="absolute bottom-0 left-0 h-1/2 w-full bg-linear-to-t from-[#0B0E14]/90 to-transparent" />
         </div>
 
         <div
           className={`absolute bottom-0 left-0 w-full p-6 md:p-10 ${containerClass}`}
         >
-          <div className="mb-3 inline-flex uppercase items-center rounded-full bg-primary-green/20 px-3 py-1 text-sm font-bold text-primary-green backdrop-blur-md border border-primary-green/20">
+          <div className="mb-3 inline-flex items-center rounded-full bg-primary-green/20 px-3 py-1 text-sm font-bold uppercase text-primary-green backdrop-blur-md border border-primary-green/20">
             {categoryName ?? "Featured"}
           </div>
+
           <h3 className="mb-3 text-2xl font-black leading-tight text-white md:text-4xl lg:text-5xl drop-shadow-lg">
             {title}
           </h3>
+
           <div className="flex items-center gap-2 text-sm text-primary-gray">
-            <p className="text-sm font-medium text-primary-green bg-primary-green/10 p-2 rounded-xl w-fit ">
+            <p className="w-fit rounded-xl bg-primary-green/10 p-2 text-sm font-medium text-primary-green">
               {formatTimeAgo(published_at)}
             </p>
           </div>
@@ -85,10 +91,11 @@ const NewsCard: React.FC<Props> = ({
       >
         <div className="relative w-full h-50 overflow-hidden rounded-md shrink-0 mb-3">
           <Image
-            src={image || "/placeholder.png"}
+            src={image || "/company-og-image.webp"}
             alt={title}
             fill
             className="object-cover"
+            onError={(e) => (e.currentTarget.src = "/company-og-image.webp")}
           />
         </div>
 
@@ -111,10 +118,11 @@ const NewsCard: React.FC<Props> = ({
     >
       <div className="relative aspect-square w-24 sm:w-31 shrink-0 overflow-hidden">
         <Image
-          src={image || "/placeholder.png"}
+          src={image || "/company-og-image.webp"}
           alt={title}
           fill
           className="object-cover"
+          onError={(e) => (e.currentTarget.src = "/company-og-image.webp")}
         />
       </div>
 

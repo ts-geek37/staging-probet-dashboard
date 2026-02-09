@@ -1,8 +1,6 @@
 "use client";
-import { ChevronLeft } from "lucide-react";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
-import React, { useMemo, useState } from "react";
+import React, { useMemo } from "react";
 
 import { NewsCard } from "@/components";
 import { cn } from "@/lib/utils";
@@ -17,28 +15,15 @@ interface Props {
 }
 
 const NewsDetail: React.FC<Props> = ({ news, relatedNews }) => {
-  const router = useRouter();
   const sanitizedContent = useMemo(
     () => sanitizeAndStyleHTML(news.html_content),
     [news.html_content],
   );
   const haveRelatedNews = relatedNews?.length > 0;
-  const [imageError, setImageError] = useState(false);
 
   return (
     <section className="w-full h-full">
       <div className="max-w-7xl mx-auto px-6 lg:px-8 py-8 sm:py-12 w-full text-white">
-        <button
-          onClick={() => router.back()}
-          className="flex items-center gap-2 text-primary-gray hover:text-primary-green mb-6 transition-colors group"
-        >
-          <div className="bg-white/5 p-2 rounded-full group-hover:bg-primary-green/10">
-            <ChevronLeft size={20} />
-          </div>
-          <span className="font-semibold uppercase tracking-wider text-sm">
-            Back
-          </span>
-        </button>
         <div
           className={cn(
             "grid grid-cols-1 gap-5 sm:gap-8 md:gap-12",
@@ -48,28 +33,29 @@ const NewsDetail: React.FC<Props> = ({ news, relatedNews }) => {
           <div className="h-full">
             <NewsMeta news={news} className="pb-4" />
 
-            {!imageError && (
-              <div
-                className={cn(
-                  "relative w-full my-4 overflow-hidden rounded-2xl bg-black/20 aspect-3/2",
-                )}
-              >
-                <div className="relative h-full w-full flex justify-center items-center">
-                  <Image
-                    src={news?.image}
-                    alt={news?.title}
-                    fill
-                    className={cn(
-                      "object-cover rounded-xl shadow-lg",
-                      !haveRelatedNews ? "w-full" : "w-full",
-                    )}
-                    priority
-                    quality={100}
-                    onError={() => setImageError(true)}
-                  />
-                </div>
+            <div
+              className={cn(
+                "relative w-full my-4 overflow-hidden rounded-2xl bg-black/20 aspect-3/2",
+              )}
+            >
+              <div className="relative h-full w-full flex justify-center items-center">
+                <Image
+                  src={news?.image || "/company-og-image.webp"}
+                  alt={news?.title}
+                  fill
+                  className={cn(
+                    "object-cover rounded-xl shadow-lg",
+                    !haveRelatedNews ? "w-full" : "w-full",
+                  )}
+                  priority
+                  quality={100}
+                  onError={(e) => {
+                    (e.currentTarget as HTMLImageElement).src =
+                      "/company-og-image.webp";
+                  }}
+                />
               </div>
-            )}
+            </div>
 
             <article className="text-white mt-8">
               <div

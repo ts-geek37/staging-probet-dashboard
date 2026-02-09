@@ -4,6 +4,7 @@ import { Ads, NoData } from "@/components";
 import MatchListing from "@/components/MatchListing";
 import { MatchListStatus } from "@/types/matches";
 
+import { useGeneralLiveMatches } from "@/modules/ws/hooks";
 import { useLeagueMatches } from "../hooks";
 import LeagueBanner from "../LeagueBanner";
 
@@ -14,11 +15,13 @@ interface Props {
 const Matches: React.FC<Props> = ({ id }) => {
   const { recentMatches, upcomingMatches, liveMatches, isLoading } =
     useLeagueMatches(id);
+  const { data } = useGeneralLiveMatches(liveMatches);
+  const liveMatchesData = data.filter((match) => match.league?.id == id);
   if (
     !isLoading &&
     recentMatches.length == 0 &&
     upcomingMatches.length == 0 &&
-    liveMatches.length == 0
+    liveMatchesData.length == 0
   ) {
     return <NoData message="No matches found for this league." />;
   }
@@ -27,16 +30,17 @@ const Matches: React.FC<Props> = ({ id }) => {
       {isLoading ? (
         <MatchListing title="Live Matches" matches={[]} isLoading />
       ) : (
-        liveMatches.length > 0 && (
-          <>
-            <MatchListing
-              title="Live Matches"
-              matches={liveMatches}
-              href={`/matches?status=${MatchListStatus.LIVE}&leagueId=${id}`}
-            />
-            <Ads />
-          </>
-        )
+        <div className="flex flex-col gap-4 sm:gap-6">
+          <MatchListing
+            title="Live Matches"
+            matches={liveMatchesData}
+            href={`/matches?status=${MatchListStatus.LIVE}&leagueId=${id}`}
+          />
+          {liveMatchesData.length === 0 && (
+            <NoData message="No matches are live at the moment. Live Matches will appear here once matches start." />
+          )}
+          {liveMatchesData.length > 0 && <Ads />}
+        </div>
       )}
 
       {isLoading ? (
