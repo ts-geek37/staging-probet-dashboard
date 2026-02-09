@@ -15,6 +15,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { TeamTransferRow } from "@/types/teams";
+import { formatAmount } from "@/utils";
 
 interface PaginationMeta {
   page: number;
@@ -65,16 +66,19 @@ const TeamTransfersTable: React.FC<Props> = ({
                 className="border-b border-primary-gray/20"
               >
                 <TableCell className="text-primary-gray">
-                  <div className="flex items-center gap-3 w-11 h-11 bg-white rounded-full p-2">
-                    {transfer.player.image && (
+                  <div className="flex items-center gap-3">
+                    <div className="w-11 h-11 bg-white rounded-full flex items-center justify-center overflow-hidden shrink-0">
                       <Image
-                        src={transfer.player.image}
-                        alt={transfer.player.name}
-                        width={42}
-                        height={42}
-                        className="object-cover rounded-full w-9 h-9"
+                        src={transfer?.player?.image || "/player-avatar.jpeg"}
+                        alt={transfer?.player?.name || "Player"}
+                        width={44}
+                        height={44}
+                        onError={(e) =>
+                          (e.currentTarget.src = "/player-avatar.jpeg")
+                        }
+                        className="w-full h-full object-cover"
                       />
-                    )}
+                    </div>
                     <div className="flex flex-col">
                       <Link
                         href={`/players/${transfer.player.id}`}
@@ -82,10 +86,10 @@ const TeamTransfersTable: React.FC<Props> = ({
                       >
                         {transfer.player.name}
                       </Link>
-                      <span className="text-xs">ID: {transfer.player.id}</span>
+                      {/* <span className="text-xs">ID: {transfer.player.id}</span> */}
                       {transfer.amount !== null && (
                         <span className="text-xs">
-                          Amount: {transfer.amount}
+                          Amount: {formatAmount(transfer.amount)}
                         </span>
                       )}
                     </div>

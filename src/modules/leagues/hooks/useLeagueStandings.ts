@@ -9,7 +9,7 @@ const useLeagueStandings = (leagueId: number) => {
     `/api/v2/leagues/${leagueId}/${LeagueView.STANDINGS}`,
   );
   return {
-    standings: response.data?.data?.table,
+    standings: response.data?.data?.table ?? [],
     league: response.data?.data?.league,
     season: response.data?.data?.season,
     isLoading: !response.data && !response.error,

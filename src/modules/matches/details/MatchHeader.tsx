@@ -16,6 +16,7 @@ interface Props {
 const MatchHeader: React.FC<Props> = ({ match }) => {
   const router = useRouter();
   const { data: liveMatches } = useGeneralLiveMatches();
+
   const [leagueLogoError, setLeagueLogoError] = React.useState(false);
   const [homeLogoError, setHomeLogoError] = React.useState(false);
   const [awayLogoError, setAwayLogoError] = React.useState(false);
@@ -26,12 +27,10 @@ const MatchHeader: React.FC<Props> = ({ match }) => {
   );
 
   const currentMatch = liveMatch ?? match;
-
   const { league, teams, score, status } = currentMatch;
 
   const shouldShowResultInfo =
-    currentMatch?.status === "FINISHED" &&
-    Boolean(currentMatch?.result_info?.trim());
+    status === "FINISHED" && Boolean(currentMatch?.result_info?.trim());
 
   const getMatchTime = () => {
     if (status !== "LIVE") return status;
@@ -39,10 +38,9 @@ const MatchHeader: React.FC<Props> = ({ match }) => {
     const period = currentMatch.live_period;
     if (!period || !period.hasTimer) return "LIVE";
 
-    if (period.timeAdded && period.timeAdded > 0) {
-      return `${period.minutes}+${period.timeAdded}'`;
-    }
-    return `${period.minutes}'`;
+    return period.timeAdded
+      ? `${period.minutes}+${period.timeAdded}'`
+      : `${period.minutes}'`;
   };
 
   const handleClick = (e: React.MouseEvent, path: string) => {
@@ -57,7 +55,7 @@ const MatchHeader: React.FC<Props> = ({ match }) => {
           role="button"
           tabIndex={0}
           onClick={(e) => handleClick(e, `/leagues/${league.id}`)}
-          className="flex items-center gap-2 mb-2 sm:mb-6 cursor-pointer"
+          className="flex items-center gap-2 mb-3 sm:mb-6 cursor-pointer"
         >
           <Image
             src={
@@ -107,11 +105,11 @@ const MatchHeader: React.FC<Props> = ({ match }) => {
             <p className="text-xs sm:text-sm font-semibold text-primary-gray capitalize">
               {getMatchTime()}
             </p>
-            {/* {shouldShowResultInfo && (
-              <p className="text-[10px] sm:text-xs font-medium text-primary-green mt-2 text-center bg-primary-green/10 px-3 py-1 rounded-full border border-primary-green/20">
+            {shouldShowResultInfo && (
+              <p className="hidden sm:block text-xs font-medium text-primary-green mt-3 text-center bg-primary-green/10 px-3 py-1 rounded-full border border-primary-green/20">
                 {currentMatch.result_info}
               </p>
-            )} */}
+            )}
           </div>
           <div
             role="button"
@@ -136,6 +134,12 @@ const MatchHeader: React.FC<Props> = ({ match }) => {
             </span>
           </div>
         </div>
+
+        {shouldShowResultInfo && (
+          <p className="sm:hidden mt-4 text-xs font-medium text-primary-green text-center bg-primary-green/10 px-4 py-1.5 rounded-full border border-primary-green/20">
+            {currentMatch.result_info}
+          </p>
+        )}
       </CardContent>
     </Card>
   );

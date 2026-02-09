@@ -19,7 +19,7 @@ const PlayerHeader: React.FC<Props> = ({ player }) => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 py-5 sm:py-8 flex items-center gap-4">
         <div className="shrink-0 w-13 h-13 sm:w-17 sm:h-17 flex items-center justify-center  font-medium rounded-xl text-2xl sm:text-3xl text-black">
           <Image
-            src={player?.photo || "/no-image.png"}
+            src={player?.photo || "/player-avatar.jpeg"}
             alt={player.name}
             width={1000}
             height={1000}

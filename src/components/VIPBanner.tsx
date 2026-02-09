@@ -3,8 +3,10 @@ import React from "react";
 
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { useSubscription } from "@/context";
 
 const VipBanner: React.FC = () => {
+  const { isVip } = useSubscription();
   return (
     <section>
       <div className="relative mx-auto flex max-sm:flex-col min-h-35 p-3 max-w-7xl items-center justify-between overflow-hidden bg-linear-to-r from-[#0b1c1a] via-[#0f2f2a] to-[#0b1c1a] px-6 md:px-10">
@@ -20,22 +22,25 @@ const VipBanner: React.FC = () => {
           </Badge>
 
           <h2 className="text-base sm:text-2xl font-bold leading-tight text-white md:text-4xl">
-            Unlock Premium Predictions
+            {isVip
+              ? "Access Your Premium Insights"
+              : "Unlock Premium Predictions"}
           </h2>
 
           <p className="text-xs sm:text-sm text-yellow-100 md:text-base">
-            Exclusive insights, advanced stats, and expert tips designed for
-            serious players.
+            {isVip
+              ? "Enjoy exclusive insights, advanced predictions and expert tips tailored to your VIP status."
+              : "Exclusive insights, advanced stats, and expert tips designed for serious players."}
           </p>
         </div>
 
         <div className="relative z-10 max-sm:w-full">
-          <Link href="/pricing" className="w-full">
+          <Link href={isVip ? "/prediction" : "/pricing"} className="w-full">
             <Button
               variant="secondary"
               className="rounded-xl sm:rounded-full max-sm:w-full px-6 py-5 text-sm font-semibold md:text-base"
             >
-              View Plans
+              {isVip ? "View Predictions" : "View Plans"}
             </Button>
           </Link>
         </div>

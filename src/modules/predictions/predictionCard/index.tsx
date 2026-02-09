@@ -35,7 +35,7 @@ const PredictionCard: React.FC<PredictionCardProps> = ({ match, variant }) => {
   return (
     <Card
       onClick={() => router.push(`/matches/${match.id}?tab=Predictions`)}
-      className="text-white p-4 border-none gap-3 min-h-43.75 sm:min-h-50"
+      className="text-white p-4 border-none gap-3 min-h-43.75 sm:min-h-50 cursor-pointer"
     >
       <div className="flex items-center pb-2 justify-between text-xs sm:text-sm">
         <span>{formattedDate}</span>

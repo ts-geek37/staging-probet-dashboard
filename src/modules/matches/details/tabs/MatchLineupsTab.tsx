@@ -23,7 +23,7 @@ const MatchLineupsTab: React.FC<Props> = ({ matchId }) => {
     MatchDetailView.OVERVIEW,
   );
 
-  const homeTeamId = (overviewData as any)?.teams?.home?.id;
+  const homeTeamId = overviewData?.teams?.home?.id ?? -1;
 
   if (isLoading) return <SkeletonCardLoader />;
   if (!data) return <NoData message="Lineups not available" />;

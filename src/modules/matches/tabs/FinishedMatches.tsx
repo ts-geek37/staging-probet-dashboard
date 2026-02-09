@@ -58,7 +58,7 @@ const FinishedMatches: React.FC<Props> = ({ search, leagueId }) => {
               alt="Promotion Banner"
               width={500}
               height={600}
-              className="w-full h-60 md:h-80 xl:h-120 object-cover rounded-xl"
+              className="w-full h-60 md:h-80 xl:h-116 object-cover rounded-xl"
               priority
             />
           </div>

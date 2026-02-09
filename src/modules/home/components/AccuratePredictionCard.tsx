@@ -39,7 +39,7 @@ const AccuratePredictionCard: React.FC<Props> = ({ prediction }) => {
       onClick={handleClick}
       className="group relative w-full flex-1 overflow-hidden border border-slate-700 hover:border-primary-neon/30 active:border-primary-neon/30 transition-all duration-300 cursor-pointer p-0 gap-0"
     >
-      <div className="px-4 py-3 bg-slate-800/80 border-b border-slate-700 group-hover:bg-slate-800 active:bg-slate-800 transition-colors duration-300">
+      <div className="px-4 py-3 bg-slate-800/80 border-b border-slate-700 group-hover:bg-slate-800 active:bg-slate-800 transition-colors duration-300 flex flex-col">
         <div className="text-xs text-slate-400 font-medium mb-1 ">
           {new Date(prediction.starting_at)
             .toLocaleDateString("en-US", {
@@ -53,7 +53,7 @@ const AccuratePredictionCard: React.FC<Props> = ({ prediction }) => {
         </div>
       </div>
 
-      <div className="flex items-center justify-between md:gap-6 p-3 py-6 md:p-6">
+      <div className="flex-1 flex items-center justify-between md:gap-6 p-3 py-6 md:p-6">
         <div className="flex flex-col items-center gap-3 flex-1">
           <div className="relative size-16 bg-slate-800/50 rounded-lg border border-slate-700 flex items-center justify-center overflow-hidden group-hover:border-primary-neon/50     group-active:border-primary-neon/50 group-hover:bg-slate-800 group-active:bg-slate-800 transition-all duration-300">
             {homeParticipant?.image_path && (
@@ -65,7 +65,7 @@ const AccuratePredictionCard: React.FC<Props> = ({ prediction }) => {
               />
             )}
           </div>
-          <span className="text-sm text-white font-medium text-center">
+          <span className="text-sm text-white font-medium text-center line-clamp-1">
             {homeParticipant?.name}
           </span>
         </div>
@@ -90,13 +90,13 @@ const AccuratePredictionCard: React.FC<Props> = ({ prediction }) => {
               />
             )}
           </div>
-          <span className="text-sm text-white font-medium text-center">
+          <span className="text-sm text-white font-medium text-center line-clamp-1">
             {awayParticipant?.name}
           </span>
         </div>
       </div>
       {prediction?.prediction_sentence && (
-        <div className="px-4 py-3 border-t border-slate-700 bg-slate-800/60 mt-auto">
+        <div className="px-4 py-3 border-t border-slate-700 bg-slate-800/60">
           <span className="block text-sm text-white">
             {prediction.prediction_sentence}
           </span>

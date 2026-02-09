@@ -15,7 +15,7 @@ const useLeagueMatches = (leagueId: number) => {
   const recentMatches = response.data?.data?.recentMatches.slice(0, 6) ?? [];
   const upcomingMatches =
     response.data?.data?.upcomingMatches.slice(0, 6) ?? [];
-   const { data: liveMatches, loading: isLoading } = useGeneralLiveMatches([], {
+  const { data: liveMatches, loading: isLoading } = useGeneralLiveMatches([], {
     scope: LiveScopeEnum.LEAGUE,
     id: leagueId,
   });

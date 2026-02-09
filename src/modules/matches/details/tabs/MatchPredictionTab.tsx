@@ -60,16 +60,15 @@ const MatchPredictionsTab: React.FC<Props> = ({ matchId, teams }) => {
   return (
     <section className="space-y-8">
       <h2 className="text-2xl font-bold text-white">Match Predictions</h2>
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      {predictionSentence && (
+        <PredictionSentenceCard
+          text={predictionSentence}
+          homeLabel={teams.home.name}
+          awayLabel={teams.away.name}
+        />
+      )}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-stretch">
         <div className="lg:col-span-2 space-y-6">
-          {predictionSentence && (
-            <PredictionSentenceCard
-              text={predictionSentence}
-              homeLabel={teams.home.name}
-              awayLabel={teams.away.name}
-            />
-          )}
-
           <KeyOutcomeCard
             label="First Half Winner"
             type="ternary"
@@ -100,29 +99,37 @@ const MatchPredictionsTab: React.FC<Props> = ({ matchId, teams }) => {
           />
         </div>
 
-        <div className="flex flex-wrap lg:flex-col gap-6">
+        <div className="flex flex-wrap lg:flex-col gap-6 h-full">
           {keyMarkets.fullTime?.home > 0 && (
-            <OutcomeCard
-              label="Home Win"
-              value={keyMarkets.fullTime.home}
-              colorClass="text-primary-green"
-              teamName={teams.home.name}
-            />
+            <div className="flex-1">
+              <OutcomeCard
+                label="Home Win"
+                value={keyMarkets.fullTime.home}
+                colorClass="text-primary-green"
+                teamName={teams.home.name}
+              />
+            </div>
           )}
+
           {keyMarkets.fullTime?.draw > 0 && (
-            <OutcomeCard
-              label="Draw"
-              value={keyMarkets.fullTime.draw}
-              colorClass="text-primary-yellow"
-            />
+            <div className="flex-1">
+              <OutcomeCard
+                label="Draw"
+                value={keyMarkets.fullTime.draw}
+                colorClass="text-primary-yellow"
+              />
+            </div>
           )}
+
           {keyMarkets.fullTime?.away > 0 && (
-            <OutcomeCard
-              label="Away Win"
-              value={keyMarkets.fullTime.away}
-              colorClass="text-primary-red"
-              teamName={teams.away.name}
-            />
+            <div className="flex-1">
+              <OutcomeCard
+                label="Away Win"
+                value={keyMarkets.fullTime.away}
+                colorClass="text-primary-red"
+                teamName={teams.away.name}
+              />
+            </div>
           )}
         </div>
       </div>

@@ -18,8 +18,8 @@ const PlayerHeroSection: React.FC<Props> = ({ player }) => {
         <div className="flex flex-row items-center gap-4 md:gap-8">
           <div className="relative h-24 w-24 md:w-40 md:h-40 overflow-hidden bg-primary-gray rounded-xl shadow-inner border border-primary-gray/20">
             <Image
-              src={player.photo || "/no-image.png"}
-              alt={player.name}
+              src={player?.photo || "/player-avatar.jpeg"}
+              alt={player?.name || "Player"}
               fill
               className="object-cover"
               priority

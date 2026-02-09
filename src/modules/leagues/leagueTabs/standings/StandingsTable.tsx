@@ -26,6 +26,7 @@ type Column = {
 
 interface Props {
   standings?: MapStandingsTableRow[];
+  leagueName?: string;
   isLoading?: boolean;
 }
 
@@ -38,13 +39,17 @@ export const COLUMNS: Column[] = [
   { key: "losses", label: "L", align: "center" },
   { key: "goalDiff", label: "GD", align: "center" },
   { key: "points", label: "PTS", align: "center" },
-  { key: "form", label: "Form", align: "center" },
+  { key: "form", label: "Last 5", align: "center" },
 ];
 
 export const TABLE_GRID =
   "grid grid-cols-[0.5fr_3fr_repeat(6,1fr)_minmax(150px,2fr)] sm:grid-cols-[0.5fr_6fr_repeat(6,1fr)_minmax(150px,2fr)] items-center px-5";
 
-const StandingsTable: React.FC<Props> = ({ standings, isLoading }) => {
+const StandingsTable: React.FC<Props> = ({
+  standings,
+  leagueName,
+  isLoading,
+}) => {
   const router = useRouter();
 
   const formColor = (v: "W" | "D" | "L") =>
@@ -72,7 +77,7 @@ const StandingsTable: React.FC<Props> = ({ standings, isLoading }) => {
   return (
     <div className="rounded-2xl border border-primary-gray/20 overflow-hidden flex flex-col">
       <div className="px-5 py-4 text-lg font-semibold text-white border-b border-primary-gray/20">
-        Premier League Standings
+        {leagueName ?? "League"} Standings
       </div>
 
       <div className="w-full overflow-x-auto">
