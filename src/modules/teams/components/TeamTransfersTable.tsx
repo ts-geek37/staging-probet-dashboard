@@ -15,6 +15,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { TeamTransferRow } from "@/types/teams";
+import { formatAmount } from "@/utils";
 
 interface PaginationMeta {
   page: number;
@@ -88,7 +89,7 @@ const TeamTransfersTable: React.FC<Props> = ({
                       {/* <span className="text-xs">ID: {transfer.player.id}</span> */}
                       {transfer.amount !== null && (
                         <span className="text-xs">
-                          Amount: {transfer.amount}
+                          Amount: {formatAmount(transfer.amount)}
                         </span>
                       )}
                     </div>
