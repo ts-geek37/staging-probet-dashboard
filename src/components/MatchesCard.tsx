@@ -8,6 +8,7 @@ import React, { useEffect, useState } from "react";
 
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { cn } from "@/lib/utils";
 import {
   MatchListItem,
   MatchListStatus,
@@ -20,7 +21,6 @@ import {
 } from "@/types/players";
 import { convertToLocalTime } from "@/utils/convertTime";
 import { getCountdownData } from "@/utils/formatCountdown";
-import { cn } from "@/lib/utils";
 
 interface MatchCardProps {
   match: MatchListItem | PlayerMatch;
@@ -97,7 +97,7 @@ const TeamRow: React.FC<{
         onClick={(e) => e.stopPropagation()}
         className={cn(
           "truncate text-sm font-medium hover:underline",
-          isWinner ? "text-primary-green" : "text-white"
+          isWinner ? "text-primary-green" : "text-white",
         )}
       >
         {team.name}
@@ -107,7 +107,7 @@ const TeamRow: React.FC<{
     <span
       className={cn(
         "text-base font-medium",
-        isWinner ? "text-primary-green" : "text-primary-gray"
+        isWinner ? "text-primary-green" : "text-primary-gray",
       )}
     >
       {value}
@@ -124,7 +124,7 @@ const MatchCard: React.FC<MatchCardProps> = ({ match, href }) => {
 
   const isLive = status === "LIVE";
   const isUpcoming = status === "UPCOMING" || status === "PROBLEM";
-  const isFinished = status === "FINISHED" ;
+  const isFinished = status === "FINISHED";
 
   const localTime = convertToLocalTime(kickoff_time);
 
@@ -208,12 +208,9 @@ const MatchCard: React.FC<MatchCardProps> = ({ match, href }) => {
           <div className="mt-3 pt-3 border-t border-primary-gray/20 flex justify-between items-center">
             {isLive ? (
               <span className="text-base text-primary-green font-medium">
-                {live_period?.description ?? "LIVE"}{" "}
-                {live_period?.minutes}
+                {live_period?.description ?? "LIVE"} {live_period?.minutes}
                 {"'"}
-                {live_period?.timeAdded
-                  ? `+${live_period.timeAdded}'`
-                  : ""}
+                {live_period?.timeAdded ? `+${live_period.timeAdded}'` : ""}
               </span>
             ) : (
               <>

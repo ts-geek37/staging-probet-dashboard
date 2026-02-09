@@ -6,6 +6,7 @@ import React, { useMemo } from "react";
 
 import { Card, CardContent } from "@/components/ui/card";
 import { MatchListItem } from "@/types/matches";
+
 import useGeneralLiveMatches from "../../ws/hooks/useGeneralLiveMatches";
 
 interface Props {
@@ -22,15 +23,14 @@ const MatchHeader: React.FC<Props> = ({ match }) => {
 
   const liveMatch = useMemo(
     () => liveMatches.find((m) => m.id === match.id),
-    [liveMatches, match.id]
+    [liveMatches, match.id],
   );
 
   const currentMatch = liveMatch ?? match;
   const { league, teams, score, status } = currentMatch;
 
   const shouldShowResultInfo =
-    status === "FINISHED" &&
-    Boolean(currentMatch?.result_info?.trim());
+    status === "FINISHED" && Boolean(currentMatch?.result_info?.trim());
 
   const getMatchTime = () => {
     if (status !== "LIVE") return status;
