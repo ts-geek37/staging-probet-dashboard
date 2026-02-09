@@ -59,7 +59,7 @@ const NewsCard: React.FC<Props> = ({
         <div
           className={`absolute bottom-0 left-0 w-full p-6 md:p-10 ${containerClass}`}
         >
-          <div className="mb-3 inline-flex uppercase items-center rounded-full bg-primary-green/20 px-3 py-1 text-xs font-bold text-primary-green backdrop-blur-md border border-primary-green/20">
+          <div className="mb-3 inline-flex uppercase items-center rounded-full bg-primary-green/20 px-3 py-1 text-sm font-bold text-primary-green backdrop-blur-md border border-primary-green/20">
             {categoryName ?? "Featured"}
           </div>
           <h3 className="mb-3 text-2xl font-black leading-tight text-white md:text-4xl lg:text-5xl drop-shadow-lg">
@@ -92,12 +92,12 @@ const NewsCard: React.FC<Props> = ({
           />
         </div>
 
-        <h4 className="line-clamp-2 text-sm font-semibold text-white">
+        <h4 className="line-clamp-2 text-base font-semibold text-white">
           {title}
         </h4>
         <div className="grow" />
 
-        <p className="text-sm font-medium text-primary-green bg-primary-green/10 p-2 rounded-xl w-fit mt-3">
+        <p className="text-base font-medium text-primary-green bg-primary-green/10 p-2 rounded-xl w-fit mt-3">
           {formatTimeAgo(published_at)}
         </p>
       </a>
@@ -120,8 +120,8 @@ const NewsCard: React.FC<Props> = ({
 
       <div className="flex flex-col justify-between gap-3 sm:gap-0">
         <div className="flex flex-col items-start gap-2">
-          <h4 className="text-sm font-semibold text-white">{title}</h4>
-          <Badge variant="green" className="text-xs">
+          <h4 className="text-base font-semibold text-white">{title}</h4>
+          <Badge variant="green" className="text-sm">
             {categoryName ?? "News"}
           </Badge>
         </div>

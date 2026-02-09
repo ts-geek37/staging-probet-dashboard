@@ -9,11 +9,15 @@ interface Props {
 }
 
 const Standings: React.FC<Props> = ({ id }) => {
-  const { standings, isLoading } = useLeagueStandings(id);
+  const { standings, isLoading, league } = useLeagueStandings(id);
 
   return (
     <div className="flex-1 text-white flex flex-col gap-12">
-      <StandingsTable standings={standings || []} isLoading={isLoading} />
+      <StandingsTable
+        standings={standings}
+        isLoading={isLoading}
+        leagueName={league?.name}
+      />
       <LeagueBanner banner="champions" />
     </div>
   );

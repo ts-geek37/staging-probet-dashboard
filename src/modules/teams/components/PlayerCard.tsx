@@ -28,7 +28,7 @@ const PlayerCard: React.FC<Props> = ({ player, className }) => {
     >
       <div className="relative w-12 h-12 overflow-hidden bg-white rounded-full shrink-0">
         <Image
-          src={player.photo || "/no-image.png"}
+          src={player.photo || "/player-avatar.jpeg"}
           alt={player.name}
           fill
           className="object-cover"

@@ -27,13 +27,20 @@ interface Props {
   id: number;
 }
 
-const FallbackImage: React.FC<React.ComponentProps<typeof Image>> = (props) => {
+const FallbackImage: React.FC<
+  Omit<React.ComponentProps<typeof Image>, "src"> & {
+    src?: string | null;
+    fallback?: string;
+    alt?: string;
+  }
+> = ({ src, fallback = "/no-image.png", alt, ...props }) => {
   const [error, setError] = React.useState(false);
 
   return (
     <Image
+      alt={alt || ""}
       {...props}
-      src={error || !props.src ? "/no-image.png" : props.src}
+      src={error || !src ? fallback : src}
       unoptimized
       onError={() => setError(true)}
     />
@@ -113,7 +120,8 @@ const TopScorers: React.FC<Props> = ({ id }) => {
                             className="flex items-center gap-3 min-w-0 flex-1"
                           >
                             <FallbackImage
-                              src={row?.player?.image || "/no-image.png"}
+                              src={row?.player?.image}
+                              fallback="/player-avatar.jpeg"
                               alt={row?.player?.name || "Player"}
                               width={40}
                               height={40}
