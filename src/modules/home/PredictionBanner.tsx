@@ -52,8 +52,8 @@ const PredictionBanner: React.FC = () => {
               </p>
             </div>
             <div className="hidden sm:grid grid-cols-2 gap-4 self-center">
-              <StatCard value="200+" label="Daily Predictions" color="cyan" />
-              <StatCard value="50+" label="Leagues Covered" color="green" />
+              <StatCard value="200" suffix="+" label="Daily Predictions" color="cyan" isAnimated />
+              <StatCard value="50" suffix="+" label="Leagues Covered" color="green" isAnimated/>
               <StatCard value="24/7" label="Daily Predictions" color="yellow" />
               <StatCard value="API" label="Leagues Covered" color="white" />
             </div>
