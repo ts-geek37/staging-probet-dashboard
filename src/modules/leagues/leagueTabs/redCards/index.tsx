@@ -2,15 +2,15 @@
 
 import React from "react";
 
-import { useLeagueTopScorers } from "../../hooks";
+import { useLeagueRedCards } from "../../hooks";
 import StatsTable from "../components/StatsTable";
 
 interface Props {
   id: number;
 }
 
-const TopScorers: React.FC<Props> = ({ id }) => {
-  const { data, tableOrder, hasData, isLoading } = useLeagueTopScorers(id);
+const RedCards: React.FC<Props> = ({ id }) => {
+  const { data, tableOrder, hasData, isLoading } = useLeagueRedCards(id);
 
   return (
     <StatsTable
@@ -18,9 +18,9 @@ const TopScorers: React.FC<Props> = ({ id }) => {
       tableOrder={tableOrder}
       hasData={!!hasData}
       isLoading={isLoading}
-      noDataMessage="No top scorers data available"
+      noDataMessage="No red cards data available"
     />
   );
 };
 
-export default TopScorers;
+export default RedCards;

@@ -1,17 +1,24 @@
 import { useState } from "react";
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { LeagueView } from "@/types/leagues";
+import { LeagueProfileResponse, LeagueView } from "@/types/leagues";
 
 import { LeagueTabs } from "../constant";
 import LeagueTab from "../leagueTabs";
 
 interface Props {
-  id: number;
+  league: LeagueProfileResponse;
 }
 
-const TabList: React.FC<Props> = ({ id }) => {
+const TabList: React.FC<Props> = ({ league }) => {
   const [activeTab, setActiveTab] = useState<LeagueView>(LeagueView.STANDINGS);
+
+  const filteredTabs = LeagueTabs.filter((tab) => {
+    if (tab.value === LeagueView.TOP_SCORERS) return !!league.hasTopScorer;
+    if (tab.value === LeagueView.RED_CARDS) return !!league.hasRedCard;
+    if (tab.value === LeagueView.YELLOW_CARDS) return !!league.hasYellowCard;
+    return true;
+  });
 
   const handleTabChange = (value: string) => {
     setActiveTab(value as LeagueView);
@@ -19,7 +26,7 @@ const TabList: React.FC<Props> = ({ id }) => {
   return (
     <Tabs value={activeTab} onValueChange={handleTabChange} className="w-full">
       <TabsList className="bg-transparent flex gap-2 overflow-x-auto whitespace-nowrap rounded-none justify-start h-auto p-0 flex-wrap">
-        {LeagueTabs.map(({ value, label }) => (
+        {filteredTabs.map(({ value, label }) => (
           <TabsTrigger
             key={value}
             value={value}
@@ -31,7 +38,7 @@ const TabList: React.FC<Props> = ({ id }) => {
       </TabsList>
 
       <TabsContent value={activeTab} className="mt-6">
-        <LeagueTab tab={activeTab} id={id} />
+        <LeagueTab tab={activeTab} id={league.id} />
       </TabsContent>
     </Tabs>
   );

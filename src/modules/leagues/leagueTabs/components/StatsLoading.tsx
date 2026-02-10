@@ -1,7 +1,9 @@
 "use client";
+import React from "react";
+
 import { Skeleton } from "@/components/ui/skeleton";
 
-const TopScorersLoading: React.FC = () => {
+const StatsLoading: React.FC = () => {
   return (
     <div className="flex flex-col gap-8">
       {[1, 2].map((i) => (
@@ -43,4 +45,4 @@ const TopScorersLoading: React.FC = () => {
     </div>
   );
 };
-export default TopScorersLoading;
+export default StatsLoading;

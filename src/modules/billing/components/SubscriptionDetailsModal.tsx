@@ -13,12 +13,13 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
 import { useSubscription } from "@/context";
 import { formatDate24h } from "@/lib/plan-resolver";
-import { useCancelSubscription } from "../hooks";
-import { Textarea } from "@/components/ui/textarea";
-import { Label } from "@/components/ui/label";
 import { BillingCycle } from "@/types/prices";
+
+import { useCancelSubscription } from "../hooks";
 
 interface SubscriptionDetailsModalProps {
   open: boolean;
