@@ -11,7 +11,7 @@ interface Props {
 
 const LeaguesBrowse: React.FC<Props> = ({ initialLeagues }) => {
   return (
-    <div className="max-w-7xl w-full mx-auto grid grid-cols-1 gap-5 sm:gap-16 py-10 px-5">
+    <div className="max-w-7xl w-full mx-auto grid grid-cols-1 gap-5 sm:gap-16 py-10 px-4 sm:px-6">
       <Ads />
       <LeagueListing initialLeagues={initialLeagues} />
       <LeagueBanner banner="betting" />

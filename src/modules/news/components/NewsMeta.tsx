@@ -31,14 +31,14 @@ const NewsMeta: FC<NewsMetaProps> = ({ news, className = "" }) => {
         </span>
       </button>
 
-      <h1 className="text-2xl sm:text-3xl md:text-4xl font-black text-white leading-tight uppercase italic">
+      <h1 className="text-base sm:text-3xl md:text-4xl font-black text-white leading-tight uppercase italic">
         {news?.title}
       </h1>
 
       <div className="flex items-center gap-2 flex-wrap">
         {publishedAt && (
           <div className="flex items-center gap-2 text-primary-green font-medium text-base md:text-lg">
-            <Clock className="w-4 h-4 md:w-5 md:h-5" />
+            <Clock className="w-3 h-3 md:w-5 md:h-5" />
             <span>{formatTimeAgo(publishedAt)}</span>
           </div>
         )}
@@ -48,7 +48,10 @@ const NewsMeta: FC<NewsMetaProps> = ({ news, className = "" }) => {
         )}
 
         {category && (
-          <Badge variant="green" className="font-bold text-sm uppercase">
+          <Badge
+            variant="green"
+            className="font-bold text-xs sm:text-sm uppercase"
+          >
             {category}
           </Badge>
         )}

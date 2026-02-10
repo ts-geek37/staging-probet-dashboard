@@ -50,37 +50,30 @@ const Home: React.FC<Props> = ({ initialHome }) => {
               title="Live Matches"
               href={`/matches?status=${MatchListStatus.LIVE}`}
               scopeInfo={{ scope: LiveScopeEnum.GENERAL }}
-              className="py-10 md:py-20"
+              className="py-10 pt-15"
               limit={3}
             />
-            <VIPBanner />
           </>
         )}
 
         {starting_soon.length > 0 && (
           <>
             <UpcomingMatchCards matches={starting_soon} />
-            <VIPBanner />
           </>
         )}
 
         {recently_finished.length > 0 && (
           <>
             <FinishedMatchesCards matches={recently_finished} />
-            <VIPBanner />
           </>
         )}
-
-        <TopLeagues topLeagues={topLeagues} standings={popularTeams} />
-
-        <VIPBanner />
-        <PredictionBanner />
-        <VIPBanner />
         <AccuratePredictions
           predictions={accuratePredictions}
           isLoading={isLoading}
         />
 
+        <TopLeagues topLeagues={topLeagues} standings={popularTeams} />
+        <PredictionBanner />
         {news?.length > 0 && <LatestNews news={news} />}
         <Testimonials />
       </div>

@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React, { useMemo } from "react";
 
+import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { MatchListItem } from "@/types/matches";
 
@@ -31,6 +32,8 @@ const MatchHeader: React.FC<Props> = ({ match }) => {
 
   const shouldShowResultInfo =
     status === "FINISHED" && Boolean(currentMatch?.result_info?.trim());
+
+  const isLive = status === "LIVE";
 
   const getMatchTime = () => {
     if (status !== "LIVE") return status;
@@ -105,6 +108,16 @@ const MatchHeader: React.FC<Props> = ({ match }) => {
             <p className="text-xs sm:text-sm font-semibold text-primary-gray capitalize">
               {getMatchTime()}
             </p>
+            {isLive && (
+              <Badge
+                variant="outline"
+                className="mt-4 bg-primary-red/10 border-primary-red/20 text-xs sm:text-sm text-primary-red font-bold animate-pulse px-3 py-1 font-mono"
+              >
+                <span className="mr-1.5 flex h-1.5 w-1.5 rounded-full text-primary-red/20 bg-primary-red" />
+                LIVE
+              </Badge>
+            )}
+
             {shouldShowResultInfo && (
               <p className="hidden sm:block text-xs font-medium text-primary-green mt-3 text-center bg-primary-green/10 px-3 py-1 rounded-full border border-primary-green/20">
                 {currentMatch.result_info}

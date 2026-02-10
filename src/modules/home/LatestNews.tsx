@@ -17,7 +17,7 @@ const LatestNews: React.FC<Props> = ({ news }) => {
   const [mainNews, ...sideNews] = news;
 
   return (
-    <section className="pb-10 text-white">
+    <section className="py-5 sm:py-10 text-white">
       <div className="space-y-10">
         <div className="flex items-end justify-between gap-6">
           <div className="space-y-2">
@@ -27,7 +27,10 @@ const LatestNews: React.FC<Props> = ({ news }) => {
             </p>
           </div>
 
-          <Link href="/news" className="text-primary-gray hover:text-white">
+          <Link
+            href="/news"
+            className="text-xs sm:text-base text-primary-gray hover:text-white"
+          >
             View all
           </Link>
         </div>
@@ -59,7 +62,7 @@ const LatestNews: React.FC<Props> = ({ news }) => {
         </div>
       </div>
 
-      <div className="pt-15">
+      <div className="mt-15">
         <VIPBanner />
       </div>
     </section>
