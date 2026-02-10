@@ -23,7 +23,6 @@ const TopLeagues: React.FC<Props> = ({ topLeagues, standings }) => {
           </h1>
           <p className="text-xs sm:text-base">Browse football competitions</p>
         </div>
-      
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-12 gap-6">

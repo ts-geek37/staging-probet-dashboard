@@ -8,7 +8,6 @@ import { useSubscription } from "@/context";
 import { HomeResponse } from "@/types/home";
 import { MatchListStatus } from "@/types/matches";
 
-import { LiveScopeEnum } from "../ws/types";
 import AccuratePredictions from "./AccuratePredictions";
 import Banner from "./Banner";
 import { Testimonials } from "./components";
@@ -19,6 +18,7 @@ import LiveMatchCards from "./LiveMatchesCards";
 import PredictionBanner from "./PredictionBanner";
 import TopLeagues from "./TopLeagues";
 import UpcomingMatchCards from "./UpcomingMatchesCards";
+import { LiveScopeEnum } from "../ws/types";
 
 interface Props {
   initialHome: ApiResponse<HomeResponse>;

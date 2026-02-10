@@ -91,10 +91,18 @@ const StatsTable: React.FC<Props> = ({
             <Table>
               <TableHeader>
                 <TableRow className="grid grid-cols-[1fr_6fr_6fr_1fr] items-center border-b border-primary-gray/20 hover:bg-transparent px-5">
-                  <TableHead className="flex items-center text-primary-gray">#</TableHead>
-                  <TableHead className="flex items-center text-primary-gray">Player</TableHead>
-                  <TableHead className="flex items-center text-primary-gray">Team</TableHead>
-                  <TableHead className="flex items-center justify-center text-primary-gray">Total</TableHead>
+                  <TableHead className="flex items-center text-primary-gray">
+                    #
+                  </TableHead>
+                  <TableHead className="flex items-center text-primary-gray">
+                    Player
+                  </TableHead>
+                  <TableHead className="flex items-center text-primary-gray">
+                    Team
+                  </TableHead>
+                  <TableHead className="flex items-center justify-center text-primary-gray">
+                    Total
+                  </TableHead>
                 </TableRow>
               </TableHeader>
 
@@ -104,7 +112,9 @@ const StatsTable: React.FC<Props> = ({
                     key={`${tableKey}-${row.player.id}-${idx}`}
                     className="group grid grid-cols-[1fr_6fr_6fr_1fr] gap-0.5 items-center border-b border-primary-gray/10 px-5 text-sm text-primary-gray hover:bg-white/5"
                   >
-                    <TableCell className="font-medium text-white">{row.position}</TableCell>
+                    <TableCell className="font-medium text-white">
+                      {row.position}
+                    </TableCell>
                     <TableCell>
                       <Link
                         href={`/players/${row.player.id}`}
@@ -142,7 +152,9 @@ const StatsTable: React.FC<Props> = ({
                         </span>
                       </Link>
                     </TableCell>
-                    <TableCell className="font-bold group-hover:text-primary-green group-active:text-primary-green text-center">{row.total}</TableCell>
+                    <TableCell className="font-bold group-hover:text-primary-green group-active:text-primary-green text-center">
+                      {row.total}
+                    </TableCell>
                   </TableRow>
                 ))}
               </TableBody>

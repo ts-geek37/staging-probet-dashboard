@@ -1,8 +1,8 @@
 "use client";
 
-import Image from "next/image";
 import { motion } from "framer-motion";
 import { Calendar, CalendarDays, Clock, Trophy, UserCheck } from "lucide-react";
+import Image from "next/image";
 import React, { useState } from "react";
 
 import { Card, CardContent } from "@/components/ui/card";

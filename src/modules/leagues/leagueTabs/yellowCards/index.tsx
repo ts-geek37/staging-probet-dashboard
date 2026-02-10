@@ -1,7 +1,7 @@
 "use client";
 
-import React from "react";
 import { Circle } from "lucide-react";
+import React from "react";
 
 import { useLeagueYellowCards } from "../../hooks";
 import StatsTable from "../components/StatsTable";
@@ -24,9 +24,7 @@ const YellowCards: React.FC<Props> = ({ id }) => {
         yellowcards: {
           // match the actual table key
           title: "Yellow Cards",
-          icon: (
-            <div className="w-3 h-4 ml-1 bg-yellow-500" />
-          ),
+          icon: <div className="w-3 h-4 ml-1 bg-yellow-500" />,
         },
       }}
     />

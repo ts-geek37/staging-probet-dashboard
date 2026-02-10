@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+
 import { useLeagueRedCards } from "../../hooks";
 import StatsTable from "../components/StatsTable";
 
@@ -21,9 +22,7 @@ const RedCards: React.FC<Props> = ({ id }) => {
       tableTitles={{
         redcards: {
           title: "Red Cards",
-          icon: (
-            <div className="w-3 h-4 ml-1 bg-red-500" />
-          ),
+          icon: <div className="w-3 h-4 ml-1 bg-red-500" />,
         },
       }}
     />

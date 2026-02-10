@@ -1,7 +1,7 @@
 "use client";
 
-import React from "react";
 import { Trophy } from "lucide-react"; // Trophy icon
+import React from "react";
 
 import { useLeagueTopScorers } from "../../hooks";
 import StatsTable from "../components/StatsTable";
