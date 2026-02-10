@@ -1,24 +1,17 @@
 "use client";
 
+import { TrendingUp } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import React from "react";
+import React, { useMemo } from "react";
 
 import { Card } from "@/components/ui/card";
+import { cn } from "@/lib/utils";
 import { AccuratePredictionItem } from "@/types/home";
 
 interface Props {
   prediction: AccuratePredictionItem;
 }
-
-const getResultReason = (home: string, away: string) => {
-  const homeScore = parseInt(home);
-  const awayScore = parseInt(away);
-  if (homeScore === awayScore) return "Match ended in a draw.";
-  return awayScore > homeScore
-    ? "Away won after full-time"
-    : "Home won after full-time";
-};
 
 const AccuratePredictionCard: React.FC<Props> = ({ prediction }) => {
   const router = useRouter();
@@ -26,82 +19,152 @@ const AccuratePredictionCard: React.FC<Props> = ({ prediction }) => {
     router.push(`/matches/${prediction.id}?tab=Predictions`);
   };
 
-  const homeParticipant = prediction.participants.find(
-    (p) => p.location === "home",
+  const homeParticipant = useMemo(
+    () => prediction.participants.find((p) => p.location === "home"),
+    [prediction.participants],
   );
-  const awayParticipant = prediction.participants.find(
-    (p) => p.location === "away",
+
+  const awayParticipant = useMemo(
+    () => prediction.participants.find((p) => p.location === "away"),
+    [prediction.participants],
   );
 
   const [actualHome, actualAway] = prediction.actual_score.split("-");
+
+  const predictedWinnerName = useMemo(() => {
+    const homeProb = prediction?.home_win_probability ?? 0;
+    const awayProb = prediction?.away_win_probability ?? 0;
+    const drawProb = prediction?.draw_probability ?? 0;
+
+    const maxProb = Math.max(homeProb, awayProb, drawProb);
+
+    if (maxProb === homeProb) return homeParticipant?.name ?? "Home";
+    if (maxProb === awayProb) return awayParticipant?.name ?? "Away";
+
+    return "Draw";
+  }, [
+    prediction.home_win_probability,
+    prediction.away_win_probability,
+    prediction.draw_probability,
+    homeParticipant?.name,
+    awayParticipant?.name,
+  ]);
+  const isHomeWinner = parseInt(actualHome) > parseInt(actualAway);
+  const isAwayWinner = parseInt(actualAway) > parseInt(actualHome);
+
   return (
     <Card
       onClick={handleClick}
-      className="group relative w-full flex-1 overflow-hidden border border-slate-700 hover:border-primary-neon/30 active:border-primary-neon/30 transition-all duration-300 cursor-pointer p-0 gap-0"
+      className="group relative w-full gap-2 p-6 overflow-hidden border border-primary-gray/20 bg-gradient-to-br from-card via-card to-card hover:to-primary-green/5 transition-all duration-300 cursor-pointer hover:shadow-lg hover:shadow-primary-green/10"
     >
-      <div className="px-4 py-3 bg-slate-800/80 border-b border-slate-700 group-hover:bg-slate-800 active:bg-slate-800 transition-colors duration-300 flex flex-col">
-        <div className="text-xs text-slate-400 font-medium mb-1 ">
+      <div className="flex items-center justify-between">
+        <span className="text-xs font-bold text-slate-400 tracking-widest uppercase">
+          {new Date(prediction.starting_at).getDate()}{" "}
           {new Date(prediction.starting_at)
-            .toLocaleDateString("en-US", {
-              day: "numeric",
-              month: "short",
-            })
+            .toLocaleString("en-US", { month: "short" })
             .toUpperCase()}
+        </span>
+      </div>
+
+      <div className="space-y-2">
+        <div className="flex items-center justify-between group/team">
+          <div className="flex items-center gap-3 flex-1 min-w-0">
+            <div
+              className={cn(
+                "relative h-10 w-10 shrink-0 rounded-lg flex items-center justify-center p-1.5 transition-all duration-300 bg-slate-800/50 border border-primary-gray/20",
+                isHomeWinner && "border-primary-green/30 bg-primary-green/10",
+              )}
+            >
+              {homeParticipant?.image_path ? (
+                <Image
+                  src={homeParticipant.image_path}
+                  alt={homeParticipant.name}
+                  fill
+                  className="object-contain p-1"
+                />
+              ) : (
+                <span className="text-xs">H</span>
+              )}
+            </div>
+            <div className="flex-1 min-w-0">
+              <div
+                className={cn(
+                  "font-bold text-sm truncate transition-colors duration-300",
+                  isHomeWinner ? "text-white" : "text-slate-400",
+                )}
+              >
+                {homeParticipant?.name}
+              </div>
+            </div>
+          </div>
+          <div
+            className={cn(
+              "text-2xl font-black min-w-8 text-right transition-all duration-300",
+              isHomeWinner ? "text-primary-green" : "text-slate-500",
+            )}
+          >
+            {actualHome}
+          </div>
         </div>
-        <div className="text-sm text-white">
-          {prediction?.result_info ?? ""}
+
+        <div className="h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+
+        <div className="flex items-center justify-between group/team">
+          <div className="flex items-center gap-3 flex-1 min-w-0">
+            <div
+              className={cn(
+                "relative h-10 w-10 shrink-0 rounded-lg flex items-center justify-center p-1.5 transition-all duration-300 bg-slate-800/50 border border-primary-gray/20",
+                isAwayWinner && "border-primary-green/30 bg-primary-green/10",
+              )}
+            >
+              {awayParticipant?.image_path ? (
+                <Image
+                  src={awayParticipant.image_path}
+                  alt={awayParticipant.name}
+                  fill
+                  className="object-contain p-1"
+                />
+              ) : (
+                <span className="text-xs">A</span>
+              )}
+            </div>
+            <div className="flex-1 min-w-0">
+              <div
+                className={cn(
+                  "font-bold text-sm truncate transition-colors duration-300",
+                  isAwayWinner ? "text-white" : "text-slate-400",
+                )}
+              >
+                {awayParticipant?.name}
+              </div>
+            </div>
+          </div>
+          <div
+            className={cn(
+              "text-2xl font-black min-w-[2rem] text-right transition-all duration-300",
+              isAwayWinner ? "text-primary-green" : "text-slate-500",
+            )}
+          >
+            {actualAway}
+          </div>
         </div>
       </div>
 
-      <div className="flex-1 flex items-center justify-between md:gap-6 p-3 py-6 md:p-6">
-        <div className="flex flex-col items-center gap-3 flex-1">
-          <div className="relative size-16 bg-slate-800/50 rounded-lg border border-slate-700 flex items-center justify-center overflow-hidden group-hover:border-primary-neon/50     group-active:border-primary-neon/50 group-hover:bg-slate-800 group-active:bg-slate-800 transition-all duration-300">
-            {homeParticipant?.image_path && (
-              <Image
-                src={homeParticipant.image_path}
-                alt={homeParticipant.name}
-                fill
-                className="object-contain p-2"
-              />
-            )}
+      <div className="relative bg-gradient-to-r from-primary-green/10 to-primary-green/5 border border-primary-green/20 rounded-xl p-3 overflow-hidden">
+        <div className="relative flex items-center gap-3">
+          <div className="bg-primary-green rounded-lg p-1.5 shadow-lg shadow-primary-green/20 shrink-0">
+            <TrendingUp className="w-4 h-4 text-white" />
           </div>
-          <span className="text-sm text-white font-medium text-center line-clamp-1">
-            {homeParticipant?.name}
-          </span>
-        </div>
-
-        <div className="flex flex-col items-center gap-2 min-w-30">
-          <span className="text-xs text-slate-400 uppercase tracking-wide ">
-            Result
-          </span>
-          <div className="text-2xl sm:text-3xl lg:text-5xl font-bold text-white tracking-tight group-hover:text-primary-neon group-active:text-primary-neon transition-colors duration-300">
-            {actualHome}-{actualAway}
+          <div className="flex-1 min-w-0">
+            <div className="text-[10px] font-bold text-primary-green uppercase tracking-wider mb-0.5">
+              Predicted Winner
+            </div>
+            <div className="font-bold text-sm text-white truncate">
+              {predictedWinnerName}
+            </div>
           </div>
-        </div>
-
-        <div className="flex flex-col items-center gap-3 flex-1">
-          <div className="relative size-16 bg-slate-800/50 rounded-lg border border-slate-700 flex items-center justify-center overflow-hidden group-hover:border-primary-neon/50 group-hover:bg-slate-800 transition-all duration-300">
-            {awayParticipant?.image_path && (
-              <Image
-                src={awayParticipant.image_path}
-                alt={awayParticipant.name}
-                fill
-                className="object-contain p-2"
-              />
-            )}
-          </div>
-          <span className="text-sm text-white font-medium text-center line-clamp-1">
-            {awayParticipant?.name}
-          </span>
         </div>
       </div>
-      {prediction?.prediction_sentence && (
-        <div className="px-4 py-3 border-t border-slate-700 bg-slate-800/60">
-          <span className="block text-sm text-white">
-            {prediction.prediction_sentence}
-          </span>
-        </div>
-      )}
     </Card>
   );
 };

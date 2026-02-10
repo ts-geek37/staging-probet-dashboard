@@ -8,6 +8,7 @@ import { useSubscription } from "@/context";
 import { HomeResponse } from "@/types/home";
 import { MatchListStatus } from "@/types/matches";
 
+import { LiveScopeEnum } from "../ws/types";
 import AccuratePredictions from "./AccuratePredictions";
 import Banner from "./Banner";
 import { Testimonials } from "./components";
@@ -18,7 +19,6 @@ import LiveMatchCards from "./LiveMatchesCards";
 import PredictionBanner from "./PredictionBanner";
 import TopLeagues from "./TopLeagues";
 import UpcomingMatchCards from "./UpcomingMatchesCards";
-import { LiveScopeEnum } from "../ws/types";
 
 interface Props {
   initialHome: ApiResponse<HomeResponse>;
@@ -73,15 +73,15 @@ const Home: React.FC<Props> = ({ initialHome }) => {
           </>
         )}
 
-        <TopLeagues topLeagues={topLeagues} standings={popularTeams} />
-
-        {!isVip && <VIPBanner />}
-        <PredictionBanner />
-        <VIPBanner />
         <AccuratePredictions
           predictions={accuratePredictions}
           isLoading={isLoading}
         />
+
+        {!isVip && <VIPBanner />}
+        <TopLeagues topLeagues={topLeagues} standings={popularTeams} />
+        <PredictionBanner />
+        <VIPBanner />
 
         {news?.length > 0 && <LatestNews news={news} />}
         <Testimonials />
