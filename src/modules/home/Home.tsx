@@ -4,7 +4,8 @@ import React from "react";
 
 import { ApiResponse } from "@/api/types";
 import { VIPBanner } from "@/components";
-import { HomeResponse, NewsSummary } from "@/types/home";
+import { useSubscription } from "@/context";
+import { HomeResponse } from "@/types/home";
 import { MatchListStatus } from "@/types/matches";
 
 import AccuratePredictions from "./AccuratePredictions";
@@ -36,6 +37,7 @@ const Home: React.FC<Props> = ({ initialHome }) => {
     popularTeams,
     isLoading,
   } = useHome(initialHome);
+  const { isVip } = useSubscription();
 
   return (
     <>
@@ -50,30 +52,37 @@ const Home: React.FC<Props> = ({ initialHome }) => {
               title="Live Matches"
               href={`/matches?status=${MatchListStatus.LIVE}`}
               scopeInfo={{ scope: LiveScopeEnum.GENERAL }}
-              className="py-10 pt-15"
+              className="py-10 md:py-20"
               limit={3}
             />
+            {!isVip && <VIPBanner />}
           </>
         )}
 
         {starting_soon.length > 0 && (
           <>
             <UpcomingMatchCards matches={starting_soon} />
+            {!isVip && <VIPBanner />}
           </>
         )}
 
         {recently_finished.length > 0 && (
           <>
             <FinishedMatchesCards matches={recently_finished} />
+            {!isVip && <VIPBanner />}
           </>
         )}
+
+        <TopLeagues topLeagues={topLeagues} standings={popularTeams} />
+
+        {!isVip && <VIPBanner />}
+        <PredictionBanner />
+        <VIPBanner />
         <AccuratePredictions
           predictions={accuratePredictions}
           isLoading={isLoading}
         />
 
-        <TopLeagues topLeagues={topLeagues} standings={popularTeams} />
-        <PredictionBanner />
         {news?.length > 0 && <LatestNews news={news} />}
         <Testimonials />
       </div>

@@ -1,6 +1,6 @@
 "use client";
 
-import { List, Shuffle, Users } from "lucide-react";
+import { Shuffle, Users } from "lucide-react";
 import { useRouter } from "next/navigation";
 import React from "react";
 
@@ -49,18 +49,9 @@ const MatchLineupsTab: React.FC<Props> = ({ matchId }) => {
           <div key={team.team.id} className="space-y-4">
             <div className="rounded-xl border border-primary-gray/20 p-4">
               <div className="flex items-center justify-between">
-                <div>
-                  <h3 className="text-lg font-bold text-white">
-                    {team.team.name}
-                  </h3>
-
-                  {team.formation && (
-                    <div className="mt-1 inline-flex items-center gap-2 rounded-lg bg-white/10 px-3 py-1 text-xs font-semibold text-white/80">
-                      <List className="h-4 w-4" />
-                      {team.formation}
-                    </div>
-                  )}
-                </div>
+                <h3 className="text-lg font-bold text-white">
+                  {team.team.name}
+                </h3>
 
                 <div
                   className={cn(

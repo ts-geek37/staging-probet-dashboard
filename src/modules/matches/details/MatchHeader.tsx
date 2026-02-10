@@ -52,7 +52,7 @@ const MatchHeader: React.FC<Props> = ({ match }) => {
   };
 
   return (
-    <Card className="w-full mx-auto border-primary-gray/20 text-white overflow-hidden">
+    <Card className="w-full mx-auto border-primary-gray/20 text-white overflow-hidden bg-gradient-to-r from-primary-green/30 via-card to-primary-green/30">
       <CardContent className="flex flex-col items-center justify-center px-2 sm:px-6">
         <div
           role="button"
@@ -94,7 +94,7 @@ const MatchHeader: React.FC<Props> = ({ match }) => {
               className="object-contain w-12 h-12 sm:w-20 sm:h-20 mb-2"
               onError={() => setHomeLogoError(true)}
             />
-            <span className="text-xs sm:text-lg font-bold text-center">
+            <span className="text-xs sm:text-lg font-bold text-center md:truncate">
               {teams.home.name}
             </span>
           </div>
@@ -119,7 +119,7 @@ const MatchHeader: React.FC<Props> = ({ match }) => {
             )}
 
             {shouldShowResultInfo && (
-              <p className="hidden sm:block text-xs font-medium text-primary-green mt-3 text-center bg-primary-green/10 px-3 py-1 rounded-full border border-primary-green/20">
+              <p className="hidden md:block text-xs font-medium text-primary-green mt-3 text-center bg-primary-green/10 px-3 py-1 rounded-full border border-primary-green/20 truncate max-w-[320px] ">
                 {currentMatch.result_info}
               </p>
             )}
@@ -142,14 +142,14 @@ const MatchHeader: React.FC<Props> = ({ match }) => {
               className="object-contain w-12 h-12 sm:w-20 sm:h-20 mb-2"
               onError={() => setAwayLogoError(true)}
             />
-            <span className="text-xs sm:text-lg font-bold text-center truncate">
+            <span className="text-xs sm:text-lg font-bold text-center md:truncate">
               {teams.away.name}
             </span>
           </div>
         </div>
 
         {shouldShowResultInfo && (
-          <p className="sm:hidden mt-4 text-xs font-medium text-primary-green text-center bg-primary-green/10 px-4 py-1.5 rounded-full border border-primary-green/20">
+          <p className="md:hidden mt-4 text-xs font-medium text-primary-green text-center bg-primary-green/10 px-4 py-1.5 rounded-full border border-primary-green/20">
             {currentMatch.result_info}
           </p>
         )}

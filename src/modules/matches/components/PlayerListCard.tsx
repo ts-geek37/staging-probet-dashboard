@@ -7,6 +7,7 @@ interface Player {
   id: number;
   name: string;
   number: number | null;
+  formation_field: string | null;
 }
 
 interface PlayerListCardProps {
@@ -78,6 +79,12 @@ const PlayerListCard: React.FC<PlayerListCardProps> = ({
                 <p className="flex-1 truncate text-sm font-medium text-white">
                   {player.name}
                 </p>
+
+                {player.formation_field && (
+                  <span className="text-xs sm:text-sm text-white/50 font-medium">
+                    {player.formation_field}
+                  </span>
+                )}
 
                 <ArrowRight
                   className={cn(
