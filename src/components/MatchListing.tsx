@@ -32,7 +32,7 @@ const MatchListing: React.FC<MatchListingProps> = ({
         {href && (
           <Link
             href={href}
-            className="text-primary-gray hover:text-white transition-colors"
+            className="text-primary-gray hover:text-white transition-colors text-xs sm:text-base"
           >
             View all
           </Link>

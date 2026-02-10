@@ -13,7 +13,7 @@ interface Props {
 
 const UpcomingMatchCards: React.FC<Props> = ({ matches }) => {
   return (
-    <section className="py-10 md:py-20 text-white">
+    <section className="py-5 sm:py-10 text-white">
       <div className="space-y-10">
         <div className="flex items-end justify-between gap-6">
           <div className="space-y-2">
@@ -21,7 +21,7 @@ const UpcomingMatchCards: React.FC<Props> = ({ matches }) => {
           </div>
           <Link
             href={`/matches?status=${MatchListStatus.UPCOMING}`}
-            className="text-primary-gray hover:text-white transition-colors"
+            className="text-xs sm:text-base text-primary-gray hover:text-white transition-colors"
           >
             View all
           </Link>

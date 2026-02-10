@@ -87,6 +87,8 @@ export enum LeagueView {
   STATISTICS = "stats",
   MATCHES = "matches",
   TOP_SCORERS = "top-scorers",
+  RED_CARDS = "red-cards",
+  YELLOW_CARDS = "yellow-cards",
 }
 export interface LeagueViewResponseMap {
   [LeagueView.OVERVIEW]: LeagueProfileResponse;
@@ -94,6 +96,8 @@ export interface LeagueViewResponseMap {
   [LeagueView.STATISTICS]: LeagueStatisticsResponse;
   [LeagueView.MATCHES]: LeagueMatchesResponse;
   [LeagueView.TOP_SCORERS]: TopScorersResponse;
+  [LeagueView.RED_CARDS]: TopScorersResponse;
+  [LeagueView.YELLOW_CARDS]: TopScorersResponse;
 }
 export enum MatchListStatus {
   LIVE = "live",
@@ -165,6 +169,9 @@ export interface LeagueProfileResponse {
   competition_type: "league" | "cup";
   country: Country;
   current_season: LeagueSeasonInfo | null;
+  hasTopScorer: boolean | null;
+  hasRedCard: boolean | null;
+  hasYellowCard: boolean | null;
 }
 export interface LeagueStanding {
   position: number;

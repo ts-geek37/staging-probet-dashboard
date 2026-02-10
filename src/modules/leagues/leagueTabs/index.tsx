@@ -4,9 +4,11 @@ import React from "react";
 import { LeagueView } from "@/types/leagues";
 
 import Matches from "./Matches";
+import RedCards from "./redCards";
 import Standings from "./standings";
 import Stats from "./stats";
 import TopScorers from "./topScorers";
+import YellowCards from "./yellowCards";
 
 interface Props {
   tab: LeagueView;
@@ -23,6 +25,10 @@ const LeagueTab: React.FC<Props> = ({ tab, id }) => {
       return <Stats id={id} />;
     case LeagueView.TOP_SCORERS:
       return <TopScorers id={id} />;
+    case LeagueView.RED_CARDS:
+      return <RedCards id={id} />;
+    case LeagueView.YELLOW_CARDS:
+      return <YellowCards id={id} />;
     default:
       return null;
   }

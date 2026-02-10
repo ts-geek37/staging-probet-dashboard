@@ -23,7 +23,7 @@ const NewsDetail: React.FC<Props> = ({ news, relatedNews }) => {
 
   return (
     <section className="w-full h-full">
-      <div className="max-w-7xl mx-auto px-6 lg:px-8 py-8 sm:py-12 w-full text-white">
+      <div className="max-w-7xl mx-auto px-4 lg:px-6 py-8 sm:py-12 w-full text-white">
         <div
           className={cn(
             "grid grid-cols-1 gap-5 sm:gap-8 md:gap-12",

@@ -69,7 +69,10 @@ const LiveMatchCards: React.FC<Props> = ({
             )}
           </div>
           {displayLink && (
-            <Link href={href} className="text-primary-gray hover:text-white">
+            <Link
+              href={href}
+              className="text-primary-gray hover:text-white text-xs sm:text-base"
+            >
               View all
             </Link>
           )}

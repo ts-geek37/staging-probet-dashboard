@@ -28,7 +28,13 @@ const StatCard: React.FC<Props> = ({
     <div className="rounded-xl border border-[#01E1FA]/20 bg-[#0E1320]/60 px-6 py-5 backdrop-blur">
       <div className={`text-4xl font-extrabold ${colorMap[color]}`}>
         {isAnimated ? (
-          <CountUp end={Number(value)} duration={4} suffix={suffix} enableScrollSpy/>
+          <CountUp
+            end={Number(value)}
+            duration={4}
+            suffix={suffix}
+            scrollSpyOnce
+            enableScrollSpy
+          />
         ) : (
           <span>
             {value}

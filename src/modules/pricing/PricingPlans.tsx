@@ -21,7 +21,7 @@ const PricingPlans: React.FC<Props> = ({ plans, subscription }) => {
   const monthlyPlan = sortedPlans.find((p) => p.billingCycle === "monthly");
 
   return (
-    <section className="m-auto w-full max-w-7xl px-6 xl:px-0  py-16 md:py-20">
+    <section className="m-auto w-full max-w-7xl px-4 sm:px-6  py-8 sm:py-15">
       <div className="flex justify-center mb-4">
         <Badge variant="yellow">
           <Star className="h-3.5 w-3.5" />

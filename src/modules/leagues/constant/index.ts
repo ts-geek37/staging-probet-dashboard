@@ -5,6 +5,8 @@ export const LeagueTabs = [
   { value: LeagueView.MATCHES, label: "Matches" },
   { value: LeagueView.STATISTICS, label: "Stats" },
   { value: LeagueView.TOP_SCORERS, label: "Top Scorers" },
+  { value: LeagueView.RED_CARDS, label: "Red Cards" },
+  { value: LeagueView.YELLOW_CARDS, label: "Yellow Cards" },
 ];
 
 export const statsConfigMap = {

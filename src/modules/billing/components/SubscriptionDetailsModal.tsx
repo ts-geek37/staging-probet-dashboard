@@ -1,7 +1,7 @@
 "use client";
 
 import { XIcon } from "lucide-react";
-import React from "react";
+import React, { useState } from "react";
 
 import { ConfirmationPopUp } from "@/components/ConfirmationPopUp";
 import { Button } from "@/components/ui/button";
@@ -13,6 +13,8 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
 import { useSubscription } from "@/context";
 import { formatDate24h } from "@/lib/plan-resolver";
 import { BillingCycle } from "@/types/prices";
@@ -36,6 +38,7 @@ const SubscriptionDetailsModal: React.FC<SubscriptionDetailsModalProps> = ({
 }) => {
   const { subscription, isSubscriptionLoading } = useSubscription();
   const { cancelSubscription, isCancelling } = useCancelSubscription();
+  const [reason, setReason] = useState("");
 
   if (isSubscriptionLoading || !subscription) {
     return null;
@@ -114,10 +117,25 @@ const SubscriptionDetailsModal: React.FC<SubscriptionDetailsModalProps> = ({
                     no recurring payment will be charged
                   </span>{" "}
                   for the next cycle.
+                  <div className="mt-6 space-y-2">
+                    <Label
+                      htmlFor="cancellation-reason"
+                      className="text-white font-medium"
+                    >
+                      Why are you cancelling? (Optional)
+                    </Label>
+                    <Textarea
+                      id="cancellation-reason"
+                      placeholder="Please let us know why you're leaving so we can improve."
+                      value={reason}
+                      onChange={(e) => setReason(e.target.value)}
+                      className="bg-gray-900/50 border-gray-700 text-white placeholder:text-gray-500"
+                    />
+                  </div>
                 </>
               }
               onConfirm={async () => {
-                await cancelSubscription();
+                await cancelSubscription(reason);
                 onOpenChange(false);
               }}
               trigger={

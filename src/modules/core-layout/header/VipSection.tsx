@@ -3,6 +3,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 import AppUserButton from "@/components/AppUserButton";
+import { Skeleton } from "@/components/ui/skeleton";
 import { useSubscription } from "@/context";
 import { cn } from "@/lib/utils";
 import { vipLink } from "@/modules/core-layout/constant";
@@ -15,9 +16,9 @@ type VipSectionProps = {
 
 const VipSection: React.FC<VipSectionProps> = ({ onNavigate }) => {
   const Icon = vipLink.icon;
-  const { user, isSignedIn } = useUser();
+  const { user, isSignedIn, isLoaded } = useUser();
   const router = useRouter();
-  const { isVip } = useSubscription();
+  const { isVip, isSubscriptionLoading } = useSubscription();
 
   const handleLogin = () => {
     router.push("/sign-in");
@@ -26,6 +27,16 @@ const VipSection: React.FC<VipSectionProps> = ({ onNavigate }) => {
   const handleGetStarted = () => {
     router.push("/sign-up");
   };
+  const isLoading = !isLoaded || isSubscriptionLoading;
+  if (isLoading) {
+    return (
+      <div className="flex items-center gap-1">
+        <Skeleton className="h-10 w-15 rounded-md" />
+        <Skeleton className="h-10 w-20 rounded-md" />
+        <Skeleton className="h-10 w-20 rounded-md" />
+      </div>
+    );
+  }
 
   return (
     <>

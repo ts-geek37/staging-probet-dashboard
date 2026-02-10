@@ -2,7 +2,7 @@
 
 import React from "react";
 
-import { NoData, SkeletonCardLoader } from "@/components";
+import { NoData } from "@/components";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   GoalLineCard,
@@ -15,6 +15,7 @@ import {
 import usePredictionDetails from "@/modules/predictions/hooks/usePredictionDetails";
 import { OtherMarketLabel } from "@/utils";
 
+import PredictionsSkeleton from "../../components/PredictionsSkeleton";
 import VIPUnlockCard from "../../components/VIPUnlockCard";
 
 interface Team {
@@ -44,7 +45,7 @@ const MatchPredictionsTab: React.FC<Props> = ({ matchId, teams }) => {
     isVip,
     hasContent,
   } = usePredictionDetails({ fixtureId: matchId });
-  if (isPageLoading) return <SkeletonCardLoader />;
+  if (isPageLoading) return <PredictionsSkeleton />;
   if (error) return <VIPUnlockCard />;
   if (!isVip) return <VIPUnlockCard />;
   if (!hasContent) return <NoData message="Predictions not available" />;

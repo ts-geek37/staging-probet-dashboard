@@ -4,9 +4,11 @@ import React from "react";
 
 import { ApiResponse } from "@/api/types";
 import { VIPBanner } from "@/components";
-import { HomeResponse, NewsSummary } from "@/types/home";
+import { useSubscription } from "@/context";
+import { HomeResponse } from "@/types/home";
 import { MatchListStatus } from "@/types/matches";
 
+import { LiveScopeEnum } from "../ws/types";
 import AccuratePredictions from "./AccuratePredictions";
 import Banner from "./Banner";
 import { Testimonials } from "./components";
@@ -17,7 +19,6 @@ import LiveMatchCards from "./LiveMatchesCards";
 import PredictionBanner from "./PredictionBanner";
 import TopLeagues from "./TopLeagues";
 import UpcomingMatchCards from "./UpcomingMatchesCards";
-import { LiveScopeEnum } from "../ws/types";
 
 interface Props {
   initialHome: ApiResponse<HomeResponse>;
@@ -36,6 +37,7 @@ const Home: React.FC<Props> = ({ initialHome }) => {
     popularTeams,
     isLoading,
   } = useHome(initialHome);
+  const { isVip } = useSubscription();
 
   return (
     <>
@@ -53,33 +55,33 @@ const Home: React.FC<Props> = ({ initialHome }) => {
               className="py-10 md:py-20"
               limit={3}
             />
-            <VIPBanner />
+            {!isVip && <VIPBanner />}
           </>
         )}
 
         {starting_soon.length > 0 && (
           <>
             <UpcomingMatchCards matches={starting_soon} />
-            <VIPBanner />
+            {!isVip && <VIPBanner />}
           </>
         )}
 
         {recently_finished.length > 0 && (
           <>
             <FinishedMatchesCards matches={recently_finished} />
-            <VIPBanner />
+            {!isVip && <VIPBanner />}
           </>
         )}
 
-        <TopLeagues topLeagues={topLeagues} standings={popularTeams} />
-
-        <VIPBanner />
-        <PredictionBanner />
-        <VIPBanner />
         <AccuratePredictions
           predictions={accuratePredictions}
           isLoading={isLoading}
         />
+
+        {!isVip && <VIPBanner />}
+        <TopLeagues topLeagues={topLeagues} standings={popularTeams} />
+        <PredictionBanner />
+        <VIPBanner />
 
         {news?.length > 0 && <LatestNews news={news} />}
         <Testimonials />

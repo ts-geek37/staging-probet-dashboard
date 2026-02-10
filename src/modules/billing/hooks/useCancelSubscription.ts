@@ -17,7 +17,7 @@ const cancelFetcher = async (
   {
     arg,
   }: {
-    arg: { token: string };
+    arg: { token: string; reason?: string };
   },
 ): Promise<CancelSubscriptionResponse> => {
   const res = await fetch(url, {
@@ -26,6 +26,7 @@ const cancelFetcher = async (
       "Content-Type": "application/json",
       Authorization: `Bearer ${arg.token}`,
     },
+    body: JSON.stringify({ reason: arg.reason }),
   });
 
   if (!res.ok) {
@@ -68,7 +69,7 @@ const useCancelSubscription = () => {
     },
   );
 
-  const cancelSubscription = async () => {
+  const cancelSubscription = async (reason?: string) => {
     try {
       if (!isSignedIn) {
         throw new Error(AUTH_REQUIRED);
@@ -78,7 +79,7 @@ const useCancelSubscription = () => {
       if (!token) {
         throw new Error(TOKEN_UNAVAILABLE);
       }
-      const result = await trigger({ token });
+      const result = await trigger({ token, reason });
 
       return result;
     } catch (err) {

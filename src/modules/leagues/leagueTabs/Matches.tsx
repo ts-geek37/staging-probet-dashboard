@@ -2,9 +2,9 @@ import React from "react";
 
 import { Ads, NoData } from "@/components";
 import MatchListing from "@/components/MatchListing";
+import { useGeneralLiveMatches } from "@/modules/ws/hooks";
 import { MatchListStatus } from "@/types/matches";
 
-import { useGeneralLiveMatches } from "@/modules/ws/hooks";
 import { useLeagueMatches } from "../hooks";
 import LeagueBanner from "../LeagueBanner";
 
@@ -34,10 +34,17 @@ const Matches: React.FC<Props> = ({ id }) => {
           <MatchListing
             title="Live Matches"
             matches={liveMatchesData}
-            href={`/matches?status=${MatchListStatus.LIVE}&leagueId=${id}`}
+            href={
+              liveMatchesData.length > 3
+                ? `/matches?status=${MatchListStatus.LIVE}&leagueId=${id}`
+                : undefined
+            }
           />
           {liveMatchesData.length === 0 && (
-            <NoData message="No matches are live at the moment. Live Matches will appear here once matches start." />
+            <NoData
+              className="h-36"
+              message="No matches are live at the moment. Live Matches will appear here once matches start."
+            />
           )}
           {liveMatchesData.length > 0 && <Ads />}
         </div>

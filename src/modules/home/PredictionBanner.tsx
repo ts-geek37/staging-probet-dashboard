@@ -9,7 +9,7 @@ import { StatCard } from "./components";
 
 const PredictionBanner: React.FC = () => {
   return (
-    <section className="relative py-10 md:py-20 text-white overflow-hidden">
+    <section className="relative py-10 text-white overflow-hidden">
       <div className="">
         <div className="relative overflow-hidden rounded-2xl border border-[#01E1FA]/20 bg-primary-bg">
           <div className="absolute inset-0 pointer-events-none">
@@ -52,8 +52,20 @@ const PredictionBanner: React.FC = () => {
               </p>
             </div>
             <div className="hidden sm:grid grid-cols-2 gap-4 self-center">
-              <StatCard value="200" suffix="+" label="Daily Predictions" color="cyan" isAnimated />
-              <StatCard value="50" suffix="+" label="Leagues Covered" color="green" isAnimated/>
+              <StatCard
+                value="200"
+                suffix="+"
+                label="Daily Predictions"
+                color="cyan"
+                isAnimated
+              />
+              <StatCard
+                value="50"
+                suffix="+"
+                label="Leagues Covered"
+                color="green"
+                isAnimated
+              />
               <StatCard value="24/7" label="Daily Predictions" color="yellow" />
               <StatCard value="API" label="Leagues Covered" color="white" />
             </div>
