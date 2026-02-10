@@ -38,12 +38,15 @@ const MobileNavSheet: React.FC<Props> = ({
       onOpenChange={setOpen}
       closeOnBreakpoint="(min-width: 1100px)"
     >
-      <SheetTrigger asChild>
+      <SheetTrigger asChild className="">
         <Button
           variant="ghost"
           size="icon"
           aria-label="Open menu"
-          className={cn("text-primary-gray", triggerClassName)}
+          className={cn(
+            "text-primary-gray hover:text-white hover:bg-transparent transition-colors",
+            triggerClassName,
+          )}
         >
           <Menu className="h-6 w-6" />
         </Button>
@@ -62,7 +65,10 @@ const MobileNavSheet: React.FC<Props> = ({
         <SheetDescription className="sr-only">
           Access site links and user platform settings.
         </SheetDescription>
-        <SheetClose asChild className="absolute top-2 right-5">
+        <SheetClose
+          asChild
+          className="absolute top-2 right-5 hover:text-white hover:bg-transparent transition-colors"
+        >
           <Button
             variant="ghost"
             size="icon"
