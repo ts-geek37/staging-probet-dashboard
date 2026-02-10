@@ -81,7 +81,7 @@ const Home: React.FC<Props> = ({ initialHome }) => {
         {!isVip && <VIPBanner />}
         <TopLeagues topLeagues={topLeagues} standings={popularTeams} />
         <PredictionBanner />
-        <VIPBanner />
+        {!isVip && <VIPBanner />}
 
         {news?.length > 0 && <LatestNews news={news} />}
         <Testimonials />
