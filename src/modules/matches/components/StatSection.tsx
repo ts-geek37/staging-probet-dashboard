@@ -11,6 +11,8 @@ import {
   StatSectionConfig,
 } from "../hooks/useMatchSeasonStat";
 
+import React, { useMemo } from "react";
+
 const StatRow: React.FC<IStatRow> = ({
   label,
   homeValue,
@@ -21,18 +23,55 @@ const StatRow: React.FC<IStatRow> = ({
   const h = Number(homeValue) || 0;
   const a = Number(awayValue) || 0;
 
-  let hColor = "text-white";
-  let aColor = "text-white";
+  const { homePercent, awayPercent } = useMemo(() => {
+    const max = Math.max(h, a);
+    const isPercentStat = label.includes("%") || suffix.includes("%");
 
-  if (h !== a) {
-    if (isHigherBetter) {
-      if (h > a) hColor = "text-primary-green";
-      else aColor = "text-primary-green";
-    } else {
-      if (h < a) hColor = "text-primary-green";
-      else aColor = "text-primary-green";
+    const roundedMax =
+      max === 0 ? 0 : max % 5 === 0 ? max : Math.ceil(max / 5) * 5;
+
+    switch (true) {
+      case h === 0 && a === 0:
+        return { homePercent: 0, awayPercent: 0 };
+
+      case h === a:
+        return { homePercent: 100, awayPercent: 100 };
+      case isPercentStat:
+        return {
+          homePercent: Math.min(h, 100),
+          awayPercent: Math.min(a, 100),
+        };
+
+      case h === 0:
+        return { homePercent: 0, awayPercent: 100 };
+
+      case a === 0:
+        return { homePercent: 100, awayPercent: 0 };
+
+      default:
+        return {
+          homePercent: (h / (roundedMax || 1)) * 100,
+          awayPercent: (a / (roundedMax || 1)) * 100,
+        };
     }
-  }
+  }, [h, a]);
+
+  const { hColor, aColor } = useMemo(() => {
+    let homeColor = "text-white";
+    let awayColor = "text-white";
+
+    if (h !== a) {
+      if (isHigherBetter) {
+        if (h > a) homeColor = "text-primary-green";
+        else awayColor = "text-primary-red";
+      } else {
+        if (h < a) homeColor = "text-primary-green";
+        else awayColor = "text-primary-red";
+      }
+    }
+
+    return { hColor: homeColor, aColor: awayColor };
+  }, [h, a, isHigherBetter]);
 
   return (
     <div className="flex flex-col gap-2 py-3 border-b border-white/5 last:border-0">
@@ -49,16 +88,24 @@ const StatRow: React.FC<IStatRow> = ({
           {suffix}
         </span>
       </div>
-      <div className="flex gap-1.5 h-1.5 w-full rounded-full overflow-hidden bg-white/5">
-        <div
-          className={`h-full transition-all duration-500 ${h >= a ? "bg-primary-green" : "bg-white/20"}`}
-          style={{ width: `${(h / (h + a || 1)) * 100}%` }}
-        />
-        <div
-          className={`h-full transition-all duration-500 ${a >= h ? "bg-primary-green" : "bg-white/20"}`}
-          style={{ width: `${(a / (h + a || 1)) * 100}%` }}
-        />
-      </div>
+
+      {(h !== 0 || a !== 0) && (
+        <div className="flex gap-2 items-center h-2 w-full">
+          <div className="flex-1 h-full bg-white/10 rounded-full overflow-hidden border border-primary-green">
+            <div
+              className="h-full bg-primary-green transition-all duration-500"
+              style={{ width: `${homePercent}%` }}
+            />
+          </div>
+
+          <div className="flex-1 h-full bg-white/10 rounded-full overflow-hidden border border-primary-red">
+            <div
+              className="h-full bg-primary-red transition-all duration-500"
+              style={{ width: `${awayPercent}%` }}
+            />
+          </div>
+        </div>
+      )}
     </div>
   );
 };

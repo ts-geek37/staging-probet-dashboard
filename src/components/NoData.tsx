@@ -16,7 +16,7 @@ const NoData: React.FC<NoDataProps> = ({
   const content = () => (
     <div
       className={cn(
-        "w-full h-50 flex items-center justify-center bg-[#14181F] border border-primary-gray/20 rounded-xl p-4 text-primary-gray text-sm",
+        "w-full h-32 flex items-center justify-center bg-[#14181F] border border-primary-gray/20 rounded-xl p-4 text-primary-gray text-sm",
         className,
       )}
     >
