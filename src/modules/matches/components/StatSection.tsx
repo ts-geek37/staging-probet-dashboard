@@ -1,3 +1,5 @@
+import React, { useMemo } from "react";
+
 import {
   AccordionContent,
   AccordionItem,
@@ -10,8 +12,6 @@ import {
   StatRow as IStatRow,
   StatSectionConfig,
 } from "../hooks/useMatchSeasonStat";
-
-import React, { useMemo } from "react";
 
 const StatRow: React.FC<IStatRow> = ({
   label,

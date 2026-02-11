@@ -18,7 +18,7 @@ const Testimonials: React.FC = () => {
   );
 
   return (
-    <div className="py-10 w-full">
+    <div className="py-5 sm:py-10 w-full">
       <div className="flex flex-col gap-1 mb-8">
         <h2 className="text-lg sm:text-xl md:text-2xl font-bold text-white text-center">
           Trusted by Football Analysts Worldwide

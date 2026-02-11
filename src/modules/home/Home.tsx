@@ -43,8 +43,11 @@ const Home: React.FC<Props> = ({ initialHome }) => {
     <>
       <Banner />
       <div className="max-w-7xl w-full mx-auto px-4 sm:px-6">
-        <VIPBanner />
-
+        {!isVip && (
+          <div className="pb-5 sm:pb-10 pt-5 sm:pt-15">
+            <VIPBanner />
+          </div>
+        )}
         {live_now.length > 0 && (
           <>
             <LiveMatchCards
@@ -55,21 +58,18 @@ const Home: React.FC<Props> = ({ initialHome }) => {
               className="py-10 md:py-20"
               limit={3}
             />
-            {!isVip && <VIPBanner />}
           </>
         )}
 
         {starting_soon.length > 0 && (
           <>
             <UpcomingMatchCards matches={starting_soon} />
-            {!isVip && <VIPBanner />}
           </>
         )}
 
         {recently_finished.length > 0 && (
           <>
             <FinishedMatchesCards matches={recently_finished} />
-            {!isVip && <VIPBanner />}
           </>
         )}
 
@@ -78,12 +78,16 @@ const Home: React.FC<Props> = ({ initialHome }) => {
           isLoading={isLoading}
         />
 
-        {!isVip && <VIPBanner />}
         <TopLeagues topLeagues={topLeagues} standings={popularTeams} />
         <PredictionBanner />
-        {!isVip && <VIPBanner />}
 
         {news?.length > 0 && <LatestNews news={news} />}
+        {!isVip && (
+          <div className="pb-5 sm:pb-10 pt-5 sm:pt-15">
+            <VIPBanner />
+          </div>
+        )}
+
         <Testimonials />
       </div>
     </>

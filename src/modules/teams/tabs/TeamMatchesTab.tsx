@@ -14,9 +14,7 @@ interface Props {
 }
 
 const normalizeTeamName = (value: string) => {
-  return value
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "");
+  return value.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 };
 
 const TeamMatchesTab: React.FC<Props> = ({ teamId, teamName }) => {
@@ -35,7 +33,7 @@ const TeamMatchesTab: React.FC<Props> = ({ teamId, teamName }) => {
           title="Upcoming Fixtures"
           matches={upcoming as MatchListItem[]}
           href={`/matches?status=${MatchListStatus.UPCOMING}&q=${encodeURIComponent(
-            normalizedTeamName
+            normalizedTeamName,
           )}`}
         />
       )}
@@ -45,7 +43,7 @@ const TeamMatchesTab: React.FC<Props> = ({ teamId, teamName }) => {
           title="Recent Matches"
           matches={latest as MatchListItem[]}
           href={`/matches?status=${MatchListStatus.FINISHED}&q=${encodeURIComponent(
-            normalizedTeamName
+            normalizedTeamName,
           )}`}
         />
       )}
