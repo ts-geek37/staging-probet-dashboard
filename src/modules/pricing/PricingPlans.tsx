@@ -17,7 +17,7 @@ interface Props {
 }
 
 const PricingPlans: React.FC<Props> = ({ plans, subscription }) => {
-  const sortedPlans = [...plans].sort((a, b) => a.amount - b.amount);
+  const sortedPlans = [...plans].sort((a, b) => a.eurPrices - b.eurPrices);
   const monthlyPlan = sortedPlans.find((p) => p.billingCycle === "monthly");
 
   return (
@@ -47,8 +47,7 @@ const PricingPlans: React.FC<Props> = ({ plans, subscription }) => {
               key={index}
               plan={plan}
               state={state}
-              highlight={plan.billingCycle === "quarterly"}
-              monthlyAmount={monthlyPlan?.amount}
+              highlight={plan.billingCycle === "quarterly"} 
               expiryAt={
                 state === "current" || state === "cancelled"
                   ? (subscription?.current_period_end ?? null)

@@ -72,7 +72,7 @@ const PlanCard: React.FC<Props> = ({
       {highlight && (
         <Badge
           variant="green"
-          className="absolute right-0 top-0 rounded-none rounded-bl-md rounded-tr-md  px-4 py-1.5 sm:py-2.5 text-xs sm:text-sm font-semibold text-white/80 group-hover:text-white"
+          className="absolute right-0 top-0 rounded-none rounded-bl-md rounded-tr-md px-4 py-1.5 sm:py-2.5 text-xs sm:text-sm font-semibold text-white/80 group-hover:text-white"
         >
           Most Popular
         </Badge>
@@ -86,9 +86,18 @@ const PlanCard: React.FC<Props> = ({
 
       <div className="min-h-24">
         <div className="flex flex-wrap items-baseline gap-2">
-          <p className="text-3xl sm:text-5xl font-bold text-white">
-            {formatPrice(plan.amount, plan.currency)}
-          </p>
+          {plan.eurPrices && (
+            <p className="text-3xl sm:text-5xl font-bold text-white">
+              {formatPrice(Number(plan.eurPrices), "EUR")}
+            </p>
+          )}
+
+          {plan.usdPrices && (
+            <p className="text-xl sm:text-2xl font-semibold text-slate-400">
+              / {formatPrice(Number(plan.usdPrices), "USD")}
+            </p>
+          )}
+
           <span className="text-slate-500 text-sm sm:text-base">
             {getPlanDurationLabel(plan.billingCycle)}
           </span>
