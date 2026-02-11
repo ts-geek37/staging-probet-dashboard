@@ -37,7 +37,7 @@ const LeagueOverView: React.FC<Props> = ({ initialLeagues }) => {
             <Image
               src={league?.country?.flag || "/no-image.png"}
               alt={league?.country?.name || "League Banner"}
-              width={20}
+              width={18}
               height={15}
               className="rounded"
             />

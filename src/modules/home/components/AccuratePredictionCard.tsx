@@ -58,7 +58,7 @@ const AccuratePredictionCard: React.FC<Props> = ({ prediction }) => {
       className="group relative w-full gap-2 p-6 overflow-hidden border border-primary-gray/20 bg-gradient-to-br from-card via-card to-card hover:to-primary-green/5 transition-all duration-300 cursor-pointer hover:shadow-lg hover:shadow-primary-green/10"
     >
       <div className="flex items-center justify-between">
-        <span className="text-xs font-bold text-slate-400 tracking-widest uppercase">
+        <span className="text-xs font-bold text-primary-gray tracking-widest uppercase">
           {new Date(prediction.starting_at).getDate()}{" "}
           {new Date(prediction.starting_at)
             .toLocaleString("en-US", { month: "short" })
@@ -90,7 +90,7 @@ const AccuratePredictionCard: React.FC<Props> = ({ prediction }) => {
               <div
                 className={cn(
                   "font-bold text-sm truncate transition-colors duration-300",
-                  isHomeWinner ? "text-white" : "text-slate-400",
+                  isHomeWinner ? "text-primary-green" : "text-primary-gray",
                 )}
               >
                 {homeParticipant?.name}
@@ -99,8 +99,8 @@ const AccuratePredictionCard: React.FC<Props> = ({ prediction }) => {
           </div>
           <div
             className={cn(
-              "text-2xl font-black min-w-8 text-right transition-all duration-300",
-              isHomeWinner ? "text-primary-green" : "text-slate-500",
+              "text-base min-w-8 text-right transition-all duration-300",
+              isHomeWinner ? "text-primary-green" : "text-primary-gray",
             )}
           >
             {actualHome}
@@ -132,7 +132,7 @@ const AccuratePredictionCard: React.FC<Props> = ({ prediction }) => {
               <div
                 className={cn(
                   "font-bold text-sm truncate transition-colors duration-300",
-                  isAwayWinner ? "text-white" : "text-slate-400",
+                  isAwayWinner ? "text-primary-green" : "text-primary-gray",
                 )}
               >
                 {awayParticipant?.name}
@@ -141,8 +141,8 @@ const AccuratePredictionCard: React.FC<Props> = ({ prediction }) => {
           </div>
           <div
             className={cn(
-              "text-2xl font-black min-w-[2rem] text-right transition-all duration-300",
-              isAwayWinner ? "text-primary-green" : "text-slate-500",
+              "text-base  min-w-[2rem] text-right transition-all duration-300",
+              isAwayWinner ? "text-primary-green" : "text-primary-gray",
             )}
           >
             {actualAway}
