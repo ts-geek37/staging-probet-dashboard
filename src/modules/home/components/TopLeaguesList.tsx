@@ -64,7 +64,7 @@ const TopLeaguesList: React.FC<Props> = ({ leagues }) => {
             </div>
           </div>
 
-          <div className="flex items-center gap-1.5 text-primary-gray/60 group-hover:text-primary-green transition-colors text-xs sm:text-sm font-medium">
+          <div className="flex items-center gap-1.5 text-primary-gray group-hover:text-primary-green transition-colors text-xs sm:text-sm font-medium">
             <span className="capitalize">League</span>
             <ChevronRight className="size-4" />
           </div>

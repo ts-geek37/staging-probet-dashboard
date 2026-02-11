@@ -60,7 +60,7 @@ const TopTeamsList: React.FC<Props> = ({ teams }) => {
             </div>
           </div>
 
-          <div className="flex flex-col items-end gap-1 text-right text-[10px] sm:text-xs text-primary-gray/60">
+          <div className="flex flex-col items-end gap-1 text-right text-[10px] sm:text-xs text-primary-gray">
             {team.founded && (
               <span className="font-medium tracking-widest">
                 Est. {team.founded}

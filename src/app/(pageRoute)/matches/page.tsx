@@ -13,7 +13,7 @@ export const metadata: Metadata = seo({
 
 const MatchesPage = () => {
   return (
-    <Suspense fallback={<SkeletonCardLoader />}>
+    <Suspense >
       <MatchesListingPresentation />
     </Suspense>
   );

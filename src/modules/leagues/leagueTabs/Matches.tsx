@@ -7,6 +7,7 @@ import { MatchListStatus } from "@/types/matches";
 
 import { useLeagueMatches } from "../hooks";
 import LeagueBanner from "../LeagueBanner";
+import { SkeletonCardLoader } from "@/components";
 
 interface Props {
   id: number;
@@ -17,14 +18,14 @@ const Matches: React.FC<Props> = ({ id }) => {
     useLeagueMatches(id);
   const { data } = useGeneralLiveMatches(liveMatches);
   const liveMatchesData = data.filter((match) => match.league?.id == id);
-  if (
-    !isLoading &&
-    recentMatches.length == 0 &&
-    upcomingMatches.length == 0 &&
-    liveMatchesData.length == 0
-  ) {
-    return <NoData message="No matches found for this league." />;
+  if (isLoading) {
+    return (
+      <div className="flex-1">
+        <SkeletonCardLoader />
+      </div>
+    );
   }
+
   return (
     <div className="flex-1 text-white flex flex-col gap-4 sm:gap-8 md:gap-12">
       {isLoading ? (

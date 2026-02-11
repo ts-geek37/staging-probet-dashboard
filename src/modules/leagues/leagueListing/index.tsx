@@ -82,10 +82,10 @@ const LeagueListing: React.FC<Props> = ({ initialLeagues }) => {
   return (
     <div className="flex flex-col gap-4">
       <div className="text-white flex flex-col gap-2">
-        <h1 className="text-4xl font-bold mb-2">
+        <h1 className="text-2xl sm:text-4xl font-bold mb-2">
           {continent !== "All" ? continent : "Global"} Leagues
         </h1>
-        <p>
+        <p className="text-sm sm:text-base">
           Explore standings, matches, and statistics for top{" "}
           {continent !== "All" ? continent : "Global"} football leagues.
         </p>
