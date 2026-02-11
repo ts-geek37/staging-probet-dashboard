@@ -1,6 +1,6 @@
 "use client";
 
-import { TrendingUp } from "lucide-react";
+import { Trophy } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React, { useMemo } from "react";
@@ -152,8 +152,8 @@ const AccuratePredictionCard: React.FC<Props> = ({ prediction }) => {
 
       <div className="relative bg-gradient-to-r from-primary-green/10 to-primary-green/5 border border-primary-green/20 rounded-xl p-3 overflow-hidden">
         <div className="relative flex items-center gap-3">
-          <div className="bg-primary-green rounded-lg p-1.5 shadow-lg shadow-primary-green/20 shrink-0">
-            <TrendingUp className="w-4 h-4 text-white" />
+          <div className="bg-primary-green rounded-lg p-1.5 shrink-0">
+            <Trophy className="w-5 h-5 text-white" />
           </div>
           <div className="flex-1 min-w-0">
             <div className="text-[10px] font-bold text-primary-green uppercase tracking-wider mb-0.5">
