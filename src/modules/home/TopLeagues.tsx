@@ -15,7 +15,7 @@ const TopLeagues: React.FC<Props> = ({ topLeagues, standings }) => {
   const topLeaguesSlice = topLeagues.slice(0, minLenth);
   const standingsSlice = standings.slice(0, minLenth);
   return (
-    <section className="py-10  grid gap-6 text-white">
+    <section className="py-5 sm:py-10  grid gap-6 text-white">
       <div className="flex items-center justify-between w-full">
         <div>
           <h1 className="text-2xl sm:text-5xl font-bold mb-1">
@@ -23,11 +23,6 @@ const TopLeagues: React.FC<Props> = ({ topLeagues, standings }) => {
           </h1>
           <p className="text-xs sm:text-base">Browse football competitions</p>
         </div>
-        <Link href="/leagues">
-          <span className="text-primary-gray text-sm sm:text-base cursor-pointer hover:text-white">
-            View all
-          </span>
-        </Link>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-12 gap-6">

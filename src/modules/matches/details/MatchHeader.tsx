@@ -52,7 +52,14 @@ const MatchHeader: React.FC<Props> = ({ match }) => {
   };
 
   return (
-    <Card className="w-full mx-auto border-primary-gray/20 text-white overflow-hidden bg-gradient-to-r from-primary-green/30 via-card to-primary-green/30">
+    <Card
+      className="
+    w-full mx-auto border-primary-gray/20 text-white overflow-hidden
+    bg-linear-to-r from-primary-neon/20 via-card to-primary-green/20
+    xl:bg-[url('/MatchHeader.png')]
+    xl:bg-cover xl:bg-center xl:bg-no-repeat
+  "
+    >
       <CardContent className="flex flex-col items-center justify-center px-2 sm:px-6">
         <div
           role="button"

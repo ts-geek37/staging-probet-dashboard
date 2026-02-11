@@ -1,5 +1,6 @@
 "use client";
 
+import { Circle } from "lucide-react";
 import React from "react";
 
 import { useLeagueYellowCards } from "../../hooks";
@@ -19,6 +20,13 @@ const YellowCards: React.FC<Props> = ({ id }) => {
       hasData={!!hasData}
       isLoading={isLoading}
       noDataMessage="No yellow cards data available"
+      tableTitles={{
+        yellowcards: {
+          // match the actual table key
+          title: "Yellow Cards",
+          icon: <div className="w-3 h-4 ml-1 bg-yellow-500" />,
+        },
+      }}
     />
   );
 };

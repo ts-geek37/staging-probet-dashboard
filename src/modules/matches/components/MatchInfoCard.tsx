@@ -2,10 +2,11 @@
 
 import { motion } from "framer-motion";
 import { Calendar, CalendarDays, Clock, Trophy, UserCheck } from "lucide-react";
-import React from "react";
+import Image from "next/image";
+import React, { useState } from "react";
 
 import { Card, CardContent } from "@/components/ui/card";
-import { convertToLocalTime } from "@/utils/convertTime"; // adjust path if needed
+import { convertToLocalTime } from "@/utils/convertTime";
 
 interface MatchInfoCardProps {
   league?: { name: string };
@@ -13,6 +14,7 @@ interface MatchInfoCardProps {
   referee?: string;
   season?: { name: string };
   kickoff_time?: string;
+  venue?: { name?: string; image?: string };
 }
 
 const MatchInfoCard: React.FC<MatchInfoCardProps> = ({
@@ -21,7 +23,10 @@ const MatchInfoCard: React.FC<MatchInfoCardProps> = ({
   referee,
   season,
   kickoff_time,
+  venue,
 }) => {
+  const [imgSrc, setImgSrc] = useState(venue?.image || "/image.png");
+
   const formattedDate = kickoff_time
     ? new Date(kickoff_time).toLocaleDateString("en-US", {
         year: "numeric",
@@ -43,9 +48,21 @@ const MatchInfoCard: React.FC<MatchInfoCardProps> = ({
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, ease: "easeOut" }}
+      className="relative"
     >
-      <Card className="border-primary-gray/20 h-full text-white py-3">
-        <CardContent className="p-4">
+      <Card className="border-primary-gray/20 h-full text-white py-3 relative overflow-hidden">
+        {imgSrc && (
+          <div className="absolute inset-0">
+            <Image
+              src={imgSrc}
+              alt={venue?.name || "Venue"}
+              fill
+              className="object-cover opacity-15"
+            />
+          </div>
+        )}
+
+        <CardContent className="p-4 relative z-10">
           <p className="text-sm sm:text-xl font-semibold mb-6">Match Info</p>
 
           <div className="space-y-4 text-sm">

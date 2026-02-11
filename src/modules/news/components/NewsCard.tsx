@@ -62,7 +62,7 @@ const NewsCard: React.FC<Props> = ({
           <div className="mb-3 inline-flex uppercase items-center rounded-full bg-primary-green/20 px-3 py-1 text-xs font-bold text-primary-green backdrop-blur-md border border-primary-green/20">
             {categoryName ?? "Featured"}
           </div>
-          <h3 className="mb-3 text-base sm:text-2xl font-black leading-tight text-white md:text-4xl lg:text-5xl drop-shadow-lg">
+          <h3 className="mb-3 text-base sm:text-3xl font-black leading-tight text-white  drop-shadow-lg">
             {title}
           </h3>
           <div className="flex items-center gap-2 text-sm text-primary-gray">

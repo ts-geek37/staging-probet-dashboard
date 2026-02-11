@@ -17,7 +17,7 @@ interface Props {
 
 const AccuratePredictions: React.FC<Props> = ({ predictions, isLoading }) => {
   return (
-    <section className="py-10 text-white">
+    <section className="py-5 sm:py-10 text-white">
       <div className="space-y-10">
         <div className="space-y-2">
           <h1 className="text-xl sm:text-5xl font-bold">

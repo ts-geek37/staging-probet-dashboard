@@ -32,9 +32,6 @@ const TeamHeader: React.FC<Props> = ({ team }) => {
               <h1 className="text-base font-semibold sm:text-3xl">
                 {headerData.name}
               </h1>
-              <span className="rounded bg-primary-green/20 px-2 py-1 text-xs font-medium text-primary-green sm:text-sm">
-                {headerData.shortName}
-              </span>
             </div>
 
             <div className="flex flex-wrap items-center gap-3 text-primary-gray">

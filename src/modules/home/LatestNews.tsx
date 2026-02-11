@@ -61,10 +61,6 @@ const LatestNews: React.FC<Props> = ({ news }) => {
           </div>
         </div>
       </div>
-
-      <div className="mt-15">
-        <VIPBanner />
-      </div>
     </section>
   );
 };
