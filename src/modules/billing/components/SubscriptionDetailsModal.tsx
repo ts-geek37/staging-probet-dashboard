@@ -129,6 +129,7 @@ const SubscriptionDetailsModal: React.FC<SubscriptionDetailsModalProps> = ({
                       placeholder="Please let us know why you're leaving so we can improve."
                       value={reason}
                       onChange={(e) => setReason(e.target.value)}
+                      maxLength={200}
                       className="bg-gray-900/50 border-gray-700 text-white placeholder:text-gray-500"
                     />
                   </div>
