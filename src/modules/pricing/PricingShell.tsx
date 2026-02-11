@@ -2,6 +2,7 @@
 
 import React from "react";
 
+import DataError from "@/components/DataError";
 import { useSubscription } from "@/context";
 
 import { usePlans } from "./hooks/usePlans";
@@ -26,9 +27,7 @@ const PricingShell: React.FC = () => {
 
   if (plansError || !plans) {
     return (
-      <div className="text-center text-sm text-red-400">
-        Failed to load pricing plans. Please try again later.
-      </div>
+      <DataError message="Failed to load pricing plans. Please try again later." />
     );
   }
 

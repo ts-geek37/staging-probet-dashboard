@@ -4,6 +4,7 @@ import { Star } from "lucide-react";
 import React, { useState } from "react";
 
 import { Badge } from "@/components/ui/badge";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { derivePlanState } from "@/lib/plan-resolver";
 import { PlanWithFeatures } from "@/types/prices";
 import { Subscription } from "@/types/subscription";
@@ -15,11 +16,12 @@ interface Props {
   subscription: Subscription | null | undefined;
   isVip: boolean;
 }
+const currencies = ["EUR", "USD"] as const;
+type Currency = (typeof currencies)[number];
 
 const PricingPlans: React.FC<Props> = ({ plans, subscription }) => {
-  const [currency, setCurrency] = useState<"EUR" | "USD">("EUR");
+  const [currency, setCurrency] = useState<Currency>("EUR");
   const sortedPlans = [...plans].sort((a, b) => a.eurPrices - b.eurPrices);
-  const monthlyPlan = sortedPlans.find((p) => p.billingCycle === "monthly");
 
   return (
     <section className="m-auto w-full max-w-7xl px-4 sm:px-6  py-8 sm:py-15">
@@ -40,33 +42,22 @@ const PricingPlans: React.FC<Props> = ({ plans, subscription }) => {
         </p>
 
         <div className="flex justify-center">
-          <div className="relative inline-flex h-10 items-center rounded-full bg-slate-800/50 p-1 ring-1 ring-white/10">
-            <button
-              onClick={() => setCurrency("EUR")}
-              className={`relative z-10 rounded-full px-6 py-1.5 text-sm font-medium transition-colors duration-200 ${
-                currency === "EUR"
-                  ? "text-white"
-                  : "text-slate-400 hover:text-white"
-              }`}
-            >
-              EUR
-            </button>
-            <button
-              onClick={() => setCurrency("USD")}
-              className={`relative z-10 rounded-full px-6 py-1.5 text-sm font-medium transition-colors duration-200 ${
-                currency === "USD"
-                  ? "text-white"
-                  : "text-slate-400 hover:text-white"
-              }`}
-            >
-              USD
-            </button>
-            <div
-              className={`absolute left-1 top-1 h-8 w-[calc(50%-4px)] rounded-full bg-primary-green transition-transform duration-300 ease-out ${
-                currency === "USD" ? "translate-x-full" : "translate-x-0"
-              }`}
-            />
-          </div>
+          <Tabs
+            value={currency}
+            onValueChange={(val) => setCurrency(val as Currency)}
+          >
+            <TabsList className="h-10 rounded-full bg-slate-800/50 p-1 ring-1 ring-white/10">
+              {currencies.map((item) => (
+                <TabsTrigger
+                  key={item}
+                  value={item}
+                  className="rounded-full px-6 py-1.5 text-sm font-medium text-slate-400 data-[state=active]:bg-primary-green data-[state=active]:text-white"
+                >
+                  {item}
+                </TabsTrigger>
+              ))}
+            </TabsList>
+          </Tabs>
         </div>
       </div>
 
