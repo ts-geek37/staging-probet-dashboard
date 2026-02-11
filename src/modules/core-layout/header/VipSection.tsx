@@ -27,13 +27,21 @@ const VipSection: React.FC<VipSectionProps> = ({ onNavigate }) => {
   const handleGetStarted = () => {
     router.push("/sign-up");
   };
-  const isLoading = !isLoaded || isSubscriptionLoading;
-  if (isLoading) {
+  if (!isLoaded) {
     return (
       <div className="flex items-center gap-1">
         <Skeleton className="h-10 w-15 rounded-md" />
         <Skeleton className="h-10 w-20 rounded-md" />
         <Skeleton className="h-10 w-20 rounded-md" />
+      </div>
+    );
+  }
+
+  if (isSubscriptionLoading && isSignedIn) {
+    return (
+      <div className="flex items-center gap-2">
+        <Skeleton className="h-9 w-24 rounded-lg" />
+        <Skeleton className="h-9 w-9 rounded-full" />
       </div>
     );
   }
