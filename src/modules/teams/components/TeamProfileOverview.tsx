@@ -175,7 +175,7 @@ const TeamProfileOverview: React.FC<Props> = ({
                       />
                     )}
                     <Link
-                      href={`/teams/${rival.id}`}
+                      href={rival?.id ? `/teams/${rival.id}` : "#"}
                       className="text-sm font-medium text-white"
                     >
                       {rival.label}

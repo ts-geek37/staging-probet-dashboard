@@ -13,6 +13,7 @@ type PlanCTAProps = {
   billingCycle: BillingCycle;
   onSignIn: () => void;
   expiryAt?: string | null;
+  currency?: "EUR" | "USD";
 };
 
 const PlanCTA: React.FC<PlanCTAProps> = ({
@@ -21,6 +22,7 @@ const PlanCTA: React.FC<PlanCTAProps> = ({
   billingCycle,
   onSignIn,
   expiryAt,
+  currency = "EUR",
 }) => {
   const { checkout, loading, error } = useCheckout();
 
@@ -113,7 +115,7 @@ const PlanCTA: React.FC<PlanCTAProps> = ({
       return (
         <div className="space-y-3">
           <Button
-            onClick={() => checkout(billingCycle)}
+            onClick={() => checkout(billingCycle, currency)}
             disabled={loading}
             variant="green"
             className="w-full rounded-lg px-5 py-3 text-sm font-medium text-white/80 group-hover:text-white transition hover:bg-primary-green/90 disabled:cursor-not-allowed disabled:opacity-60"

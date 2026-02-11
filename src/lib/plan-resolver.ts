@@ -36,7 +36,8 @@ export const formatPrice = (amount: number, currency: string): string => {
     style: "currency",
     currency,
     currencyDisplay: "symbol",
-    maximumFractionDigits: 0,
+    minimumFractionDigits: amount % 1 === 0 ? 0 : 2,
+    maximumFractionDigits: 2,
   }).format(amount);
 };
 
@@ -65,12 +66,14 @@ const BILLING_CYCLE_MONTHS: Record<BillingCycle, number> = {
 export const getDiscountPercent = (
   plan: Plan,
   monthlyAmount: number,
+  currency?: "EUR" | "USD",
 ): number | null => {
   const months = BILLING_CYCLE_MONTHS[plan.billingCycle];
   if (months === 1) return null;
 
   const baseline = monthlyAmount * months;
-  const discount = ((baseline - plan.amount) / baseline) * 100;
+  const price = currency === "EUR" ? plan.eurPrices : plan.usdPrices;
+  const discount = ((baseline - price) / baseline) * 100;
 
   return Math.round(discount);
 };

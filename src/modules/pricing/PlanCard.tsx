@@ -23,6 +23,7 @@ interface Props {
   highlight?: boolean;
   expiryAt?: string | null;
   monthlyAmount?: number;
+  currency?: "EUR" | "USD";
 }
 
 const PlanCard: React.FC<Props> = ({
@@ -31,12 +32,13 @@ const PlanCard: React.FC<Props> = ({
   highlight,
   expiryAt,
   monthlyAmount,
+  currency = "EUR",
 }) => {
   const router = useRouter();
   const { isSignedIn } = useUser();
 
   const discount = monthlyAmount
-    ? getDiscountPercent(plan, monthlyAmount)
+    ? getDiscountPercent(plan, monthlyAmount, currency)
     : null;
 
   const handleSignIn = () => {
@@ -86,15 +88,15 @@ const PlanCard: React.FC<Props> = ({
 
       <div className="min-h-24">
         <div className="flex flex-wrap items-baseline gap-2">
-          {plan.eurPrices && (
+          {currency === "EUR" && plan.eurPrices && (
             <p className="text-3xl sm:text-5xl font-bold text-white">
               {formatPrice(Number(plan.eurPrices), "EUR")}
             </p>
           )}
 
-          {plan.usdPrices && (
-            <p className="text-xl sm:text-2xl font-semibold text-slate-400">
-              / {formatPrice(Number(plan.usdPrices), "USD")}
+          {currency === "USD" && plan.usdPrices && (
+            <p className="text-3xl sm:text-5xl font-bold text-white">
+              {formatPrice(Number(plan.usdPrices), "USD")}
             </p>
           )}
 
@@ -135,6 +137,7 @@ const PlanCard: React.FC<Props> = ({
         billingCycle={plan?.billingCycle}
         onSignIn={handleSignIn}
         expiryAt={expiryAt}
+        currency={currency}
       />
     </div>
   );

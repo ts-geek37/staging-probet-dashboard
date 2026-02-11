@@ -7,6 +7,7 @@ import { BillingCycle } from "@/types/prices";
 
 type CheckoutArgs = {
   billingCycle: BillingCycle;
+  currency: "EUR" | "USD";
 };
 
 type CheckoutResponse = {
@@ -32,6 +33,7 @@ const checkoutFetcher = async (
     },
     body: JSON.stringify({
       billing_cycle: arg.billingCycle,
+      currency: arg.currency,
     }),
   });
 
@@ -56,7 +58,10 @@ const useCheckout = () => {
     checkoutFetcher,
   );
 
-  const checkout = async (billingCycle: BillingCycle) => {
+  const checkout = async (
+    billingCycle: BillingCycle,
+    currency: "EUR" | "USD" = "EUR",
+  ) => {
     try {
       if (!isSignedIn) {
         throw new Error(AUTH_REQUIRED);
@@ -69,6 +74,7 @@ const useCheckout = () => {
 
       const data = await trigger({
         billingCycle,
+        currency,
         token,
       });
 
