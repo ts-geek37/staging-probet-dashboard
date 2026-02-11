@@ -4,8 +4,8 @@ export type Plan = {
   durationMonths: number;
   product: string;
   billingCycle: BillingCycle;
-  currency: string;
-  amount: number;
+  eurPrices: number;
+  usdPrices: number;
   label: string;
 };
 
