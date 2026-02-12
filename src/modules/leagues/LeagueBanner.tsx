@@ -12,7 +12,7 @@ const LeagueBanner: React.FC<Props> = ({ banner }) => {
       alt="Leagues Banner"
       height={100}
       width={1000}
-      className="w-full h-40 sm:h-80 object-cover"
+      className="w-full h-40 sm:h-80 object-cover opacity-55"
     />
   );
 };

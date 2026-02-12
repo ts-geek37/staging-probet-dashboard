@@ -60,7 +60,7 @@ const PredictionBanner: React.FC = () => {
                 isAnimated
               />
               <StatCard
-                value="50"
+                value="114"
                 suffix="+"
                 label="Leagues Covered"
                 color="green"
