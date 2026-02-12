@@ -24,8 +24,7 @@ const NoData: React.FC<NoDataProps> = ({
   children,
 }) => {
   const displayTitle =
-    title || (message && message.length < 50 ? message : "Data not Found");
-
+    title = message || "Data not found" ;
   const Content = (
     <motion.div
       initial={{ opacity: 0, scale: 0.95, y: 10 }}
@@ -38,7 +37,7 @@ const NoData: React.FC<NoDataProps> = ({
       }}
       className={cn(
         "relative w-full flex flex-col items-center justify-center p-5 sm:p-10  text-center overflow-hidden rounded-2xl",
-        "bg-gradient-to-br from-[#14181F] via-primary-green/5 to-primary-neon/5",
+        "bg-linear-to-br from-[#14181F] via-primary-green/5 to-primary-neon/5",
         "border border-primary-gray/20",
         className,
       )}

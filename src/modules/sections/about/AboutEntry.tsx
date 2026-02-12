@@ -1,14 +1,39 @@
 import React from "react";
 import { Card } from "@/components/ui/card";
 import { AboutFeatures, philosophyItems } from "../contansts";
+import { ChevronRight, Globe, Mail, ShieldAlert } from "lucide-react";
 
 const AboutEntry: React.FC = () => {
+  const renderDescription = (description: string) => {
+    if (!description.includes("•")) {
+      return (
+        <p className="text-sm sm:text-base text-primary-gray leading-relaxed text-left">
+          {description}
+        </p>
+      );
+    }
+
+    const parts = description.split("•");
+    const intro = parts[0];
+    const items = parts.slice(1);
+
+    return (
+      <div className="text-base text-primary-gray leading-relaxed text-left space-y-3">
+        {intro && <p>{intro}</p>}
+        <ul className="list-disc pl-5 space-y-2">
+          {items.map((item, index) => (
+            <li key={index}>{item.trim()}</li>
+          ))}
+        </ul>
+      </div>
+    );
+  };
+
   return (
-    <>
-      {/* Who We Are + What We Offer */}
+    <div className="flex flex-col gap-15 sm:gap-24 max-w-7xl mx-auto px-4 sm:px-6">
       <div className="flex flex-col gap-12">
         <div className="flex flex-col gap-4">
-          <h2 className="text-4xl font-bold text-primary-green">Who we are</h2>
+          <h2 className="text-5xl font-bold text-primary-green">Who we are</h2>
 
           <p className="text-primary-gray text-sm sm:text-lg">
             ProBetPredictions is a global football analytics and insights
@@ -20,8 +45,10 @@ const AboutEntry: React.FC = () => {
             predictions into one clean and professional environment.
             <br />
             <br />
-            We are not a bookmaker. <br />
-            We do not facilitate gambling. <br />
+            We are not a bookmaker.
+            <br />
+            We do not facilitate gambling.
+            <br />
             All predictions and insights provided on our platform are strictly
             informational and analytical.
             <br />
@@ -30,56 +57,9 @@ const AboutEntry: React.FC = () => {
             intelligence.
           </p>
         </div>
-
-        <h2 className="text-4xl font-bold text-primary-green">What We Offer</h2>
-
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {AboutFeatures.map(({ description, icon: Icon, label }) => (
-            <Card
-              key={label}
-              className="group relative overflow-hidden rounded-2xl border border-white/5
-  bg-white/[0.03] backdrop-blur-md
-  p-6 transition-all duration-300
-  hover:-translate-y-2 hover:border-primary-green/40
-  hover:shadow-[0_0_40px_rgba(34,197,94,0.15)]"
-            >
-              {/* Soft gradient overlay */}
-              <div
-                className="absolute inset-0 opacity-0 group-hover:opacity-100 transition duration-500
-    bg-gradient-to-br from-primary-green/10 via-transparent to-primary-green/10"
-              />
-
-              <div className="relative z-10 flex flex-col gap-4">
-                {/* Icon + Title */}
-                <div className="flex items-center gap-4">
-                  <div
-                    className="flex items-center justify-center size-12 rounded-xl
-        bg-primary-green/10 text-primary-green
-        ring-1 ring-primary-green/20
-        group-hover:bg-primary-green group-hover:text-white transition-all duration-300"
-                  >
-                    <Icon className="size-6" />
-                  </div>
-
-                  <h3 className="font-semibold text-white text-lg group-hover:text-primary-green transition">
-                    {label}
-                  </h3>
-                </div>
-
-                {/* Description */}
-                <p className="text-sm sm:text-base text-primary-gray/90 leading-relaxed group-hover:text-white/80 transition text-justify">
-                  {description}
-                </p>
-              </div>
-            </Card>
-          ))}
-        </div>
       </div>
-
-      {/* Mission & Vision Section */}
-      <div className="max-w-7xl mx-auto grid gap-6 md:grid-cols-2 mt-16">
-        {/* Mission */}
-        <div className="rounded-4xl bg-gradient-to-br from-primary-green/20 via-primary-green/10 to-primary-green/20 px-6 py-6 flex flex-col gap-4">
+      <div className="max-w-7xl mx-auto grid gap-6 md:grid-cols-2">
+        <div className="rounded-4xl bg-linear-to-br from-primary-green/10 to-primary-neon/5 px-4 sm:px-6 py-6 flex flex-col gap-4">
           <h3 className="text-2xl font-bold text-primary-green md:text-4xl">
             Our Mission
           </h3>
@@ -105,8 +85,7 @@ const AboutEntry: React.FC = () => {
           </p>
         </div>
 
-        {/* Vision */}
-        <div className="rounded-4xl bg-gradient-to-br from-primary-green/20 via-primary-green/10 to-primary-green/20 px-6 py-6 flex flex-col gap-4">
+        <div className="rounded-4xl bg-linear-to-br from-primary-green/10 to-primary-neon/5 px-4 sm:px-6 py-6 flex flex-col gap-4">
           <h3 className="text-2xl font-bold text-primary-green md:text-4xl">
             Our Vision
           </h3>
@@ -129,125 +108,105 @@ const AboutEntry: React.FC = () => {
         </div>
       </div>
 
-      {/* Philosophy */}
-      <div className="flex flex-col gap-5 mt-16">
-        <div className="text-center flex flex-col gap-3 sm:gap-6">
-          <h2 className="text-3xl font-bold text-primary-green sm:text-5xl">
-            Our Philosophy
-          </h2>
+      <section className="max-w-7xl mx-auto ">
+        <h2 className="text-3xl sm:text-5xl font-bold text-primary-green mb-6 sm:mb-12 uppercase tracking-tight">
+          What We Offer
+        </h2>
 
-          <p className="mx-auto max-w-2xl sm:text-lg text-primary-gray">
-            <span className="font-medium text-primary-green">
-              We operate on three core principles
-            </span>
-          </p>
-        </div>
-
-        <div className="grid gap-8 sm:grid-cols-3 mx-auto">
-          {philosophyItems.map((item, idx) => (
-            <Card
-              key={idx}
-              className="group relative overflow-hidden rounded-2xl border border-white/5
-              bg-white/[0.03] backdrop-blur-md
-              p-6 md:p-8 transition-all duration-300
-              hover:-translate-y-2 hover:border-primary-green/40
-              hover:shadow-[0_0_40px_rgba(34,197,94,0.15)]"
+        <div className="flex flex-col gap-8">
+          {AboutFeatures.map(({ description, icon: Icon, label }) => (
+            <div
+              key={label}
+              className="grid grid-cols-1 md:grid-cols-[300px_1fr] gap-4 md:gap-12 group"
             >
-              {/* Hover gradient overlay */}
-              <div
-                className="absolute inset-0 opacity-0 group-hover:opacity-100 transition duration-500
-               bg-gradient-to-br from-primary-green/10 via-transparent to-primary-green/10"
-              />
-
-              <div className="relative z-10 flex flex-col gap-4">
-                <div className="flex items-center gap-4">
-                  <div
-                    className="flex items-center justify-center size-12 rounded-xl
-                      bg-primary-green/10 text-primary-green
-                      ring-1 ring-primary-green/20
-                      group-hover:bg-primary-green group-hover:text-white
-                      transition-all duration-300"
-                  >
-                    <item.icon className="size-6" />
-                  </div>
-
-                  <h3 className="text-xl font-bold text-white group-hover:text-primary-green transition">
-                    {item.title}
-                  </h3>
+              <div className="flex items-start gap-4">
+                <div className="mt-1 text-primary-green group-hover:scale-110 transition-transform duration-300">
+                  <Icon className="size-6" strokeWidth={1.5} />
                 </div>
-
-                <p className="leading-relaxed text-primary-gray group-hover:text-white/80 transition text-justify">
-                  {item.description}
-                </p>
+                <h3 className="text-base sm:text-xl font-bold text-white leading-tight ">
+                  {label}
+                </h3>
               </div>
-            </Card>
+              <div className="md:border-l border-white/10 pl-0 md:pl-12 text-sm">
+                {renderDescription(description)}
+              </div>
+            </div>
           ))}
         </div>
-      </div>
-      {/* Compliance & Company Information */}
-<div className="max-w-7xl mx-auto mt-20 grid gap-8 md:grid-cols-2">
+      </section>
 
+      <section className="mx-auto max-w-7xl">
+        <div className="grid gap-8 lg:grid-cols-2">
+          <Card className="relative overflow-hidden rounded-3xl border border-primary-green/20 bg-gradient-to-br from-primary-green/5 to-transparent p-4 sm:p-10">
+            <div className="mb-6 flex items-center gap-4">
+              <div className="flex size-12 items-center justify-center rounded-full bg-primary-green/10 text-primary-green">
+                <ShieldAlert className="size-6" />
+              </div>
+              <h2 className="text-xl sm:text-2xl font-bold text-primary-green">
+                Compliance & Responsibility
+              </h2>
+            </div>
 
-  {/* Compliance Section */}
-  <Card
-    className="relative overflow-hidden rounded-2xl border border-white/5
-    bg-white/[0.03] backdrop-blur-md
-    p-8 transition-all duration-300"
-  >
-    <div className="flex flex-col gap-6">
+            <div className="space-y-6 text-primary-gray/90">
+              <p className="font-medium text-white">
+                ProBetPredictions operates strictly as an informational football
+                analytics platform.
+              </p>
 
-      <h2 className="text-3xl font-bold text-primary-green">
-        Compliance and Responsibility
-      </h2>
+              <ul className="grid gap-3 sm:grid-cols-2">
+                {[
+                  "Do not accept bets",
+                  "Do not process transactions",
+                  "Do not provide odds",
+                  "Do not advertise bookmakers",
+                ].map((item, i) => (
+                  <li key={i} className="flex items-center gap-2 text-sm">
+                    <span className="size-1.5 rounded-full bg-primary-green" />
+                    {item}
+                  </li>
+                ))}
+              </ul>
 
-      <p className="text-primary-gray sm:text-base leading-relaxed">
-        ProBetPredictions operates strictly as an informational football analytics platform.
-      </p>
+              <p className="text-sm opacity-60">
+                All content is intended for analytical and educational purposes
+                only.
+              </p>
+            </div>
+          </Card>
+           <Card className="relative overflow-hidden rounded-3xl border border-primary-green/20 bg-gradient-to-br from-primary-green/5 to-transparent p-4 sm:p-10">
+            <div className="mb-6 flex items-center gap-4">
+              <div className="flex size-12 items-center justify-center rounded-full bg-primary-green/10 text-primary-green">
+                <Globe className="size-6" />
+              </div>
+              <h2 className="text-xl sm:text-2xl font-bold text-primary-green">
+                Company Information
+              </h2>
+            </div>
 
-      <ul className="list-disc list-inside text-primary-gray sm:text-base">
-        <li>Do not accept bets</li>
-        <li>Do not process gambling transactions</li>
-        <li>Do not provide betting odds</li>
-        <li>Do not advertise bookmakers</li>
-      </ul>
+            <div className="space-y-4 text-primary-gray">
+              <div>
+                <p className="text-lg font-semibold text-white">
+                  ProBet Analytics Ltd
+                </p>
+                <p>71 Sample Street</p>
+                <p>London, United Kingdom</p>
+              </div>
 
-      <p className="text-primary-gray sm:text-base">
-        All content is intended for analytical and educational purposes only.
-      </p>
+              <div className="pt-6">
+                <a
+                  href="mailto:support@probet.com"
+                  className="group inline-flex items-center gap-3 rounded-lg bg-white/5 px-5 py-3 text-sm font-medium text-white transition hover:bg-white/10"
+                >
+                  <Mail className="size-4 text-primary-green" />
+                  <span>support@probet.com</span>
+                  <ChevronRight className="ml-auto size-4 opacity-50 transition-transform group-hover:translate-x-1" />
+                </a>
+              </div>
+            </div>
+          </Card>
+        </div>
+      </section>
     </div>
-  </Card>
-
-  {/* Company Information */}
-  <Card
-    className="relative overflow-hidden rounded-2xl border border-white/5
-    bg-white/[0.03] backdrop-blur-md
-    p-8 transition-all duration-300"
-  >
-    <div className="flex flex-col gap-4">
-      <h2 className="text-3xl font-bold text-primary-green">
-        Company Information
-      </h2>
-
-      <div className="text-primary-gray sm:text-base">
-        <p>ProBet Analytics Ltd</p>
-        <p>71 Sample Street</p>
-        <p>London</p>
-        <p>United Kingdom</p>
-        <p>
-          Email:{" "}
-          <a
-            href="mailto:support@probet.com"
-            className="text-primary-green hover:underline"
-          >
-            support@probet.com
-          </a>
-        </p>
-      </div>
-    </div>
-  </Card>
-</div>
-
-    </>
   );
 };
 
