@@ -1,13 +1,12 @@
 import React from "react";
 
-import { Ads, NoData } from "@/components";
+import { Ads, NoData, SkeletonCardLoader } from "@/components";
 import MatchListing from "@/components/MatchListing";
 import { useGeneralLiveMatches } from "@/modules/ws/hooks";
 import { MatchListStatus } from "@/types/matches";
 
 import { useLeagueMatches } from "../hooks";
 import LeagueBanner from "../LeagueBanner";
-import { SkeletonCardLoader } from "@/components";
 
 interface Props {
   id: number;

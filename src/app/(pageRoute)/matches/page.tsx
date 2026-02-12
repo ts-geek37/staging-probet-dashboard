@@ -13,7 +13,7 @@ export const metadata: Metadata = seo({
 
 const MatchesPage = () => {
   return (
-    <Suspense >
+    <Suspense>
       <MatchesListingPresentation />
     </Suspense>
   );
