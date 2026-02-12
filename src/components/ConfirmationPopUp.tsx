@@ -19,6 +19,7 @@ interface ConfirmationPopUpProps {
   description: string | React.ReactNode;
   onConfirm: () => void;
   trigger: React.ReactNode;
+  confirmDisabled?: boolean;
 }
 
 export const ConfirmationPopUp: React.FC<ConfirmationPopUpProps> = ({
@@ -26,6 +27,7 @@ export const ConfirmationPopUp: React.FC<ConfirmationPopUpProps> = ({
   description,
   onConfirm,
   trigger,
+  confirmDisabled
 }) => {
   const [open, setOpen] = useState(false);
 
@@ -50,7 +52,7 @@ export const ConfirmationPopUp: React.FC<ConfirmationPopUpProps> = ({
           <DialogClose asChild>
             <Button type="button">Cancel</Button>
           </DialogClose>
-          <Button variant="green" onClick={handleConfirm} type="button">
+          <Button variant="green" onClick={handleConfirm}  disabled={confirmDisabled} type="button">
             Confirm
           </Button>
         </DialogFooter>

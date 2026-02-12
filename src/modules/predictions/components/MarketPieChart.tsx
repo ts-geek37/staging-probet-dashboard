@@ -46,7 +46,14 @@ const MarketPieChart: React.FC<Props> = ({
     () =>
       data.map(([key, value, customLabel]) => ({
         key: key,
-        label: customLabel || key.replace(/_/g, " "),
+        label:
+          customLabel ||
+          (key.toLowerCase() === "yes"
+            ? "over"
+            : key.toLowerCase() === "no"
+              ? "under"
+              : key.replace(/_/g, " ")),
+
         value,
         fill: COLORS[key.toLowerCase()] ?? "#6b7280",
       })),
