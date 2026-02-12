@@ -42,8 +42,8 @@ const Matches: React.FC<Props> = ({ id }) => {
           />
           {liveMatchesData.length === 0 && (
             <NoData
-              className="h-36"
-              message="No matches are live at the moment. Live Matches will appear here once matches start."
+
+              message="No matches are live at the moment."
             />
           )}
           {liveMatchesData.length > 0 && <Ads />}
