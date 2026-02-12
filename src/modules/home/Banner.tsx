@@ -16,7 +16,7 @@ const HomeBanner: React.FC = () => {
         </>
       }
       className="mb-5"
-      description="Real-time football scores, comprehensive match statistics, and data-driven predictions across Europe's top leagues."
+      description="Real-time football scores, comprehensive match statistics, and data-driven predictions across Global leagues."
     >
       <div className="flex flex-wrap items-center justify-center gap-6">
         <Link href="/prediction">
