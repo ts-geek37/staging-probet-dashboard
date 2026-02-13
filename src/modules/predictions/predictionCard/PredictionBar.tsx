@@ -26,7 +26,7 @@ const PredictionBar: React.FC<PredictionBarProps> = ({
     {
       key: "home",
       value: prediction.home,
-      label: match.teams.home.name,
+      label: match?.teams?.home?.name ?? "Team",
       bgColor: "bg-primary-green",
       highlightColor: "text-primary-green",
     },
@@ -41,7 +41,7 @@ const PredictionBar: React.FC<PredictionBarProps> = ({
     {
       key: "away",
       value: prediction.away,
-      label: match.teams.away.name,
+      label: match?.teams?.away?.name ?? "Team",
       bgColor: "bg-primary-red",
       highlightColor: "text-red-400",
     },
@@ -88,7 +88,7 @@ const PredictionBar: React.FC<PredictionBarProps> = ({
             ></div>
           ))}
         </div>
-        <div className="flex justify-between text-xs sm:text-sm mt-1 flex-wrap gap-1">
+        <div className="flex justify-between text-xs sm:text-sm mt-1 gap-1">
           {segments.map((segment) => (
             <div
               key={segment.key}
@@ -99,8 +99,13 @@ const PredictionBar: React.FC<PredictionBarProps> = ({
               >
                 {segment.value !== undefined ? segment.value.toFixed(0) : 0}%
               </span>
+
               <span
-                className={`text-sm font-medium ${segment.highlightColor} truncate overflow-hidden whitespace-nowrap max-w-17.5 sm:max-w-full`}
+                title={segment.label}
+                className={cn(
+                  "text-xs sm:text-sm font-medium truncate w-full max-w-[110px]",
+                  segment.highlightColor,
+                )}
               >
                 {segment.label}
               </span>

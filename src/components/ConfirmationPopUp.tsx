@@ -27,7 +27,7 @@ export const ConfirmationPopUp: React.FC<ConfirmationPopUpProps> = ({
   description,
   onConfirm,
   trigger,
-  confirmDisabled
+  confirmDisabled,
 }) => {
   const [open, setOpen] = useState(false);
 
@@ -52,7 +52,12 @@ export const ConfirmationPopUp: React.FC<ConfirmationPopUpProps> = ({
           <DialogClose asChild>
             <Button type="button">Cancel</Button>
           </DialogClose>
-          <Button variant="green" onClick={handleConfirm}  disabled={confirmDisabled} type="button">
+          <Button
+            variant="green"
+            onClick={handleConfirm}
+            disabled={confirmDisabled}
+            type="button"
+          >
             Confirm
           </Button>
         </DialogFooter>

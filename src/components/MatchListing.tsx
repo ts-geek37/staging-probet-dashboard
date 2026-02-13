@@ -26,13 +26,15 @@ const MatchListing: React.FC<MatchListingProps> = ({
     <div className="w-full">
       <div className="flex justify-between items-center">
         <div className="flex gap-2 mb-4 flex-col">
-          <h2 className="text-lg text-white font-semibold">{title}</h2>
+          <h2 className="text-lg sm:text-xl text-white font-semibold">
+            {title}
+          </h2>
           {description && <p className="text-sm sm:text-base">{description}</p>}
         </div>
         {href && (
           <Link
             href={href}
-            className="text-primary-gray hover:text-white transition-colors text-xs sm:text-base"
+            className="text-primary-gray hover:text-white transition-colors text-sm sm:text-base"
           >
             View all
           </Link>

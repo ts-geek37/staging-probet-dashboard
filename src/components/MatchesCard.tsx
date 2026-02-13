@@ -48,6 +48,7 @@ const StatusBadge: React.FC<{
     UPCOMING: MatchListStatus.UPCOMING,
     FINISHED: MatchListStatus.FINISHED,
     PROBLEM: MatchListStatus.UPCOMING,
+    HALF_TIME: MatchListStatus.LIVE,
     FT: MatchListStatus.FINISHED,
   };
 
@@ -56,6 +57,7 @@ const StatusBadge: React.FC<{
     UPCOMING: "UPCOMING",
     FINISHED: "FINISHED",
     PROBLEM: "Problem",
+    HALF_TIME: "Half Time",
     FT: "FT",
   };
 
@@ -122,7 +124,7 @@ const MatchCard: React.FC<MatchCardProps> = ({ match, href }) => {
   const [countdown, setCountdown] = useState<string | null>(null);
   const [leagueLogoError, setLeagueLogoError] = useState(false);
 
-  const isLive = status === "LIVE";
+  const isLive = status === "LIVE" || status === "HALF_TIME";
   const isUpcoming = status === "UPCOMING" || status === "PROBLEM";
   const isFinished = status === "FINISHED";
 
@@ -153,10 +155,6 @@ const MatchCard: React.FC<MatchCardProps> = ({ match, href }) => {
     const interval = setInterval(updateTimer, 1000);
     return () => clearInterval(interval);
   }, [kickoff_time, isUpcoming]);
-  const hasLiveInfo =
-    live_period?.description ||
-    live_period?.minutes !== undefined ||
-    live_period?.timeAdded;
 
   return (
     <motion.div
@@ -212,16 +210,22 @@ const MatchCard: React.FC<MatchCardProps> = ({ match, href }) => {
           <div className="mt-3 pt-3 border-t border-primary-gray/20 flex justify-between items-center">
             {isLive ? (
               <span className="text-base text-primary-green font-medium">
-                {hasLiveInfo ? (
-                  <>
-                    {live_period?.description ?? "Live"}{" "}
-                    {live_period?.minutes !== undefined
-                      ? `${live_period.minutes}'`
-                      : ""}
-                    {live_period?.timeAdded ? `+${live_period.timeAdded}'` : ""}
-                  </>
+                {status === "HALF_TIME" ? (
+                  "HALF TIME"
                 ) : (
-                  (match?.status ?? "LIVE").toUpperCase()
+                  <>
+                    {live_period?.description ?? "LIVE"}
+                    {live_period?.minutes !== undefined &&
+                      live_period?.minutes !== null && (
+                        <>
+                          {" "}
+                          {live_period.minutes}&apos;
+                          {live_period.timeAdded
+                            ? `+${live_period.timeAdded}'`
+                            : ""}
+                        </>
+                      )}
+                  </>
                 )}
               </span>
             ) : (

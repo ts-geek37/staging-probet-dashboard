@@ -1,8 +1,8 @@
 "use client";
 
-import React from "react";
 import { motion } from "framer-motion";
 import { Inbox, LucideIcon } from "lucide-react";
+import React from "react";
 
 import { cn } from "@/lib/utils";
 
@@ -23,8 +23,7 @@ const NoData: React.FC<NoDataProps> = ({
   className = "",
   children,
 }) => {
-  const displayTitle =
-    title = message || "Data not found" ;
+  const displayTitle = (title = message || "Data not found");
   const Content = (
     <motion.div
       initial={{ opacity: 0, scale: 0.95, y: 10 }}
@@ -45,7 +44,10 @@ const NoData: React.FC<NoDataProps> = ({
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-size-[24px_24px] mask-[radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)]" />
       <div className="relative mb-4 sm:mb-8">
         <div className="relative p-3 bg-[#1A1F29] rounded-2xl">
-          <Icon className="w-6 sm:w-12 h-6 sm:h-12 text-primary-green" strokeWidth={1.5} />
+          <Icon
+            className="w-6 sm:w-12 h-6 sm:h-12 text-primary-green"
+            strokeWidth={1.5}
+          />
         </div>
       </div>
 

@@ -90,17 +90,20 @@ export const INQUIRY_CATEGORIES = [
 export const philosophyItems = [
   {
     title: "Clarity",
-    description: "Football data should be structured, readable, and accessible.",
+    description:
+      "Football data should be structured, readable, and accessible.",
     icon: Eye,
   },
   {
     title: "Responsibility",
-    description: "We do not promote betting. Our platform exists for analysis and education.",
+    description:
+      "We do not promote betting. Our platform exists for analysis and education.",
     icon: ShieldCheck,
   },
   {
     title: "Integrity",
-    description: "Predictions are based on data trends and performance indicators, not hype or speculation.Football remains unpredictable. Our role is to provide insight, not certainty",
+    description:
+      "Predictions are based on data trends and performance indicators, not hype or speculation.Football remains unpredictable. Our role is to provide insight, not certainty",
     icon: Scale,
   },
 ];
@@ -109,36 +112,43 @@ export const AboutFeatures = [
   {
     label: "Live Scores and Match Updates",
     icon: Zap,
-    description: "Stay connected with real-time match progress from leagues across the world. Whether it is ongoing games, upcoming fixtures, or recently completed matches, our platform keeps you informed clearly and efficiently",
+    description:
+      "Stay connected with real-time match progress from leagues across the world. Whether it is ongoing games, upcoming fixtures, or recently completed matches, our platform keeps you informed clearly and efficiently",
   },
   {
-     label: "Teams and Players",
+    label: "Teams and Players",
     icon: Users,
-    description: " Dive deeper into individual clubs and players We provide structured team profiles, squad listings, and performance snapshots that help users understand how teams and players are evolving throughout the season.",
+    description:
+      " Dive deeper into individual clubs and players We provide structured team profiles, squad listings, and performance snapshots that help users understand how teams and players are evolving throughout the season.",
   },
   {
-     label: "Football News",
+    label: "Football News",
     icon: Newspaper,
-    description: "Stay updated with curated football news from across global competitions.We provide relevant stories and updates to keep you informed about developments, transfers,and major football moments.",
+    description:
+      "Stay updated with curated football news from across global competitions.We provide relevant stories and updates to keep you informed about developments, transfers,and major football moments.",
   },
   {
     label: "Global League Coverage",
     icon: Globe,
-    description: "Explore major football competitions with access to:• League standings• Team rankings• Performance trends• Season statisticsEach league page is designed to give you a structured overview without unnecessary complexity",
+    description:
+      "Explore major football competitions with access to:• League standings• Team rankings• Performance trends• Season statisticsEach league page is designed to give you a structured overview without unnecessary complexity",
   },
-   {
+  {
     label: "Match Insights and Analysis",
     icon: BarChart3,
-    description: "Every match page provides a focused view of team performance and comparative insights.Users can review past form, head to head history, scoring patterns, and overall match trends to gain a broader understanding of the game. Our goal is to present insights clearly, not overwhelm you with technical noise.",
+    description:
+      "Every match page provides a focused view of team performance and comparative insights.Users can review past form, head to head history, scoring patterns, and overall match trends to gain a broader understanding of the game. Our goal is to present insights clearly, not overwhelm you with technical noise.",
   },
   {
     label: "Informational Predictions",
     icon: Brain,
-    description: "ProBetPredictions provides data-driven match predictions designed to offer perspective.These include:• Outcome probability guidance• Performance-based indicators• Confidence ratings• Trend insightsPredictions are informational only. They do not represent guarantees, promises, or betting advice",
+    description:
+      "ProBetPredictions provides data-driven match predictions designed to offer perspective.These include:• Outcome probability guidance• Performance-based indicators• Confidence ratings• Trend insightsPredictions are informational only. They do not represent guarantees, promises, or betting advice",
   },
   {
-     label: "VIP Membership",
+    label: "VIP Membership",
     icon: Crown,
-    description: "For users who want deeper analytical access, we offer a VIP membership option. VIP members unlock extended match insights and full prediction access across coveredleagues. Subscription plans are flexible, allowing users to choose monthly or longer-termaccess.Our premium offering enhances insight depth without promoting gambling or betting services.",
+    description:
+      "For users who want deeper analytical access, we offer a VIP membership option. VIP members unlock extended match insights and full prediction access across coveredleagues. Subscription plans are flexible, allowing users to choose monthly or longer-termaccess.Our premium offering enhances insight depth without promoting gambling or betting services.",
   },
 ];

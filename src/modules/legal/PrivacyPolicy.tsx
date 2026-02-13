@@ -1,4 +1,5 @@
 import React from "react";
+
 import LegalLayout from "./LegalLayout";
 
 const PrivacyPolicy: React.FC = () => {
@@ -9,8 +10,8 @@ const PrivacyPolicy: React.FC = () => {
           Privacy Policy
         </h2>
         <p>
-          <span className="text-primary-green">Effective Date :</span> 01 January
-          2026
+          <span className="text-primary-green">Effective Date :</span> 01
+          January 2026
         </p>
         <p>
           <span className="text-primary-green">Last Updated :</span> 01 January
@@ -46,14 +47,10 @@ const PrivacyPolicy: React.FC = () => {
           </li>
         </ul>
         <p className="mt-4">
-          We{" "}
-          <span className="text-primary-green">
-            do not store
-          </span>{" "}
-          full payment card details on our servers.
+          We <span className="text-primary-green">do not store</span> full
+          payment card details on our servers.
         </p>
       </div>
-
 
       <div>
         <h2 className="text-xl font-semibold mb-4 text-white">

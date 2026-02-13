@@ -51,28 +51,31 @@ const GoalLineCard: React.FC<GoalLineCardProps> = ({
         </div>
 
         <div className="space-y-4">
-          {items.map((item, index) => (
-            <div key={item.label} className="w-full">
-              <div className="flex justify-between items-center mb-1 gap-2">
-                <span className="text-[11px] sm:text-xs font-medium text-muted-foreground truncate uppercase tracking-wider">
-                  {item.label}
-                </span>
-                <span
-                  className={`text-xs sm:text-sm font-bold ${item.textColor}`}
-                >
-                  {(item.value ?? 0).toFixed(1)}%
-                </span>
-              </div>
-              <div className="h-1.5 sm:h-2 w-full bg-primary-gray/20 rounded-full overflow-hidden">
-                <motion.div
-                  initial={{ width: 0 }}
-                  animate={{ width: `${item.value ?? 0}%` }}
-                  transition={{ duration: 0.8, delay: index * 0.1 }}
-                  className={`h-full rounded-full ${item.color}`}
-                />
-              </div>
-            </div>
-          ))}
+          {items.map(
+            (item, index) =>
+              !(item.label === "Overall" && line === "0.5") && (
+                <div key={item.label} className="w-full">
+                  <div className="flex justify-between items-center mb-1 gap-2">
+                    <span className="text-[11px] sm:text-xs font-medium text-muted-foreground truncate uppercase tracking-wider">
+                      {item.label}
+                    </span>
+                    <span
+                      className={`text-xs sm:text-sm font-bold ${item.textColor}`}
+                    >
+                      {(item.value ?? 0).toFixed(1)}%
+                    </span>
+                  </div>
+                  <div className="h-1.5 sm:h-2 w-full bg-primary-gray/20 rounded-full overflow-hidden">
+                    <motion.div
+                      initial={{ width: 0 }}
+                      animate={{ width: `${item.value ?? 0}%` }}
+                      transition={{ duration: 0.8, delay: index * 0.1 }}
+                      className={`h-full rounded-full ${item.color}`}
+                    />
+                  </div>
+                </div>
+              ),
+          )}
         </div>
       </CardContent>
     </Card>

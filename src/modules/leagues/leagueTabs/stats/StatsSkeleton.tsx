@@ -31,7 +31,7 @@ const StatsSkeleton = () => {
         </div>
 
         <Image
-          src="/adsBg.jpg"
+          src="/FootballAds2.png"
           alt="ads"
           width={1000}
           height={1000}

@@ -3,7 +3,6 @@
 import Link from "next/link";
 import React from "react";
 
-import { VIPBanner } from "@/components";
 import NewsCard from "@/modules/news/components/NewsCard";
 import { NewsItem } from "@/types/news";
 
