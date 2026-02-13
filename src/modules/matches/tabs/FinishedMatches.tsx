@@ -54,11 +54,11 @@ const FinishedMatches: React.FC<Props> = ({ search, leagueId }) => {
         <div className="order-last xl:order-0 md:col-span-2 xl:col-span-1 xl:col-start-3 xl:row-start-1 xl:row-span-2">
           <div className="sticky top-4">
             <Image
-              src="/adsBg.jpg"
+              src="/FootballAds2.png"
               alt="Promotion Banner"
               width={500}
               height={600}
-              className="w-full h-60 md:h-80 xl:h-116 object-cover rounded-xl"
+              className="w-full h-60 md:h-80 xl:h-116 object-cover rounded-xl opacity-55"
               priority
             />
           </div>

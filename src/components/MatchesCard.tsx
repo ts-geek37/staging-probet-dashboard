@@ -210,17 +210,23 @@ const MatchCard: React.FC<MatchCardProps> = ({ match, href }) => {
           <div className="mt-3 pt-3 border-t border-primary-gray/20 flex justify-between items-center">
             {isLive ? (
               <span className="text-base text-primary-green font-medium">
-                {live_period?.description ?? "LIVE"}
-
-                {live_period?.minutes !== undefined &&
-                  live_period?.minutes !== null && (
-                    <>
-                      {live_period.minutes}&apos;
-                      {live_period.timeAdded
-                        ? `+${live_period.timeAdded}'`
-                        : ""}
-                    </>
-                  )}
+                {status === "HALF_TIME" ? (
+                  "HALF TIME"
+                ) : (
+                  <>
+                    {live_period?.description ?? "LIVE"}
+                    {live_period?.minutes !== undefined &&
+                      live_period?.minutes !== null && (
+                        <>
+                          {" "}
+                          {live_period.minutes}&apos;
+                          {live_period.timeAdded
+                            ? `+${live_period.timeAdded}'`
+                            : ""}
+                        </>
+                      )}
+                  </>
+                )}
               </span>
             ) : (
               <>

@@ -87,11 +87,11 @@ const Stats: React.FC<Props> = ({ id }) => {
         </div>
 
         <Image
-          src="/adsBg.jpg"
+          src="/FootballAds2.png"
           alt="ads"
           width={1000}
           height={1000}
-          className="w-full max-md:order-1 h-full md:max-lg:max-h-80 object-cover row-span-2 "
+          className="w-full max-md:order-1 h-full md:max-lg:max-h-80 object-cover row-span-2 opacity-50 "
         />
 
         <div className="flex flex-col gap-4">

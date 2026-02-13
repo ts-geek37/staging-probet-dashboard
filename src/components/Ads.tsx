@@ -5,7 +5,7 @@ const Ads: React.FC = () => {
   return (
     <div className="w-full h-20 flex items-center justify-center rounded-lg overflow-hidden relative">
       <Image
-        src="/adsBg.jpg"
+        src="/FootballAds.png"
         alt="Advertisement"
         height={100}
         width={1000}

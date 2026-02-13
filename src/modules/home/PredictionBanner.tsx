@@ -71,11 +71,7 @@ const PredictionBanner: React.FC = () => {
                 label="Latest Football News"
                 color="yellow"
               />
-              <StatCard
-                value="LIVE"
-                label="Live Matches Covered"
-                color="white"
-              />
+              <StatCard value="LIVE" label="Matches Included" color="white" />
             </div>
           </div>
         </div>
