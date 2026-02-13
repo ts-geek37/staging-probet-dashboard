@@ -1,7 +1,9 @@
-import React from "react";
-import { Card } from "@/components/ui/card";
-import { AboutFeatures, philosophyItems } from "../contansts";
 import { ChevronRight, Globe, Mail, ShieldAlert } from "lucide-react";
+import React from "react";
+
+import { Card } from "@/components/ui/card";
+
+import { AboutFeatures, philosophyItems } from "../contansts";
 
 const AboutEntry: React.FC = () => {
   const renderDescription = (description: string) => {
@@ -173,7 +175,7 @@ const AboutEntry: React.FC = () => {
               </p>
             </div>
           </Card>
-           <Card className="relative overflow-hidden rounded-3xl border border-primary-green/20 bg-gradient-to-br from-primary-green/5 to-transparent p-4 sm:p-10">
+          <Card className="relative overflow-hidden rounded-3xl border border-primary-green/20 bg-gradient-to-br from-primary-green/5 to-transparent p-4 sm:p-10">
             <div className="mb-6 flex items-center gap-4">
               <div className="flex size-12 items-center justify-center rounded-full bg-primary-green/10 text-primary-green">
                 <Globe className="size-6" />
