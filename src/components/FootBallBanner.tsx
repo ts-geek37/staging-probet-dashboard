@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import React from "react";
+
 import { cn } from "@/lib/utils";
 
 type BannerVariant = "left" | "right";
@@ -45,11 +46,10 @@ const FootballBanner: React.FC<FootballBannerProps> = ({
 
       <div className="absolute inset-0 bg-gradient-to-b from-primary-bg via-transparent to-primary-bg opacity-90" />
 
-
       <div className="hidden xl:block absolute bottom-0 right-0 w-[500px] h-[400px] pointer-events-none">
         {variant === "right" && (
           <Image
-            src="/image copy 3.png"
+            src="/FootBallsRight.png"
             alt="Decoration"
             fill
             className="object-contain opacity-30"
@@ -60,7 +60,7 @@ const FootballBanner: React.FC<FootballBannerProps> = ({
       <div className="hidden xl:block absolute bottom-0 left-0 w-[500px] h-[400px] pointer-events-none">
         {variant === "left" && (
           <Image
-            src="/image copy 6.png"
+            src="/FootBallsLeft.png"
             alt="Decoration"
             fill
             className="object-contain opacity-30"

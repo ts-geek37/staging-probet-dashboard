@@ -1,6 +1,5 @@
 "use client";
 
-import { Circle } from "lucide-react";
 import React from "react";
 
 import { useLeagueYellowCards } from "../../hooks";

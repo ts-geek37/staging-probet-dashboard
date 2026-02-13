@@ -29,7 +29,7 @@ const MatchesListingPresentation: React.FC = () => {
   return (
     <section className="pb-10 md:pb-20 text-white space-y-10">
       <Image
-        src="/adsBg.jpg"
+        src="/FootballAds2.png"
         alt="Promotion Banner"
         width={1920}
         height={360}

@@ -13,7 +13,12 @@ export interface MatchListFilters {
   q?: string;
 }
 
-export type MatchStatus = "UPCOMING" | "LIVE" | "FINISHED" | "PROBLEM";
+export type MatchStatus =
+  | "UPCOMING"
+  | "LIVE"
+  | "FINISHED"
+  | "PROBLEM"
+  | "HALF_TIME";
 
 export interface MatchTeam {
   id: number;

@@ -8,6 +8,7 @@ import React, { useEffect, useState } from "react";
 
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { cn } from "@/lib/utils";
 import {
   MatchListItem,
   MatchListStatus,
@@ -20,7 +21,6 @@ import {
 } from "@/types/players";
 import { convertToLocalTime } from "@/utils/convertTime";
 import { getCountdownData } from "@/utils/formatCountdown";
-import { cn } from "@/lib/utils";
 
 interface MatchCardProps {
   match: MatchListItem | PlayerMatch;
@@ -49,6 +49,7 @@ const StatusBadge: React.FC<{
     FINISHED: MatchListStatus.FINISHED,
     PROBLEM: MatchListStatus.UPCOMING,
     FT: MatchListStatus.FINISHED,
+    HALF_TIME: MatchListStatus.LIVE,
   };
 
   const labelMap: Record<MatchStatus | PlayerStatus, string> = {
@@ -57,6 +58,7 @@ const StatusBadge: React.FC<{
     FINISHED: "FINISHED",
     PROBLEM: "Problem",
     FT: "FT",
+    HALF_TIME: "LIVE",
   };
 
   return <Badge variant={variantMap[status]}>{labelMap[status]}</Badge>;
@@ -122,7 +124,7 @@ const MatchCard: React.FC<MatchCardProps> = ({ match, href }) => {
   const [countdown, setCountdown] = useState<string | null>(null);
   const [leagueLogoError, setLeagueLogoError] = useState(false);
 
-  const isLive = status === "LIVE";
+  const isLive = status === "LIVE" || status === "HALF_TIME";
   const isUpcoming = status === "UPCOMING" || status === "PROBLEM";
   const isFinished = status === "FINISHED";
 
@@ -208,18 +210,23 @@ const MatchCard: React.FC<MatchCardProps> = ({ match, href }) => {
           <div className="mt-3 pt-3 border-t border-primary-gray/20 flex justify-between items-center">
             {isLive ? (
               <span className="text-base text-primary-green font-medium">
-                {live_period?.description ?? "LIVE"}
-
-                {live_period?.minutes !== undefined &&
-                  live_period?.minutes !== null && (
-                    <>
-                      {" "}
-                      {live_period.minutes}'
-                      {live_period.timeAdded
-                        ? `+${live_period.timeAdded}'`
-                        : ""}
-                    </>
-                  )}
+                {status === "HALF_TIME" ? (
+                  "HALF TIME"
+                ) : (
+                  <>
+                    {live_period?.description ?? "LIVE"}
+                    {live_period?.minutes !== undefined &&
+                      live_period?.minutes !== null && (
+                        <>
+                          {" "}
+                          {live_period.minutes}'
+                          {live_period.timeAdded
+                            ? `+${live_period.timeAdded}'`
+                            : ""}
+                        </>
+                      )}
+                  </>
+                )}
               </span>
             ) : (
               <>

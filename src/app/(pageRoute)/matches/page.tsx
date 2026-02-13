@@ -1,7 +1,6 @@
 import { Metadata } from "next";
 import { Suspense } from "react";
 
-import { SkeletonCardLoader } from "@/components";
 import { MatchesListingPresentation } from "@/modules/matches";
 import { seo } from "@/utils/seo";
 
@@ -13,7 +12,7 @@ export const metadata: Metadata = seo({
 
 const MatchesPage = () => {
   return (
-    <Suspense >
+    <Suspense>
       <MatchesListingPresentation />
     </Suspense>
   );

@@ -1,4 +1,5 @@
 import React from "react";
+
 import LegalLayout from "./LegalLayout";
 
 const TermsAndConditions: React.FC = () => {
@@ -81,9 +82,7 @@ const TermsAndConditions: React.FC = () => {
         </p>
         <p className="mt-4">By subscribing, you agree to:</p>
         <ul className="list-disc pl-6 mt-4">
-          <li>
-              Pay the applicable subscription fee
-          </li>
+          <li>Pay the applicable subscription fee</li>
           <li>Understand that payment is made in advance</li>
           <li>
             Accept that access is provided for the selected subscription period
@@ -123,7 +122,6 @@ const TermsAndConditions: React.FC = () => {
         </p>
       </div>
 
-
       <div>
         <h2 className="text-xl font-semibold mb-4 text-white">
           5. Intellectual Property
@@ -134,7 +132,6 @@ const TermsAndConditions: React.FC = () => {
           <span className="text-primary-green">ProBet Analytics Ltd.</span>
         </p>
       </div>
-
 
       <div>
         <h2 className="text-xl font-semibold mb-4 text-white">
