@@ -1,8 +1,10 @@
 "use client";
 
 import React from "react";
+
 import { ApiResponse } from "@/api/types";
 import { Banner, VIPBanner } from "@/components";
+import FootballBanner from "@/components/FootBallBanner";
 import { useSubscription } from "@/context";
 import { HomeResponse } from "@/types/home";
 import { MatchListStatus } from "@/types/matches";
@@ -18,7 +20,6 @@ import PredictionBanner from "./PredictionBanner";
 import TopLeagues from "./TopLeagues";
 import UpcomingMatchCards from "./UpcomingMatchesCards";
 import { LiveScopeEnum } from "../ws/types";
-import FootballBanner from "@/components/FootBallBanner";
 
 interface Props {
   initialHome: ApiResponse<HomeResponse>;

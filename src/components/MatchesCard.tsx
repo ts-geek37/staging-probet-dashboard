@@ -8,6 +8,7 @@ import React, { useEffect, useState } from "react";
 
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { cn } from "@/lib/utils";
 import {
   MatchListItem,
   MatchListStatus,
@@ -20,7 +21,6 @@ import {
 } from "@/types/players";
 import { convertToLocalTime } from "@/utils/convertTime";
 import { getCountdownData } from "@/utils/formatCountdown";
-import { cn } from "@/lib/utils";
 
 interface MatchCardProps {
   match: MatchListItem | PlayerMatch;
@@ -48,6 +48,7 @@ const StatusBadge: React.FC<{
     UPCOMING: MatchListStatus.UPCOMING,
     FINISHED: MatchListStatus.FINISHED,
     PROBLEM: MatchListStatus.UPCOMING,
+    HALF_TIME: MatchListStatus.LIVE,
     FT: MatchListStatus.FINISHED,
   };
 
@@ -56,6 +57,7 @@ const StatusBadge: React.FC<{
     UPCOMING: "UPCOMING",
     FINISHED: "FINISHED",
     PROBLEM: "Problem",
+    HALF_TIME: "Half Time",
     FT: "FT",
   };
 
@@ -122,7 +124,7 @@ const MatchCard: React.FC<MatchCardProps> = ({ match, href }) => {
   const [countdown, setCountdown] = useState<string | null>(null);
   const [leagueLogoError, setLeagueLogoError] = useState(false);
 
-  const isLive = status === "LIVE";
+  const isLive = status === "LIVE" || status === "HALF_TIME";
   const isUpcoming = status === "UPCOMING" || status === "PROBLEM";
   const isFinished = status === "FINISHED";
 
@@ -213,8 +215,7 @@ const MatchCard: React.FC<MatchCardProps> = ({ match, href }) => {
                 {live_period?.minutes !== undefined &&
                   live_period?.minutes !== null && (
                     <>
-                      {" "}
-                      {live_period.minutes}'
+                      {live_period.minutes}&apos;
                       {live_period.timeAdded
                         ? `+${live_period.timeAdded}'`
                         : ""}

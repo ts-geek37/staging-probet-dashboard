@@ -66,8 +66,16 @@ const PredictionBanner: React.FC = () => {
                 color="green"
                 isAnimated
               />
-              <StatCard value="24/7" label="Latest Football News" color="yellow" />
-              <StatCard value="LIVE" label="Live Matches Covered" color="white" />
+              <StatCard
+                value="24/7"
+                label="Latest Football News"
+                color="yellow"
+              />
+              <StatCard
+                value="LIVE"
+                label="Live Matches Covered"
+                color="white"
+              />
             </div>
           </div>
         </div>
