@@ -8,7 +8,6 @@ import React, { useEffect, useState } from "react";
 
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import { cn } from "@/lib/utils";
 import {
   MatchListItem,
   MatchListStatus,
@@ -21,6 +20,7 @@ import {
 } from "@/types/players";
 import { convertToLocalTime } from "@/utils/convertTime";
 import { getCountdownData } from "@/utils/formatCountdown";
+import { cn } from "@/lib/utils";
 
 interface MatchCardProps {
   match: MatchListItem | PlayerMatch;
@@ -153,10 +153,6 @@ const MatchCard: React.FC<MatchCardProps> = ({ match, href }) => {
     const interval = setInterval(updateTimer, 1000);
     return () => clearInterval(interval);
   }, [kickoff_time, isUpcoming]);
-  const hasLiveInfo =
-    live_period?.description ||
-    live_period?.minutes !== undefined ||
-    live_period?.timeAdded;
 
   return (
     <motion.div
@@ -212,17 +208,18 @@ const MatchCard: React.FC<MatchCardProps> = ({ match, href }) => {
           <div className="mt-3 pt-3 border-t border-primary-gray/20 flex justify-between items-center">
             {isLive ? (
               <span className="text-base text-primary-green font-medium">
-                {hasLiveInfo ? (
-                  <>
-                    {live_period?.description ?? "Live"}{" "}
-                    {live_period?.minutes !== undefined
-                      ? `${live_period.minutes}'`
-                      : ""}
-                    {live_period?.timeAdded ? `+${live_period.timeAdded}'` : ""}
-                  </>
-                ) : (
-                  (match?.status ?? "LIVE").toUpperCase()
-                )}
+                {live_period?.description ?? "LIVE"}
+
+                {live_period?.minutes !== undefined &&
+                  live_period?.minutes !== null && (
+                    <>
+                      {" "}
+                      {live_period.minutes}'
+                      {live_period.timeAdded
+                        ? `+${live_period.timeAdded}'`
+                        : ""}
+                    </>
+                  )}
               </span>
             ) : (
               <>
