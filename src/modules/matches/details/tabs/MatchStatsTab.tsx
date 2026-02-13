@@ -20,7 +20,7 @@ const MatchStatsTab: FC<Props> = ({ matchId }) => {
   if (!data || data.teams.length < 2)
     return <NoData message="Stats not available" />;
 
-  const [homeTeam, awayTeam] = data.teams;
+  const [awayTeam ,homeTeam ] = data.teams;
 
   const statKeys = Object.keys(homeTeam.statistics).filter(
     (key) =>
