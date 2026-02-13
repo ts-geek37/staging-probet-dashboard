@@ -157,10 +157,10 @@ const AboutEntry: React.FC = () => {
 
               <ul className="grid gap-3 sm:grid-cols-2">
                 {[
-                  "Do not accept bets",
-                  "Do not process transactions",
-                  "Do not provide odds",
-                  "Do not advertise bookmakers",
+                  "Does not accept bets",
+                  "Does not process transactions",
+                  "Does not provide odds",
+                  "Does not advertise bookmakers",
                 ].map((item, i) => (
                   <li key={i} className="flex items-center gap-2 text-sm">
                     <span className="size-1.5 rounded-full bg-primary-green" />
