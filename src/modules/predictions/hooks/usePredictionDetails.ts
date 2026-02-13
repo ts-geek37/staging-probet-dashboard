@@ -33,7 +33,7 @@ const usePredictionDetails = ({ fixtureId }: UsePredictionDetailsParams) => {
   >(shouldFetch ? `/api/v2/predictions/matches/${fixtureId}` : null);
 
   const markets: Market[] = data?.data?.markets ?? [];
-  const predictionSentence = data?.data?.prediction_sentence ?? "";
+  const predictionSentence = data?.data?.prediction_sentence ?? [];
 
   const getMarketByType = (type: string) =>
     markets.find((m) => m.type === type);
@@ -130,7 +130,7 @@ const usePredictionDetails = ({ fixtureId }: UsePredictionDetailsParams) => {
     data && Object.values(data).some((v) => v > 0);
 
   const hasContent =
-    !!predictionSentence?.trim() ||
+    !!predictionSentence?.[0]?.trim() ||
     (!!firstHalf && Object.values(firstHalf).some((v) => (v ?? 0) > 0)) ||
     (!!btts && hasValidValues(btts)) ||
     (!!teamToScoreFirst &&

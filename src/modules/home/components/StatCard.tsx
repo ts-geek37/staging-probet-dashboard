@@ -30,6 +30,7 @@ const StatCard: React.FC<Props> = ({
         {isAnimated ? (
           <CountUp
             end={Number(value)}
+            start={0}
             duration={4}
             suffix={suffix}
             scrollSpyOnce

@@ -48,8 +48,8 @@ const StatusBadge: React.FC<{
     UPCOMING: MatchListStatus.UPCOMING,
     FINISHED: MatchListStatus.FINISHED,
     PROBLEM: MatchListStatus.UPCOMING,
-    FT: MatchListStatus.FINISHED,
     HALF_TIME: MatchListStatus.LIVE,
+    FT: MatchListStatus.FINISHED,
   };
 
   const labelMap: Record<MatchStatus | PlayerStatus, string> = {
@@ -57,8 +57,8 @@ const StatusBadge: React.FC<{
     UPCOMING: "UPCOMING",
     FINISHED: "FINISHED",
     PROBLEM: "Problem",
+    HALF_TIME: "Half Time",
     FT: "FT",
-    HALF_TIME: "LIVE",
   };
 
   return <Badge variant={variantMap[status]}>{labelMap[status]}</Badge>;
@@ -219,7 +219,7 @@ const MatchCard: React.FC<MatchCardProps> = ({ match, href }) => {
                       live_period?.minutes !== null && (
                         <>
                           {" "}
-                          {live_period.minutes}'
+                          {live_period.minutes}&apos;
                           {live_period.timeAdded
                             ? `+${live_period.timeAdded}'`
                             : ""}

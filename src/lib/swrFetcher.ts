@@ -18,7 +18,7 @@ type AuthRoute = {
 
 export const AUTH_ROUTES: AuthRoute[] = [
   { pattern: /^\/api\/v2\/billing/, mode: "clerk" },
-  { pattern: /^\/api\/v2\/predictions\/matches\/?$/, mode: "internal" },
+  { pattern: /^\/api\/v2\/predictions\/matches\/?$/, mode: "clerk" },
   { pattern: /^\/api\/v2\/predictions\/matches\/[^/]+(\/.*)?$/, mode: "clerk" },
 ];
 

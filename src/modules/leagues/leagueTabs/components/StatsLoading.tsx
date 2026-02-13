@@ -6,7 +6,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 const StatsLoading: React.FC = () => {
   return (
     <div className="flex flex-col gap-8">
-      {[1, 2].map((i) => (
+      {[1].map((i) => (
         <div
           key={i}
           className="flex flex-col overflow-hidden rounded-2xl border border-primary-gray/20"
