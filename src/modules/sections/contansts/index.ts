@@ -128,7 +128,7 @@ export const AboutFeatures = [
     label: "Global League Coverage",
     icon: Globe,
     description:
-      "Explore major football competitions with access to:• League standings• Team rankings• Performance trends• Season statistics •    Each league page is designed to give you a structured overview without unnecessary complexity."
+      "Explore major football competitions with access to:• League standings• Team rankings• Performance trends• Season statistics •    Each league page is designed to give you a structured overview without unnecessary complexity.",
   },
   {
     label: "Match Insights and Analysis",

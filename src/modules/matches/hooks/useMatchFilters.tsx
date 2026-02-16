@@ -1,7 +1,7 @@
 "use client";
 
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { startTransition, useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 import { useLeagues } from "@/modules/leagues/hooks/useLeagues";
 import { MatchListStatus } from "@/types/matches";
@@ -85,14 +85,6 @@ const useMatchFilters = () => {
   const handleSearchChange = (value: string) => {
     setSearch(value);
   };
-
-  useEffect(() => {
-    const qFromQuery = searchParams.get("q") ?? "";
-    if (qFromQuery !== search) {
-      setSearch(qFromQuery);
-    }
-  }, [searchParams]);
-
   return {
     status,
     selectedLeagueId,

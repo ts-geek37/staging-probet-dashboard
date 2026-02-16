@@ -62,8 +62,8 @@ const TermsAndConditions: React.FC = () => {
         </p>
         <p className="mt-4">
           If you create an account, you agree to provide accurate information
-          and keep your account details secure. You are responsible for the activity
-          associated with your account.
+          and keep your account details secure. You are responsible for the
+          activity associated with your account.
         </p>
         <p className="mt-4">
           We reserve the right to restrict access in cases of misuse or

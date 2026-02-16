@@ -144,7 +144,6 @@ const AboutEntry: React.FC = () => {
           </h2>
 
           <p className="mx-auto max-w-7xl sm:text-lg text-primary-gray">
-
             We operate on three core principles:
           </p>
         </div>
