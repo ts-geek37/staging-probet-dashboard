@@ -25,7 +25,7 @@ export const TESTIMONIALS = [
     name: "Lucas M.",
     country: "Brazil",
     feedback:
-      "Pro Bet is perfect for fans who enjoy football analysis. The UI is smooth and the data presentation is excellent.",
+      "Pro Bet is perfect for fans who enjoy football analysis. The UI is smooth, and the data presentation is excellent.",
   },
   {
     id: 5,

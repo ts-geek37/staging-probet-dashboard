@@ -3,7 +3,7 @@
 import React from "react";
 
 import { ApiResponse } from "@/api/types";
-import { Banner, VIPBanner } from "@/components";
+import { VIPBanner } from "@/components";
 import FootballBanner from "@/components/FootBallBanner";
 import { useSubscription } from "@/context";
 import { HomeResponse } from "@/types/home";
