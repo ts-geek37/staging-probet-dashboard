@@ -30,7 +30,7 @@ const PredictionCard: React.FC<PredictionCardProps> = ({ match, variant }) => {
   const prediction =
     variant === "prediction"
       ? (match?.prediction ?? { home: 0, draw: 0, away: 0 })
-      : { home: 10, draw: 10, away: 10 };
+      : { home: 33, draw: 34, away: 33 };
 
   return (
     <Card

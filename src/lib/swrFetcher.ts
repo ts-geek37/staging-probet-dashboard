@@ -33,9 +33,6 @@ export function useSwrFetcher() {
     const headers: HeadersInit = {
       "Content-Type": "application/json",
     };
-    console.log("🔍 URL:", url);
-    console.log("🔍 Auth Mode:", authMode);
-    console.log("🔍 isSignedIn:", isSignedIn);
 
     if (authMode === "clerk") {
       if (!isSignedIn && isLoaded) {
@@ -43,7 +40,6 @@ export function useSwrFetcher() {
       }
 
       const token = await getToken();
-      console.log("🚀 Clerk token:", token ? "✅ Present" : "❌ Missing");
 
       if (!token) {
         throw new Error("TOKEN_UNAVAILABLE");
