@@ -50,7 +50,13 @@ const MatchDetailTabs: React.FC<Props> = ({ match }) => {
         return <MatchOverviewTab matchId={matchId} isLive={isLive} />;
 
       case MatchDetailView.STATS:
-        return <MatchStatsTab matchId={matchId} />;
+        return (
+          <MatchStatsTab
+            matchId={matchId}
+            awayTeamId={match?.teams?.away?.id ?? 0}
+            homeTeamId={match?.teams?.home?.id ?? 0}
+          />
+        );
 
       case MatchDetailView.LINEUPS:
         return <MatchLineupsTab matchId={matchId} />;
