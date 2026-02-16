@@ -56,13 +56,13 @@ const TermsAndConditions: React.FC = () => {
         <p>
           You may use the platform for{" "}
           <span className="text-primary-green">
-            personal, non commercial purposes
+            personal, non-commercial purposes
           </span>
           .
         </p>
         <p className="mt-4">
           If you create an account, you agree to provide accurate information
-          and keep your account details secure. You are responsible for activity
+          and keep your account details secure. You are responsible for the activity
           associated with your account.
         </p>
         <p className="mt-4">
@@ -82,16 +82,16 @@ const TermsAndConditions: React.FC = () => {
         </p>
         <p className="mt-4">By subscribing, you agree to:</p>
         <ul className="list-disc pl-6 mt-4">
-          <li>Pay the applicable subscription fee</li>
-          <li>Understand that payment is made in advance</li>
+          <li>Pay the applicable subscription fee.</li>
+          <li>Understand that payment is made in advance.</li>
           <li>
-            Accept that access is provided for the selected subscription period
+            Accept that access is provided for the selected subscription period.
           </li>
         </ul>
         <p className="mt-4">
           Payments are securely processed by our{" "}
           <span className="text-primary-green">
-            third party payment provider
+            third-party payment provider
           </span>
           .
         </p>
@@ -167,7 +167,7 @@ const TermsAndConditions: React.FC = () => {
           8. Third Party Links
         </h2>
         <p>
-          The platform may include links to external websites or third party
+          The platform may include links to external websites or third-party
           content. We are not responsible for the content or privacy practices
           of those websites.
         </p>

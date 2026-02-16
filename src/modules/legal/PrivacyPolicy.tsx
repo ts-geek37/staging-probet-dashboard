@@ -56,14 +56,14 @@ const PrivacyPolicy: React.FC = () => {
         <h2 className="text-xl font-semibold mb-4 text-white">
           2. How We Use Information
         </h2>
-        <p>We use collected information to:</p>
+        <p>We use the collected information to:</p>
         <ul className="list-disc pl-6 mt-4">
-          <li>Provide and maintain the platform</li>
-          <li>Manage accounts and VIP memberships</li>
-          <li>Process subscription payments</li>
-          <li>Respond to inquiries and support requests</li>
-          <li>Improve platform performance and user experience</li>
-          <li>Maintain security and prevent misuse</li>
+          <li>Provide and maintain the platform.</li>
+          <li>Manage accounts and VIP memberships.</li>
+          <li>Process subscription payments.</li>
+          <li>Respond to inquiries and support requests.</li>
+          <li>Improve platform performance and user experience.</li>
+          <li>Maintain security and prevent misuse.</li>
         </ul>
         <p className="mt-4">
           We{" "}
@@ -125,8 +125,8 @@ const PrivacyPolicy: React.FC = () => {
         <ul className="list-disc pl-6 mt-4">
           <li>Maintain active accounts</li>
           <li>Fulfill subscription obligations</li>
-          <li>Comply with legal requirements</li>
-          <li>Resolve disputes and enforce policies</li>
+          <li>Comply with legal requirements.</li>
+          <li>Resolve disputes and enforce policies.</li>
         </ul>
         <p className="mt-4">
           Users may request account deletion by contacting us.

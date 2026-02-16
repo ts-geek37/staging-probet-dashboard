@@ -10,7 +10,7 @@ const ContactEntry: React.FC = () => {
           How can we help you?
         </h2>
         <p className="text-primary-gray text-sm sm:text-base md:text-lg">
-          Choose the category that best matches your inquiry
+          Choose the category that best matches your inquiry.
         </p>
       </div>
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">

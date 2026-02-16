@@ -68,7 +68,10 @@ const useMatchFilters = () => {
   };
 
   const handleStatusChange = (newStatus: MatchListStatus) => {
-    updateParams({ status: newStatus });
+    updateParams({
+      status: newStatus,
+      q: search || undefined,
+    });
   };
 
   const handleLeagueChange = (league: League | null) => {
@@ -85,9 +88,9 @@ const useMatchFilters = () => {
 
   useEffect(() => {
     const qFromQuery = searchParams.get("q") ?? "";
-    startTransition(() => {
+    if (qFromQuery !== search) {
       setSearch(qFromQuery);
-    });
+    }
   }, [searchParams]);
 
   return {
