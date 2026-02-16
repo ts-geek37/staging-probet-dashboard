@@ -12,18 +12,17 @@ if (!API_BASE_URL) {
 type AuthMode = "clerk" | "internal" | "none";
 
 type AuthRoute = {
-  pattern: RegExp;
+  prefix: string;
   mode: AuthMode;
 };
 
 export const AUTH_ROUTES: AuthRoute[] = [
-  { pattern: /^\/api\/v2\/billing/, mode: "clerk" },
-  { pattern: /^\/api\/v2\/predictions\/matches\/?$/, mode: "clerk" },
-  { pattern: /^\/api\/v2\/predictions\/matches\/[^/]+(\/.*)?$/, mode: "clerk" },
+  { prefix: "/api/v2/billing", mode: "clerk" },
+  { prefix: "/api/v2/predictions/matches", mode: "clerk" },
 ];
 
 export function resolveAuthMode(path: string): AuthMode {
-  return AUTH_ROUTES.find((r) => r.pattern.test(path))?.mode ?? "none";
+  return AUTH_ROUTES.find((r) => path.startsWith(r.prefix))?.mode ?? "none";
 }
 
 export function useSwrFetcher() {
@@ -34,6 +33,9 @@ export function useSwrFetcher() {
     const headers: HeadersInit = {
       "Content-Type": "application/json",
     };
+    console.log("🔍 URL:", url);
+    console.log("🔍 Auth Mode:", authMode);
+    console.log("🔍 isSignedIn:", isSignedIn);
 
     if (authMode === "clerk") {
       if (!isSignedIn && isLoaded) {
@@ -41,6 +43,8 @@ export function useSwrFetcher() {
       }
 
       const token = await getToken();
+      console.log("🚀 Clerk token:", token ? "✅ Present" : "❌ Missing");
+
       if (!token) {
         throw new Error("TOKEN_UNAVAILABLE");
       }
