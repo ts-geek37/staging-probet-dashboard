@@ -45,10 +45,10 @@ const AdvertisingPolicy: React.FC = () => {
 
       <div>
         <h2 className="text-xl font-semibold mb-4 text-white">
-          Third Party Advertisers
+          Third-Party Advertisers
         </h2>
         <p>
-          Advertisements may be delivered by third party partners.{" "}
+          Advertisements may be delivered by third-party partners.{" "}
           <span className="text-primary-green">ProBetPredictions</span> does not
           control and is not responsible for the content, services, or policies
           of external websites referenced through advertisements.
@@ -69,7 +69,7 @@ const AdvertisingPolicy: React.FC = () => {
       <div>
         <p className="mt-4">
           This policy may be updated periodically to reflect operational or
-          regulatory development.
+          regulatory developments.
         </p>
       </div>
     </LegalLayout>

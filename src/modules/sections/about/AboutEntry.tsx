@@ -72,14 +72,14 @@ const AboutEntry: React.FC = () => {
           </p>
 
           <ul className="list-disc list-inside text-primary-gray sm:text-base">
-            <li>Make football data easier to understand</li>
-            <li>Present insights in a clean and organized format</li>
+            <li>Make football data easier to understand.</li>
+            <li>Present insights in a clean and organized format.</li>
             <li>
               Provide structured match predictions based on performance
-              indicators
+              indicators.
             </li>
-            <li>Maintain a responsible and non-promotional environment</li>
-            <li>Support smarter football analysis for fans worldwide</li>
+            <li>Maintain a responsible and non-promotional environment.</li>
+            <li>Support smarter football analysis for fans worldwide.</li>
           </ul>
 
           <p className="text-primary-gray sm:text-base">
@@ -105,7 +105,8 @@ const AboutEntry: React.FC = () => {
           </ul>
 
           <p className="text-primary-gray sm:text-base">
-            Football is passion. Insight adds perspective.
+            Football is a passion. <br />
+            Insight adds perspective.
           </p>
         </div>
       </div>
@@ -136,7 +137,36 @@ const AboutEntry: React.FC = () => {
           ))}
         </div>
       </section>
+      <div className="flex flex-col gap-5">
+        <div className="text-center flex flex-col gap-3 sm:gap-6">
+          <h2 className="text-3xl font-bold text-primary-green sm:text-5xl">
+            Our Philosophy
+          </h2>
 
+          <p className="mx-auto max-w-7xl sm:text-lg text-primary-gray">
+            We operate on three core principles:
+          </p>
+        </div>
+
+        <div className="grid gap-8 sm:grid-cols-3  mx-auto">
+          {philosophyItems.map((item, idx) => (
+            <Card
+              key={idx}
+              className="group relative rounded-3xl border border-white/5 bg-white/5 p-6 md:p-8 transition-all hover:border-primary-green/30 gap-3"
+            >
+              <div className="inline-flex size-14 items-center justify-center rounded-2xl bg-primary-green/10 text-primary-green ring-1 ring-primary-green/20 transition-colors group-hover:bg-primary-green group-hover:text-white">
+                <item.icon className="size-7" />
+              </div>
+
+              <h3 className="text-xl font-bold text-white">{item.title}</h3>
+
+              <p className="leading-relaxed text-primary-gray">
+                {item.description}
+              </p>
+            </Card>
+          ))}
+        </div>
+      </div>
       <section className="mx-auto max-w-7xl">
         <div className="grid gap-8 lg:grid-cols-2">
           <Card className="relative overflow-hidden rounded-3xl border border-primary-green/20 bg-gradient-to-br from-primary-green/5 to-transparent p-4 sm:p-10">
@@ -157,10 +187,10 @@ const AboutEntry: React.FC = () => {
 
               <ul className="grid gap-3 sm:grid-cols-2">
                 {[
-                  "Does not accept bets",
-                  "Does not process transactions",
-                  "Does not provide odds",
-                  "Does not advertise bookmakers",
+                  "Do not accept bets.",
+                  "Do not process transactions.",
+                  "Do not provide odds.",
+                  "Do not advertise bookmakers.",
                 ].map((item, i) => (
                   <li key={i} className="flex items-center gap-2 text-sm">
                     <span className="size-1.5 rounded-full bg-primary-green" />

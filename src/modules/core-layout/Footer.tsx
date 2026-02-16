@@ -29,7 +29,7 @@ const Footer: React.FC = () => {
               <span className="text-primary-green font-medium">
                 ProBetPredictions
               </span>{" "}
-              an informational football analytics platform. We do not{" "}
+              is an informational football analytics platform. We do not{" "}
               <span className="text-primary-green font-medium">
                 promote or facilitate betting or gambling
               </span>
