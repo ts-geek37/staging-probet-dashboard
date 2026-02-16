@@ -40,31 +40,32 @@ const TabNavigation = <T extends string | number>({
     onTabChange(value);
     setOpen(false);
   };
-
-  if (!shouldUseSheet) {
-    return (
-      <div className="flex gap-1 sm:gap-2 border-b border-primary-gray/20">
-        {tabs.map((tab) => {
-          const isActive = activeTab === tab.value;
-          return (
-            <Button
-              key={tab.value}
-              className={cn(
-                "relative bg-transparent px-1 py-2 text-xs transition-all sm:px-4 sm:text-sm capitalize",
-                isActive ? "text-primary-green" : "text-muted-foreground",
-              )}
-              onClick={() => onTabChange(tab.value)}
-            >
-              {tab.label}
-              {isActive && (
-                <span className="absolute -bottom-px left-1/2 h-0.5 w-full -translate-x-1/2 bg-primary-green" />
-              )}
-            </Button>
-          );
-        })}
-      </div>
-    );
-  }
+if (!shouldUseSheet) {
+  return (
+    <div className="flex w-full gap-1 sm:gap-2 border-b border-primary-gray/20">
+      {tabs.map((tab) => {
+        const isActive = activeTab === tab.value;
+        return (
+          <Button
+            key={tab.value}
+            className={cn(
+              "relative flex-1 sm:flex-none bg-transparent px-1 py-2 text-xs transition-all sm:px-4 sm:text-sm capitalize text-center sm:text-left",
+              isActive
+                ? "text-primary-green"
+                : "text-muted-foreground"
+            )}
+            onClick={() => onTabChange(tab.value)}
+          >
+            {tab.label}
+            {isActive && (
+              <span className="absolute bottom-0 left-0 h-0.5 w-full bg-primary-green" />
+            )}
+          </Button>
+        );
+      })}
+    </div>
+  );
+}
   return (
     <>
       <div className="md:hidden border-b border-primary-gray/20 text-white">
