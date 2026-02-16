@@ -11,21 +11,37 @@ import useMatchDetail from "../../hooks/useMatchDetail";
 
 interface Props {
   matchId: number;
+  homeTeamId: number;
+  awayTeamId: number;
 }
 
-const MatchStatsTab: FC<Props> = ({ matchId }) => {
+const MatchStatsTab: FC<Props> = ({ matchId, homeTeamId, awayTeamId }) => {
   const { data, isLoading } = useMatchDetail(matchId, MatchDetailView.STATS);
 
   if (isLoading) return <SkeletonCardLoader />;
   if (!data || data.teams.length < 2)
     return <NoData message="Stats not available" />;
 
-  const [awayTeam, homeTeam] = data.teams;
+  const homeTeam = data.teams.find((team) => team?.team?.id === homeTeamId);
+  const awayTeam = data.teams.find((team) => team?.team?.id === awayTeamId);
 
-  const statKeys = Object.keys(homeTeam.statistics).filter(
-    (key) =>
-      homeTeam.statistics[key] !== null && awayTeam.statistics[key] !== null,
-  );
+  if (!homeTeam || !awayTeam)
+    return <NoData message="Teams statistics not found" />;
+
+  const homeStats = homeTeam.statistics ?? {};
+  const awayStats = awayTeam.statistics ?? {};
+
+  const statKeys = Array.from(
+    new Set([...Object.keys(homeStats), ...Object.keys(awayStats)]),
+  ).filter((key) => {
+    const homeVal = homeStats[key];
+    const awayVal = awayStats[key];
+
+    if (homeVal === null || awayVal === null) return false;
+    if (homeVal === undefined || awayVal === undefined) return false;
+
+    return homeVal !== awayVal;
+  });
 
   if (statKeys.length === 0)
     return <NoData message="No statistics available" />;

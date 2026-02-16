@@ -57,8 +57,19 @@ const Footer: React.FC = () => {
           <FooterLinksGroup title="Legal" links={LEGAL_LINKS} />
         </div>
 
-        <div className="border-t pt-4 border-white/10 flex flex-col sm:flex-row items-center justify-center gap-4 text-sm text-white/50">
+        <div className="border-t pt-4 border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-white/50">
           <p>© {currentYear} ProBetPredictions All rights reserved.</p>
+          <p>
+            Developed by{" "}
+            <Link
+              href="https://www.techstaunch.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-primary-green transition-all"
+            >
+              Techstaunch
+            </Link>
+          </p>
         </div>
       </div>
     </footer>

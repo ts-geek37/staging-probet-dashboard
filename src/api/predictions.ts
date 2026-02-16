@@ -9,6 +9,7 @@ import { ApiResponse } from "./types";
 
 export const getPredictableMatches = (
   params: GetPredictableMatchesParams,
+  authToken?: string,
 ): Promise<ApiResponse<PredictableMatchesResponse>> => {
   const query = new URLSearchParams({
     page: String(params.page),
@@ -17,13 +18,20 @@ export const getPredictableMatches = (
 
   return serverFetch<PredictableMatchesResponse>(
     `/api/v2/predictions/matches?${query.toString()}`,
+    {
+      headers: authToken ? { Authorization: `Bearer ${authToken}` } : {},
+    },
   );
 };
 
 export const getFixturePredictions = (
   fixtureId: number,
+  authToken?: string,
 ): Promise<ApiResponse<FixturePredictionsResponse>> => {
   return serverFetch<FixturePredictionsResponse>(
     `/api/v2/predictions/matches/${fixtureId}`,
+    {
+      headers: authToken ? { Authorization: `Bearer ${authToken}` } : {},
+    },
   );
 };

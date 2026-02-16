@@ -30,7 +30,7 @@ const usePrediction = ({
     ApiResponse<PredictableMatchesResponse>
   >(`/api/v2/predictions/matches?${query.toString()}`, {
     fallbackData: initialData,
-    revalidateOnMount: false,
+    revalidateOnMount: true,
   });
 
   const matches = data?.data?.data ?? [];

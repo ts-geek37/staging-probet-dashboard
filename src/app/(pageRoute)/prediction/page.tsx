@@ -1,3 +1,5 @@
+import { auth } from "@clerk/nextjs/server";
+
 import { getPredictableMatches } from "@/api/predictions";
 import { NoData } from "@/components";
 import { PredictionRepresent } from "@/modules/predictions";
@@ -10,10 +12,16 @@ export const metadata = seo({
 });
 
 const PredictionPage = async () => {
-  const response = await getPredictableMatches({
-    page: 1,
-    limit: 12,
-  });
+  const { getToken } = await auth();
+  const token = await getToken();
+
+  const response = await getPredictableMatches(
+    {
+      page: 1,
+      limit: 12,
+    },
+    token ?? undefined,
+  );
   const initialData = response.data;
 
   if (!initialData)
