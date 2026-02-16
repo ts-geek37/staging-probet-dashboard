@@ -19,7 +19,7 @@ const useTeamTransfers = (
   const limit = options?.limit ?? 5;
 
   const response = useSWR<ApiResponse<TeamTransferResponse>>(
-    `/api/v2/teams/${teamId}/transfers?page=${page}&limit=${limit}`,
+    `/api/v2/teams/${teamId}/transfers`,
   );
 
   const transfers = useMemo<TeamTransferRow[]>(
